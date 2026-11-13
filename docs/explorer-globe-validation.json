@@ -1,9 +1,9 @@
 {
-  "createdAt": "2026-11-13T08:02:48.584Z",
+  "createdAt": "2026-11-13T08:11:03.180Z",
   "records": [
     {
       "device": "1440px desktop",
-      "loadMs": 468,
+      "loadMs": 494,
       "transitionWithPreparationMs": 943,
       "rotation": true,
       "zoom": true,
@@ -15,12 +15,13 @@
       "liveTransition": true,
       "focus": true,
       "history": true,
+      "playingTimelineBackForward": true,
       "overflow": false
     },
     {
       "device": "390px mobile",
-      "loadMs": 242,
-      "transitionWithPreparationMs": 923,
+      "loadMs": 244,
+      "transitionWithPreparationMs": 924,
       "rotation": true,
       "zoom": true,
       "touchAndPinch": "PASS",
@@ -31,6 +32,7 @@
       "liveTransition": true,
       "focus": true,
       "history": true,
+      "playingTimelineBackForward": true,
       "overflow": false
     },
     {

@@ -1,0 +1,130 @@
+{
+  "testedAt": "2026-11-13T07:46:24.882Z",
+  "kind": "actual-nasa-upstream",
+  "endpoint": "https://ssd.jpl.nasa.gov/api/horizons.api",
+  "requestCount": 6,
+  "maximumConcurrentRequests": 1,
+  "status": "succeeded",
+  "datasetId": "custom-aaa14f8288dff5be9b89",
+  "datasetSha256": "aaa14f8288dff5be9b8968c082312bc912285596cb62cc908e065157a1706b50",
+  "sourceDataTime": "2026-11-13T07:46:24.404Z",
+  "generatedAt": "2026-11-13T07:46:24.410Z",
+  "apiVersions": [
+    "1.2"
+  ],
+  "sourceChecksums": [
+    {
+      "path": "horizons/raw/a6377198498eee8bd5ae4570cb6995884af1dcc3b9afd010aa1c3024b6ad9bc0.json",
+      "sha256": "42efe2772e56d47ef2a4083f57f3607b474e37c0afb63a870c344ca46a94263e",
+      "requestedAt": "2026-11-13T07:46:18.633Z",
+      "apiVersion": "1.2"
+    },
+    {
+      "path": "horizons/raw/443130907b5960265b5177d63f48b13ace11096040cfe37eff70dc76f228cac7.json",
+      "sha256": "7e484024d6b25e063637f94975c9e24d2dba7f4449941ca7e8943de0c8f16f8e",
+      "requestedAt": "2026-11-13T07:46:19.779Z",
+      "apiVersion": "1.2"
+    },
+    {
+      "path": "horizons/raw/cf160297bd0cf71874bb78adf0c93c8da6070a26d46226cad2f114eb9a6e75fb.json",
+      "sha256": "0b50ae13988e0753985e51545df1e8ea02c758e06f99ba01e2b94d6d0b1e1e1c",
+      "requestedAt": "2026-11-13T07:46:20.925Z",
+      "apiVersion": "1.2"
+    },
+    {
+      "path": "horizons/raw/319b4e470909512f6e9c3602dd6b7c7d1f0dcf89765711463ada1c1ae871727e.json",
+      "sha256": "86ea854ceb18d3ed6c0c3af074264739e75af2a90642aec5426a1b277bb1f395",
+      "requestedAt": "2026-11-13T07:46:22.078Z",
+      "apiVersion": "1.2"
+    },
+    {
+      "path": "horizons/raw/2d91bc17e45acebc475137a7f7a01b3eedd98a2f7f16e0ebbbba8129005071a5.json",
+      "sha256": "37830ff1a1d79a240b870e980517c267c017dbcd049097152b1e04b6d1f209d8",
+      "requestedAt": "2026-11-13T07:46:23.245Z",
+      "apiVersion": "1.2"
+    },
+    {
+      "path": "horizons/raw/6e54032f4b8100fb740dc94e6ab50d819510735dc4a1760563a13569490a8f4d.json",
+      "sha256": "1a5b368f0ad5addcea090539ded77d4d7cb4b8f901ff78697f67d9577441e1ae",
+      "requestedAt": "2026-11-13T07:46:24.404Z",
+      "apiVersion": "1.2"
+    }
+  ],
+  "terrainUnchanged": true,
+  "algorithmSha256": "981e49c08ae6457450c5e0fbb8d9c743521dbb91ed6eeb2cbb01b3e132ea5fcd",
+  "settings": {
+    "start": "2027-07-01T00:00:00Z",
+    "durationHours": 24,
+    "maxDarkHours": 24,
+    "maxCommGapHours": 24,
+    "minJointHours": 1,
+    "clearanceDeg": 0,
+    "observerHeightM": 2,
+    "nominalStepHours": 0.5
+  },
+  "results": [
+    {
+      "siteId": "ridge-1",
+      "sampleCount": 97,
+      "first": "2027-07-01T00:00:00Z",
+      "last": "2027-07-03T00:00:00Z",
+      "metrics": {
+        "sunHours": 24,
+        "earthHours": 24,
+        "jointHours": 24,
+        "longestDarkHours": 0,
+        "longestCommGapHours": 0
+      },
+      "coverage": {
+        "hours": 24,
+        "fraction": 1,
+        "nominalStepHours": 0.5,
+        "maxGapHours": 0.5,
+        "maximumUsedSampleStepHours": 0.5,
+        "rejectedGapCount": 0
+      }
+    },
+    {
+      "siteId": "ridge-4",
+      "sampleCount": 97,
+      "first": "2027-07-01T00:00:00Z",
+      "last": "2027-07-03T00:00:00Z",
+      "metrics": {
+        "sunHours": 0,
+        "earthHours": 24,
+        "jointHours": 0,
+        "longestDarkHours": 24,
+        "longestCommGapHours": 0
+      },
+      "coverage": {
+        "hours": 24,
+        "fraction": 1,
+        "nominalStepHours": 0.5,
+        "maxGapHours": 0.5,
+        "maximumUsedSampleStepHours": 0.5,
+        "rejectedGapCount": 0
+      }
+    },
+    {
+      "siteId": "ridge-6",
+      "sampleCount": 97,
+      "first": "2027-07-01T00:00:00Z",
+      "last": "2027-07-03T00:00:00Z",
+      "metrics": {
+        "sunHours": 2.3289592262776693,
+        "earthHours": 24,
+        "jointHours": 2.3289592262776693,
+        "longestDarkHours": 21.671040773722332,
+        "longestCommGapHours": 0
+      },
+      "coverage": {
+        "hours": 24,
+        "fraction": 1,
+        "nominalStepHours": 0.5,
+        "maxGapHours": 0.5,
+        "maximumUsedSampleStepHours": 0.5,
+        "rejectedGapCount": 0
+      }
+    }
+  ]
+}

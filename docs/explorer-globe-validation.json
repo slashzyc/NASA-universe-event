@@ -1,0 +1,46 @@
+{
+  "createdAt": "2026-11-13T08:02:48.584Z",
+  "records": [
+    {
+      "device": "1440px desktop",
+      "loadMs": 468,
+      "transitionWithPreparationMs": 943,
+      "rotation": true,
+      "zoom": true,
+      "touchAndPinch": "not applicable",
+      "pageScroll": true,
+      "southPole": true,
+      "region": true,
+      "localPoint": true,
+      "liveTransition": true,
+      "focus": true,
+      "history": true,
+      "overflow": false
+    },
+    {
+      "device": "390px mobile",
+      "loadMs": 242,
+      "transitionWithPreparationMs": 923,
+      "rotation": true,
+      "zoom": true,
+      "touchAndPinch": "PASS",
+      "pageScroll": true,
+      "southPole": true,
+      "region": true,
+      "localPoint": true,
+      "liveTransition": true,
+      "focus": true,
+      "history": true,
+      "overflow": false
+    },
+    {
+      "test": "No WebGL + reduced motion",
+      "passed": true
+    },
+    {
+      "test": "Texture failure + arbitrary coordinate blocked + supported list recovery",
+      "passed": true
+    }
+  ],
+  "errors": []
+}

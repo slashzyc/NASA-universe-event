@@ -1,4 +1,4 @@
-import {readManifest,verifiedText,importVerifiedAlgorithm,validDigest,inspectRecord,scenarioURL} from './provenance.js';
+import {readManifest,verifiedText,importVerifiedAlgorithm,validDigest,inspectRecord,scenarioURL,sha256} from './provenance.js';
 let analyzeSite,interpolateHorizon,stressTestSite,currentRelease,release,algorithmSource,datasetText,versionMode='current';
 import {drawTerrain,drawHorizon} from './visuals.js';
 import {interfaceCopy,presets,patchName,renderBeginnerView,renderDraft} from './navigator-ui.js';
@@ -6,6 +6,7 @@ import {interfaceCopy,presets,patchName,renderBeginnerView,renderDraft} from './
 import {worstCaseMarkup,stressMarkup} from './robustness-ui.js';
 import {resolvePatch,adjacentPatch} from './selection.js';
 import {missionBrief,comparisonCSV} from './evidence.js';
+import {renderLinkedTime} from './time-link.js';
 
 const $=id=>document.getElementById(id), HOUR=3600000;
 const escape=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -14,7 +15,7 @@ const labels={en:{},zh:{navWorkspace:'任务工作台',navCompare:'地点比较'
 document.querySelectorAll('[data-i18n]').forEach(e=>labels.en[e.dataset.i18n]=e.innerHTML);
 Object.assign(labels.en,interfaceCopy.en);Object.assign(labels.zh,interfaceCopy.zh);
 let lang=localStorage.getItem('lunamargin-language')||(navigator.language.startsWith('zh')?'zh':'en'),data,selectedId='ridge-6',activePatch=null,results=[],terrainHits=[],timeIndex=0,playTimer=null,worker,searchId=0,searchResult=null,tourIndex=0;
-let settings={},campaign='jun',campaignLoading=false,campaignRequest=0,searchBusy=false,pendingPatch=null;
+let settings={},campaign='jun',campaignLoading=false,campaignRequest=0,searchBusy=false,pendingPatch=null,storedEvidence=null;
 const stressCache=new Map();
 const campaigns={dec:{file:'lunar-sites.json',start:'2026-12-01',end:'2027-01-01'},mar:{file:'lunar-sites-march.json',start:'2027-03-01',end:'2027-04-01'},jun:{file:'lunar-sites-june.json',start:'2027-06-01',end:'2027-07-01'}};
 const tr=(en,zh)=>lang==='zh'?zh:en;
@@ -61,16 +62,16 @@ function setLanguage(){
   if(data){render();renderMethod();if(searchResult)renderSearch(false);}
   localStorage.setItem('lunamargin-language',lang);
 }
-function getSettings(){return{start:`${$('start-date').value}T${String($('start-hour').value).padStart(2,'0')}:00:00Z`,durationHours:Number($('duration').value),maxDarkHours:Number($('dark-limit').value),maxCommGapHours:Number($('comm-limit').value),minJointHours:Number($('joint-limit').value),clearanceDeg:Number($('clearance').value),observerHeightM:2,nominalStepHours:data.sampleIntervalMinutes/60};}
-function updateRangeLabels(){for(const key of ['dark','comm','joint'])$(key+'-value').textContent=$(key+'-limit').value+' h';const duration=Number($('duration').value);$('joint-limit').max=duration;$('joint-max').textContent=duration+' h';if(Number($('joint-limit').value)>duration)$('joint-limit').value=duration;$('joint-value').textContent=$('joint-limit').value+' h';const end=Date.parse(campaigns[campaign].end)-duration*HOUR;$('start-date').max=new Date(end).toISOString().slice(0,10);for(const o of $('start-hour').options)o.disabled=$('start-date').value===$('start-date').max&&Number(o.value)>new Date(end).getUTCHours();if($('start-hour').selectedOptions[0]?.disabled)$('start-hour').value='0';}
-function saveURL(){const params=new URLSearchParams();params.set('campaign',campaign);params.set('lang',lang);if(release){params.set('build',release.buildId);params.set('algo',release.identity.algorithm.sha256);params.set('data',release.identity.datasets[campaign].sha256);}params.set('site',selectedId);params.set('patch',resolvePatch(selectedSite().patches,activePatch)?.id||'');for(const[key,value]of Object.entries(settings))if(key!=='nominalStepHours')params.set(key,String(value));history.replaceState(null,'',`${location.pathname}?${params}${location.hash}`);}
+function getSettings(){return{start:`${$('start-date').value}T${$('start-hour').value.includes(':')?$('start-hour').value:String($('start-hour').value).padStart(2,'0')+':00:00'}Z`,durationHours:Number($('duration').value),maxDarkHours:Number($('dark-limit').value),maxCommGapHours:Number($('comm-limit').value),minJointHours:Number($('joint-limit').value),clearanceDeg:Number($('clearance').value),observerHeightM:2,nominalStepHours:data.sampleIntervalMinutes/60};}
+function updateRangeLabels(){for(const key of ['dark','comm','joint'])$(key+'-value').textContent=$(key+'-limit').value+' h';const duration=Number($('duration').value);const jointMax=Math.max(duration,Number($('joint-limit').value));$('joint-limit').max=jointMax;$('joint-max').textContent=jointMax+' h';$('joint-value').textContent=$('joint-limit').value+' h';const end=Date.parse(campaigns[campaign].end)-duration*HOUR;$('start-date').max=new Date(end).toISOString().slice(0,10);for(const o of $('start-hour').options)o.disabled=$('start-date').value===$('start-date').max&&Number(o.value)>new Date(end).getUTCHours();if($('start-hour').selectedOptions[0]?.disabled)$('start-hour').value='0';}
+function saveURL(){const params=new URLSearchParams();for(const key of ['task','share']){const value=new URLSearchParams(location.search).get(key);if(value)params.set(key,value);}params.set('campaign',campaign);params.set('lang',lang);if(release){params.set('build',release.buildId);params.set('algo',release.identity.algorithm.sha256);params.set('data',release.identity.datasets[campaign].sha256);}params.set('site',selectedId);params.set('patch',resolvePatch(selectedSite().patches,activePatch)?.id||'');for(const[key,value]of Object.entries(settings))if(key!=='nominalStepHours')params.set(key,String(value));history.replaceState(history.state,'',`${location.pathname}?${params}${location.hash}`);}
 function analyze(){
   if(!data||campaignLoading)return false;
   stopPlaying();updateRangeLabels();if(!$('mission-form').reportValidity())return false;
   const pending=getSettings();
   try{
     const calculated=data.sites.map(s=>analyzeSite(s,pending));
-    settings=pending;results=calculated;timeIndex=0;stressCache.clear();
+    storedEvidence=null;settings=pending;results=calculated;timeIndex=0;stressCache.clear();
     const restored=resolvePatch(selectedSite().patches,activePatch);activePatch=restored&&!(restored.dxM===0&&restored.dyM===0)?restored.id:null;
     searchId++;searchBusy=false;searchResult=null;$('search-results').hidden=true;
     render();saveURL();return true;
@@ -85,7 +86,7 @@ function render(){
   renderInspectedMetrics();renderInsight(displayResult());renderTimeline(displayResult());renderTable();renderVisuals();
   $('sample-resolution').textContent=tr(`${data.sampleIntervalMinutes}-minute source samples`,`${data.sampleIntervalMinutes} 分钟星历采样`);
   renderBeginnerView({lang,site,sites:data.sites,result,inspected:displayResult(),patch:currentPatch(),settings,results});
-  renderRobustness();updateDraftUI();
+  renderRobustness();updateDraftUI();window.dispatchEvent(new CustomEvent('lunamargin:state'));
 }
 function selectSite(id){if(campaignLoading||!data.sites.some(s=>s.id===id))return;selectedId=id;activePatch=null;render();saveURL();}
 function renderMetrics(r){
@@ -103,15 +104,15 @@ function renderInsight(r){
   $('insight').innerHTML=`<span class="insight-icon">↗</span><div><strong>${tr('Reading the view','读图提示')} · ${escape(patchName(patch,lang))}</strong><br>${tr('The solid curve is the terrain skyline. When the Sun or Earth drops below it, the terrain blocks the view. Move the time slider to see this change.','实线是地形的轮廓。太阳或地球落到它下方时，就会被地形挡住。拖动时间滑块，看看这个变化。')}</div>`;
 }
 function currentPatch(){return selectedSite().patches.find(p=>p.id===activePatch);}
-function displayResult(){const patch=currentPatch();return patch?analyzeSite({...selectedSite(),...patch,samples:patch.samples||selectedSite().samples,patches:[]},settings):selectedResult();}
+function displayResult(){if(storedEvidence&&storedEvidence.selectedSiteId===selectedId&&storedEvidence.selectedPoint.id===(activePatch||'e+0-n+0'))return storedEvidence.selectedPoint.result;const patch=currentPatch();return patch?analyzeSite({...selectedSite(),...patch,samples:patch.samples||selectedSite().samples,patches:[]},settings):selectedResult();}
 function renderVisuals(){
-  if(!data||!results.length)return;
+  if(!data||!results.length||!$('terrain-canvas'))return;
   const site=selectedSite(),center=site.patches.find(p=>!p.dxM&&!p.dyM);
   terrainHits=drawTerrain($('terrain-canvas'),site,selectedResult(),activePatch||center?.id,lang);
   renderHorizon();
 }
 function missionSamples(){const start=Date.parse(settings.start),end=start+settings.durationHours*HOUR;return selectedSite().samples.filter(s=>Date.parse(s.time)>=start&&Date.parse(s.time)<=end);}
-function renderHorizon(){const list=missionSamples();if(!list.length)return;timeIndex=Math.min(timeIndex,list.length-1);$('time-slider').max=list.length-1;$('time-slider').value=timeIndex;const sample=list[timeIndex],patch=currentPatch(),horizon=patch?.horizon||selectedSite().horizon;if($('horizon-canvas').getBoundingClientRect().width>0&&$('detail-charts')?.open)drawHorizon($('horizon-canvas'),horizon,sample,settings.clearanceDeg,lang,interpolateHorizon);$('time-label').textContent=shortDate(sample.time);const sunMargin=sample.sunEl-interpolateHorizon(horizon,sample.sunAz)-settings.clearanceDeg,earthMargin=sample.earthEl-interpolateHorizon(horizon,sample.earthAz)-settings.clearanceDeg;$('horizon-readout').innerHTML=`<span>${tr('Viewing','查看位置')} <strong>${escape(patchName(patch,lang))}</strong></span><span>${tr('Sun clearance','太阳余量')} <strong style="color:var(--amber)">${fmt(sunMargin,2)}°</strong></span><span>${tr('Earth clearance','地球余量')} <strong style="color:var(--earth)">${fmt(earthMargin,2)}°</strong></span><span>${tr('Includes extra margin','已扣除额外余量')} ${settings.clearanceDeg}°</span>`;}
+function renderHorizon(){const list=missionSamples();if(!list.length)return;timeIndex=Math.min(timeIndex,list.length-1);$('time-slider').max=list.length-1;$('time-slider').value=timeIndex;const sample=list[timeIndex],patch=currentPatch(),horizon=patch?.horizon||selectedSite().horizon;if($('horizon-canvas').getBoundingClientRect().width>0&&$('detail-charts')?.open)drawHorizon($('horizon-canvas'),horizon,sample,settings.clearanceDeg,lang,interpolateHorizon);$('time-label').textContent=shortDate(sample.time);const sunMargin=sample.sunEl-interpolateHorizon(horizon,sample.sunAz)-settings.clearanceDeg,earthMargin=sample.earthEl-interpolateHorizon(horizon,sample.earthAz)-settings.clearanceDeg;$('horizon-readout').innerHTML=`<span>${tr('Viewing','查看位置')} <strong>${escape(patchName(patch,lang))}</strong></span><span>${tr('Sun clearance','太阳余量')} <strong style="color:var(--amber)">${fmt(sunMargin,2)}°</strong></span><span>${tr('Earth clearance','地球余量')} <strong style="color:var(--earth)">${fmt(earthMargin,2)}°</strong></span><span>${tr('Includes extra margin','已扣除额外余量')} ${settings.clearanceDeg}°</span>`;renderLinkedTime({sample,point:patch||selectedSite().patches.find(p=>!p.dxM&&!p.dyM),site:selectedSite(),result:displayResult(),settings,sunMargin,earthMargin,index:timeIndex,count:list.length,lang});}
 function renderTimeline(r){const start=Date.parse(settings.start),length=settings.durationHours*HOUR;const rows=[['sun',tr('Sun','太阳'),'sunHours'],['earth',tr('Earth','地球'),'earthHours'],['joint',tr('Both','共同可见'),'jointHours']];$('timeline').innerHTML=rows.map(([key,label,metric])=>`<div class="timeline-row"><span class="timeline-label">${label}</span><div class="timeline-track" role="img" aria-label="${escape(`${label}: ${fmt(r.metrics[metric])} ${tr('hours visible','小时可见')}`)}">${r.windows[key].map(p=>`<span class="timeline-segment ${key}" style="left:${Math.max(0,(Date.parse(p.start)-start)/length*100)}%;width:${p.hours/settings.durationHours*100}%" title="${escape(shortDate(p.start)+' → '+shortDate(p.end))}"></span>`).join('')}</div><span class="timeline-total">${fmt(r.metrics[metric])} h</span></div>`).join('')+`<div class="timeline-axis"><span>+0 h</span><span>+${settings.durationHours/2} h</span><span>+${settings.durationHours} h</span></div>`;}
 function renderTable(){$('comparison-head').innerHTML=`<tr>${[tr('Research location','研究位置'),tr('Longest darkness','最长断光'),tr('Earth-view gap','地球不可见'),tr('Sun + Earth','日地共同可见'),tr('Footprint','周边取样'),tr('Center result','中心点结果')].map(t=>`<th scope="col">${t}</th>`).join('')}</tr>`;$('comparison-body').innerHTML=results.map(r=>{const site=data.sites.find(s=>s.id===r.siteId);return`<tr class="${r.siteId===selectedId?'selected-row':''}"><td><button class="row-select" data-site="${r.siteId}">${escape(siteName(site))}<small>${Math.abs(site.lat).toFixed(4)}° S · ${site.elevationM.toFixed(0)} m</small></button></td><td>${fmt(r.metrics.longestDarkHours)} h</td><td>${fmt(r.metrics.longestCommGapHours)} h</td><td>${fmt(r.metrics.jointHours)} h</td><td>${r.patchStats.feasibleCount} / ${r.patchStats.count}</td><td><span class="status-pill ${r.centerFeasible?'':'fail'}">${r.status!=='complete'?tr('Incomplete','数据不完整'):r.centerFeasible?tr('Within limits','满足条件'):tr('Outside limits','超出条件')}</span></td></tr>`;}).join('');$('comparison-body').querySelectorAll('button').forEach(b=>b.onclick=()=>{selectSite(b.dataset.site);$('read-result').scrollIntoView({behavior:'smooth',block:'start'});});}
 function lockCampaign(locked){
@@ -152,6 +153,7 @@ function renderSearch(scroll=true){
   if(scroll)$('search-results').scrollIntoView({behavior:'smooth',block:'start'});
 }
 function evidence(){
+  if(storedEvidence&&storedEvidence.selectedSiteId===selectedId&&storedEvidence.selectedPoint.id===(activePatch||'e+0-n+0'))return structuredClone(storedEvidence);
   const site=selectedSite(),point=resolvePatch(site.patches,activePatch);
   saveURL();
   return {project:'LunaMargin',schemaVersion:3,language:lang,exportedAt:new Date().toISOString(),campaign,settings:{...settings},selectedSiteId:selectedId,
@@ -188,6 +190,7 @@ async function initializeCalculation(){
     const requested=params.get('build');
     if(requested&&!validDigest(requested))throw new Error('Invalid saved version identifier.');
     release=requested&&requested!==currentRelease.buildId?await readManifest(new URL(`evidence-assets/build-${requested}.json`,location.href),requested):currentRelease;
+    for(const[id,d]of Object.entries(release.identity.datasets))if(!campaigns[id]){campaigns[id]={start:d.start.slice(0,10),end:d.stop};$('campaign').add(new Option(d.start.slice(0,10)+' / NASA',id));}
     if(params.has('algo')&&params.get('algo')!==release.identity.algorithm.sha256)throw new Error('Saved algorithm version does not match its release.');
     const requestedCampaign=campaigns[params.get('campaign')]?params.get('campaign'):'jun',height=release.identity.datasets[requestedCampaign].observerHeightM;
     if(height!==2||params.has('observerHeightM')&&Number(params.get('observerHeightM'))!==height)throw new Error(tr('This calculation version does not support the requested device height.','此计算版本不支持请求的设备高度。'));
@@ -314,7 +317,24 @@ $('record-file').onchange=()=>{const file=$('record-file').files[0];$('record-fi
 $('inspect-risk').onclick=()=>{selectPatch($('inspect-risk').dataset.patch);$('read-result').scrollIntoView({behavior:'smooth',block:'start'});};
 $('detail-charts').addEventListener('toggle',()=>{if($('detail-charts').open)requestAnimationFrame(renderHorizon);else stopPlaying();});
 
-const params=new URLSearchParams(location.search);if(['en','zh'].includes(params.get('lang')))lang=params.get('lang');if(params.has('site'))selectedId=params.get('site');pendingPatch=params.get('patch');
-for(const [param,id] of [['durationHours','duration'],['maxDarkHours','dark-limit'],['maxCommGapHours','comm-limit'],['minJointHours','joint-limit'],['clearanceDeg','clearance']])if(params.has(param)&&Number.isFinite(Number(params.get(param)))){const e=$(id),value=params.get(param);if(e.tagName!=='SELECT'||[...e.options].some(o=>o.value===value))e.value=value;}
-if(params.has('start')&&Number.isFinite(Date.parse(params.get('start')))){const valid=new Date(params.get('start')).toISOString();$('start-date').value=valid.slice(0,10);const hour=String(Number(valid.slice(11,13)));if([...$('start-hour').options].some(o=>o.value===hour))$('start-hour').value=hour;}
+let params=new URLSearchParams(location.search);if(['en','zh'].includes(params.get('lang')))lang=params.get('lang');if(params.has('site'))selectedId=params.get('site');pendingPatch=params.get('patch');
+for(const [param,id] of [['durationHours','duration'],['maxDarkHours','dark-limit'],['maxCommGapHours','comm-limit'],['minJointHours','joint-limit'],['clearanceDeg','clearance']])if(params.has(param)&&Number.isFinite(Number(params.get(param)))){const e=$(id),value=params.get(param),n=Number(value);if(n>=0&&n<=744){if(e.tagName==='SELECT'&&![...e.options].some(o=>o.value===value))e.add(new Option(value,value));if(e.type==='range'){e.max=Math.max(Number(e.max),n);e.step='any';}e.value=value;}}
+if(params.has('start')&&Number.isFinite(Date.parse(params.get('start')))){const valid=new Date(params.get('start')).toISOString();$('start-date').value=valid.slice(0,10);const hour=valid.slice(14,23)==='00:00.000'?String(Number(valid.slice(11,13))):valid.slice(11,23);if(![...$('start-hour').options].some(o=>o.value===hour))$('start-hour').add(new Option(valid.slice(11,19),hour));$('start-hour').value=hour;}
+function state(){return{language:lang,campaign,siteId:selectedId,patchId:activePatch||'e+0-n+0',settings:{...settings},dirty:!!data&&!!$('mission-form')&&Object.entries(getSettings()).some(([k,v])=>k==='start'?Date.parse(v)!==Date.parse(settings[k]):v!==settings[k]),ready:!!data&&results.length>0,buildId:release?.buildId};}
+function fillConditions(s){for(const[key,id]of[['durationHours','duration'],['maxDarkHours','dark-limit'],['maxCommGapHours','comm-limit'],['minJointHours','joint-limit'],['clearanceDeg','clearance']]){const el=$(id);if(el.tagName==='SELECT'&&![...el.options].some(o=>o.value===String(s[key])))el.add(new Option(String(s[key]),String(s[key])));if(el.type==='range'){el.max=Math.max(Number(el.max),s[key]);el.step='any';}el.value=s[key];}const dt=new Date(s.start).toISOString();$('start-date').value=dt.slice(0,10);const hr=dt.slice(14,23)==='00:00.000'?String(Number(dt.slice(11,13))):dt.slice(11,23);if(![...$('start-hour').options].some(o=>o.value===hr))$('start-hour').add(new Option(dt.slice(11,19),hr));$('start-hour').value=hr;}
+async function applyURL(url){params=new URL(url,location.href).searchParams;storedEvidence=null;if(['en','zh'].includes(params.get('lang')))lang=params.get('lang');selectedId=params.get('site')||selectedId;pendingPatch=params.get('patch');if(params.has('start'))fillConditions({...getSettings(),...Object.fromEntries([...params].filter(([key])=>['start','durationHours','maxDarkHours','maxCommGapHours','minJointHours','clearanceDeg'].includes(key)).map(([k,v])=>[k,k==='start'?v:Number(v)]))});setLanguage();await initializeCalculation();}
+async function restoreServerRecord(record){
+  if(record.project!=='LunaMargin'||record.schemaVersion!==3||await sha256(record.inputSnapshot.text)!==record.provenance.datasetSha256)throw new Error('Saved input checksum mismatch.');
+  const original=await readManifest(new URL(`evidence-assets/build-${record.provenance.buildId}.json`,location.href),record.provenance.buildId);
+  if(original.identity.algorithm.sha256!==record.provenance.algorithmSha256||original.identity.datasets[record.campaign]?.sha256!==record.provenance.datasetSha256)throw new Error('Saved version fingerprints disagree.');
+  const algorithm=await importVerifiedAlgorithm(original.identity.algorithm,location.href);
+  const incoming=JSON.parse(record.inputSnapshot.text);if(incoming.observerHeightM!==record.settings.observerHeightM)throw new Error('Unsupported observer height.');
+  release=original;algorithmSource=algorithm.source;({analyzeSite,interpolateHorizon,stressTestSite}=algorithm.module);data=incoming;datasetText=record.inputSnapshot.text;campaign=record.campaign;campaigns[campaign]={start:data.start.slice(0,10),end:data.stop};
+  if(!$('campaign').querySelector(`option[value="${CSS.escape(campaign)}"]`))$('campaign').add(new Option(data.start.slice(0,10)+' / NASA',campaign));$('campaign').value=campaign;
+  $('start-date').min=data.start.slice(0,10);selectedId=record.selectedSiteId;activePatch=record.selectedPoint.isCenter?null:record.selectedPoint.id;settings={...record.settings};fillConditions(settings);results=record.results;timeIndex=0;stressCache.clear();storedEvidence=structuredClone(record);versionMode=release.buildId===currentRelease.buildId?'matched':'archived';campaignLoading=false;lang=record.language==='zh'?'zh':'en';
+  $('loading').hidden=true;$('app').hidden=false;$('compare').hidden=false;setLanguage();updateRangeLabels();render();renderVersion();renderMethod();saveURL();
+}
+window.lunaMargin={getState:state,getEvidence:evidence,applyURL,restoreServerRecord,analyze,selectSite,selectPatch};
 setLanguage();await initializeCalculation();
+window.dispatchEvent(new CustomEvent('lunamargin:ready'));
+const {startMissionService}=await import('./mission-service.js');startMissionService(window.lunaMargin);

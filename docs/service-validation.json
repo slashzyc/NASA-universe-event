@@ -1,0 +1,36 @@
+{
+  "testedAt": "2026-11-13T08:04:08.034Z",
+  "runtime": "v24.22.1",
+  "kind": "real-http-sqlite-nasa-bundles",
+  "testCommand": "npm run build && node --test tests/*.test.js",
+  "passes": 13,
+  "failures": 0,
+  "coverage": [
+    "three real NASA data campaigns in SQLite",
+    "server results equal unchanged scientific baseline",
+    "changed threshold changes actual decision",
+    "uncovered site/point/date and unsupported height rejected",
+    "cached-date job uses no upstream download",
+    "untrusted uploaded code cannot substitute trusted algorithm",
+    "save rename copy delete immutable record",
+    "different visitor cannot edit or read private tasks",
+    "readonly recipient cannot mutate original",
+    "cross-origin mutation rejected",
+    "service and database close/reopen restores exact record",
+    "deleting a task revokes share"
+  ],
+  "files": {
+    "server/index.mjs": "a65f4f8374b05f350cf0ef1e9e86d17d3b24c66bc5d89f3ef704809b69cf9f85",
+    "server/calculation.mjs": "797ed7efc99aec7b2b8425172a5691096f3c186a6de51a9df566c639352fbe29",
+    "server/store.mjs": "036fd84acdfc3709ad19a00064dfa7ca38bf5d90534af3b3629cdf2c8f674602",
+    "tests/server.test.js": "15cd656611ad9e64bf1925ace23579cea82e5e2da32ae3663eea04e3827ffdbb"
+  },
+  "limitations": [
+    "HTTP API integration uses the actual built dist and trusted immutable calculation snapshots.",
+    "The complete browser flow separately verifies stopping and restarting a real Node process, browser/database/export equality, mobile use and readonly sharing.",
+    "Docker configuration supplied; Docker image was not built in this validation."
+  ],
+  "serviceTests": 13,
+  "allJavaScriptTests": 62,
+  "buildId": "6a5afc5095e70597524d876552a35157e295d27e217917765e1a79c4acc38a98"
+}

@@ -12,7 +12,7 @@ if (previous?.isSymbolicLink() || (previous && !previous.isDirectory())) throw n
 if (previous) await rm(output, {recursive:true, force:true});
 await mkdir(output, {recursive:true});
 await prepareRelease();
-for (const file of ['index.html','navigator.html','build-info.json','evidence-assets','src','assets','data','docs']) await cp(path.join(root,file), path.join(output,file), {recursive:true});
+for (const file of ['index.html','navigator.html','service-config.json','build-info.json','evidence-assets','src','assets','data','docs']) await cp(path.join(root,file), path.join(output,file), {recursive:true});
 await mkdir(path.join(output, 'data-pipeline'), {recursive:true});
 await cp(path.join(root, 'data-pipeline/README.md'), path.join(output, 'data-pipeline/README.md'));
 console.log('Built a standalone static site in dist/.');

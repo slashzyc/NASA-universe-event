@@ -1,0 +1,39 @@
+{
+  "startedAt": "2026-11-13T08:03:05.943Z",
+  "finishedAt": "2026-11-13T08:03:12.283Z",
+  "artifact": "dist",
+  "injection": "Browser-only request aborts test visible connection errors; no simulated scientific responses.",
+  "checks": [
+    {
+      "name": "Historical 24-hour mission retains its 48-hour minimum-joint threshold without clamping",
+      "status": "PASS",
+      "durationMs": 614
+    },
+    {
+      "name": "Rename failure stays visible in the dialog; retry persists the new name",
+      "status": "PASS",
+      "durationMs": 199
+    },
+    {
+      "name": "Copy creates an independent task with the exact original evidence",
+      "status": "PASS",
+      "durationMs": 56
+    },
+    {
+      "name": "Delete failure is visible; retry deletes only the copied task and revokes its share",
+      "status": "PASS",
+      "durationMs": 107
+    },
+    {
+      "name": "Three-plan limit is enforced; remove makes room for another actual calculation",
+      "status": "PASS",
+      "durationMs": 3962
+    },
+    {
+      "name": "Initially disconnected read-only share restores its original record after reconnect",
+      "status": "PASS",
+      "durationMs": 888
+    }
+  ],
+  "pageErrors": []
+}

@@ -1,0 +1,59 @@
+{
+  "startedAt": "2026-11-13T08:00:05.893Z",
+  "finishedAt": "2026-11-13T08:00:11.953Z",
+  "artifact": "dist",
+  "seed": "actual NASA raw responses from docs/new-date-validation.json",
+  "failureInjection": "Only the final uncached request receives test HTTP 400; no synthetic scientific results are accepted.",
+  "records": [
+    {
+      "name": "Built workbench queries real cached new-date job and calculates 48 hours without changing thresholds",
+      "status": "PASS",
+      "durationMs": 1104
+    },
+    {
+      "name": "Formal export equals SQLite result and input hashes",
+      "status": "PASS",
+      "durationMs": 214
+    },
+    {
+      "name": "Custom campaign reload and saved task survive server restart",
+      "status": "PASS",
+      "durationMs": 810
+    },
+    {
+      "name": "A separate visitor reads the same dynamic result with no editing permission",
+      "status": "PASS",
+      "durationMs": 834
+    },
+    {
+      "name": "Uncovered date cannot create a formal result; controlled upstream failure is visible",
+      "status": "PASS",
+      "durationMs": 2660
+    }
+  ],
+  "pageErrors": [],
+  "actualRecord": {
+    "datasetId": "custom-aaa14f8288dff5be9b89",
+    "datasetSha256": "aaa14f8288dff5be9b8968c082312bc912285596cb62cc908e065157a1706b50",
+    "algorithmSha256": "981e49c08ae6457450c5e0fbb8d9c743521dbb91ed6eeb2cbb01b3e132ea5fcd",
+    "settings": {
+      "start": "2027-07-01T00:00:00.000Z",
+      "durationHours": 48,
+      "maxDarkHours": 24,
+      "maxCommGapHours": 24,
+      "minJointHours": 24,
+      "clearanceDeg": 0,
+      "observerHeightM": 2,
+      "nominalStepHours": 0.5
+    },
+    "sourceDataTime": "2026-11-13T07:46:24.404Z",
+    "calculatedAt": "2026-11-13T08:00:06.996Z",
+    "selectedMetrics": {
+      "sunHours": 26.328959226277668,
+      "earthHours": 48,
+      "jointHours": 26.328959226277668,
+      "longestDarkHours": 21.671040773722332,
+      "longestCommGapHours": 0
+    }
+  }
+}

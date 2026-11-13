@@ -1,0 +1,52 @@
+{
+  "verifiedAt": "2026-11-13T08:05:57.081Z",
+  "file": "docs/media/lunamargin-explorer-flow.webm",
+  "bytes": 5606397,
+  "sha256": "6e5bf00d4d9c6be19be5208e6de9a43e886e0b557523654bb3cecf02a73c0ad3",
+  "transport": "Exact file bytes as browser Blob, independent of server Range handling",
+  "metadata": {
+    "duration": 14.56,
+    "finite": true,
+    "width": 1440,
+    "height": 1000
+  },
+  "seekChecks": [
+    {
+      "target": 1,
+      "actual": 1,
+      "pixelRange": 254,
+      "pixelSum": 574165,
+      "seekableEnd": 14.56
+    },
+    {
+      "target": 3.64,
+      "actual": 3.64,
+      "pixelRange": 250,
+      "pixelSum": 273838,
+      "seekableEnd": 14.56
+    },
+    {
+      "target": 9.464,
+      "actual": 9.464,
+      "pixelRange": 250,
+      "pixelSum": 599479,
+      "seekableEnd": 14.56
+    },
+    {
+      "target": 13.56,
+      "actual": 13.56,
+      "pixelRange": 251,
+      "pixelSum": 566510,
+      "seekableEnd": 14.56
+    }
+  ],
+  "playback": {
+    "ended": true,
+    "lastTime": 14.56,
+    "wallSeconds": 4.85820000000298,
+    "playbackRate": 3,
+    "decodedFrames": 682,
+    "droppedFrames": 1
+  },
+  "status": "PASS"
+}

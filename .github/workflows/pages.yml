@@ -17,14 +17,14 @@ jobs:
       - uses: actions/checkout@v6
       - uses: actions/setup-node@v6
         with:
-          node-version: '22'
+          node-version: '24'
           cache: npm
       - run: npm ci
       - run: npx playwright install --with-deps chromium
+      - run: node scripts/build.mjs
       - run: node --test tests/*.test.js
       - name: Verify dynamically generated audit conclusions
         run: python -m unittest discover -s data-pipeline -p test_recommendation_report.py
-      - run: node scripts/build.mjs
       - run: node scripts/check.mjs
       - name: Verify browser behavior before publication
         run: npm run test:browser
@@ -39,6 +39,11 @@ jobs:
         run: node tests/round2-version-browser.mjs
         env:
           CI: 'true'
+      - name: Verify the full explorer, SQLite restart and read-only sharing
+        run: node tests/explorer-flow-browser.mjs
+        env:
+          CI: 'true'
+          LUNAMARGIN_QA_OUTPUT: test-results/explorer-flow
       - name: Retain browser verification report
         if: always()
         uses: actions/upload-artifact@v5

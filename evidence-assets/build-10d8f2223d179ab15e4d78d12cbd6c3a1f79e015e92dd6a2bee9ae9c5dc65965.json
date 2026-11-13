@@ -1,0 +1,133 @@
+{
+  "schemaVersion": 1,
+  "buildId": "10d8f2223d179ab15e4d78d12cbd6c3a1f79e015e92dd6a2bee9ae9c5dc65965",
+  "identity": {
+    "schemaVersion": 1,
+    "methodVersion": "terrain-center-clearance-linear-v1",
+    "sourceRepository": "https://github.com/slashzyc/NASA-universe-event",
+    "sourceIdentity": "SHA-256 of canonical LF application sources, exact dataset bytes and model identity; not a Git commit.",
+    "application": {
+      "index.html": {
+        "sha256": "6a564a1e78c3d77ad2505aab45c6f460f32018a26d2efedcbbea28a4d5f66bd8",
+        "snapshot": "evidence-assets/6a564a1e78c3d77ad2505aab45c6f460f32018a26d2efedcbbea28a4d5f66bd8.html"
+      },
+      "navigator.html": {
+        "sha256": "495a7535dc9782b094c1138ad54d641a1fd063e93e69a819d92eec5812c6dbb0",
+        "snapshot": "evidence-assets/495a7535dc9782b094c1138ad54d641a1fd063e93e69a819d92eec5812c6dbb0.html"
+      },
+      "src/analysis.js": {
+        "sha256": "981e49c08ae6457450c5e0fbb8d9c743521dbb91ed6eeb2cbb01b3e132ea5fcd",
+        "snapshot": "evidence-assets/981e49c08ae6457450c5e0fbb8d9c743521dbb91ed6eeb2cbb01b3e132ea5fcd.js"
+      },
+      "src/app.js": {
+        "sha256": "015b738ee8f86a04f23d24b025b7ac81549a17666cb5b13760b10ffe550db685",
+        "snapshot": "evidence-assets/015b738ee8f86a04f23d24b025b7ac81549a17666cb5b13760b10ffe550db685.js"
+      },
+      "src/evidence.js": {
+        "sha256": "edd99f18db5370df5ef816f7eb5d4f84d54761b21c28a9933b3b9bca0e669479",
+        "snapshot": "evidence-assets/edd99f18db5370df5ef816f7eb5d4f84d54761b21c28a9933b3b9bca0e669479.js"
+      },
+      "src/landing.css": {
+        "sha256": "c1e6c9088f20b0fad6f503e6218c2816a0e2a71fe179f57208a84e130fcef294",
+        "snapshot": "evidence-assets/c1e6c9088f20b0fad6f503e6218c2816a0e2a71fe179f57208a84e130fcef294.css"
+      },
+      "src/landing.js": {
+        "sha256": "3b009cabd447ded066f5a99145303afb506b95c9ece456028efa2488ab826129",
+        "snapshot": "evidence-assets/3b009cabd447ded066f5a99145303afb506b95c9ece456028efa2488ab826129.js"
+      },
+      "src/mission-service.css": {
+        "sha256": "8c1af0a3e9d0a12b12e19698ff806df9393779628d23d6e61436685cb50292dc",
+        "snapshot": "evidence-assets/8c1af0a3e9d0a12b12e19698ff806df9393779628d23d6e61436685cb50292dc.css"
+      },
+      "src/mission-service.js": {
+        "sha256": "6e225a31100db467d488a71ae096607e3097c356f6db18a6b3159dff8cb688ee",
+        "snapshot": "evidence-assets/6e225a31100db467d488a71ae096607e3097c356f6db18a6b3159dff8cb688ee.js"
+      },
+      "src/moon-globe.css": {
+        "sha256": "83390c1e28a8acc000d46ec757e6921982e02648ecc07f53b4dd75e3fe27e177",
+        "snapshot": "evidence-assets/83390c1e28a8acc000d46ec757e6921982e02648ecc07f53b4dd75e3fe27e177.css"
+      },
+      "src/moon-globe.js": {
+        "sha256": "da50bea45ad2ef83d632f28470ddde3e228b87eb122d85405740dd98341c9613",
+        "snapshot": "evidence-assets/da50bea45ad2ef83d632f28470ddde3e228b87eb122d85405740dd98341c9613.js"
+      },
+      "src/navigator-ui.js": {
+        "sha256": "fc79f018ddb20f3d9e0adb0f530aa92f49080fcc0f027f11f509366a33150a33",
+        "snapshot": "evidence-assets/fc79f018ddb20f3d9e0adb0f530aa92f49080fcc0f027f11f509366a33150a33.js"
+      },
+      "src/navigator.css": {
+        "sha256": "763a8e62f40c051ff1132cfaa0c0481b21d77a9d2e2c6f1c020900d670947766",
+        "snapshot": "evidence-assets/763a8e62f40c051ff1132cfaa0c0481b21d77a9d2e2c6f1c020900d670947766.css"
+      },
+      "src/page-transition.css": {
+        "sha256": "2cad813b506f31046ff45dcfb16d9b703364db24b92d82dec4fddd118093db4a",
+        "snapshot": "evidence-assets/2cad813b506f31046ff45dcfb16d9b703364db24b92d82dec4fddd118093db4a.css"
+      },
+      "src/page-transition.js": {
+        "sha256": "07393592469cc853be52b05eac2f347876ae95a002002ca7eabf5c266c13e409",
+        "snapshot": "evidence-assets/07393592469cc853be52b05eac2f347876ae95a002002ca7eabf5c266c13e409.js"
+      },
+      "src/provenance.js": {
+        "sha256": "8afbf66ac017d72e277068baf28fac3ec64ec22a2c45780e1c3d5673de9869dc",
+        "snapshot": "evidence-assets/8afbf66ac017d72e277068baf28fac3ec64ec22a2c45780e1c3d5673de9869dc.js"
+      },
+      "src/robustness-ui.js": {
+        "sha256": "1202e18471dfaef1b8aa63d2492bfb0ced529712fc7eebaacb26654ced2a0a74",
+        "snapshot": "evidence-assets/1202e18471dfaef1b8aa63d2492bfb0ced529712fc7eebaacb26654ced2a0a74.js"
+      },
+      "src/search-worker.js": {
+        "sha256": "431284c1d41f67e70cf70ed32ef5f60ebe421d6eb52d71b8b542041a6b871680",
+        "snapshot": "evidence-assets/431284c1d41f67e70cf70ed32ef5f60ebe421d6eb52d71b8b542041a6b871680.js"
+      },
+      "src/selection.js": {
+        "sha256": "5ca29c17b77de4b39ead4a29999e9452ab3ab1506162c4b820cb020f8a42fde0",
+        "snapshot": "evidence-assets/5ca29c17b77de4b39ead4a29999e9452ab3ab1506162c4b820cb020f8a42fde0.js"
+      },
+      "src/style.css": {
+        "sha256": "5955b4a541000e78829996939b59142a067ca9234fcdafe1cba657df13a21c97",
+        "snapshot": "evidence-assets/5955b4a541000e78829996939b59142a067ca9234fcdafe1cba657df13a21c97.css"
+      },
+      "src/time-link.js": {
+        "sha256": "7ced6f9ad2f70a59b1997a9a05a1e15b266358c133922a441300f8d8ab0bc6e9",
+        "snapshot": "evidence-assets/7ced6f9ad2f70a59b1997a9a05a1e15b266358c133922a441300f8d8ab0bc6e9.js"
+      },
+      "src/visuals.js": {
+        "sha256": "8d2fd791058cd119dca9b8b26f43edea3396a0fdab0821f209f617efc14d13d7",
+        "snapshot": "evidence-assets/8d2fd791058cd119dca9b8b26f43edea3396a0fdab0821f209f617efc14d13d7.js"
+      }
+    },
+    "algorithm": {
+      "sha256": "981e49c08ae6457450c5e0fbb8d9c743521dbb91ed6eeb2cbb01b3e132ea5fcd",
+      "snapshot": "evidence-assets/981e49c08ae6457450c5e0fbb8d9c743521dbb91ed6eeb2cbb01b3e132ea5fcd.js"
+    },
+    "datasets": {
+      "dec": {
+        "path": "data/lunar-sites.json",
+        "sha256": "8a1126508f01911c562a2fa20d7721773028dc4f5fd437c869ba8bc567113f2b",
+        "snapshot": "evidence-assets/8a1126508f01911c562a2fa20d7721773028dc4f5fd437c869ba8bc567113f2b.json",
+        "observerHeightM": 2,
+        "generatedAt": "2026-11-13T03:54:07.994559+00:00",
+        "start": "2026-12-01T00:00:00Z",
+        "stop": "2027-01-01T00:00:00Z"
+      },
+      "mar": {
+        "path": "data/lunar-sites-march.json",
+        "sha256": "266011b3d2c20224c75a44a93d414986d9751ac7ae5a0d463ba5744434618aab",
+        "snapshot": "evidence-assets/266011b3d2c20224c75a44a93d414986d9751ac7ae5a0d463ba5744434618aab.json",
+        "observerHeightM": 2,
+        "generatedAt": "2026-11-13T03:54:08.118154+00:00",
+        "start": "2027-03-01T00:00:00Z",
+        "stop": "2027-04-01T00:00:00Z"
+      },
+      "jun": {
+        "path": "data/lunar-sites-june.json",
+        "sha256": "c2258b262f2ee22599195090a9e652d8f6fd53c48bfb48139896be02a86f3d8f",
+        "snapshot": "evidence-assets/c2258b262f2ee22599195090a9e652d8f6fd53c48bfb48139896be02a86f3d8f.json",
+        "observerHeightM": 2,
+        "generatedAt": "2026-11-13T03:54:13.285309+00:00",
+        "start": "2027-06-01T00:00:00Z",
+        "stop": "2027-07-01T00:00:00Z"
+      }
+    }
+  }
+}

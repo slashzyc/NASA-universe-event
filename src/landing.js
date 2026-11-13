@@ -1,6 +1,9 @@
 import {analyzeSite} from './analysis.js';
+import {createMoonExplorer} from './moon-globe.js';
+import {installPageTransition} from './page-transition.js';
 
-const $=id=>document.getElementById(id);
+let landingRoot=document,landingActive=true;
+const $=id=>landingRoot.querySelector(`[id="${id}"]`);
 const english={};
 document.querySelectorAll('[data-i18n]').forEach(element=>english[element.dataset.i18n]=element.innerHTML);
 const chinese={
@@ -31,9 +34,22 @@ const chinese={
 
 let language='en';
 try{language=localStorage.getItem('lunamargin-language')==='zh'?'zh':'en';}catch{}
+if(['en','zh'].includes(new URLSearchParams(location.search).get('lang')))language=new URLSearchParams(location.search).get('lang');
 let caseSite=null,selectedPatch=null,patchResults=new Map();
 const settings={start:'2027-06-02T06:00:00Z',durationHours:168,maxDarkHours:24,maxCommGapHours:24,minJointHours:24,clearanceDeg:0,observerHeightM:2,nominalStepHours:.5};
 const tr=(en,zh)=>language==='zh'?zh:en;
+let explorerChoice=null,lastMissionState=null;
+window.addEventListener('lunamargin:state',()=>{if(document.getElementById('mission-form'))lastMissionState=window.lunaMargin?.getState?.()||lastMissionState;});
+const moon=createMoonExplorer($('moon-explorer'),{language:()=>language,onSelect:choice=>{explorerChoice=choice;updateExplorerLinks();}});
+function updateExplorerLinks(){
+  const choice=explorerChoice||moon.getSelection();
+  if(choice.unsupported){for(const link of landingRoot.querySelectorAll('a[href*="navigator.html"]'))if(link.id!=='inspect-case'){link.dataset.explorerEntry='true';link.href='#moon-research';}return;}
+  if(!choice.siteId)return;
+  const url=new URL(choice.url,location.href);url.searchParams.set('lang',language);
+  const previous=lastMissionState;
+  if(previous?.settings){for(const[k,v]of Object.entries(previous.settings))if(k!=='nominalStepHours')url.searchParams.set(k,String(v));if(previous.campaign)url.searchParams.set('campaign',previous.campaign);if(previous.buildId)url.searchParams.set('build',previous.buildId);}
+  for(const link of landingRoot.querySelectorAll('a[href*="navigator.html"],a[data-explorer-entry]'))if(link.id!=='inspect-case'){link.dataset.explorerEntry='true';link.href=url.href;}
+}
 
 function restoreSelectedPatch(){
   const stored=history.state?.lunamarginLanding;
@@ -48,16 +64,17 @@ function updateCaseLink(){
   // Keep the editorial URL intact: scenario query parameters intentionally
   // redirect legacy homepage links into the navigator. History state also
   // survives browser Back and reload without affecting another homepage tab.
-  history.replaceState({...history.state,lunamarginLanding:{site:caseSite.id,patch:selectedPatch.id}},'',location.href);
+  if(landingActive)history.replaceState({...history.state,lunamarginLanding:{site:caseSite.id,patch:selectedPatch.id}},'',location.href);
 }
 
 function setLanguage(){
-  document.documentElement.lang=language==='zh'?'zh-CN':'en';
-  document.querySelectorAll('[data-i18n]').forEach(element=>{element.innerHTML=language==='zh'?(chinese[element.dataset.i18n]??english[element.dataset.i18n]):english[element.dataset.i18n];});
+  if(landingActive)document.documentElement.lang=language==='zh'?'zh-CN':'en';
+  landingRoot.querySelectorAll('[data-i18n]').forEach(element=>{element.innerHTML=language==='zh'?(chinese[element.dataset.i18n]??english[element.dataset.i18n]):english[element.dataset.i18n];});
   $('language').textContent=language==='zh'?'EN / 中':'中 / EN';
   $('language').setAttribute('aria-label',language==='zh'?'Switch to English':'切换为中文');
   try{localStorage.setItem('lunamargin-language',language);}catch{}
   if(caseSite){renderSampling();renderReading();}
+  moon.setLanguage();updateExplorerLinks();
 }
 
 function positionLabel(patch){
@@ -96,7 +113,7 @@ function renderReading(){
 async function loadCase(){
   try{
     const response=await fetch('data/lunar-sites-june.json');if(!response.ok)throw new Error(`Data request returned ${response.status}`);
-    const bundle=await response.json();caseSite=bundle.sites.find(site=>site.id==='ridge-6');
+    const bundle=await response.json();moon.setData(bundle);updateExplorerLinks();caseSite=bundle.sites.find(site=>site.id==='ridge-6');
     if(!caseSite?.patches?.length)throw new Error('The declared case is unavailable.');
     for(const patch of caseSite.patches)patchResults.set(patch.id,analyzeSite({...caseSite,...patch,samples:caseSite.samples,patches:[]},settings));
     restoreSelectedPatch();renderSampling();renderReading();
@@ -113,9 +130,13 @@ $('film-dialog').addEventListener('close',()=>$('film').pause());
 $('film-dialog').addEventListener('click',event=>{if(event.target===$('film-dialog')){const rect=event.target.getBoundingClientRect();if(event.clientX<rect.left||event.clientX>rect.right||event.clientY<rect.top||event.clientY>rect.bottom)event.target.close();}});
 $('language').addEventListener('click',()=>{language=language==='en'?'zh':'en';setLanguage();});
 window.addEventListener('pageshow',()=>{
-  if(!caseSite)return;
+  if(!caseSite||!landingActive)return;
   try{language=localStorage.getItem('lunamargin-language')==='zh'?'zh':'en';}catch{}
   restoreSelectedPatch();setLanguage();
+});
+window.addEventListener('lunamargin:home-root',event=>{
+  landingRoot=event.detail.root;landingActive=event.detail.active;
+  if(landingActive){try{language=localStorage.getItem('lunamargin-language')==='zh'?'zh':'en';}catch{}if(caseSite)restoreSelectedPatch();setLanguage();}
 });
 
 // Reveal editorial sections only when motion is welcome; all content works without it.
@@ -124,4 +145,4 @@ if('IntersectionObserver' in window&&!matchMedia('(prefers-reduced-motion: reduc
   const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('visible');observer.unobserve(entry.target);}}),{threshold:.08});
   document.querySelectorAll('.editorial-heading,.footprint-story,.experience-steps,.science-intro,.science-sources').forEach(element=>{element.classList.add('reveal');observer.observe(element);});
 }
-setLanguage();loadCase();
+setLanguage();loadCase();installPageTransition();

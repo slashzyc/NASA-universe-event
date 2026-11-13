@@ -1,0 +1,15 @@
+.git
+node_modules
+dist
+var
+tmp
+test-results
+playwright-report
+.env
+.env.*
+*.sqlite*
+**/.deps
+**/__pycache__
+*.zip
+*.tif
+*.TIF

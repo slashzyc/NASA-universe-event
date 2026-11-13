@@ -2,7 +2,9 @@
 
 **Every landing needs a little margin.**
 
-**[Open the live application / 打开在线应用](https://slashzyc.github.io/NASA-universe-event/)** · **[Watch the walkthrough / 观看演示](https://slashzyc.github.io/NASA-universe-event/docs/media/lunamargin-walkthrough.webm)**
+**[Open the static explorer / 打开静态探索预览](https://slashzyc.github.io/NASA-universe-event/)** · **[Watch the complete recorded flow / 观看完整操作录制](https://slashzyc.github.io/NASA-universe-event/docs/media/lunamargin-explorer-flow.webm)**
+
+The full tool now includes a real 3D Moon, a persistent Node.js + SQLite service, saved missions, read-only sharing, scenario comparison and controlled new-date NASA queries. **GitHub Pages serves the browser preview; run the complete service below to use database features.** [Deployment and persistence](docs/SERVICE_DEPLOYMENT.md) · [Acceptance evidence](docs/EXPLORER_ACCEPTANCE.md).
 
 A terrain-aware lunar landing-window lab for the **2026 NASA Space Apps — Lunar Landing Site Navigator** challenge. Compare a promising center point with the terrain around it, then find a different arrival date where more of the sampled footprint meets your mission limits.
 
@@ -10,21 +12,22 @@ A terrain-aware lunar landing-window lab for the **2026 NASA Space Apps — Luna
 
 ## Start here / 从这里开始
 
-No package installation, API key, account, or paid service is required to run the application. Use Node.js 20 or later:
+Use **Node.js 24 or later**. The complete service uses built-in Node libraries and needs no API key or account:
+
+```sh
+node scripts/build.mjs
+node server/index.mjs
+```
+
+Open **http://127.0.0.1:4173**. The service initializes `var/lunamargin.sqlite` and its source cache automatically; retain the entire `var/` directory across restarts. For a static-only preview:
 
 ```sh
 node scripts/serve.mjs
 ```
 
-Open **http://127.0.0.1:4173**. To build a standalone deployment:
+Rotate the Moon, select a supported research point, and enter the live workspace. Submit conditions for a server calculation, compare two or three recorded scenarios, then save a named mission. **My missions** restores original records and creates a new record when you explicitly recalculate. Existing scenario links remain compatible.
 
-```sh
-node scripts/build.mjs
-```
-
-The homepage introduces the project through an interactive case study. Choose **Launch navigator** to enter the complete workspace at `navigator.html`. Existing scenario links to the repository root redirect automatically and preserve their settings.
-
-The complete static site is in `dist/`. Deploy it with any static HTTP host. Relative paths support GitHub Pages repository URLs. Opening `index.html` directly as a file is unsupported because browsers restrict local JSON fetches and module workers.
+The frontend is in `dist/`. Relative paths support GitHub Pages repository URLs. Static hosts cannot run the Node service or persist SQLite; the interface states this clearly. The full deployment requires one persistent Node host with HTTPS. Opening `index.html` directly as a file is unsupported.
 
 中文：运行上面的启动命令，在浏览器打开地址即可。导航仪支持中英文，点击“从示例开始”即可加载完整案例。先读结果卡的一句结论，再点“查看东南未通过点”比较；“帮我找更晚的日期”可以寻找其他窗口。常用设置有 7 天和 3 天预设，修改后点击“查看任务结果”应用。专业图表与参数可按需展开。通过“保存这份简报”或“下载结果”保留证据。详见 [零基础操作指南](docs/QUICKSTART_ZH.md)。
 
@@ -41,6 +44,13 @@ Search all nine sampled positions with the same limits: the first available six-
 The expanded audit independently queries **all 18 positions** in that recommendation window: **36 original responses, 2,017 five-minute epochs per position, no missing epochs**. Fine calculations preserve all 72 point/angle pass-or-fail conclusions. ROI 1 stays 9/9 at the four tested angle settings; ROI 4 falls to 8/9 at +0.02° and 7/9 at +0.25°. Its baseline southwest darkness margin becomes **9.96 minutes** in the fine calculation. These are deterministic sensitivity results, not measured probabilities. [Inspect the complete fine audit](docs/RECOMMENDATION_VALIDATION.md).
 
 ## What works
+
+- Real WebGL lunar sphere with sourced NASA texture, mouse/touch rotation, pinch zoom, south-pole focus and a usable 2D fallback.
+- Live 560 ms horizontal scene transition, reduced-motion support, focus handling and browser history.
+- A real SQLite-backed service: validated computation, named tasks, duplication, deletion, immutable original evidence and isolated anonymous edit permissions.
+- Read-only share links, consistent formal HTML/CSV/JSON exports and recovery after a full service restart.
+- Two- or three-scenario comparison with explicit conditions, pass/fail reasons and weakest nine-point margins.
+- Data coverage queries and a durable, serial NASA Horizons cache/fetch queue for new dates in 2026–2028, up to 31 days per request, at the verified 2 m height.
 
 - A guided three-step workspace, plain-language result summaries, example presets, and explicit unapplied-change notices.
 - Accessible nine-point buttons with synchronized map selection, per-point conclusions, and an immediate mobile readout.

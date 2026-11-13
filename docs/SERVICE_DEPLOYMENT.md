@@ -1,0 +1,102 @@
+# LunaMargin 数据服务与持久化
+
+本轮采用 **统一 Node.js 24 服务＋SQLite 持久目录**：同一个地址提供前端构建产物、业务接口、真实计算和保存任务。现有 GitHub Pages 是静态前端预览；它本身没有 SQLite 或后端，不能把 Pages 地址当作已接通的保存服务。
+
+## 本地完整启动
+
+安装 Node.js 24 或更新的受支持版本，在项目目录运行：
+
+```powershell
+npm ci
+npm run build
+npm run start:server
+```
+
+打开 <http://127.0.0.1:4173/>。`npm run dev:full` 会先构建再启动同一完整服务。原有 `npm start` 仍只提供静态前端，便于旧流程回归；任务面板会明确提示未连接服务。
+
+首次启动自动创建实际 SQLite 表，并导入三组已校验 NASA 数据的研究位置、覆盖、来源与版本索引。数据库默认位于项目内的 `var/lunamargin.sqlite`。任务、参数、结果、结果摘要、访客权限和分享记录保存在数据库；新日期原始响应及生成数据保存在 `var/horizons/`；新增的不可变证据快照保存在 `var/evidence-assets/`。
+
+同一浏览器的 HttpOnly 访客 cookie 恢复编辑身份。关闭页面或重启服务后仍能打开任务；清除该 cookie 或更换浏览器不会自动获得原任务编辑权。只读链接允许持有者读取原记录，不能重命名、删除、复制到原访客名下或覆盖原计算。可以下载完整 JSON 自行留存。无需注册账号。
+
+支持的运行设置：
+
+| 设置 | 默认 | 用途 |
+| --- | --- | --- |
+| `PORT` | `4173` | 服务端口 |
+| `HOST` | `127.0.0.1` | 监听接口；容器使用 `0.0.0.0` |
+| `LUNAMARGIN_DATA_DIR` | 项目 `var/` | 必须持久保存的目录 |
+| `LUNAMARGIN_PUBLIC_URL` | 本地请求 origin | 正式 HTTPS 地址，用于分享地址、来源校验和 Secure cookie |
+| `LUNAMARGIN_JPL_USER_AGENT` | `LunaMargin/1.0`＋项目 Issues 联系地址 | 上游请求标识；可替换为维护者联系地址，保留产品和版本 |
+
+例如把数据库与新日期缓存放到单独磁盘：
+
+```powershell
+$env:LUNAMARGIN_DATA_DIR='D:\LunaMarginData'
+npm run start:server
+```
+
+生产反向代理使用单一 HTTPS origin，设置 `LUNAMARGIN_PUBLIC_URL=https://你的域名/`；不要在浏览器代码中配置数据库凭据。当前没有需要向浏览器发送的数据库密码。
+
+## 真实请求流程
+
+`POST /api/analyses` 接收地点、取样点、UTC 日期、时长、三项阈值、额外角度余量及高度。服务端先校验离散地点覆盖、完整日期覆盖和 2 m 高度，核对数据与算法 SHA-256，再导入**同一份通过校验的算法字节**运行已有计算程序。完整参数、结果和来源快照写入 SQLite 后才返回成功。
+
+正式记录保留 `sourceDataTime`、`calculatedAt`、计算版、界面版、算法摘要和数据摘要。记录正文的 SHA-256 存在数据库及接口响应中；再次读取时重新核对，校验不符不会假装成功。改参数或“用当前版本重算”创建新分析记录，原分析不被覆盖。保存、重命名、复制和删除操作改变任务索引；复制引用同一不可变原分析。
+
+| 接口 | 行为 |
+| --- | --- |
+| `GET /api/health` | 服务与真实 SQLite 初始化状态 |
+| `GET /api/coverage` | 地点、九点坐标、日期、高度、分辨率、来源、版本 |
+| `POST /api/analyses` | 校验、计算、保存；返回 `{id,status,record,recordSha256}` |
+| `GET /api/analyses/:id` | 仅原访客读取计算记录 |
+| `GET /api/tasks` | 当前访客任务列表 |
+| `POST /api/tasks` | `{analysisId,name}` 保存任务 |
+| `GET /api/tasks/:id` | `{task,record,recordSha256,readOnly:false}` |
+| `PATCH /api/tasks/:id` | `{name}` 重命名 |
+| `POST /api/tasks/:id/copy` | 复制任务，不修改证据 |
+| `DELETE /api/tasks/:id` | 删除任务并使该任务的分享链接失效 |
+| `POST /api/tasks/:id/share` | 返回随机只读链接 |
+| `GET /api/shared/:token` | `{task,record,recordSha256,readOnly:true}` |
+| `POST /api/data-jobs` | `{start,stop,observerHeightM:2}` 查询缓存或进入真实后台队列 |
+| `GET /api/data-jobs` / `/:id` | 当前访客的数据任务状态及错误 |
+
+JSON 请求上限 64 KB；任务名称 120 字符；每个访客最多 200 个任务、1,000 条分析记录、3 个未完成数据任务；变更请求限制为每分钟 30 次。参数必须为有限数值，任务最长 31 天，额外角度范围 0–5°。只能分析已有的 Connecting Ridge 三处九点位置，任意坐标不能借用附近结果。高度仅开放已完成地形和星历匹配的 2 m。服务校验跨来源变更请求；查询和编辑都受访客身份隔离。
+
+## 新日期与上游要求
+
+先查已导入和已生成的有效数据覆盖；覆盖范围内的请求直接返回缓存命中，不访问 NASA。缺失时，单进程串行队列为三个位置各请求太阳和地球，共六份真实 Horizons 响应。当前新日期范围为 2026-01-01 至 2029-01-01，单次不超过 31 天，30 分钟采样。返回的 `queued`、`fetching`、`processing`、`succeeded`、`failed` 及请求完成数量来自真实管线状态。
+
+管线固定上游地址与目标天体，保留原响应、请求参数、获取时间和校验值，核对 API 签名、版本、目标、月球坐标、设备高度、参考方向、airless 设置、时间网格和角度范围。失败会有限次退避；服务重启恢复已持久化的队列和缓存。采用 NASA/JPL 的[单请求、缓存、产品标识与失败处理要求](https://ssd-api.jpl.nasa.gov/doc/)。这是获取计算星历，界面不会称为实时观测。
+
+## 正式部署
+
+推荐将此统一服务部署到支持 Node.js 24、持久磁盘、HTTPS 和持续运行进程的主机，**单实例**运行，以保证 SQLite 与上游串行队列的单一所有者。当前尚未提供这样的正式主机、域名或持久卷；因此没有宣称公众线上数据库已接通。GitHub Pages 地址继续可用，但数据库功能须打开完整服务地址。
+
+Docker 打包方式（已提供配置；是否在当前机器构建验证见本轮验收记录）：
+
+```sh
+docker build -t lunamargin .
+docker volume create lunamargin-data
+docker run -d --name lunamargin --restart unless-stopped \
+  -p 127.0.0.1:4173:4173 -v lunamargin-data:/data \
+  -e LUNAMARGIN_PUBLIC_URL=https://你的域名/ lunamargin
+```
+
+然后由 HTTPS 反向代理转发到 4173。需要补齐：实际主机/持久卷、域名与 HTTPS、可访问 JPL 的服务端出口、磁盘容量和备份监测。若未来需要多实例，必须同时迁移数据库与队列协调；本轮不维护第二套数据库。
+
+停止服务后备份整个数据目录，包括 SQLite 和 `horizons`、`evidence-assets`。如服务仍运行，应使用 SQLite 一致性备份机制，不要只复制正在写入的单个 `.sqlite` 文件。恢复时挂载备份目录，并保留原应用的内容寻址证据快照。不要把数据库、访客 cookie 或原始分享 token 提交到 Git；这些运行数据已加入忽略规则。
+
+## 验证
+
+```sh
+npm run build
+node --test tests/*.test.js
+node tests/round2-version-browser.mjs
+node tests/explorer-flow-browser.mjs
+```
+
+浏览器检查前执行 `npx playwright install chromium`，这会安装匹配的浏览器与录屏工具。Windows 可以复用已安装的 Chrome；其他环境默认使用 Playwright Chromium。`BROWSER_EXECUTABLE` 和 `FFMPEG_EXECUTABLE` 可指定已有程序。完整流程默认保存录屏到 `docs/media/lunamargin-explorer-flow.webm`，验收 JSON 到 `docs/explorer-flow-validation.json`；CI 设置 `LUNAMARGIN_QA_OUTPUT=test-results/explorer-flow` 后将录像和记录作为验证产物归档。
+
+服务测试对真实 HTTP 接口、构建后的 `dist` 和临时 SQLite 文件执行 NASA 基线一致性、参数改变、错误范围拒绝、保存/命名/复制/删除、访客隔离、只读分享、跨来源请求拒绝、服务重启恢复和证据摘要一致性。临时库与正式 `var` 分离。完整流程检查启动和停止真实 Node 进程，并核对浏览器、数据库及导出一致。CI 在全部检查前构建，之后发布经过检查的同一份 `dist`。
+
+保留的第一轮界面门禁使用 `LUNAMARGIN_SERVE_ROOT=dist` 运行 `node tests/revision-browser.mjs`；第二轮入口门禁为 `node tests/round2-entry-browser.mjs`。详细结果和实际加载耗时见本轮验收记录。

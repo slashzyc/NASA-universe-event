@@ -1,0 +1,86 @@
+{
+  "generatedAt": "2026-11-13T08:05:02.228Z",
+  "buildId": "042a4cd8be8ab8254c781f1dd61fc6690cb4f6ea1ead76b700ad46b5735ab216",
+  "mode": "real built dist + Node process + persistent SQLite",
+  "checks": [
+    {
+      "name": "Real 3D sphere drag changes rotation",
+      "status": "passed"
+    },
+    {
+      "name": "Supported region enters live workspace with selected location",
+      "status": "passed"
+    },
+    {
+      "name": "Server returns real baseline",
+      "status": "passed"
+    },
+    {
+      "name": "Changed threshold produces a genuine changed decision",
+      "status": "passed"
+    },
+    {
+      "name": "Two scenario comparison retains different thresholds",
+      "status": "passed"
+    },
+    {
+      "name": "Time slider synchronizes chart and selected-point clock",
+      "status": "passed"
+    },
+    {
+      "name": "Saved database record equals the displayed server result",
+      "status": "passed"
+    },
+    {
+      "name": "Backend shutdown shows a visible disconnected/error state",
+      "status": "passed"
+    },
+    {
+      "name": "Full server process restart and reload preserve the original result",
+      "status": "passed"
+    },
+    {
+      "name": "SQLite bytes match saved and displayed record",
+      "status": "passed"
+    },
+    {
+      "name": "Another anonymous visitor opens read-only share",
+      "status": "passed"
+    },
+    {
+      "name": "Share receiver cannot read owner endpoint or edit original",
+      "status": "passed"
+    },
+    {
+      "name": "Exported JSON is identical to SQLite and displayed result",
+      "status": "passed"
+    },
+    {
+      "name": "Readable report includes exact recorded thresholds and version",
+      "status": "passed"
+    },
+    {
+      "name": "Unsupported location, date and height return errors, never results",
+      "status": "passed"
+    },
+    {
+      "name": "390 px mobile can calculate, save and reopen",
+      "status": "passed"
+    },
+    {
+      "name": "Mobile page has no horizontal overflow",
+      "status": "passed"
+    },
+    {
+      "name": "No application JavaScript errors",
+      "status": "passed"
+    }
+  ],
+  "timings": {
+    "homeInteractiveMs": 443,
+    "workspaceReadyMs": 951,
+    "mobileFirstResultMs": 947
+  },
+  "video": "media/lunamargin-explorer-flow.webm",
+  "artifactDirectory": "tmp\\explorer-flow-kDIZBV"
+}

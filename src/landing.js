@@ -157,6 +157,7 @@ $('film').addEventListener('error',()=>{$('film-status').textContent=tr('The rec
 for(const id of ['watch-film','footer-film'])$(id).addEventListener('click',openFilm);
 $('close-film').addEventListener('click',()=>$('film-dialog').close());
 $('film-dialog').addEventListener('close',()=>$('film').pause());
+$('film-dialog').addEventListener('cancel',()=>$('film').pause());
 $('film-dialog').addEventListener('click',event=>{if(event.target===$('film-dialog')){const rect=event.target.getBoundingClientRect();if(event.clientX<rect.left||event.clientX>rect.right||event.clientY<rect.top||event.clientY>rect.bottom)event.target.close();}});
 $('language').addEventListener('click',()=>{language=language==='en'?'zh':'en';setLanguage();});
 window.addEventListener('pageshow',()=>{

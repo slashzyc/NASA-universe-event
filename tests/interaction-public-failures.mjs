@@ -33,6 +33,7 @@ try{
   const {context,page}=await newPage();ownerContext=context;
   const manifestResponse=await context.request.get(new URL('build-info.json',base).href);assert.ok(manifestResponse.ok());current=await manifestResponse.json();
   assert.equal(hash(JSON.stringify(current.identity)),current.buildId);
+  Object.assign(input,{clientRelease:{apiVersion:2,buildId:current.buildId},buildId:current.buildId,algorithmSha256:current.identity.algorithm.sha256,datasetSha256:current.identity.datasets.jun.sha256});
   evidence.currentBuildId=current.buildId;
   await page.goto(new URL('navigator.html?lang=zh',base).href);await ready(page);await connected(page);
   await page.locator('#advanced-settings').evaluate(el=>el.open=true);await page.locator('#dark-limit').fill('8');

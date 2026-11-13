@@ -10,7 +10,8 @@ Prepared against the implemented application and saved evidence on 12 November 2
 
 **LunaMargin — Every landing needs a little margin.**  
 Challenge: [Lunar Landing Site Navigator](https://www.spaceappschallenge.org/2026/challenges/lunar-landing-site-navigator/)  
-Repository: [NASA-universe-event](https://github.com/slashzyc/NASA-universe-event)
+Repository: [NASA-universe-event](https://github.com/slashzyc/NASA-universe-event)  
+Live application: [Open LunaMargin](https://slashzyc.github.io/NASA-universe-event/) — public deployment verified, including data loading, worker search, source links and all three exports; [production check record](production-validation.json).
 
 ### High-level summary
 
@@ -43,6 +44,8 @@ The tool supports education and early mission-concept exploration. Body-center v
 OpenAI Codex assisted research, implementation, tests and documentation, including parallel agents. Original NASA inputs remain distinct from computed outputs and synthetic test fixtures. Development predates the official hackathon; eligibility is unconfirmed. Registered members should provide their actual contribution details.
 
 ## 中文
+
+在线体验：[LunaMargin 月面余量](https://slashzyc.github.io/NASA-universe-event/)。公开版本已通过资料加载、三季切换、窗口搜索、相对来源链接及三种导出的真实浏览器验证，六项检查全部通过；详见 [production-validation.json](production-validation.json)。
 
 ### 项目简介
 

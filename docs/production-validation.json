@@ -1,0 +1,99 @@
+{
+  "startedAt": "2026-11-13T04:12:32.397Z",
+  "finishedAt": "2026-11-13T04:12:37.094Z",
+  "url": "https://slashzyc.github.io/NASA-universe-event/",
+  "reportedDeployedCommit": "8a9e537",
+  "environment": {
+    "browser": "installed Google Chrome via Playwright",
+    "viewport": [
+      1440,
+      1000
+    ],
+    "node": "v24.22.1"
+  },
+  "passed": 6,
+  "failed": 0,
+  "pageErrors": [],
+  "consoleErrors": [],
+  "records": [
+    {
+      "name": "public HTTPS application loads real default nine-point result",
+      "status": "PASS",
+      "httpStatus": 200,
+      "selectedSite": "Connecting Ridge · ROI 6",
+      "metrics": "LONGEST DARKNESS\n12.4h\n\nYour limit: 24 h\n\nLONGEST EARTH-VIEW GAP\n6.3h\n\nYour limit: 24 h\n\nSUN + EARTH OVERLAP\n149.2h\n\nRequired: 24 h\n\nFOOTPRINT POSITIONS PASS\n8 / 9\n\nDiscrete scenarios · not probability"
+    },
+    {
+      "name": "December March and June remote data bundles load",
+      "status": "PASS",
+      "loaded": [
+        {
+          "campaign": "dec",
+          "date": "2026-12-01"
+        },
+        {
+          "campaign": "mar",
+          "date": "2027-03-01"
+        },
+        {
+          "campaign": "jun",
+          "date": "2027-06-01"
+        }
+      ]
+    },
+    {
+      "name": "remote module worker searches and applies a real later window",
+      "status": "PASS",
+      "earliestReturnedArrival": "2027-06-21T12:00:00.000Z",
+      "summary": "06 / WHAT IF WE ARRIVE LATER?\n\nThe earliest windows with room around the center.\n\nChecked 264 site/date combinations at 6-hour arrival steps. These results require the center and all nine sampled positions to meet your limits.\n\nConnecting Ridge · ROI 4\n\n2027-06-21 12:00 UTC\n\nDelay 462 h · overlap 141.7 h\n\nDarkness 7.7 h · Earth gap 18.6 h\n\nUse this window →\nConnecting Ridge · ROI 1\n\n2027-06-21 12:00 UTC\n\nDelay 462 h · overlap 141.9 h\n\nDarkness 7.9 h · Earth gap 18.2 h\n\nUse this window →"
+    },
+    {
+      "name": "relative method and source links resolve under the repository subpath",
+      "status": "PASS",
+      "checked": [
+        {
+          "url": "https://slashzyc.github.io/NASA-universe-event/data/source-manifest.json",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "url": "https://slashzyc.github.io/NASA-universe-event/docs/METHODOLOGY.md",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "url": "https://slashzyc.github.io/NASA-universe-event/docs/AI_DISCLOSURE.md",
+          "status": 200,
+          "ok": true
+        },
+        {
+          "url": "https://slashzyc.github.io/NASA-universe-event/docs/validation-results.json",
+          "status": 200,
+          "ok": true
+        }
+      ]
+    },
+    {
+      "name": "production HTML CSV and JSON exports contain actual mission evidence",
+      "status": "PASS",
+      "exports": [
+        {
+          "filename": "lunamargin-2027-06-02-mission-brief.html",
+          "bytes": 4187
+        },
+        {
+          "filename": "lunamargin-2027-06-02-comparison.csv",
+          "bytes": 805
+        },
+        {
+          "filename": "lunamargin-jun-2027-06-02-evidence.json",
+          "bytes": 45722
+        }
+      ]
+    },
+    {
+      "name": "production has no uncaught browser errors",
+      "status": "PASS"
+    }
+  ]
+}

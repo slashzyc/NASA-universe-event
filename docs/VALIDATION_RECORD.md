@@ -60,3 +60,7 @@ The authoritative latest pass/fail counts and any open issue are in [browser-val
 | Advance-development eligibility | **UNCONFIRMED.** Development preceded the official event with the owner's informed instruction. |
 | AI disclosure | Recorded in [AI_DISCLOSURE.md](AI_DISCLOSURE.md); final members/contributions and any later media remain to be declared accurately. |
 | Official submission | Not performed by these development and validation steps. |
+
+## Production verification and demonstration media
+
+The public GitHub Pages application passed six production checks with no browser errors: campaign loads, window search, relative source links and three evidence exports. See [production-validation.json](production-validation.json). The delivered silent, captioned walkthrough is 1440×960 and approximately 50 seconds, recorded from the working application with a visible AI-assistance label.

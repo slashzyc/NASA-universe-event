@@ -8,7 +8,7 @@
 import assert from 'node:assert/strict';
 import {createRequire} from 'node:module';
 import {existsSync,readdirSync} from 'node:fs';
-import {readFile,mkdir,mkdtemp,rmdir,stat} from 'node:fs/promises';
+import {readFile,writeFile,mkdir,mkdtemp,rmdir,stat} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
@@ -54,19 +54,53 @@ assert.equal(southeast.feasible, false);
 const percentage = (100 * center.metrics.sunHours / settings.durationHours).toFixed(1);
 const query = new URLSearchParams({campaign: 'jun', site: site.id, ...settings});
 const url = new URL(`?${query}`, base).href;
-let browser, context, video;
+let browser, context, video, nativeRecorder, captureSession, captureQueue = Promise.resolve();
+let recordingMode = 'Playwright recordVideo';
 const browserErrors = [];
 const wallStart = performance.now();
 
 try {
   browser = await playwright.chromium.launch({headless: true,
     ...(executablePath ? {executablePath} : {}), args: ['--no-proxy-server']});
-  context = await browser.newContext({viewport: {width: 1440, height: 960},
-    recordVideo: {dir: temporary, size: {width: 1440, height: 960}},
-    reducedMotion: 'reduce', acceptDownloads: true});
+  const contextOptions = {viewport: {width: 1440, height: 960}, reducedMotion: 'reduce', acceptDownloads: true};
+  context = await browser.newContext({...contextOptions, recordVideo: {dir: temporary, size: {width: 1440, height: 960}}});
+  let page;
+  try { page = await context.newPage(); video = page.video(); }
+  catch (error) {
+    if (!/ffmpeg/i.test(error.message)) throw error;
+    await context.close();
+    context = await browser.newContext(contextOptions);
+    page = await context.newPage();
+    recordingMode = 'Chrome CDP capture + native MediaRecorder (no ffmpeg installation)';
+    nativeRecorder = await browser.newPage({viewport: {width: 1440, height: 960}});
+    await nativeRecorder.setContent('<canvas width="1440" height="960"></canvas>');
+    await nativeRecorder.evaluate(() => {
+      const canvas = document.querySelector('canvas');
+      const ctx = canvas.getContext('2d'); ctx.fillStyle = '#0b1319'; ctx.fillRect(0, 0, 1440, 960);
+      const mimeType = ['video/webm;codecs=vp9', 'video/webm;codecs=vp8', 'video/webm'].find(type => MediaRecorder.isTypeSupported(type));
+      window.recordedChunks = [];
+      window.recorder = new MediaRecorder(canvas.captureStream(25), {mimeType, videoBitsPerSecond: 3_000_000});
+      window.recorder.ondataavailable = event => { if (event.data.size) window.recordedChunks.push(event.data); };
+      window.recordingStarted = performance.now();
+      window.recorder.start(1000);
+      // Keep held captions in the encoded timeline even when CDP emits no new
+      // frame because the application is visually static.
+      window.recordingFrameClock = setInterval(() => ctx.drawImage(canvas, 0, 0), 40);
+    });
+    captureSession = await context.newCDPSession(page);
+    captureSession.on('Page.screencastFrame', frame => {
+      captureQueue = captureQueue.then(async () => {
+        await nativeRecorder.evaluate(async data => {
+          const bitmap = await createImageBitmap(await (await fetch(`data:image/jpeg;base64,${data}`)).blob());
+          document.querySelector('canvas').getContext('2d').drawImage(bitmap, 0, 0, 1440, 960); bitmap.close();
+        }, frame.data);
+        await captureSession.send('Page.screencastFrameAck', {sessionId: frame.sessionId});
+      }).catch(error => browserErrors.push(`Video frame: ${error.message}`));
+    });
+    await page.bringToFront();
+    await captureSession.send('Page.startScreencast', {format: 'jpeg', quality: 92, maxWidth: 1440, maxHeight: 960, everyNthFrame: 1});
+  }
   await context.addInitScript(() => { try { localStorage.setItem('lunamargin-language', 'en'); } catch {} });
-  const page = await context.newPage();
-  video = page.video();
   page.on('pageerror', error => browserErrors.push(error.message));
   await page.goto(url, {waitUntil: 'networkidle'});
   await page.waitForSelector('#app:not([hidden])');
@@ -159,24 +193,54 @@ try {
   await hold(4500);
   assert.deepEqual(browserErrors, []);
 
+  let nativeDurationSeconds;
+  if (nativeRecorder) {
+    await captureSession.send('Page.stopScreencast');
+    await captureQueue;
+    const encoded = await nativeRecorder.evaluate(() => new Promise(resolve => {
+      window.recorder.onstop = async () => {
+        clearInterval(window.recordingFrameClock);
+        const bytes = new Uint8Array(await new Blob(window.recordedChunks, {type: 'video/webm'}).arrayBuffer());
+        resolve({bytes: Array.from(bytes), durationSeconds: (performance.now() - window.recordingStarted) / 1000});
+      };
+      window.recorder.stop();
+    }));
+    await writeFile(output, Buffer.from(encoded.bytes));
+    nativeDurationSeconds = encoded.durationSeconds;
+    await nativeRecorder.close(); nativeRecorder = null;
+  }
   await context.close(); context = null;
-  await video.saveAs(output);
-  await video.delete(); video = null;
+  if (video) { await video.saveAs(output); await video.delete(); video = null; }
   const inspection = await browser.newPage();
   await inspection.setContent('<video preload="metadata"></video>');
   const metadata = await inspection.evaluate(src => new Promise((resolve, reject) => {
     const player = document.querySelector('video');
     const timer = setTimeout(() => reject(new Error('Video metadata timeout')), 10000);
-    player.addEventListener('loadedmetadata', () => { clearTimeout(timer); resolve({durationSeconds: player.duration, width: player.videoWidth, height: player.videoHeight}); }, {once: true});
+    const finish = () => {
+      if (!Number.isFinite(player.duration)) return;
+      clearTimeout(timer); resolve({durationSeconds: player.duration, width: player.videoWidth, height: player.videoHeight});
+    };
+    player.addEventListener('loadedmetadata', () => {
+      if (Number.isFinite(player.duration)) finish();
+      else {
+        // Native MediaRecorder creates a streaming WebM. Seeking to its end
+        // makes Chrome read the final timestamps and report encoded duration.
+        player.addEventListener('durationchange', finish);
+        player.addEventListener('seeked', finish, {once: true});
+        player.currentTime = 1e9;
+      }
+    }, {once: true});
     player.addEventListener('error', () => { clearTimeout(timer); reject(new Error('Recorded video could not be decoded')); }, {once: true});
     player.src = src;
   }), new URL('docs/media/lunamargin-walkthrough.webm', base).href);
+  metadata.durationSeconds ??= nativeDurationSeconds;
   assert.ok(metadata.durationSeconds >= 45 && metadata.durationSeconds <= 65, `Unexpected recording length: ${metadata.durationSeconds}`);
   console.log(JSON.stringify({output, bytes: (await stat(output)).size, ...metadata,
-    elapsedSeconds: (performance.now() - wallStart) / 1000, audio: false,
+    elapsedSeconds: (performance.now() - wallStart) / 1000, audio: false, recordingMode,
     disclosure: 'AI-assisted project recording; not an official competition submission.'}, null, 2));
 } finally {
   if (context) await context.close().catch(() => {});
+  if (nativeRecorder) await nativeRecorder.close().catch(() => {});
   if (video) await video.delete().catch(() => {});
   if (browser) await browser.close();
   await rmdir(temporary).catch(() => {});

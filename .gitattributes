@@ -2,5 +2,6 @@
 *.png binary
 *.jpg binary
 *.woff2 binary
+*.webm binary
 # Preserve the exact archived scientific bytes and their SHA-256 checksums.
 data/** -text

@@ -2,6 +2,8 @@
 
 **Every landing needs a little margin.**
 
+**[Open the live application / 打开在线应用](https://slashzyc.github.io/NASA-universe-event/)** · **[Watch the 50-second walkthrough / 观看演示](https://slashzyc.github.io/NASA-universe-event/docs/media/lunamargin-walkthrough.webm)**
+
 A terrain-aware lunar landing-window lab for the **2026 NASA Space Apps — Lunar Landing Site Navigator** challenge. Compare a promising center point with the terrain around it, then find a different arrival date where more of the sampled footprint meets your mission limits.
 
 > This is an independent educational prototype built with NASA open data. Development began before the official event at the project owner's explicit request. This affects potential award eligibility; see [the disclosure](docs/AI_DISCLOSURE.md). Publishing this repository is not a Space Apps submission.
@@ -97,6 +99,7 @@ The browser has no third-party JavaScript dependencies. Scientific computation r
 - [中文操作指南](docs/QUICKSTART_ZH.md)
 - [Submission narrative / 中英提交说明](docs/SUBMISSION.md)
 - [Demonstration script / 中英演示脚本](docs/DEMO_SCRIPT.md)
+- [Captioned application walkthrough](docs/media/lunamargin-walkthrough.webm) — a real browser recording, silent, approximately 50 seconds, with AI-assistance disclosure.
 - [Judging strategy and prior winners](docs/JUDGING_STRATEGY.md)
 - [Rules and sources](docs/RESEARCH.md)
 - [AI and development disclosure](docs/AI_DISCLOSURE.md)

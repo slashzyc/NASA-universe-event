@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "buildId": "8c93a397f0d84a2c28f05e9f5dc463f86060fe602f29a58cd85b7a31a214d14e",
+  "buildId": "ea778e1b823c522b00899ac3580e1a01d51e490baef49caaeea366f4de8d043b",
   "identity": {
     "schemaVersion": 1,
     "methodVersion": "terrain-center-clearance-linear-v1",
@@ -8,8 +8,8 @@
     "sourceIdentity": "SHA-256 of canonical LF application sources, exact dataset bytes and model identity; not a Git commit.",
     "application": {
       "index.html": {
-        "sha256": "6a564a1e78c3d77ad2505aab45c6f460f32018a26d2efedcbbea28a4d5f66bd8",
-        "snapshot": "evidence-assets/6a564a1e78c3d77ad2505aab45c6f460f32018a26d2efedcbbea28a4d5f66bd8.html"
+        "sha256": "b9071719ba4df6c98df967b662430548ed197fab18d4b02a2fef010d47dac760",
+        "snapshot": "evidence-assets/b9071719ba4df6c98df967b662430548ed197fab18d4b02a2fef010d47dac760.html"
       },
       "navigator.html": {
         "sha256": "495a7535dc9782b094c1138ad54d641a1fd063e93e69a819d92eec5812c6dbb0",
@@ -20,40 +20,52 @@
         "snapshot": "evidence-assets/981e49c08ae6457450c5e0fbb8d9c743521dbb91ed6eeb2cbb01b3e132ea5fcd.js"
       },
       "src/app.js": {
-        "sha256": "db6e2c79d4bcbc8bd9cb5bb519ab7a2fb42d726bd704f06c0d9b4ebfc1e7b8fc",
-        "snapshot": "evidence-assets/db6e2c79d4bcbc8bd9cb5bb519ab7a2fb42d726bd704f06c0d9b4ebfc1e7b8fc.js"
+        "sha256": "bbeac80ce478c59980d6184b935efcbb75bd5cc969eb23a7f44a5f09b7c5b2c2",
+        "snapshot": "evidence-assets/bbeac80ce478c59980d6184b935efcbb75bd5cc969eb23a7f44a5f09b7c5b2c2.js"
+      },
+      "src/evidence-drawer.js": {
+        "sha256": "de42baf882a1383d0e720c7475107497b53c0d75df8229059bea5a258b4e2074",
+        "snapshot": "evidence-assets/de42baf882a1383d0e720c7475107497b53c0d75df8229059bea5a258b4e2074.js"
       },
       "src/evidence.js": {
-        "sha256": "a72a35c3fe09e9795b81d7c46a39b19aab7ed90ea7f37be19e0c3834d3b14f94",
-        "snapshot": "evidence-assets/a72a35c3fe09e9795b81d7c46a39b19aab7ed90ea7f37be19e0c3834d3b14f94.js"
+        "sha256": "8a9021cbbab92ffa8f1dd9228de3c962ba89894af214594d620e86acfb9046f4",
+        "snapshot": "evidence-assets/8a9021cbbab92ffa8f1dd9228de3c962ba89894af214594d620e86acfb9046f4.js"
+      },
+      "src/interaction-design.css": {
+        "sha256": "05db24b48034711ba88b5b5c176aac7e9f334a926c34905d274c71a42ae56ee7",
+        "snapshot": "evidence-assets/05db24b48034711ba88b5b5c176aac7e9f334a926c34905d274c71a42ae56ee7.css"
+      },
+      "src/landing-interactions.js": {
+        "sha256": "0e77566378c4e1b6ed801bfebfa2d7d90613708fa48078c6cf970641f6d19ba2",
+        "snapshot": "evidence-assets/0e77566378c4e1b6ed801bfebfa2d7d90613708fa48078c6cf970641f6d19ba2.js"
       },
       "src/landing.css": {
         "sha256": "c1e6c9088f20b0fad6f503e6218c2816a0e2a71fe179f57208a84e130fcef294",
         "snapshot": "evidence-assets/c1e6c9088f20b0fad6f503e6218c2816a0e2a71fe179f57208a84e130fcef294.css"
       },
       "src/landing.js": {
-        "sha256": "b28a1dd647243ad7321c9f3d464b6d22076ace81e23121960eb1df1cdef33342",
-        "snapshot": "evidence-assets/b28a1dd647243ad7321c9f3d464b6d22076ace81e23121960eb1df1cdef33342.js"
+        "sha256": "610143545ee373860b9d92545875b005e65637cd61d743b3448925e981be9d75",
+        "snapshot": "evidence-assets/610143545ee373860b9d92545875b005e65637cd61d743b3448925e981be9d75.js"
       },
       "src/mission-service.css": {
-        "sha256": "36d7f56da8b7f58cfaa1024ac7914fe42d596fb898b0ff88b25bf5ad1ea659bf",
-        "snapshot": "evidence-assets/36d7f56da8b7f58cfaa1024ac7914fe42d596fb898b0ff88b25bf5ad1ea659bf.css"
+        "sha256": "197b3c1d62e257ce2c1adb821da17d1aadc8a53ec87402c32b0a859ce98966d7",
+        "snapshot": "evidence-assets/197b3c1d62e257ce2c1adb821da17d1aadc8a53ec87402c32b0a859ce98966d7.css"
       },
       "src/mission-service.js": {
-        "sha256": "f7892add0e6001d46e8e057ec31cabde39ac2e038179c81fa6be02a540ec6d93",
-        "snapshot": "evidence-assets/f7892add0e6001d46e8e057ec31cabde39ac2e038179c81fa6be02a540ec6d93.js"
+        "sha256": "709bd7f28ea39c343d79df1e4c6182fe59c93ff6c80d45a8994af0455d94f08e",
+        "snapshot": "evidence-assets/709bd7f28ea39c343d79df1e4c6182fe59c93ff6c80d45a8994af0455d94f08e.js"
       },
       "src/moon-globe.css": {
-        "sha256": "0d9e25e48e6fce25c30c58375fd54c1a2ce5dc5991823e59cd3ade978dadd9bc",
-        "snapshot": "evidence-assets/0d9e25e48e6fce25c30c58375fd54c1a2ce5dc5991823e59cd3ade978dadd9bc.css"
+        "sha256": "d63b76f32ac6a84ed7126c7bd9b6266a8cfffde38314360b64686c7a37217ba5",
+        "snapshot": "evidence-assets/d63b76f32ac6a84ed7126c7bd9b6266a8cfffde38314360b64686c7a37217ba5.css"
       },
       "src/moon-globe.js": {
-        "sha256": "87d6d8b242aec3b663fd2bda0feeab83709a23f0e89aaf461e4505d23fb14e75",
-        "snapshot": "evidence-assets/87d6d8b242aec3b663fd2bda0feeab83709a23f0e89aaf461e4505d23fb14e75.js"
+        "sha256": "84eb385c7c682a7cde716a1d3efabe8a65fde300e68c2bafea5bffdfa9a1b885",
+        "snapshot": "evidence-assets/84eb385c7c682a7cde716a1d3efabe8a65fde300e68c2bafea5bffdfa9a1b885.js"
       },
       "src/navigator-ui.js": {
-        "sha256": "fc79f018ddb20f3d9e0adb0f530aa92f49080fcc0f027f11f509366a33150a33",
-        "snapshot": "evidence-assets/fc79f018ddb20f3d9e0adb0f530aa92f49080fcc0f027f11f509366a33150a33.js"
+        "sha256": "4839e00e6135ea5290c16646fb8b8c3cbbc229a7dbbea40b21a5749eeab3bb26",
+        "snapshot": "evidence-assets/4839e00e6135ea5290c16646fb8b8c3cbbc229a7dbbea40b21a5749eeab3bb26.js"
       },
       "src/navigator.css": {
         "sha256": "763a8e62f40c051ff1132cfaa0c0481b21d77a9d2e2c6f1c020900d670947766",
@@ -82,6 +94,10 @@
       "src/selection.js": {
         "sha256": "5ca29c17b77de4b39ead4a29999e9452ab3ab1506162c4b820cb020f8a42fde0",
         "snapshot": "evidence-assets/5ca29c17b77de4b39ead4a29999e9452ab3ab1506162c4b820cb020f8a42fde0.js"
+      },
+      "src/stable-dom.js": {
+        "sha256": "220e6125481f54e0d57dff85312239f7b90b5bcd603d99653aaaa377ac9c5812",
+        "snapshot": "evidence-assets/220e6125481f54e0d57dff85312239f7b90b5bcd603d99653aaaa377ac9c5812.js"
       },
       "src/style.css": {
         "sha256": "5955b4a541000e78829996939b59142a067ca9234fcdafe1cba657df13a21c97",

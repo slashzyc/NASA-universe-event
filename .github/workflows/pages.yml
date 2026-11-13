@@ -26,6 +26,10 @@ jobs:
       - name: Verify dynamically generated audit conclusions
         run: python -m unittest discover -s data-pipeline -p test_recommendation_report.py
       - run: node scripts/check.mjs
+      - name: Verify cloud calculation and persistence contract
+        run: |
+          node scripts/build-worker.mjs
+          node tests/cloud-service.mjs
       - name: Verify browser behavior before publication
         run: npm run test:browser
         env:
@@ -44,6 +48,16 @@ jobs:
         env:
           CI: 'true'
           LUNAMARGIN_QA_OUTPUT: test-results/explorer-flow
+      - name: Verify homepage mission continuity and accessible layouts
+        run: node tests/interaction-home-browser.mjs
+        env:
+          CI: 'true'
+          LUNAMARGIN_QA_OUTPUT: test-results/interaction-home
+      - name: Verify saved device files, drafts and late-response isolation
+        run: node tests/interaction-workspace-browser.mjs
+        env:
+          CI: 'true'
+          LUNAMARGIN_QA_OUTPUT: test-results/interaction-workspace
       - name: Retain browser verification report
         if: always()
         uses: actions/upload-artifact@v5

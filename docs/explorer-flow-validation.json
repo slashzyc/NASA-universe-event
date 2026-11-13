@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-11-13T08:05:02.228Z",
-  "buildId": "042a4cd8be8ab8254c781f1dd61fc6690cb4f6ea1ead76b700ad46b5735ab216",
+  "generatedAt": "2026-11-13T08:48:42.937Z",
+  "buildId": "be468bf9feb0ebaa137adad96366c63111e6e09d8431345655ac3ed885463b7f",
   "mode": "real built dist + Node process + persistent SQLite",
   "checks": [
     {
@@ -77,10 +77,10 @@
     }
   ],
   "timings": {
-    "homeInteractiveMs": 443,
-    "workspaceReadyMs": 951,
-    "mobileFirstResultMs": 947
+    "homeInteractiveMs": 547,
+    "workspaceReadyMs": 1024,
+    "mobileFirstResultMs": 929
   },
   "video": "media/lunamargin-explorer-flow.webm",
-  "artifactDirectory": "tmp\\explorer-flow-kDIZBV"
+  "artifactDirectory": "tmp\\explorer-flow-vzXzII"
 }

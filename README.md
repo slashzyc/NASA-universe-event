@@ -2,9 +2,9 @@
 
 **Every landing needs a little margin.**
 
-**[Open the static explorer / 打开静态探索预览](https://slashzyc.github.io/NASA-universe-event/)** · **[Watch the complete recorded flow / 观看完整操作录制](https://slashzyc.github.io/NASA-universe-event/docs/media/lunamargin-explorer-flow.webm)**
+**[Open the online workspace / 打开在线工作台](https://lunamargin-slashzyc.laceysquirrel4.chatgpt.site/?lang=zh)** · **[GitHub Pages / 浏览器与设备文件模式](https://slashzyc.github.io/NASA-universe-event/?lang=zh)**
 
-The full tool now includes a real 3D Moon, a persistent Node.js + SQLite service, saved missions, read-only sharing, scenario comparison and controlled new-date NASA queries. **GitHub Pages serves the browser preview; run the complete service below to use database features.** [Deployment and persistence](docs/SERVICE_DEPLOYMENT.md) · [Acceptance evidence](docs/EXPLORER_ACCEPTANCE.md).
+Rotate the Moon, choose a verified research point, adjust a real mission, understand the cause of a failed limit, compare alternatives and retain the exact evidence. The online workspace uses **Cloudflare D1 + R2** for saved missions and read-only shares. GitHub Pages independently supports genuine browser calculation, comparison, full evidence-file saving and reopening. The local **Node.js + SQLite** service retains the controlled new-date pipeline; cloud new-date acquisition is not yet deployed. [This round’s verification and recordings](docs/INTERACTION_ACCEPTANCE.md) · [Cloud architecture](docs/CLOUD_SERVICE.md).
 
 A terrain-aware lunar landing-window lab for the **2026 NASA Space Apps — Lunar Landing Site Navigator** challenge. Compare a promising center point with the terrain around it, then find a different arrival date where more of the sampled footprint meets your mission limits.
 
@@ -27,7 +27,7 @@ node scripts/serve.mjs
 
 Rotate the Moon, select a supported research point, and enter the live workspace. Submit conditions for a server calculation, compare two or three recorded scenarios, then save a named mission. **My missions** restores original records and creates a new record when you explicitly recalculate. Existing scenario links remain compatible.
 
-The frontend is in `dist/`. Relative paths support GitHub Pages repository URLs. Static hosts cannot run the Node service or persist SQLite; the interface states this clearly. The full deployment requires one persistent Node host with HTTPS. Opening `index.html` directly as a file is unsupported.
+The frontend is in `dist/`. Relative paths support GitHub Pages repository URLs. GitHub Pages is a static host; its save action downloads a complete file. The online workspace provides D1/R2 persistence at its own origin, while Node hosting is an optional local/self-hosted deployment. Opening `index.html` directly as a file is unsupported.
 
 中文：运行上面的启动命令，在浏览器打开地址即可。导航仪支持中英文，点击“从示例开始”即可加载完整案例。先读结果卡的一句结论，再点“查看东南未通过点”比较；“帮我找更晚的日期”可以寻找其他窗口。常用设置有 7 天和 3 天预设，修改后点击“查看任务结果”应用。专业图表与参数可按需展开。通过“保存这份简报”或“下载结果”保留证据。详见 [零基础操作指南](docs/QUICKSTART_ZH.md)。
 
@@ -47,10 +47,13 @@ The expanded audit independently queries **all 18 positions** in that recommenda
 
 - Real WebGL lunar sphere with sourced NASA texture, mouse/touch rotation, pinch zoom, south-pole focus and a usable 2D fallback.
 - Live 560 ms horizontal scene transition, reduced-motion support, focus handling and browser history.
-- A real SQLite-backed service: validated computation, named tasks, duplication, deletion, immutable original evidence and isolated anonymous edit permissions.
+- Cloud D1/R2 and local SQLite services: validated computation, named tasks, duplication, deletion, immutable original evidence and isolated anonymous edit permissions.
+- Browser mode saves a complete verified file and reopens it without a backend.
+- A genuine three-step homepage workbench, paired teaching case, metric explanations and synchronized timeline.
+- Stable disclosure panels, preserved drafts and keyboard focus; old responses cannot overwrite newer inputs.
 - Read-only share links, consistent formal HTML/CSV/JSON exports and recovery after a full service restart.
-- Two- or three-scenario comparison with explicit conditions, pass/fail reasons and weakest nine-point margins.
-- Data coverage queries and a durable, serial NASA Horizons cache/fetch queue for new dates in 2026–2028, up to 31 days per request, at the verified 2 m height.
+- Two- or three-scenario comparison with explicit conditions, pass/fail reasons and weakest nine-point margins. Different constraints are not ranked as a universal best.
+- Data coverage queries; the local Node service additionally runs a durable, serial NASA Horizons cache/fetch queue for new dates in 2026–2028, up to 31 days per request, at the verified 2 m height.
 
 - A guided three-step workspace, plain-language result summaries, example presets, and explicit unapplied-change notices.
 - Accessible nine-point buttons with synchronized map selection, per-point conclusions, and an immediate mobile readout.

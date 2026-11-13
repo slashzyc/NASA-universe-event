@@ -6,6 +6,7 @@ import {interfaceCopy,presets,patchName,renderBeginnerView,renderDraft} from './
 import {worstCaseMarkup,stressMarkup} from './robustness-ui.js';
 import {resolvePatch,adjacentPatch} from './selection.js';
 import {missionBrief,comparisonCSV} from './evidence.js';
+import {openEvidenceDrawer} from './evidence-drawer.js';
 import {renderLinkedTime} from './time-link.js';
 
 const $=id=>document.getElementById(id), HOUR=3600000;
@@ -15,6 +16,7 @@ const labels={en:{},zh:{navWorkspace:'任务工作台',navCompare:'地点比较'
 document.querySelectorAll('[data-i18n]').forEach(e=>labels.en[e.dataset.i18n]=e.innerHTML);
 Object.assign(labels.en,interfaceCopy.en);Object.assign(labels.zh,interfaceCopy.zh);
 let lang=localStorage.getItem('lunamargin-language')||(navigator.language.startsWith('zh')?'zh':'en'),data,selectedId='ridge-6',activePatch=null,results=[],terrainHits=[],timeIndex=0,playTimer=null,worker,searchId=0,searchResult=null,tourIndex=0;
+let inputRevision=0;
 let settings={},campaign='jun',campaignLoading=false,campaignRequest=0,searchBusy=false,pendingPatch=null,storedEvidence=null;
 const stressCache=new Map();
 const campaigns={dec:{file:'lunar-sites.json',start:'2026-12-01',end:'2027-01-01'},mar:{file:'lunar-sites-march.json',start:'2027-03-01',end:'2027-04-01'},jun:{file:'lunar-sites-june.json',start:'2027-06-01',end:'2027-07-01'}};
@@ -88,7 +90,7 @@ function render(){
   renderBeginnerView({lang,site,sites:data.sites,result,inspected:displayResult(),patch:currentPatch(),settings,results});
   renderRobustness();updateDraftUI();window.dispatchEvent(new CustomEvent('lunamargin:state'));
 }
-function selectSite(id){if(campaignLoading||!data.sites.some(s=>s.id===id))return;selectedId=id;activePatch=null;render();saveURL();}
+function selectSite(id){inputRevision++;if(campaignLoading||!data.sites.some(s=>s.id===id))return;selectedId=id;activePatch=null;render();saveURL();}
 function renderMetrics(r){
   const m=r.metrics,patch=r.patchStats;
   const cards=[
@@ -97,7 +99,7 @@ function renderMetrics(r){
     {label:tr('Both in view','两者同时可见'),value:fmt(m.jointHours),unit:'h',caption:tr(`Total time · need ${settings.minJointHours} h`,`累计时间 · 至少 ${settings.minJointHours} 小时`),bad:m.jointHours<settings.minJointHours},
     {label:tr('Samples meeting limits','满足条件的取样点'),value:`${patch.feasibleCount}<span class="unit"> / ${patch.count}</span>`,unit:'',caption:tr('Whole group · not a probability','整组九点 · 不是成功率'),bad:!patch.allKnown||patch.feasibleCount<patch.count,positive:patch.allKnown&&patch.feasibleCount===patch.count},
   ];
-  $('metrics').innerHTML=cards.map(c=>`<div class="metric ${c.bad?'critical':c.positive?'positive':''}"><span class="metric-label">${c.label}</span><div class="metric-value">${c.value}<span class="unit">${c.unit}</span></div><p class="metric-caption">${c.caption}</p></div>`).join('');
+  $('metrics').innerHTML=cards.map((c,i)=>`<button type="button" id="metric-${['longestDarkHours','longestCommGapHours','jointHours','footprint'][i]}" data-explain-metric="${['longestDarkHours','longestCommGapHours','jointHours','footprint'][i]}" class="metric metric-explain ${c.bad?'critical':c.positive?'positive':''}" aria-label="${escape(c.label+' · '+tr('Explain this result','解释这个结果'))}"><span class="metric-label">${c.label}</span><div class="metric-value">${c.value}<span class="unit">${c.unit}</span></div><p class="metric-caption">${c.caption} <span aria-hidden="true">↗</span></p></button>`).join('');
 }
 function renderInsight(r){
   const patch=currentPatch();
@@ -262,15 +264,26 @@ function showTour(){
   if(!$('tour-dialog').open)$('tour-dialog').showModal();
 }
 
-$('mission-form').onsubmit=e=>{e.preventDefault();if(analyze())$('read-result').scrollIntoView({behavior:'smooth',block:'start'});};$('lang-toggle').onclick=()=>{lang=lang==='en'?'zh':'en';setLanguage();if(data)saveURL();};
+
+function explainMetric(metric='overview'){
+  if(!data||!results.length)return;
+  openEvidenceDrawer(evidence(),{metric,language:lang,onLocate:({time,patchId})=>{
+    if(patchId)selectPatch(patchId);
+    if(time){const samples=missionSamples(),target=Date.parse(time);timeIndex=samples.reduce((best,item,index)=>Math.abs(Date.parse(item.time)-target)<Math.abs(Date.parse(samples[best].time)-target)?index:best,0);}
+    $('detail-charts').open=true;renderHorizon();$('linked-sky').scrollIntoView({block:'center',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});$('linked-time-slider').focus({preventScroll:true});
+  }});
+}
+$('metrics').addEventListener('click',e=>{const b=e.target.closest('[data-explain-metric]');if(b)explainMetric(b.dataset.explainMetric);});
+
+$('mission-form').onsubmit=e=>{e.preventDefault();if(analyze())$('read-result').scrollIntoView({behavior:'smooth',block:'start'});};$('lang-toggle').onclick=()=>{inputRevision++;lang=lang==='en'?'zh':'en';setLanguage();if(data)saveURL();};
 labels.zh.exportTitle='把判断依据带走。';labels.zh.exportIntro='保存可阅读的任务简报、表格对比结果，或包含完整区间的计算记录。';
 for(const id of ['dark-limit','comm-limit','joint-limit'])$(id).addEventListener('input',updateRangeLabels);
-$('duration').onchange=updateRangeLabels;$('start-date').onchange=updateRangeLabels;$('campaign').onchange=()=>loadCampaign($('campaign').value);
+$('duration').onchange=updateRangeLabels;$('start-date').onchange=updateRangeLabels;$('campaign').onchange=()=>{inputRevision++;loadCampaign($('campaign').value);};
 $('time-slider').oninput=()=>{stopPlaying();timeIndex=Number($('time-slider').value);renderHorizon();};$('play-btn').onclick=togglePlaying;
 $('terrain-canvas').onclick=e=>{const r=$('terrain-canvas').getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;const hit=terrainHits.find(p=>Math.hypot(p.x-x,p.y-y)<16);if(hit)selectPatch(hit.id);};
 $('terrain-canvas').onkeydown=e=>{if(data&&['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(e.key)){e.preventDefault();const next=adjacentPatch(selectedSite().patches,activePatch,e.key);if(next)selectPatch(next.id);}};
 $('find-window').onclick=findWindow;$('export-btn').onclick=()=>$('export-dialog').showModal();$('export-json').onclick=exportEvidence;$('export-csv').onclick=exportCSV;$('export-html').onclick=exportHTML;
-for(const id of ['method-open','sources-open'])$(id).onclick=()=>$('method-dialog').showModal();
+for(const id of ['method-open','sources-open'])$(id).onclick=()=>explainMetric('overview');
 document.querySelectorAll('[data-close]').forEach(b=>b.onclick=()=>$(b.dataset.close).close());
 document.querySelectorAll('dialog').forEach(d=>d.addEventListener('click',e=>{if(e.target===d){const r=d.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)d.close();}}));
 $('tour-start').onclick=()=>{tourIndex=0;showTour();};$('tour-next').onclick=()=>{if(tourIndex===3){$('tour-dialog').close();startExample();return;}tourIndex++;showTour();};
@@ -285,18 +298,19 @@ function updateDraftUI(){
   return dirty;
 }
 function selectPatch(id){
+  inputRevision++;
   if(campaignLoading)return;
   const patch=selectedSite().patches.find(p=>p.id===id);
   if(!patch)return;
   activePatch=!patch.dxM&&!patch.dyM?null:id;render();saveURL();
 }
-function applyPreset(key){
+function applyPreset(key){inputRevision++;
   if(key==='custom'){$('advanced-settings').open=true;$('advanced-settings').scrollIntoView({behavior:'smooth',block:'center'});return;}
   if(!presets[key]||campaignLoading)return;
   for(const[field,id] of [['durationHours','duration'],['maxDarkHours','dark-limit'],['maxCommGapHours','comm-limit'],['minJointHours','joint-limit'],['clearanceDeg','clearance']])$(id).value=presets[key][field];
   updateRangeLabels();updateDraftUI();
 }
-async function startExample(){
+async function startExample(){inputRevision++;
   if(campaignLoading)return;
   applyPreset('explorer');$('start-date').value='2027-06-02';$('start-hour').value='6';selectedId='ridge-6';pendingPatch=null;activePatch=null;
   $('advanced-settings').open=false;$('detail-charts').open=false;
@@ -306,8 +320,8 @@ async function startExample(){
 $('site-tabs').addEventListener('click',e=>{const b=e.target.closest('[data-site]');if(b)selectSite(b.dataset.site);});
 $('point-selector').addEventListener('click',e=>{const b=e.target.closest('[data-patch]');if(b)selectPatch(b.dataset.patch);});
 $('preset-buttons').addEventListener('click',e=>{const b=e.target.closest('[data-preset]');if(b)applyPreset(b.dataset.preset);});
-$('mission-form').addEventListener('input',()=>{if(data){updateRangeLabels();updateDraftUI();}});
-$('mission-form').addEventListener('change',()=>{if(data){updateRangeLabels();updateDraftUI();}});
+$('mission-form').addEventListener('input',()=>{inputRevision++;if(data){updateRangeLabels();updateDraftUI();}});
+$('mission-form').addEventListener('change',()=>{inputRevision++;if(data){updateRangeLabels();updateDraftUI();}});
 $('pending-note').addEventListener('click',e=>{if(e.target.closest('#apply-pending'))$('mission-form').requestSubmit();});
 $('example-start').onclick=startExample;
 $('help-start').onclick=()=>{tourIndex=0;showTour();};
@@ -321,21 +335,29 @@ $('detail-charts').addEventListener('toggle',()=>{if($('detail-charts').open)req
 let params=new URLSearchParams(location.search);if(['en','zh'].includes(params.get('lang')))lang=params.get('lang');if(params.has('site'))selectedId=params.get('site');pendingPatch=params.get('patch');
 for(const [param,id] of [['durationHours','duration'],['maxDarkHours','dark-limit'],['maxCommGapHours','comm-limit'],['minJointHours','joint-limit'],['clearanceDeg','clearance']])if(params.has(param)&&Number.isFinite(Number(params.get(param)))){const e=$(id),value=params.get(param),n=Number(value);if(n>=0&&n<=744){if(e.tagName==='SELECT'&&![...e.options].some(o=>o.value===value))e.add(new Option(value,value));if(e.type==='range'){e.max=Math.max(Number(e.max),n);e.step='any';}e.value=value;}}
 if(params.has('start')&&Number.isFinite(Date.parse(params.get('start')))){const valid=new Date(params.get('start')).toISOString();$('start-date').value=valid.slice(0,10);const hour=valid.slice(14,23)==='00:00.000'?String(Number(valid.slice(11,13))):valid.slice(11,23);if(![...$('start-hour').options].some(o=>o.value===hour))$('start-hour').add(new Option(valid.slice(11,19),hour));$('start-hour').value=hour;}
-function state(){return{language:lang,campaign,siteId:selectedId,patchId:activePatch||'e+0-n+0',settings:{...settings},dirty:!!data&&!!$('mission-form')&&Object.entries(getSettings()).some(([k,v])=>k==='start'?Date.parse(v)!==Date.parse(settings[k]):v!==settings[k]),ready:!!data&&results.length>0,buildId:release?.buildId};}
+function state(){return{revision:inputRevision,language:lang,campaign,siteId:selectedId,patchId:activePatch||'e+0-n+0',settings:{...settings},dirty:!!data&&!!$('mission-form')&&Object.entries(getSettings()).some(([k,v])=>k==='start'?Date.parse(v)!==Date.parse(settings[k]):v!==settings[k]),ready:!!data&&results.length>0,buildId:release?.buildId};}
 function fillConditions(s){for(const[key,id]of[['durationHours','duration'],['maxDarkHours','dark-limit'],['maxCommGapHours','comm-limit'],['minJointHours','joint-limit'],['clearanceDeg','clearance']]){const el=$(id);if(el.tagName==='SELECT'&&![...el.options].some(o=>o.value===String(s[key])))el.add(new Option(String(s[key]),String(s[key])));if(el.type==='range'){el.max=Math.max(Number(el.max),s[key]);el.step='any';}el.value=s[key];}const dt=new Date(s.start).toISOString();$('start-date').value=dt.slice(0,10);const hr=dt.slice(14,23)==='00:00.000'?String(Number(dt.slice(11,13))):dt.slice(11,23);if(![...$('start-hour').options].some(o=>o.value===hr))$('start-hour').add(new Option(dt.slice(11,19),hr));$('start-hour').value=hr;}
-async function applyURL(url){params=new URL(url,location.href).searchParams;storedEvidence=null;if(['en','zh'].includes(params.get('lang')))lang=params.get('lang');selectedId=params.get('site')||selectedId;pendingPatch=params.get('patch');if(params.has('start'))fillConditions({...getSettings(),...Object.fromEntries([...params].filter(([key])=>['start','durationHours','maxDarkHours','maxCommGapHours','minJointHours','clearanceDeg'].includes(key)).map(([k,v])=>[k,k==='start'?v:Number(v)]))});setLanguage();await initializeCalculation();}
-async function restoreServerRecord(record){
+async function applyURL(url){inputRevision++;params=new URL(url,location.href).searchParams;storedEvidence=null;if(['en','zh'].includes(params.get('lang')))lang=params.get('lang');selectedId=params.get('site')||selectedId;pendingPatch=params.get('patch');if(params.has('start'))fillConditions({...getSettings(),...Object.fromEntries([...params].filter(([key])=>['start','durationHours','maxDarkHours','maxCommGapHours','minJointHours','clearanceDeg'].includes(key)).map(([k,v])=>[k,k==='start'?v:Number(v)]))});setLanguage();await initializeCalculation();}
+async function restoreServerRecord(record,{shouldApply,verifyResults=false}={}){
   if(record.project!=='LunaMargin'||record.schemaVersion!==3||await sha256(record.inputSnapshot.text)!==record.provenance.datasetSha256)throw new Error('Saved input checksum mismatch.');
   const original=await readManifest(new URL(`evidence-assets/build-${record.provenance.buildId}.json`,location.href),record.provenance.buildId);
   if(original.identity.algorithm.sha256!==record.provenance.algorithmSha256||original.identity.datasets[record.campaign]?.sha256!==record.provenance.datasetSha256)throw new Error('Saved version fingerprints disagree.');
   const algorithm=await importVerifiedAlgorithm(original.identity.algorithm,location.href);
   const incoming=JSON.parse(record.inputSnapshot.text);if(incoming.observerHeightM!==record.settings.observerHeightM)throw new Error('Unsupported observer height.');
+  if(verifyResults){
+    const stable=v=>JSON.stringify(v,(_,value)=>value&&typeof value==='object'&&!Array.isArray(value)?Object.fromEntries(Object.keys(value).sort().map(k=>[k,value[k]])):value);
+    const compare=(saved,actual,footprint=false)=>{for(const key of ['metrics','windows','centerFeasible','status','reasons',...(footprint?['patchStats']:[])])if(stable(saved?.[key])!==stable(actual[key]))throw new Error(tr('Saved result differs from its verified inputs. No replacement was displayed.','保存结果与已校验输入不一致，未替换当前结果。'));};
+    for(const site of incoming.sites)compare(record.results.find(r=>r.siteId===site.id),algorithm.module.analyzeSite(site,record.settings),true);
+    const site=incoming.sites.find(s=>s.id===record.selectedSiteId),point=site?.patches.find(p=>p.id===record.selectedPoint?.id);if(!site||!point)throw new Error('Saved point is outside verified coverage.');
+    compare(record.selectedPoint.result,algorithm.module.analyzeSite({...site,...point,samples:point.samples||site.samples,patches:[]},record.settings));
+  }
+  if(shouldApply&&!shouldApply())return false;
   release=original;algorithmSource=algorithm.source;({analyzeSite,interpolateHorizon,stressTestSite}=algorithm.module);data=incoming;datasetText=record.inputSnapshot.text;campaign=record.campaign;campaigns[campaign]={start:data.start.slice(0,10),end:data.stop};
   if(!$('campaign').querySelector(`option[value="${CSS.escape(campaign)}"]`))$('campaign').add(new Option(data.start.slice(0,10)+' / NASA',campaign));$('campaign').value=campaign;
   $('start-date').min=data.start.slice(0,10);selectedId=record.selectedSiteId;activePatch=record.selectedPoint.isCenter?null:record.selectedPoint.id;settings={...record.settings};fillConditions(settings);results=record.results;timeIndex=0;stressCache.clear();storedEvidence=structuredClone(record);versionMode=release.buildId===currentRelease.buildId?'matched':'archived';campaignLoading=false;lang=record.language==='zh'?'zh':'en';
-  $('loading').hidden=true;$('app').hidden=false;$('compare').hidden=false;setLanguage();updateRangeLabels();render();renderVersion();renderMethod();saveURL();
+  $('loading').hidden=true;$('app').hidden=false;$('compare').hidden=false;setLanguage();updateRangeLabels();render();renderVersion();renderMethod();saveURL();return true;
 }
-window.lunaMargin={getState:state,getEvidence:evidence,applyURL,restoreServerRecord,analyze,selectSite,selectPatch};
+window.lunaMargin={explainMetric,getState:state,getDraft:()=>data?getSettings():null,getEvidence:evidence,applyURL,restoreServerRecord,analyze,selectSite,selectPatch};
 setLanguage();await initializeCalculation();
 window.dispatchEvent(new CustomEvent('lunamargin:ready'));
 const {startMissionService}=await import('./mission-service.js');startMissionService(window.lunaMargin);

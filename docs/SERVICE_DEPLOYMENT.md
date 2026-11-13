@@ -1,3 +1,5 @@
+> 本轮增加云端 D1/R2 部署与完整设备文件模式。云端入口：[在线工作台](https://lunamargin-slashzyc.laceysquirrel4.chatgpt.site/)。实际公网验收见 [全站交互验收](INTERACTION_ACCEPTANCE.md)，持久化配置见 [云服务说明](CLOUD_SERVICE.md)。以下 Node.js / SQLite 启动和新日期管线仍有效；此前仅本地可用的部署状态属于上一轮历史记录。
+
 # LunaMargin 数据服务与持久化
 
 本轮采用 **统一 Node.js 24 服务＋SQLite 持久目录**：同一个地址提供前端构建产物、业务接口、真实计算和保存任务。现有 GitHub Pages 是静态前端预览；它本身没有 SQLite 或后端，不能把 Pages 地址当作已接通的保存服务。

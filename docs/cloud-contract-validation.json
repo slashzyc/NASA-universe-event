@@ -1,0 +1,51 @@
+{
+  "checkedAt": "2026-11-13T09:03:12.883Z",
+  "buildId": "ea778e1b823c522b00899ac3580e1a01d51e490baef49caaeea366f4de8d043b",
+  "mode": "Compiled Worker with real disk SQLite/files behind D1/R2 test adapters; not a claim of cloud deployment",
+  "checks": [
+    {
+      "name": "Health initializes real indexed coverage and exact R2 input objects",
+      "status": "PASS"
+    },
+    {
+      "name": "Coverage exposes three real regions, three campaigns and verified height",
+      "status": "PASS"
+    },
+    {
+      "name": "Cloud artifact executes original algorithm and saves exact schema-3 evidence",
+      "status": "PASS"
+    },
+    {
+      "name": "Named task binds the completed calculation and its R2 checksum",
+      "status": "PASS"
+    },
+    {
+      "name": "Closing and reopening persistent database restores original evidence",
+      "status": "PASS"
+    },
+    {
+      "name": "Anonymous owners are isolated and share receivers cannot edit originals",
+      "status": "PASS"
+    },
+    {
+      "name": "Rename and duplicate alter task metadata without rewriting original evidence",
+      "status": "PASS"
+    },
+    {
+      "name": "Deleting a task revokes shares and preserves a separate duplicate",
+      "status": "PASS"
+    },
+    {
+      "name": "Unsupported coordinates, dates and heights never return replacement results",
+      "status": "PASS"
+    },
+    {
+      "name": "Cross-origin changes are rejected and undeployed new-date acquisition fails honestly",
+      "status": "PASS"
+    },
+    {
+      "name": "Tampered object evidence is rejected before viewing or exporting",
+      "status": "PASS"
+    }
+  ]
+}

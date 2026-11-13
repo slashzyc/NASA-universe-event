@@ -1,4 +1,6 @@
-import {analyzeSite} from './analysis.js';
+import {readManifest,verifiedText,importVerifiedAlgorithm} from './provenance.js';
+import {createLandingInteractions} from './landing-interactions.js';
+let analyzeSite,interpolateHorizon,homeTools,homeRelease,homeBundle;
 import {createMoonExplorer} from './moon-globe.js';
 import {installPageTransition} from './page-transition.js';
 
@@ -26,7 +28,7 @@ const chinese={
   scienceOverline:'03 / 每个结论，都有出处',scienceTitle:'从开放数据。<br>到<em>清晰判断。</em>',
   scienceCopy:'每一道地平线，都来自真实地形。<br>每一段时间窗口，都由星历计算。<br>每一个结果，都留下可复查的记录。',readMethod:'了解科学方法',
   source1:'从脚下的山脊到远方的地平线，还原月球表面的真实形状。',source2:'计算太阳与地球的位置，为每个研究地点找到对应的天空。',source3Title:'依据，随结果交付。',source3:'原始响应、来源校验、敏感性分析，以及更密的五分钟案例复核。',
-  closingEyebrow:'走向下一片疆域，从提出一个更好的问题开始。',closingTitle:'找到你的<em>余量。</em>',closingLaunch:'开始你的探索',
+  closingEyebrow:'走向下一片疆域，从提出一个更好的问题开始。',closingTitle:'找到你的<em>余量。</em>',closingLaunch:'继续这一方案',
   footerDescription:'一个月面着陆窗口实验室。<br>由好奇心驱动，以 NASA 数据为依据。',guide:'开始使用 ↗',footerFilm:'观看演示 ↗',
   footerNote:'独立教育项目。比较几何可见性，不提供飞行指引；无 NASA 背书。',disclosure:'项目与 AI 使用披露 ↗',
   filmCaption:'真实应用操作录像，英文字幕，无音轨。已标注 AI 辅助项目录屏。'
@@ -39,16 +41,17 @@ let caseSite=null,selectedPatch=null,patchResults=new Map();
 const settings={start:'2027-06-02T06:00:00Z',durationHours:168,maxDarkHours:24,maxCommGapHours:24,minJointHours:24,clearanceDeg:0,observerHeightM:2,nominalStepHours:.5};
 const tr=(en,zh)=>language==='zh'?zh:en;
 let explorerChoice=null,lastMissionState=null;
-window.addEventListener('lunamargin:state',()=>{if(document.getElementById('mission-form'))lastMissionState=window.lunaMargin?.getState?.()||lastMissionState;});
-const moon=createMoonExplorer($('moon-explorer'),{language:()=>language,onSelect:choice=>{explorerChoice=choice;updateExplorerLinks();}});
+window.addEventListener('lunamargin:state',()=>{if(!document.getElementById('mission-form'))return;const current=window.lunaMargin?.getState?.();if(!current)return;lastMissionState=current;if(current.ready&&current.siteId){moon.setSelection?.({siteId:current.siteId,patchId:current.patchId});explorerChoice={...moon.getSelection(),siteId:current.siteId,patchId:current.patchId,unsupported:false};updateExplorerLinks();}});
+const moon=createMoonExplorer($('moon-explorer'),{language:()=>language,onSelect:choice=>{explorerChoice=choice;updateExplorerLinks();homeTools?.refreshMission();}});
 function updateExplorerLinks(){
   const choice=explorerChoice||moon.getSelection();
-  if(choice.unsupported){for(const link of landingRoot.querySelectorAll('a[href*="navigator.html"]'))if(link.id!=='inspect-case'){link.dataset.explorerEntry='true';link.href='#moon-research';}return;}
+  if(choice.unsupported){for(const link of landingRoot.querySelectorAll('a[href*="navigator.html"]'))if(link.id!=='inspect-case'){link.dataset.explorerEntry='true';link.href='#moon-research';}homeTools?.updateEntryHints(null);return;}
   if(!choice.siteId)return;
-  const url=new URL(choice.url,location.href);url.searchParams.set('lang',language);
+  const url=new URL(choice.url||'navigator.html',location.href);url.searchParams.set('lang',language);url.searchParams.set('site',choice.siteId);url.searchParams.set('patch',choice.patchId||'e+0-n+0');
   const previous=lastMissionState;
   if(previous?.settings){for(const[k,v]of Object.entries(previous.settings))if(k!=='nominalStepHours')url.searchParams.set(k,String(v));if(previous.campaign)url.searchParams.set('campaign',previous.campaign);if(previous.buildId)url.searchParams.set('build',previous.buildId);}
   for(const link of landingRoot.querySelectorAll('a[href*="navigator.html"],a[data-explorer-entry]'))if(link.id!=='inspect-case'){link.dataset.explorerEntry='true';link.href=url.href;}
+  homeTools?.updateEntryHints(url);
 }
 
 function restoreSelectedPatch(){
@@ -75,6 +78,8 @@ function setLanguage(){
   try{localStorage.setItem('lunamargin-language',language);}catch{}
   if(caseSite){renderSampling();renderReading();}
   moon.setLanguage();updateExplorerLinks();
+  homeTools?.setLanguage();
+  if(homeRelease&&$('home-build'))$('home-build').textContent=tr('Build ','版本 ')+homeRelease.buildId.slice(0,10);
 }
 
 function positionLabel(patch){
@@ -85,7 +90,7 @@ function positionLabel(patch){
 }
 
 function renderSampling(){
-  const grid=$('sampling-grid');grid.replaceChildren();
+  const grid=$('sampling-grid'),focused=landingRoot.activeElement?.dataset?.patch;grid.replaceChildren();
   const sorted=[...caseSite.patches].sort((a,b)=>b.dyM-a.dyM||a.dxM-b.dxM);
   for(const patch of sorted){
     const button=document.createElement('button');
@@ -94,13 +99,16 @@ function renderSampling(){
     const dot=document.createElement('span');dot.className='sample-dot';
     const label=document.createElement('span');label.className='point-label';label.textContent=patch.dxM===0&&patch.dyM===0?tr('CENTER','中心'):(patch.dyM>0?'N':patch.dyM<0?'S':'')+(patch.dxM>0?'E':patch.dxM<0?'W':'');
     button.append(dot,label);button.addEventListener('click',()=>{selectedPatch=patch;renderReading();grid.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.patch===patch.id)));});
+    button.addEventListener('keydown',event=>{const movement={ArrowLeft:[-25,0],ArrowRight:[25,0],ArrowUp:[0,25],ArrowDown:[0,-25]}[event.key];if(!movement)return;const next=caseSite.patches.find(p=>p.dxM===patch.dxM+movement[0]&&p.dyM===patch.dyM+movement[1]);if(next){event.preventDefault();const control=[...grid.children].find(b=>b.dataset.patch===next.id);control.focus();control.click();}});
     grid.append(button);
   }
+  if(focused)[...grid.children].find(b=>b.dataset.patch===focused)?.focus({preventScroll:true});
 }
 
 function renderReading(){
   const result=patchResults.get(selectedPatch.id),pass=result.metrics.longestDarkHours<=settings.maxDarkHours;
   updateCaseLink();
+  landingRoot.querySelector('[data-i18n="sampleResult"]').textContent=tr(`Your ${settings.maxDarkHours} hour darkness limit`,`你设定的 ${settings.maxDarkHours} 小时断光上限`);
   $('sample-label').textContent=positionLabel(selectedPatch);
   $('dark-hours').textContent=result.metrics.longestDarkHours.toFixed(2);
   $('dark-hours').style.color=pass?'#253f2d':'#aa6945';
@@ -108,15 +116,24 @@ function renderReading(){
   $('sample-result').textContent=pass?tr('Within limits','满足条件'):tr('Outside limits','超出条件');$('sample-result').className=pass?'':'outside';
   const track=$('story-timeline');track.replaceChildren();
   for(const interval of result.windows.sun){const segment=document.createElement('span');segment.style.left=((interval.startMs-Date.parse(settings.start))/(settings.durationHours*3600000)*100)+'%';segment.style.width=interval.hours/settings.durationHours*100+'%';track.append(segment);}
+  homeTools?.renderCase();
 }
 
 async function loadCase(){
   try{
-    const response=await fetch('data/lunar-sites-june.json');if(!response.ok)throw new Error(`Data request returned ${response.status}`);
-    const bundle=await response.json();moon.setData(bundle);updateExplorerLinks();caseSite=bundle.sites.find(site=>site.id==='ridge-6');
+    homeRelease=await readManifest(new URL('build-info.json',location.href));
+    const [text,algorithm]=await Promise.all([verifiedText(homeRelease.identity.datasets.jun,location.href),importVerifiedAlgorithm(homeRelease.identity.algorithm,location.href)]);
+    ({analyzeSite,interpolateHorizon}=algorithm.module);const bundle=JSON.parse(text);homeBundle=bundle;moon.setData(bundle);updateExplorerLinks();caseSite=bundle.sites.find(site=>site.id==='ridge-6');
     if(!caseSite?.patches?.length)throw new Error('The declared case is unavailable.');
     for(const patch of caseSite.patches)patchResults.set(patch.id,analyzeSite({...caseSite,...patch,samples:caseSite.samples,patches:[]},settings));
     restoreSelectedPatch();renderSampling();renderReading();
+    homeTools=createLandingInteractions({root:()=>landingRoot,language:()=>language,bundle:homeBundle,release:homeRelease,analyzeSite,interpolateHorizon,
+      getCase:()=>({site:caseSite,point:selectedPatch,settings,results:patchResults}),
+      updateCaseLimit(value){settings.maxDarkHours=value;for(const p of caseSite.patches)patchResults.set(p.id,analyzeSite({...caseSite,...p,samples:caseSite.samples,patches:[]},settings));renderSampling();renderReading();},
+      getMission:()=>{const choice=explorerChoice||moon.getSelection();return{campaign:'jun',settings:{...settings,maxDarkHours:24},...lastMissionState,siteId:choice.siteId||'ridge-6',patchId:choice.patchId||'e+0-n+0',unsupported:Boolean(choice.unsupported),language};},
+      setMission(next){lastMissionState={...next,language};moon.setSelection?.({siteId:next.siteId,patchId:next.patchId});explorerChoice={...moon.getSelection(),siteId:next.siteId,patchId:next.patchId};updateExplorerLinks();},
+      getURL:()=>new URL(landingRoot.querySelector('.hero-actions a').href,location.href)});
+    homeTools.setLanguage();updateExplorerLinks();$('home-build').textContent=tr('Build ','版本 ')+homeRelease.buildId.slice(0,10);
   }catch{
     $('sample-label').textContent=tr('INTERACTIVE CASE UNAVAILABLE','互动案例暂时无法加载');
     $('sampling-grid').textContent=tr('Open the navigator to explore the data.','请打开导航仪探索数据。');
@@ -136,7 +153,7 @@ window.addEventListener('pageshow',()=>{
 });
 window.addEventListener('lunamargin:home-root',event=>{
   landingRoot=event.detail.root;landingActive=event.detail.active;
-  if(landingActive){try{language=localStorage.getItem('lunamargin-language')==='zh'?'zh':'en';}catch{}if(caseSite)restoreSelectedPatch();setLanguage();}
+  if(landingActive){try{language=localStorage.getItem('lunamargin-language')==='zh'?'zh':'en';}catch{}if(caseSite)restoreSelectedPatch();setLanguage();homeTools?.refreshMission();}
 });
 
 // Reveal editorial sections only when motion is welcome; all content works without it.

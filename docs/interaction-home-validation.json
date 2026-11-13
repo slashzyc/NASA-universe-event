@@ -1,0 +1,71 @@
+{
+  "checkedAt": "2026-11-13T08:59:05.052Z",
+  "base": "http://127.0.0.1:4281/",
+  "artifact": "dist",
+  "checks": [
+    {
+      "name": "Teaching case explicitly stays separate from current mission",
+      "status": "PASS"
+    },
+    {
+      "name": "Center and neighboring terrain calculate different continuous dark gaps",
+      "status": "PASS"
+    },
+    {
+      "name": "Teaching threshold calls original algorithm and updates the verdict",
+      "status": "PASS"
+    },
+    {
+      "name": "Dark-gap card locates a real interval and keeps time control focused",
+      "status": "PASS"
+    },
+    {
+      "name": "Adopting case transfers exact selected point and threshold",
+      "status": "PASS"
+    },
+    {
+      "name": "Mini workbench retains UTC hour, date, point and conditions",
+      "status": "PASS"
+    },
+    {
+      "name": "In-site evidence describes current task rather than fixed teaching case",
+      "status": "PASS"
+    },
+    {
+      "name": "Evidence close restores keyboard focus",
+      "status": "PASS"
+    },
+    {
+      "name": "Live horizontal entry transfers all mini conditions and language",
+      "status": "PASS"
+    },
+    {
+      "name": "Browser Back preserves the in-place mini task",
+      "status": "PASS"
+    },
+    {
+      "name": "mobile layout remains operable without page overflow",
+      "status": "PASS"
+    },
+    {
+      "name": "tablet layout remains operable without page overflow",
+      "status": "PASS"
+    },
+    {
+      "name": "layout-200percent layout remains operable without page overflow",
+      "status": "PASS"
+    },
+    {
+      "name": "No application errors",
+      "status": "PASS"
+    }
+  ],
+  "metrics": {
+    "homeReadyMs": 510,
+    "mobileReadyMs": 402,
+    "tabletReadyMs": 410,
+    "layout-200percentReadyMs": 558
+  },
+  "errors": [],
+  "zoomScope": "200% CSS layout zoom; not a physical-device or native browser zoom study"
+}

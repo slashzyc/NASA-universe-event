@@ -1,0 +1,87 @@
+{
+  "verifiedAt": "2026-11-13T09:00:12.012Z",
+  "source": "built dist",
+  "checks": [
+    {
+      "width": 1440,
+      "test": "Research-list keyboard focus survives selection",
+      "passed": true
+    },
+    {
+      "width": 1440,
+      "test": "Regional map keyboard focus survives selection",
+      "passed": true
+    },
+    {
+      "width": 1440,
+      "test": "Stable nine-point elements, Enter and physical arrow directions",
+      "passed": true
+    },
+    {
+      "width": 1440,
+      "test": "Mini workspace synchronizes real selected site and point via public API",
+      "passed": true
+    },
+    {
+      "width": 1440,
+      "test": "Three explicit map scales preserve selected point and show only the appropriate map",
+      "passed": true
+    },
+    {
+      "width": 1440,
+      "test": "Visible primary controls are at least 44 px, labels at least 12 px",
+      "passed": true
+    },
+    {
+      "width": 1440,
+      "test": "Hidden scene stops drawing and Back retains point with rotation paused",
+      "passed": true
+    },
+    {
+      "width": 1440,
+      "test": "Bilingual coverage and unsupported coordinates cannot enter analysis",
+      "passed": true
+    },
+    {
+      "width": 390,
+      "test": "Research-list keyboard focus survives selection",
+      "passed": true
+    },
+    {
+      "width": 390,
+      "test": "Regional map keyboard focus survives selection",
+      "passed": true
+    },
+    {
+      "width": 390,
+      "test": "Stable nine-point elements, Enter and physical arrow directions",
+      "passed": true
+    },
+    {
+      "width": 390,
+      "test": "Mini workspace synchronizes real selected site and point via public API",
+      "passed": true
+    },
+    {
+      "width": 390,
+      "test": "Three explicit map scales preserve selected point and show only the appropriate map",
+      "passed": true
+    },
+    {
+      "width": 390,
+      "test": "Visible primary controls are at least 44 px, labels at least 12 px",
+      "passed": true
+    },
+    {
+      "width": 390,
+      "test": "Hidden scene stops drawing and Back retains point with rotation paused",
+      "passed": true
+    },
+    {
+      "width": 390,
+      "test": "Bilingual coverage and unsupported coordinates cannot enter analysis",
+      "passed": true
+    }
+  ],
+  "errors": []
+}

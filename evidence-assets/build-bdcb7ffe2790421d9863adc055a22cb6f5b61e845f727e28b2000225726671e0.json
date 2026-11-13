@@ -1,0 +1,149 @@
+{
+  "schemaVersion": 1,
+  "buildId": "bdcb7ffe2790421d9863adc055a22cb6f5b61e845f727e28b2000225726671e0",
+  "identity": {
+    "schemaVersion": 1,
+    "methodVersion": "terrain-center-clearance-linear-v1",
+    "sourceRepository": "https://github.com/slashzyc/NASA-universe-event",
+    "sourceIdentity": "SHA-256 of canonical LF application sources, exact dataset bytes and model identity; not a Git commit.",
+    "application": {
+      "index.html": {
+        "sha256": "c6a1fcc02f556b8ae1cb963fdb12916fc4b915c332ab8cefaccd1f00b543288d",
+        "snapshot": "evidence-assets/c6a1fcc02f556b8ae1cb963fdb12916fc4b915c332ab8cefaccd1f00b543288d.html"
+      },
+      "navigator.html": {
+        "sha256": "495a7535dc9782b094c1138ad54d641a1fd063e93e69a819d92eec5812c6dbb0",
+        "snapshot": "evidence-assets/495a7535dc9782b094c1138ad54d641a1fd063e93e69a819d92eec5812c6dbb0.html"
+      },
+      "src/analysis.js": {
+        "sha256": "981e49c08ae6457450c5e0fbb8d9c743521dbb91ed6eeb2cbb01b3e132ea5fcd",
+        "snapshot": "evidence-assets/981e49c08ae6457450c5e0fbb8d9c743521dbb91ed6eeb2cbb01b3e132ea5fcd.js"
+      },
+      "src/app.js": {
+        "sha256": "5c8b4a884e9b4689ecd987f98f8d6cf76657f5487e09f70d15f10f02f03b6832",
+        "snapshot": "evidence-assets/5c8b4a884e9b4689ecd987f98f8d6cf76657f5487e09f70d15f10f02f03b6832.js"
+      },
+      "src/evidence-drawer.js": {
+        "sha256": "799cb7a5a80641afa79edf973f03bed50034666c61958681047a0d3a43b240b6",
+        "snapshot": "evidence-assets/799cb7a5a80641afa79edf973f03bed50034666c61958681047a0d3a43b240b6.js"
+      },
+      "src/evidence.js": {
+        "sha256": "a72a35c3fe09e9795b81d7c46a39b19aab7ed90ea7f37be19e0c3834d3b14f94",
+        "snapshot": "evidence-assets/a72a35c3fe09e9795b81d7c46a39b19aab7ed90ea7f37be19e0c3834d3b14f94.js"
+      },
+      "src/interaction-design.css": {
+        "sha256": "10343eecf675b1c0d361a6ed5fe7a24c5f3fbbdb50146d32e67991f422fca3ce",
+        "snapshot": "evidence-assets/10343eecf675b1c0d361a6ed5fe7a24c5f3fbbdb50146d32e67991f422fca3ce.css"
+      },
+      "src/landing-interactions.js": {
+        "sha256": "00ede81a264e604ce05c479791fc10c932ad0a377167f1cd6c818c76b35d2f58",
+        "snapshot": "evidence-assets/00ede81a264e604ce05c479791fc10c932ad0a377167f1cd6c818c76b35d2f58.js"
+      },
+      "src/landing.css": {
+        "sha256": "c1e6c9088f20b0fad6f503e6218c2816a0e2a71fe179f57208a84e130fcef294",
+        "snapshot": "evidence-assets/c1e6c9088f20b0fad6f503e6218c2816a0e2a71fe179f57208a84e130fcef294.css"
+      },
+      "src/landing.js": {
+        "sha256": "28507f3ff8d448f6253bb11a2753b4875c847eac7bdba2317091dc5bff56b164",
+        "snapshot": "evidence-assets/28507f3ff8d448f6253bb11a2753b4875c847eac7bdba2317091dc5bff56b164.js"
+      },
+      "src/mission-service.css": {
+        "sha256": "197b3c1d62e257ce2c1adb821da17d1aadc8a53ec87402c32b0a859ce98966d7",
+        "snapshot": "evidence-assets/197b3c1d62e257ce2c1adb821da17d1aadc8a53ec87402c32b0a859ce98966d7.css"
+      },
+      "src/mission-service.js": {
+        "sha256": "f19c76182b0a8c4644d250ea3f1a43a0a2358892cebfe71d4b1623e22855a8fb",
+        "snapshot": "evidence-assets/f19c76182b0a8c4644d250ea3f1a43a0a2358892cebfe71d4b1623e22855a8fb.js"
+      },
+      "src/moon-globe.css": {
+        "sha256": "0d9e25e48e6fce25c30c58375fd54c1a2ce5dc5991823e59cd3ade978dadd9bc",
+        "snapshot": "evidence-assets/0d9e25e48e6fce25c30c58375fd54c1a2ce5dc5991823e59cd3ade978dadd9bc.css"
+      },
+      "src/moon-globe.js": {
+        "sha256": "87d6d8b242aec3b663fd2bda0feeab83709a23f0e89aaf461e4505d23fb14e75",
+        "snapshot": "evidence-assets/87d6d8b242aec3b663fd2bda0feeab83709a23f0e89aaf461e4505d23fb14e75.js"
+      },
+      "src/navigator-ui.js": {
+        "sha256": "4839e00e6135ea5290c16646fb8b8c3cbbc229a7dbbea40b21a5749eeab3bb26",
+        "snapshot": "evidence-assets/4839e00e6135ea5290c16646fb8b8c3cbbc229a7dbbea40b21a5749eeab3bb26.js"
+      },
+      "src/navigator.css": {
+        "sha256": "763a8e62f40c051ff1132cfaa0c0481b21d77a9d2e2c6f1c020900d670947766",
+        "snapshot": "evidence-assets/763a8e62f40c051ff1132cfaa0c0481b21d77a9d2e2c6f1c020900d670947766.css"
+      },
+      "src/page-transition.css": {
+        "sha256": "2cad813b506f31046ff45dcfb16d9b703364db24b92d82dec4fddd118093db4a",
+        "snapshot": "evidence-assets/2cad813b506f31046ff45dcfb16d9b703364db24b92d82dec4fddd118093db4a.css"
+      },
+      "src/page-transition.js": {
+        "sha256": "49332848d7564238862ac35cd63f94370877590ea68b977f08db787d353a3071",
+        "snapshot": "evidence-assets/49332848d7564238862ac35cd63f94370877590ea68b977f08db787d353a3071.js"
+      },
+      "src/provenance.js": {
+        "sha256": "8afbf66ac017d72e277068baf28fac3ec64ec22a2c45780e1c3d5673de9869dc",
+        "snapshot": "evidence-assets/8afbf66ac017d72e277068baf28fac3ec64ec22a2c45780e1c3d5673de9869dc.js"
+      },
+      "src/robustness-ui.js": {
+        "sha256": "1202e18471dfaef1b8aa63d2492bfb0ced529712fc7eebaacb26654ced2a0a74",
+        "snapshot": "evidence-assets/1202e18471dfaef1b8aa63d2492bfb0ced529712fc7eebaacb26654ced2a0a74.js"
+      },
+      "src/search-worker.js": {
+        "sha256": "431284c1d41f67e70cf70ed32ef5f60ebe421d6eb52d71b8b542041a6b871680",
+        "snapshot": "evidence-assets/431284c1d41f67e70cf70ed32ef5f60ebe421d6eb52d71b8b542041a6b871680.js"
+      },
+      "src/selection.js": {
+        "sha256": "5ca29c17b77de4b39ead4a29999e9452ab3ab1506162c4b820cb020f8a42fde0",
+        "snapshot": "evidence-assets/5ca29c17b77de4b39ead4a29999e9452ab3ab1506162c4b820cb020f8a42fde0.js"
+      },
+      "src/stable-dom.js": {
+        "sha256": "220e6125481f54e0d57dff85312239f7b90b5bcd603d99653aaaa377ac9c5812",
+        "snapshot": "evidence-assets/220e6125481f54e0d57dff85312239f7b90b5bcd603d99653aaaa377ac9c5812.js"
+      },
+      "src/style.css": {
+        "sha256": "5955b4a541000e78829996939b59142a067ca9234fcdafe1cba657df13a21c97",
+        "snapshot": "evidence-assets/5955b4a541000e78829996939b59142a067ca9234fcdafe1cba657df13a21c97.css"
+      },
+      "src/time-link.js": {
+        "sha256": "f0f1a21354054f685a4d694693944b7b1aee3150c184d3e10652a00283ebf370",
+        "snapshot": "evidence-assets/f0f1a21354054f685a4d694693944b7b1aee3150c184d3e10652a00283ebf370.js"
+      },
+      "src/visuals.js": {
+        "sha256": "8d2fd791058cd119dca9b8b26f43edea3396a0fdab0821f209f617efc14d13d7",
+        "snapshot": "evidence-assets/8d2fd791058cd119dca9b8b26f43edea3396a0fdab0821f209f617efc14d13d7.js"
+      }
+    },
+    "algorithm": {
+      "sha256": "981e49c08ae6457450c5e0fbb8d9c743521dbb91ed6eeb2cbb01b3e132ea5fcd",
+      "snapshot": "evidence-assets/981e49c08ae6457450c5e0fbb8d9c743521dbb91ed6eeb2cbb01b3e132ea5fcd.js"
+    },
+    "datasets": {
+      "dec": {
+        "path": "data/lunar-sites.json",
+        "sha256": "8a1126508f01911c562a2fa20d7721773028dc4f5fd437c869ba8bc567113f2b",
+        "snapshot": "evidence-assets/8a1126508f01911c562a2fa20d7721773028dc4f5fd437c869ba8bc567113f2b.json",
+        "observerHeightM": 2,
+        "generatedAt": "2026-11-13T03:54:07.994559+00:00",
+        "start": "2026-12-01T00:00:00Z",
+        "stop": "2027-01-01T00:00:00Z"
+      },
+      "mar": {
+        "path": "data/lunar-sites-march.json",
+        "sha256": "266011b3d2c20224c75a44a93d414986d9751ac7ae5a0d463ba5744434618aab",
+        "snapshot": "evidence-assets/266011b3d2c20224c75a44a93d414986d9751ac7ae5a0d463ba5744434618aab.json",
+        "observerHeightM": 2,
+        "generatedAt": "2026-11-13T03:54:08.118154+00:00",
+        "start": "2027-03-01T00:00:00Z",
+        "stop": "2027-04-01T00:00:00Z"
+      },
+      "jun": {
+        "path": "data/lunar-sites-june.json",
+        "sha256": "c2258b262f2ee22599195090a9e652d8f6fd53c48bfb48139896be02a86f3d8f",
+        "snapshot": "evidence-assets/c2258b262f2ee22599195090a9e652d8f6fd53c48bfb48139896be02a86f3d8f.json",
+        "observerHeightM": 2,
+        "generatedAt": "2026-11-13T03:54:13.285309+00:00",
+        "start": "2027-06-01T00:00:00Z",
+        "stop": "2027-07-01T00:00:00Z"
+      }
+    }
+  }
+}

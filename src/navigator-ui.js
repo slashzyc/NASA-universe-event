@@ -69,9 +69,9 @@ export function renderBeginnerView(state) {
   const reasonText = r => r.code==='dark-gap' ? t(`Without the Sun: ${hours(r.actual)} h · limit ${r.limit} h`,`看不见太阳：${hours(r.actual)} 小时 · 上限 ${r.limit} 小时`) : r.code==='comm-gap' ? t(`Without Earth: ${hours(r.actual)} h · limit ${r.limit} h`,`看不见地球：${hours(r.actual)} 小时 · 上限 ${r.limit} 小时`) : t(`Both in view: ${hours(r.actual)} h total · need ${r.limit} h`,`两者同时可见：累计 ${hours(r.actual)} 小时 · 至少需要 ${r.limit} 小时`);
   $('result-summary').innerHTML = `<div class="result-eyebrow"><span>${t('RIDGE','连接脊')} ${site.sourceRoiNumber} / ${safe(patchName(patch,lang))}</span><span>${date} UTC · ${duration}</span></div><h2 class="result-verdict">${title}</h2><p class="result-explanation">${explanation}</p>${reasons.length?`<ul class="result-reasons">${reasons.map(r=>`<li>${reasonText(r)}</li>`).join('')}</ul>`:''}`;
   const failed = all.scenarios.find(p => p.feasible === false);
-  $('inspect-risk').hidden = !failed;
-  $('inspect-risk').dataset.patch = failed?.id || '';
-  $('inspect-risk').textContent = t(`Inspect ${patchName(failed,lang).toLowerCase()} point ↗`,`查看${patchName(failed,lang)}未通过点 ↗`);
+  $('inspect-risk').hidden = !failed&&isCenter;
+  $('inspect-risk').dataset.patch = !isCenter?'e+0-n+0':failed?.id || '';
+  $('inspect-risk').textContent = !isCenter?t('Compare with the center ↗','查看中心，比较替代位置 ↗'):t(`Inspect ${patchName(failed,lang).toLowerCase()} point ↗`,`查看${patchName(failed,lang)}未通过点 ↗`);
   $('point-selector').innerHTML = [...site.patches].sort((a,b) => b.dyM-a.dyM || a.dxM-b.dxM).map(p => {
     const scenario = all.scenarios.find(s => s.id === p.id);
     const active = patch ? patch.id===p.id : !p.dxM&&!p.dyM;

@@ -9,10 +9,15 @@ function inverse(v,yaw,pitch){const a=Math.cos(pitch),b=Math.sin(pitch),y=a*v[1]
 export function createMoonExplorer(host,{language=()=> 'en',onSelect=()=>{}}={}){
   const $=s=>host.querySelector(s),tr=(en,zh)=>language()==='zh'?zh:en;
   let sites=[],selected=null,patchId='e+0-n+0',level='global',browsingUnsupported=false,yaw=-.3,pitch=-.37,zoom=1,auto=!matchMedia('(prefers-reduced-motion:reduce)').matches,active=false,gl=null,textureReady=false,last=0,visible=true,drawCount=0,slowFrames=0;
-  let messagePair=null;
+  let messagePair=null,sceneActive=true;
   const canvas=$('canvas'),marker=$('#moon-region-marker'),points=new Map();
   host.dataset.renderMode='loading';
   const observer=new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;});observer.observe(host);
+  const levels=document.createElement('nav');levels.className='moon-levels';levels.setAttribute('aria-label',tr('Map scale','地图层级'));
+  for(const name of ['global','region','local']){const button=document.createElement('button');button.type='button';button.dataset.moonLevel=name;button.onclick=()=>{activate();if(name==='global'){yaw=-.3;pitch=-.37;zoom=1;}if(name==='region'){yaw=-222.75*D;pitch=-89.4*D;zoom=1.13;}level=name;labels();renderRegion();if(name==='local')$('#moon-local-grid [aria-pressed="true"]')?.focus({preventScroll:true});};levels.append(button);}$('#moon-research').before(levels);
+  function selection(){return{siteId:browsingUnsupported?null:selected?.id,patchId:browsingUnsupported?null:patchId,url:browsingUnsupported?null:entryURL(),unsupported:browsingUnsupported,level};}
+  function selectionState(){host.dataset.selectionSite=browsingUnsupported?'':selected?.id||'';host.dataset.selectionPatch=browsingUnsupported?'':patchId;host.dataset.selectionSupported=String(Boolean(selected)&&!browsingUnsupported);host.dataset.level=level;host.dataset.rotation=`${yaw.toFixed(3)},${pitch.toFixed(3)}`;host.dataset.zoom=zoom.toFixed(3);}
+  window.addEventListener('lunamargin:home-root',event=>{sceneActive=Boolean(event.detail.active);host.dataset.sceneActive=String(sceneActive);if(!sceneActive){auto=false;active=false;points.clear();host.dataset.active='false';}labels();});
   function message(en,zh){messagePair=[en,zh];$('#moon-message').textContent=tr(en,zh);}
   function activate(){active=true;auto=false;host.dataset.active='true';labels();}
   function labels(){
@@ -26,11 +31,13 @@ export function createMoonExplorer(host,{language=()=> 'en',onSelect=()=>{}}={})
     $('#moon-art-note').textContent=tr('Visual light only · not the mission Sun','美术光照 · 与任务日期计算光照分开');
     $('#moon-gesture').textContent=active?tr('Drag · scroll to zoom · Esc releases scroll','拖动旋转 · 滚轮缩放 · Esc 释放滚动'):tr('Drag to explore · click to activate zoom','拖动探索 · 点击后启用缩放');
     $('#moon-map-scale').textContent=tr('Nearby research locations · true relative scale','相邻研究点 · 真实相对比例');
-    $('#moon-coverage').textContent=tr('Validated: Dec 2026 / Mar & Jun 2027 · 2 m · 5 m local terrain · 30 min ephemerides','已验证：2026 年 12 月 / 2027 年 3、6 月 · 2 米高度 · 局部 5 米地形 · 30 分钟星历');
+    $('#moon-coverage').textContent=tr('Supported data: Dec 2026 / Mar & Jun 2027 · 2 m · 5 m terrain pixels · 30 min ephemerides. More dates can be requested in the workspace.','数据覆盖：2026 年 12 月 / 2027 年 3、6 月 · 2 米高度 · 地形像素 5 米 · 星历每 30 分钟。工作台可申请新日期。');
     $('#moon-region-marker').setAttribute('aria-label',tr('Connecting Ridge: three supported research locations. Open the south-pole map.','连接脊：三个支持计算的研究位置。打开南极区域地图。'));
     $('#moon-region-marker').title=tr('Connecting Ridge · supported data','连接脊 · 有可计算数据');
     $('#moon-back-region').textContent=tr('← Regional map','← 区域地图');
-    renderList();updateSelection();
+    levels.setAttribute('aria-label',tr('Map scale','地图层级'));for(const b of levels.children){const name=b.dataset.moonLevel;b.textContent=({global:tr('01 · Moon','01 · 全球'),region:tr('02 · South pole','02 · 南极区域'),local:tr('03 · Nine points','03 · 局部九点')})[name];b.setAttribute('aria-current',name===level?'step':'false');b.disabled=name==='local'&&(!selected||browsingUnsupported);}
+    $('#moon-local-map').hidden=level!=='local';$('#moon-regional-map').toggleAttribute('hidden',level!=='region');$('.moon-map-column').hidden=level==='global';
+    renderList();updateSelection();selectionState();
   }
   function entryURL(){
     const p=new URLSearchParams({campaign:'jun',site:selected?.id||'ridge-6',patch:patchId,lang:language(),observerHeightM:'2',start:'2027-06-02T06:00:00Z',durationHours:'168',maxDarkHours:'24',maxCommGapHours:'24',minJointHours:'24',clearanceDeg:'0'});
@@ -44,35 +51,35 @@ export function createMoonExplorer(host,{language=()=> 'en',onSelect=()=>{}}={})
     $('#moon-enter').href=entryURL();$('#moon-enter').textContent=tr('Enter analysis ↗','进入分析 ↗');
     $('#moon-local').textContent=tr('Inspect nine points →','查看局部九点 →');
     $('#moon-selected').hidden=browsingUnsupported;
-    if(level==='local')renderLocal();
+    if(level==='local')renderLocal();selectionState();
   }
-  function selectSite(id){selected=sites.find(s=>s.id===id);if(!selected)return;browsingUnsupported=false;patchId='e+0-n+0';level='region';$('#moon-local-map').hidden=true;$('#moon-regional-map').hidden=false;activate();labels();renderRegion();onSelect({siteId:id,patchId,url:entryURL()});message('Data available at these three surveyed footprints. Select a location to continue.','这三个已取样区域具有可计算数据。选择研究点后进入分析。');}
+  function setSelection({siteId,patchId:nextPatch='e+0-n+0',level:nextLevel}={}){const site=sites.find(s=>s.id===siteId),patch=site?.patches.find(p=>p.id===nextPatch);if(!site||!patch)return false;selected=site;patchId=patch.id;browsingUnsupported=false;level=['global','region','local'].includes(nextLevel)?nextLevel:patch.dxM||patch.dyM?'local':level==='global'?'region':level;labels();renderRegion();message('Supported research point selected. Its local terrain and coordinates are retained when entering the workspace.','已选择支持计算的研究点。进入工作台时保留当前位置与坐标。');return selection();}
+  function selectSite(id){if(!setSelection({siteId:id,level:'region'}))return;activate();onSelect(selection());}
   function renderList(){
-    const list=$('#moon-region-list');list.replaceChildren();
-    for(const site of sites){const b=document.createElement('button');b.type='button';b.dataset.region=site.id;b.setAttribute('aria-pressed',String(selected?.id===site.id));b.innerHTML=`<span>ROI ${site.sourceRoiNumber}</span><small>${Math.abs(site.lat).toFixed(4)}° S</small>`;b.onclick=()=>selectSite(site.id);list.append(b);}
+    const list=$('#moon-region-list');
+    for(const site of sites){let b=list.querySelector(`[data-region="${site.id}"]`);if(!b){b=document.createElement('button');b.type='button';b.id=`moon-site-${site.id}`;b.dataset.region=site.id;b.append(document.createElement('span'),document.createElement('small'));b.onclick=()=>selectSite(site.id);list.append(b);}b.setAttribute('aria-pressed',String(!browsingUnsupported&&selected?.id===site.id));b.firstChild.textContent=tr(`ROI ${site.sourceRoiNumber}`,`研究点 ${site.sourceRoiNumber}`);b.lastChild.textContent=`${Math.abs(site.lat).toFixed(4)}° S`;b.setAttribute('aria-label',tr(`Select Connecting Ridge ROI ${site.sourceRoiNumber}`,`选择连接脊研究点 ${site.sourceRoiNumber}`));}
   }
   function renderRegion(){
-    const svg=$('#moon-regional-map');svg.replaceChildren();if(!sites.length)return;
-    const ns='http://www.w3.org/2000/svg',el=(tag,attrs)=>{const e=document.createElementNS(ns,tag);for(const[k,v]of Object.entries(attrs))e.setAttribute(k,v);svg.append(e);return e;};
+    const svg=$('#moon-regional-map');if(!sites.length)return;
+    const ns='http://www.w3.org/2000/svg',el=(tag,attrs,parent=svg)=>{const e=document.createElementNS(ns,tag);for(const[k,v]of Object.entries(attrs))e.setAttribute(k,v);parent.append(e);return e;};
+    if(!svg.querySelector('[data-map-axis]')){el('path',{'data-map-axis':'',d:'M20 20V215H290',fill:'none',stroke:'#70847a','stroke-width':'.5'});el('text',{x:23,y:15,fill:'#aebdad','font-size':'14'}).textContent='N ↑';el('path',{'data-scale-bar':'',stroke:'#c2ad86','stroke-width':'2'});el('text',{x:30,y:253,fill:'#a6b7a9','font-size':'14'}).textContent='500 m';}
     // Lunar south-polar plane, local east/north about ROI 6, metres. No spread/jitter.
     const origin=sites.find(s=>s.id==='ridge-6')||sites[0],R=1737400;
     const xy=sites.map(s=>({s,x:R*Math.cos(origin.lat*D)*(s.lon-origin.lon)*D,y:R*(s.lat-origin.lat)*D}));
     const ys=xy.map(p=>p.y),xs=xy.map(p=>p.x),span=Math.max(Math.max(...ys)-Math.min(...ys),Math.max(...xs)-Math.min(...xs),1),scale=180/span,cx=(Math.min(...xs)+Math.max(...xs))/2,cy=(Math.min(...ys)+Math.max(...ys))/2;
-    el('path',{d:'M20 20V215H290',fill:'none',stroke:'#70847a','stroke-width':'.5'});
-    el('text',{x:23,y:15,fill:'#8fa394','font-size':'9'}).textContent='N ↑';
-    for(const {s,x,y}of xy){const px=150+(x-cx)*scale,py=115-(y-cy)*scale,g=el('g',{'data-map-region':s.id,role:'button',tabindex:'0','aria-label':`ROI ${s.sourceRoiNumber}`});const circle=document.createElementNS(ns,'circle');circle.setAttribute('cx',px);circle.setAttribute('cy',py);circle.setAttribute('r','7');circle.setAttribute('fill',selected?.id===s.id?'#efd5a2':'#6c9582');g.append(circle);const text=document.createElementNS(ns,'text');text.setAttribute('x',px+14);text.setAttribute('y',py+3);text.setAttribute('fill','#dfe6d8');text.setAttribute('font-size','11');text.textContent=`ROI ${s.sourceRoiNumber}`;g.append(text);g.onclick=()=>selectSite(s.id);g.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();selectSite(s.id);}};}
-    const length=500*scale;el('path',{d:`M30 237h${length}`,stroke:'#c2ad86','stroke-width':'2'});el('text',{x:30,y:253,fill:'#a6b7a9','font-size':'10'}).textContent='500 m';
+    for(const {s,x,y}of xy){const px=150+(x-cx)*scale,py=115-(y-cy)*scale;let g=svg.querySelector(`[data-map-region="${s.id}"]`);if(!g){g=el('g',{'data-map-region':s.id,id:`moon-map-${s.id}`,role:'button',tabindex:'0'});el('circle',{r:35,fill:'transparent','data-hit-area':''},g);el('circle',{r:7,'data-map-dot':''},g);el('text',{x:14,y:4,fill:'#dfe6d8','font-size':14},g);g.onclick=()=>selectSite(s.id);g.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();selectSite(s.id);}};}g.setAttribute('transform',`translate(${px} ${py})`);g.setAttribute('aria-label',tr(`Connecting Ridge ROI ${s.sourceRoiNumber}`,`连接脊研究点 ${s.sourceRoiNumber}`));g.setAttribute('aria-pressed',String(!browsingUnsupported&&selected?.id===s.id));g.querySelector('[data-map-dot]').setAttribute('fill',selected?.id===s.id?'#efd5a2':'#6c9582');g.querySelector('text').textContent=tr(`ROI ${s.sourceRoiNumber}`,`研究点 ${s.sourceRoiNumber}`);}
+    svg.querySelector('[data-scale-bar]').setAttribute('d',`M30 237h${500*scale}`);
   }
   function renderLocal(){
-    const grid=$('#moon-local-grid');grid.replaceChildren();
-    for(const p of [...selected.patches].sort((a,b)=>b.dyM-a.dyM||a.dxM-b.dxM)){const b=document.createElement('button');b.type='button';b.dataset.moonPatch=p.id;b.setAttribute('aria-pressed',String(p.id===patchId));b.setAttribute('aria-label',`${p.dxM} m E / ${p.dyM} m N`);b.textContent=p.dxM===0&&p.dyM===0?tr('Center','中心'):(p.dyM>0?'N':p.dyM<0?'S':'')+(p.dxM>0?'E':p.dxM<0?'W':'');b.onclick=()=>{patchId=p.id;updateSelection();onSelect({siteId:selected.id,patchId,url:entryURL()});};grid.append(b);}
+    const grid=$('#moon-local-grid');grid.setAttribute('role','group');grid.setAttribute('aria-label',tr('Nine terrain samples, 25 metres apart. Arrow keys follow map directions.','九个地形样本，相距25米。方向键按地图方向移动。'));
+    for(const p of [...selected.patches].sort((a,b)=>b.dyM-a.dyM||a.dxM-b.dxM)){let b=grid.querySelector(`[data-moon-patch="${p.id}"]`);if(!b){b=document.createElement('button');b.type='button';b.id=`moon-point-${p.id}`;b.dataset.moonPatch=p.id;b.onclick=()=>{patchId=b.dataset.moonPatch;updateSelection();onSelect(selection());};b.onkeydown=e=>{const delta={ArrowUp:[0,25],ArrowDown:[0,-25],ArrowLeft:[-25,0],ArrowRight:[25,0]}[e.key];if(!delta)return;e.preventDefault();const current=selected.patches.find(p=>p.id===b.dataset.moonPatch),next=selected.patches.find(p=>p.dxM===current.dxM+delta[0]&&p.dyM===current.dyM+delta[1]);if(next){patchId=next.id;updateSelection();grid.querySelector(`[data-moon-patch="${next.id}"]`).focus({preventScroll:true});onSelect(selection());}};grid.append(b);}b.setAttribute('aria-pressed',String(p.id===patchId));b.setAttribute('aria-label',tr(`${p.dxM} m east / ${p.dyM} m north`,`东向 ${p.dxM} 米 / 北向 ${p.dyM} 米`));b.textContent=p.dxM===0&&p.dyM===0?tr('Center','中心'):tr((p.dyM>0?'N':p.dyM<0?'S':'')+(p.dxM>0?'E':p.dxM<0?'W':''),(p.dyM>0?'北':p.dyM<0?'南':'')+(p.dxM>0?'东':p.dxM<0?'西':''));if(language()==='zh'&&p.dxM&&p.dyM)b.textContent=(p.dxM>0?'东':'西')+(p.dyM>0?'北':'南');}
   }
   function south(){activate();yaw=-222.75*D;pitch=-89.4*D;zoom=1.13;level='region';$('#moon-regional-map').hidden=false;$('#moon-local-map').hidden=true;labels();renderRegion();message('Connecting Ridge lies within one compact south-pole region. Open the 500 m map to distinguish its locations.','连接脊的研究点位于同一紧凑南极区域。下方 500 米比例地图可区分各位置。');}
   $('#moon-south').onclick=south;marker.onclick=south;
   $('#moon-reset').onclick=()=>{yaw=-.3;pitch=-.37;zoom=1;level='global';active=false;auto=false;host.dataset.active='false';labels();message('Globe reset. Drag or use the south-pole button.','已复位。拖动月球，或点击定位南极。');};
   $('#moon-pause').onclick=()=>{auto=!auto;labels();};
-  $('#moon-local').onclick=()=>{level='local';$('#moon-regional-map').hidden=true;$('#moon-local-map').hidden=false;labels();};
-  $('#moon-back-region').onclick=()=>{level='region';$('#moon-regional-map').hidden=false;$('#moon-local-map').hidden=true;labels();renderRegion();};
+  $('#moon-local').onclick=()=>{level='local';labels();$('#moon-local-grid [aria-pressed="true"]')?.focus({preventScroll:true});};
+  $('#moon-back-region').onclick=()=>{level='region';$('#moon-local-map').hidden=true;labels();renderRegion();$('#moon-regional-map [aria-pressed="true"]')?.focus({preventScroll:true});};
   function fallback(en='2D mode: browse the map and supported locations below.',zh='二维模式：通过地图和下方地点列表继续探索。'){host.dataset.renderMode='2d';canvas.hidden=true;marker.hidden=true;$('#moon-flat-image').hidden=false;auto=false;labels();message(en,zh);}
   $('#moon-flat').onclick=()=>{if(host.dataset.renderMode==='2d'){if(gl&&textureReady){host.dataset.renderMode='3d';canvas.hidden=false;$('#moon-flat-image').hidden=true;labels();}else{message('Retrying the 3D Moon…','正在重试三维月球…');try{initGL();}catch{fallback();}}}else fallback();};
   $('#moon-flat-image').onclick=e=>{const r=e.currentTarget.getBoundingClientRect(),lon=((e.clientX-r.left)/r.width*360+180)%360,lat=90-(e.clientY-r.top)/r.height*180;showCoordinate(lat,lon);};
@@ -96,10 +103,10 @@ export function createMoonExplorer(host,{language=()=> 'en',onSelect=()=>{}}={})
     const texture=gl.createTexture();gl.bindTexture(gl.TEXTURE_2D,texture);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR_MIPMAP_LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.REPEAT);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);
     const image=new Image();image.onload=()=>{try{gl.bindTexture(gl.TEXTURE_2D,texture);gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL,true);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGB,gl.RGB,gl.UNSIGNED_BYTE,image);gl.generateMipmap(gl.TEXTURE_2D);textureReady=true;host.dataset.renderMode='3d';canvas.hidden=false;$('#moon-flat-image').hidden=true;labels();message('Explore the Moon. The amber marker opens the supported south-pole region.','开始探索月球。琥珀色标记指向支持计算的南极研究区。');}catch{fallback('Texture unavailable. The 2D map and location list remain usable.','纹理不可用，二维地图和地点列表仍可使用。');}};image.onerror=()=>fallback('Texture unavailable. Use the map and location list.','纹理加载失败。请使用地图和地点列表。');image.src='assets/imagery/moon-color-2025-2k.jpg';
     const angles=gl.getUniformLocation(program,'angles'),aspect=gl.getUniformLocation(program,'aspect'),z=gl.getUniformLocation(program,'zoom');
-    function frame(now){requestAnimationFrame(frame);if(!visible||document.hidden||!host.isConnected||!textureReady||host.dataset.renderMode!=='3d'){last=now;return;}const elapsed=now-last;if(elapsed<30)return;last=now;if(auto)yaw+=Math.min(elapsed,100)*.000022;const r=canvas.getBoundingClientRect(),ratio=Math.min(devicePixelRatio||1,1.5);const w=Math.round(r.width*ratio),h=Math.round(r.height*ratio);if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h;}gl.viewport(0,0,w,h);gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);gl.uniform2f(angles,yaw,pitch);gl.uniform1f(aspect,w/h);gl.uniform1f(z,zoom);const start=performance.now();gl.drawElements(gl.TRIANGLES,indices.length,gl.UNSIGNED_SHORT,0);drawCount++;if(performance.now()-start>35)slowFrames++;if(drawCount===120&&slowFrames>60)fallback('2D mode selected for this device. All research tools remain available.','已为此设备切换二维模式，研究功能继续可用。');const p=rotate(vector(-89.45,222.75),yaw,pitch);marker.hidden=p[2]<0;marker.style.left=`${(1+p[0]*.86*zoom/(w/h))*50}%`;marker.style.top=`${(1-p[1]*.86*zoom)*50}%`;host.dataset.frameCount=String(drawCount);}
+    function frame(now){requestAnimationFrame(frame);if(!sceneActive||!visible||document.hidden||!host.isConnected||!textureReady||host.dataset.renderMode!=='3d'){last=now;return;}const elapsed=now-last;if(elapsed<30)return;last=now;if(auto)yaw+=Math.min(elapsed,100)*.000022;const r=canvas.getBoundingClientRect(),ratio=Math.min(devicePixelRatio||1,1.5);const w=Math.round(r.width*ratio),h=Math.round(r.height*ratio);if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h;}gl.viewport(0,0,w,h);gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);gl.uniform2f(angles,yaw,pitch);gl.uniform1f(aspect,w/h);gl.uniform1f(z,zoom);const start=performance.now();gl.drawElements(gl.TRIANGLES,indices.length,gl.UNSIGNED_SHORT,0);drawCount++;if(performance.now()-start>35)slowFrames++;if(drawCount===120&&slowFrames>60)fallback('2D mode selected for this device. All research tools remain available.','已为此设备切换二维模式，研究功能继续可用。');const p=rotate(vector(-89.45,222.75),yaw,pitch);marker.hidden=p[2]<0;marker.style.left=`${(1+p[0]*.86*zoom/(w/h))*50}%`;marker.style.top=`${(1-p[1]*.86*zoom)*50}%`;host.dataset.frameCount=String(drawCount);}
     requestAnimationFrame(frame);canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();fallback('3D context lost. Continue with the 2D map.','三维绘图暂时不可用，请通过二维地图继续。');});
   }
   try{initGL();}catch{fallback();}
   labels();
-  return {setData(bundle){sites=bundle.sites;selected=sites.find(s=>s.id==='ridge-6')||sites[0];labels();renderRegion();},setLanguage:labels,selectSite,getSelection:()=>({siteId:selected?.id,patchId,url:entryURL()})};
+  return {setData(bundle){sites=bundle.sites;selected=sites.find(s=>s.id===selected?.id)||sites.find(s=>s.id==='ridge-6')||sites[0];labels();renderRegion();},setLanguage:labels,selectSite,setSelection,getSelection:selection};
 }

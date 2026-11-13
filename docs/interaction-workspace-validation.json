@@ -1,0 +1,81 @@
+{
+  "checkedAt": "2026-11-13T09:02:14.497Z",
+  "artifact": "dist",
+  "baseline": {
+    "status": "PASS",
+    "baseline": "aa81426 mission-service.js routed into built test page; no scientific responses mocked",
+    "coverageClosed": true,
+    "lateResponseOverwroteNewDraft": true,
+    "race": {
+      "draft": "24",
+      "state": {
+        "revision": 3,
+        "language": "zh",
+        "campaign": "jun",
+        "siteId": "ridge-6",
+        "patchId": "e+25-n-25",
+        "settings": {
+          "start": "2027-06-02T06:00:00.000Z",
+          "durationHours": 168,
+          "maxDarkHours": 24,
+          "maxCommGapHours": 24,
+          "minJointHours": 24,
+          "clearanceDeg": 0,
+          "observerHeightM": 2,
+          "nominalStepHours": 0.5
+        },
+        "dirty": false,
+        "ready": true,
+        "buildId": "d1f0fad999ceec1e149eb7ce9d5cab6a10ce913c06ec8cb06e1fff17513d8e96"
+      },
+      "message": "服务端已完成计算并记录。现在可以加入对比或保存任务。"
+    }
+  },
+  "checks": [
+    {
+      "name": "Reproduced old coverage collapse and genuine late-response draft overwrite",
+      "status": "PASS"
+    },
+    {
+      "name": "Coverage disclosure, query drafts and stable focused input survive point and language changes",
+      "status": "PASS"
+    },
+    {
+      "name": "Delayed real server calculation cannot replace a newer input draft",
+      "status": "PASS"
+    },
+    {
+      "name": "Public device mode compares real calculations without unavailable server actions or mixed-condition ranking",
+      "status": "PASS"
+    },
+    {
+      "name": "Comparison can show only differences and reopen exact original conditions",
+      "status": "PASS"
+    },
+    {
+      "name": "Device file survives reload and restores exact complete versioned evidence",
+      "status": "PASS"
+    },
+    {
+      "name": "Restored device file re-exports identical evidence",
+      "status": "PASS"
+    },
+    {
+      "name": "Evidence drawer follows current language while preserving the original evidence unchanged",
+      "status": "PASS"
+    },
+    {
+      "name": "Altered nine-point summary is rejected while the current result remains intact",
+      "status": "PASS"
+    },
+    {
+      "name": "Selected failed point offers an alternative and metric evidence locates its actual interval",
+      "status": "PASS"
+    },
+    {
+      "name": "390px device-mode save and comparison remain operable without overflow",
+      "status": "PASS"
+    }
+  ],
+  "errors": []
+}

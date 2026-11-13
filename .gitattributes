@@ -6,3 +6,5 @@
 # Preserve the exact archived scientific bytes and their SHA-256 checksums.
 data/** -text
 evidence-assets/** -text
+# Study CSV files are frozen evidence; preserve their RFC-style CRLF bytes.
+docs/study/*.csv -text

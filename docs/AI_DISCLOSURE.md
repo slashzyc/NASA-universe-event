@@ -2,7 +2,7 @@
 
 Project: **LunaMargin · 月面余量**  
 Disclosure created: **12 November 2026**, America/New_York  
-Update contributors, release metadata and the actual media inventory before submission.
+This inventory covers the repository release and its saved browser screenshots. The owner must append any later human contributions or submission media.
 
 ## Advance development
 
@@ -18,8 +18,8 @@ Award eligibility has not been confirmed. Disclose the timeline and obtain an or
 | --- | --- | --- |
 | OpenAI Codex | Assisted source research, project concept, implementation, test preparation and documentation | Read final verification results from the repository evidence record |
 | Parallel Codex agents | Bounded research, data, software and documentation work coordinated by the main agent | AI-agent review is not independent human or NASA expert validation |
-| Project owner | Chose the challenge/repository, requested the project and authorized advance development | Record actual manual review and further contributions |
-| Other human team members | [Add only actual registered contributors and their work] | [Record review actually performed] |
+| Project owner | Chose the challenge/repository, requested the project and authorized advance development | No structured user study or documented manual acceptance review is claimed |
+| Other human team members | No additional human contributors have been identified in this work | Registered team membership must be supplied by the owner before submission |
 
 NASA and JPL supply cited scientific resources. They have not endorsed, certified or reviewed LunaMargin on the basis of this work.
 
@@ -33,15 +33,16 @@ NASA and JPL supply cited scientific resources. They have not endorsed, certifie
 
 ## Generated-media inventory
 
-This documentation task generated no images, video or audio. The release owner must inspect the final project inventory.
+The repository contains software-rendered scientific visualizations and browser screenshots. No image-generation model, video-generation model or audio-generation model was used in this work.
 
 | Content | Final inventory / action |
 | --- | --- |
-| Generated images | [List files/tools, or confirm none after inspection]; visibly label AI generation if present |
-| Generated video | [List files/tools, or confirm none after inspection]; visibly label AI generation if present |
-| Generated audio | [List files/tools, or confirm none after inspection]; acknowledge in description and metadata |
-| NASA/third-party images | Cite actual sources and usage terms |
-| Project graphics | Identify authoring method and distinguish from NASA imagery |
+| Model-generated images | None |
+| Generated video | None; the bilingual demo script is a proposed recording route |
+| Generated audio | None |
+| NASA/third-party imagery | Terrain displays are calculated from cited NASA LOLA elevation products; they are not lunar photographs |
+| Project graphics | AI-assisted SVG favicon and HTML/CSS/canvas interface; terrain, horizons and timelines are programmatic renderings of scientific inputs |
+| Browser screenshots | Actual captures in `docs/screenshots/`, produced by the automated browser check; they depict the implemented application |
 
 [GO Team AI guidance #1849](https://github.com/nasa/spaceapps/discussions/1849) permits AI assistance with disclosure, specifies labeling/acknowledgments and excludes NASA branding/design elements from generated content. Check current official terms before submission.
 

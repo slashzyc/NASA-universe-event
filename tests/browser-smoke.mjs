@@ -99,6 +99,22 @@ try{
   await test('search after unsaved form changes keeps displayed and exported results consistent',async()=>{
     await scenario(p);await range(p,'#dark-limit',0);await p.locator('#find-window').click();await p.waitForSelector('#search-results:not([hidden])',{timeout:30000});const evidence=await downloadJson(p);const center=evidence.results.find(r=>r.siteId==='ridge-6');assert.ok(evidence.settings.maxDarkHours!==0||!center.centerFeasible,'export reports a zero darkness limit with a passing center that has >12 h darkness');
   });
+  await test('late campaign response cannot replace the most recently selected campaign',async()=>{
+    await scenario(p);let release,seen,completed;
+    const hold=new Promise(r=>release=r),seenPromise=new Promise(r=>seen=r),done=new Promise(r=>completed=r);
+    const pattern='**/data/lunar-sites.json';
+    await p.route(pattern,async route=>{const response=await route.fetch();seen();await hold;await route.fulfill({response});completed();});
+    try{await p.locator('#campaign').selectOption('dec');await seenPromise;assert.ok(await p.locator('#analyze-btn').isDisabled());assert.ok(await p.locator('#export-btn').isDisabled());await p.locator('#campaign').selectOption('mar');await p.waitForFunction(()=>new URL(location).searchParams.get('campaign')==='mar');release();await done;await p.waitForTimeout(100);const evidence=await downloadJson(p);assert.equal(evidence.campaign,'mar');assert.ok(evidence.settings.start.startsWith('2027-03-'));assert.ok(evidence.data.start.startsWith('2027-03-'));}finally{release();await p.unroute(pattern);}
+  });
+  await test('invalid empty arrival cannot overwrite the previously analyzed evidence',async()=>{
+    await scenario(p);const previous=await downloadJson(p);await p.locator('#start-date').fill('');await p.locator('#find-window').click();assert.equal(await p.locator('#search-results').isHidden(),true);const after=await downloadJson(p);assert.deepEqual(after.settings,previous.settings);assert.deepEqual(after.results,previous.results);
+  });
+  await test('unsupported shared duration and clearance values retain valid defaults',async()=>{
+    await p.goto(url('campaign=jun&durationHours=999&clearanceDeg=0.3'));await ready(p);const evidence=await downloadJson(p);assert.equal(evidence.settings.durationHours,168);assert.equal(evidence.settings.clearanceDeg,0);assert.equal(await p.locator('#duration').inputValue(),'168');assert.equal(await p.locator('#clearance').inputValue(),'0');
+  });
+  await test('last possible arrival date permits only midnight for a seven-day mission',async()=>{
+    await scenario(p);await p.locator('#start-hour').selectOption('18');await p.locator('#start-date').fill('2027-06-24');await p.locator('#start-date').press('Tab');assert.equal(await p.locator('#start-date').getAttribute('max'),'2027-06-24');assert.equal(await p.locator('#start-hour').inputValue(),'0');const enabled=await p.locator('#start-hour option').evaluateAll(options=>options.filter(o=>!o.disabled).map(o=>o.value));assert.deepEqual(enabled,['0']);await p.locator('#analyze-btn').click();const evidence=await downloadJson(p);assert.equal(evidence.settings.start,'2027-06-24T00:00:00Z');assert.ok(evidence.results.every(r=>r.status==='complete'));
+  });
   await test('380px phone layout has no page overflow or overlapping mission controls',async()=>{
     await scenario(p);await p.setViewportSize({width:380,height:844});await p.waitForTimeout(250);await p.screenshot({path:path.join(screenshots,'phone-380.png'),fullPage:true});
     const layout=await p.evaluate(()=>{const ids=['campaign','start-date','start-hour','duration','dark-limit','comm-limit','joint-limit','analyze-btn','find-window'];const rects=ids.map(id=>{const r=document.getElementById(id).getBoundingClientRect();return{id,x:r.x,y:r.y,right:r.right,bottom:r.bottom,width:r.width,height:r.height};});const overlaps=[];for(let i=0;i<rects.length;i++)for(let j=i+1;j<rects.length;j++){const a=rects[i],b=rects[j];if(Math.min(a.right,b.right)-Math.max(a.x,b.x)>2&&Math.min(a.bottom,b.bottom)-Math.max(a.y,b.y)>2)overlaps.push([a.id,b.id]);}return{pageWidth:document.documentElement.scrollWidth,viewport:innerWidth,overlaps,rects};});assert.ok(layout.pageWidth<=layout.viewport+1,JSON.stringify(layout));assert.deepEqual(layout.overlaps,[],JSON.stringify(layout));

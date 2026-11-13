@@ -1,6 +1,6 @@
 {
-  "startedAt": "2026-11-13T04:00:01.097Z",
-  "finishedAt": "2026-11-13T04:00:08.522Z",
+  "startedAt": "2026-11-13T04:07:32.661Z",
+  "finishedAt": "2026-11-13T04:07:42.160Z",
   "base": "http://127.0.0.1:4175",
   "environment": {
     "node": "v24.22.1",
@@ -14,86 +14,105 @@
       844
     ]
   },
-  "passed": 14,
-  "failed": 1,
+  "passed": 19,
+  "failed": 0,
   "pageErrors": [],
   "consoleErrors": [],
   "records": [
     {
       "name": "loads three research sites and real data canvases",
       "status": "PASS",
-      "durationMs": 507
+      "durationMs": 485
     },
     {
       "name": "all three site tabs update title and URL",
       "status": "PASS",
-      "durationMs": 98
+      "durationMs": 88
     },
     {
       "name": "December March and June campaigns load their own time coverage",
       "status": "PASS",
-      "durationMs": 145
+      "durationMs": 127
     },
     {
       "name": "date duration and ranges produce the requested evidence settings",
       "status": "PASS",
-      "durationMs": 370
+      "durationMs": 456
     },
     {
       "name": "nine magnified footprint points are clickable and update horizon context",
       "status": "PASS",
-      "durationMs": 448
+      "durationMs": 396
     },
     {
       "name": "terrain keyboard and timeline slider change the inspected state",
       "status": "PASS",
-      "durationMs": 19
+      "durationMs": 18
     },
     {
       "name": "worker search completes and a returned window can be applied",
       "status": "PASS",
-      "durationMs": 1294
+      "durationMs": 1283
     },
     {
       "name": "language switch translates primary content and persists across reload",
       "status": "PASS",
-      "durationMs": 986
+      "durationMs": 985
     },
     {
       "name": "science modal opens closes and links to existing local evidence",
-      "status": "FAIL",
-      "durationMs": 44,
-      "error": "AssertionError [ERR_ASSERTION]: docs/METHODOLOGY.md: 404\n    at file:///C:/Users/slash/OneDrive/%E6%96%87%E6%A1%A3/ChatGPT/NASA%E9%BB%91%E5%AE%A2%E6%9D%BE/lunar-margin/tests/browser-smoke.mjs:86:334\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async test (file:///C:/Users/slash/OneDrive/%E6%96%87%E6%A1%A3/ChatGPT/NASA%E9%BB%91%E5%AE%A2%E6%9D%BE/lunar-margin/tests/browser-smoke.mjs:29:7)\n    at async file:///C:/Users/slash/OneDrive/%E6%96%87%E6%A1%A3/ChatGPT/NASA%E9%BB%91%E5%AE%A2%E6%9D%BE/lunar-margin/tests/browser-smoke.mjs:85:3"
+      "status": "PASS",
+      "durationMs": 50
     },
     {
       "name": "four-step guided tour finishes",
       "status": "PASS",
-      "durationMs": 106
+      "durationMs": 81
     },
     {
       "name": "shared URL restores the mission and selected site",
       "status": "PASS",
-      "durationMs": 503
+      "durationMs": 454
     },
     {
       "name": "standalone HTML and CSV exports contain the actual scenario",
       "status": "PASS",
-      "durationMs": 266
+      "durationMs": 230
     },
     {
       "name": "search after unsaved form changes keeps displayed and exported results consistent",
       "status": "PASS",
-      "durationMs": 1097
+      "durationMs": 1401
+    },
+    {
+      "name": "late campaign response cannot replace the most recently selected campaign",
+      "status": "PASS",
+      "durationMs": 362
+    },
+    {
+      "name": "invalid empty arrival cannot overwrite the previously analyzed evidence",
+      "status": "PASS",
+      "durationMs": 331
+    },
+    {
+      "name": "unsupported shared duration and clearance values retain valid defaults",
+      "status": "PASS",
+      "durationMs": 204
+    },
+    {
+      "name": "last possible arrival date permits only midnight for a seven-day mission",
+      "status": "PASS",
+      "durationMs": 237
     },
     {
       "name": "380px phone layout has no page overflow or overlapping mission controls",
       "status": "PASS",
-      "durationMs": 564
+      "durationMs": 562
     },
     {
       "name": "no uncaught browser errors",
       "status": "PASS",
-      "durationMs": 0
+      "durationMs": 1
     }
   ]
 }

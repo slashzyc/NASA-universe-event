@@ -1,106 +1,78 @@
-# LunaMargin — submission draft / 提交草稿
+# LunaMargin — project submission narrative / 项目提交文案
 
-**Status: draft awaiting final implementation review and measured results.** This describes the intended delivery and contains verification fields. Replace bracketed fields with verified facts, remove unavailable features and reconcile the text with the final application before submitting. This is not a completed official submission.
+Prepared against the implemented application and saved evidence on 12 November 2026, America/New_York. This narrative is not an official submission. Team registration, submission links and an organizer decision on advance-development eligibility remain to be completed by the owner.
 
-**Competition status:** development began before the 14 November 2026 official start at the owner's request. GO Team guidance says advance work can lead to disqualification. Disclose the timeline and obtain an organizer determination; do not describe this as work created entirely during the hackathon.
+**Development timeline:** the owner requested full implementation before the official event after receiving the published warning that advance work can lead to disqualification. Preserve this disclosure. See [AI_DISCLOSURE.md](AI_DISCLOSURE.md).
 
-## Fields to verify
+## English
 
-| Field | Draft value / required action |
-| --- | --- |
-| Project | LunaMargin · 月面余量 |
-| Challenge | Lunar Landing Site Navigator |
-| Team | [Actual registered team name and members] |
-| Repository | https://github.com/slashzyc/NASA-universe-event — confirm published revision |
-| Live project | [Verified public application URL] |
-| Demo | [Verified public demo URL; current official duration/format rules apply] |
-| NASA input requirement | [An actually used input matched to the official 2026 Resources list] |
-| Evidence | [Final manifest, validation record and comparison export] |
-| Eligibility | [Organizer determination; currently unconfirmed] |
+### Project and challenge
 
-## English draft
-
-### One-line concept
-
-LunaMargin helps people compare lunar landing sites and dates by turning Sun, Earth and terrain geometry into visible operating margins.
+**LunaMargin — Every landing needs a little margin.**  
+Challenge: [Lunar Landing Site Navigator](https://www.spaceappschallenge.org/2026/challenges/lunar-landing-site-navigator/)  
+Repository: [NASA-universe-event](https://github.com/slashzyc/NASA-universe-event)
 
 ### High-level summary
 
-At the lunar south pole, changes in location and time can change what rises above the terrain. A site comparison becomes useful when it answers a practical question: how long would a mission need to bridge a continuous darkness interval or an interruption in Earth visibility?
+A promising lunar landing point can hide a difficult neighboring location. LunaMargin makes that difference visible. It combines NASA LOLA terrain and NASA/JPL Horizons ephemerides to compare continuous darkness, Earth-visibility gaps and joint Sun/Earth windows at three published Connecting Ridge research points and nine nearby positions per point.
 
-LunaMargin connects NASA LOLA terrain with NASA/JPL Horizons Sun and Earth geometry. Its intended workflow compares sites and dates, shows the local horizon, identifies contiguous visibility interruptions and evaluates nearby sample points against user-selected constraints. The sample-feasibility fraction describes the evaluated points under those assumptions. An evidence report is intended to preserve source files, coordinates, timing and settings so another person can reproduce the comparison.
+Users choose dates, a mission duration and tolerable interruptions. They inspect the local horizon, move through time, compare neighboring samples and search cached dates for a window meeting their conditions across all nine positions. English and Chinese interfaces, a guided tour and downloadable HTML, CSV and JSON evidence make the reasoning accessible and portable.
 
-The experience serves early mission-concept exploration and learning. It puts the geometry and the reason for each result next to the decision. Confirm the final implementation and measured outcomes in the evidence record before submitting this summary.
+### Working demonstration
 
-### Value and approach
+At ROI 6 from **2 June 2027 06:00 UTC for seven days**, set a **24-hour darkness limit, 24-hour Earth-gap limit, at least 24 hours of joint visibility and zero extra angular clearance**. The published 30-minute series gives the center **155.55 hours of Sun visibility**, a **12.45-hour longest dark interval**, a **6.32-hour longest Earth gap** and **149.23 hours of joint visibility**. The center and **8 of 9 sampled positions** meet the criteria.
 
-The design connects three views of one decision: the sky at a selected point, the sequence of available and unavailable windows, and variation among nearby points. Users adjust allowable interruption durations and inspect which samples meet the criteria. This connects an intuitive picture to explicit engineering questions.
+Select the point **25 m east and 25 m south**: its longest dark interval is **167.50 hours**, with **zero joint visibility**. This is a spatial sensitivity result in the supplied terrain model. The fraction describes nine declared positions; it is not a landing-success probability.
 
-The proposed contribution is a traceable workflow for operating margin and spatial sensitivity. Existing lunar mapping and ephemeris tools provide its scientific foundation and comparison context. Describe the specific implemented interaction that distinguishes the final project.
+Searching **264 site/date combinations** at six-hour arrival steps finds the earliest all-nine passing alternatives on **21 June 2027 at 12:00 UTC**, a **462-hour delay**, at ROI 1 and ROI 4. ROI 4 has **7.68 hours** of longest darkness, **18.62 hours** of longest Earth gap and **141.70 hours** of joint visibility. This exposes a tradeoff between timing and sampled-point feasibility, within the cached search grid. Exact values and hashes are in [demo-evidence.json](demo-evidence.json).
 
 ### NASA data and method
 
-Researched inputs are NASA GSFC LOLA products [78](https://pgda.gsfc.nasa.gov/products/78) and [90](https://pgda.gsfc.nasa.gov/products/90), plus [NASA/JPL Horizons](https://ssd.jpl.nasa.gov/horizons/). Record the exact subset actually used, its hashes and preprocessing in the final manifest. Confirm the official challenge-resource match before submission.
+Reference locations come from NASA's original Connecting Ridge ROI attributes. Terrain combines the **5 m/pixel Site01 LOLA DEM** in [PGDA 78](https://pgda.gsfc.nasa.gov/products/78) and an **80 m/pixel regional DEM** from [PGDA 90](https://pgda.gsfc.nasa.gov/products/90). Spherical rays trace terrain to 250 km from an observer 2 m above the surface. [JPL Horizons](https://ssd.jpl.nasa.gov/horizons/) supplies airless Sun/Earth center directions every 30 minutes for December 2026, March 2027 and June 2027.
 
-The method compares ephemerides with a terrain horizon using documented coordinate, height and time conventions. Longest interruptions refer to a stated analysis interval and sample spacing. The final report must describe interval-boundary truncation, interpolation, unavailable terrain and spatial sample layout.
+A separate numerical check requested real **five-minute Horizons tables for the center and displaced point**, recomputed 0.5° horizons with finer radial spacing, and integrated intervals in Python. The center-pass / southeast-fail result remained: longest darkness **12.437 h versus 167.348 h**. This checks cadence, ray sampling and nearby-point ephemeris reuse. It uses the same terrain sources and is not independent observational validation. See [fine-ephemeris-validation.json](../data/fine-ephemeris-validation.json).
 
-### Demonstrated result — fill after validation
+### Contribution and scope
 
-For **[site / coordinates]**, over **[start–end UTC]** with **[time step]**, **[terrain and horizon settings]**, the longest modeled Sun-unavailable interval was **[value + unit]**, and the longest Earth-unavailable interval was **[value + unit]**. Under **[thresholds]**, **[passing count] / [valid count]** sampled locations met all criteria; **[excluded count]** lacked valid coverage or inputs. Comparing **[alternative site/date]** produced **[verified difference, tradeoff or no improvement]**. Evidence: **[export and revision]**.
+LunaMargin links horizon geometry, contiguous interruptions, user constraints and neighboring points in one inspectable decision. Existing lunar maps and ephemeris tools provide its foundation. The demonstrated contribution is a reproducible comparison with an explicit tradeoff and evidence trail.
 
-These fields are deliberately unfilled. This draft establishes no measured advantage, accuracy score, runtime claim or user-study result.
+The tool supports education and early mission-concept exploration. Body-center visibility does not calculate solar electrical yield, radio-link budgets, landing dynamics or terrain hazards. DEM interpolation, product seams, finite bearing/time steps and unmodeled eclipses affect interpretation. Human usability studies and external expert review have not been conducted.
 
-### Scope and disclosure
+### Development and attribution
 
-The output supports education and early planning through geometric visibility. Solar electrical yield, battery performance, radio links, landing dynamics and unmodeled hazards require additional models. A sampled fraction is not a landing-success probability.
+OpenAI Codex assisted research, implementation, tests and documentation, including parallel agents. Original NASA inputs remain distinct from computed outputs and synthetic test fixtures. Development predates the official hackathon; eligibility is unconfirmed. Registered members should provide their actual contribution details.
 
-OpenAI Codex assisted research, implementation, tests and documentation, including parallel agents. Development started before the official event; the owner was informed of the published timing rule and chose to proceed. Members must review the final evidence and describe their own contributions accurately. See [AI_DISCLOSURE.md](AI_DISCLOSURE.md).
+## 中文
 
-## 中文草稿
+### 项目简介
 
-### 一句话介绍
+**LunaMargin「月面余量」：每一次着陆，都需要一点余量。**
 
-LunaMargin「月面余量」把太阳、地球与月面地形的几何关系转化为可比较的任务余量，帮助人们选择地点与日期。
+一个看起来理想的月球落点，周边位置可能面临不同的光照。LunaMargin 将 NASA LOLA 地形与 NASA/JPL Horizons 星历结合，比较连接脊三个公开研究点的连续断光、地球不可见时段和日地共同可见窗口，并检查每处九个相邻位置。
 
-### 项目摘要
+用户设置日期、任务时长和可承受的中断，查看地平线与时间变化，比较周边位置，搜索所有取样点均满足条件的后续窗口。中英界面、操作导览，以及 HTML 简报、CSV 对比表和 JSON 证据导出，让计算可以理解、带走和复查。
 
-月球南极的地点和日期变化，太阳与地球是否高于当地地形也会变化。对任务设计而言，一个实际问题是：最长连续断光和对地不可见时段有多久，任务需要跨过多长的中断？
+### 实际演示
 
-LunaMargin 的设计将 NASA LOLA 地形与 NASA/JPL Horizons 星历连接起来，比较地点和日期，显示当地地平线与连续可见窗口，并检查落点周围的多个取样位置是否满足用户设置的中断时长限制。取样可行比例描述本次有效取样点的结果；报告记录来源、坐标、时段与设置，让其他人可以复查。
+选择 **ROI 6，2027 年 6 月 2 日 06:00 UTC 起的七天**；设定**最长断光 24 小时、最长地球不可见 24 小时、日地共同可见至少 24 小时、额外角度余量 0°**。30 分钟星历序列给出：中心太阳可见 **155.55 小时**，最长断光 **12.45 小时**，最长地球不可见 **6.32 小时**，共同可见 **149.23 小时**。中心通过，九个取样点中有 **8 个**符合全部条件。
 
-项目面向早期任务概念探索与科学教育，把图形、数字和原因放到同一个决策流程里。正式提交前，应按最终程序与验证记录更新功能状态。
+点击**东 25 米、南 25 米**的位置，最长断光变为 **167.50 小时**，共同可见为 **0 小时**。这是给定地形模型中的位置敏感性结果；九点通过比例不能理解为着陆成功概率。
 
-### 使用价值
+搜索按六小时抵达步长检查 **264 种地点/日期组合**，最早全部九点通过的方案是 **6 月 21 日 12:00 UTC，ROI 1 或 ROI 4，推迟 462 小时**。其中 ROI 4 最长断光 **7.68 小时**、地球不可见 **18.62 小时**、共同可见 **141.70 小时**。时间与取样可行性的取舍由此可见；最早结论仅针对缓存范围和搜索网格。完整依据见 [demo-evidence.json](demo-evidence.json)。
 
-一个地点的天空、连续窗口和周围取样点对应同一个问题。用户调整可接受的断光或对地不可见时长后，可以查看哪些点满足条件、哪些条件限制选择。这种交互把直观感受与明确的任务假设联系起来。
+### 数据与复核
 
-项目拟提供可追溯的余量比较与空间敏感性分析。已有月球地图和星历工具提供科学基础；参赛材料应依据实际实现的差异介绍创新点。
+参考位置来自 NASA 原始 Connecting Ridge ROI 属性，地形结合 [PGDA 78](https://pgda.gsfc.nasa.gov/products/78) 的 5 米像素 DEM 与 [PGDA 90](https://pgda.gsfc.nasa.gov/products/90) 的 80 米区域 DEM。球面射线计算地表上方两米观察者至 250 公里内的地形遮挡。Horizons 提供 2026 年 12 月、2027 年 3 月和 6 月的真实太阳、地球中心方向。
 
-### 数据与方法
+额外复核针对中心与东南点分别请求真实五分钟星历，把地平线方位步长加密至 0.5°、缩短径向步长，并使用 Python 积分。结论仍为中心通过、东南点不通过；最长断光分别是 **12.437 与 167.348 小时**。这检查了数值采样与近邻星历近似，沿用相同地形来源，不能代替独立观测验证。
 
-已研究 NASA GSFC LOLA [产品 78](https://pgda.gsfc.nasa.gov/products/78)、[产品 90](https://pgda.gsfc.nasa.gov/products/90) 与 [NASA/JPL Horizons](https://ssd.jpl.nasa.gov/horizons/)。最终清单须记录实际使用的文件、哈希、预处理和查询参数，并确认至少一个已用数据源出现在赛题 2026 官方 Resources 列表。
+项目将地平线、窗口、约束与周边取样连接为一个可检查的决策流程，服务科学教育和早期任务概念探索。发电、通信链路、着陆动力学和地表危险需要其他模型；地形插值、数据拼接、有限采样及未建模食现象影响解释。尚未开展人工用户研究或外部专家评审。
 
-计算按照公开的坐标、高度和时间约定，将太阳、地球的位置与地形地平线比较。连续中断指标对应明确的分析时段与采样间隔；报告需写清边界截断、插值、地形缺失及周围取样布局。
+OpenAI Codex 协助研究、实现、测试与文档。开发早于正式比赛，用户知悉规则后仍明确要求继续。提交应保留真实时间线与 AI 披露，填写真实成员贡献。
 
-### 实际结果——验证后填写
+## Before official submission
 
-在 **[地点与坐标]**、**[UTC 起止时间]**、**[采样步长]**、**[地形及地平线设置]** 下，最长太阳不可见时段为 **[数值与单位]**，最长地球不可见时段为 **[数值与单位]**。采用 **[约束]** 后，**[通过数量] / [有效数量]** 个点满足全部条件；另有 **[排除数量]** 个点因输入或覆盖不足未计入。与 **[另一地点或日期]** 相比，结果为 **[已核对的变化、权衡或没有改善]**。证据：**[报告及版本]**。
-
-本草稿尚未填入测量结果，也没有建立准确率、提速或用户测试方面的结论。
-
-### 范围与开发说明
-
-项目定位是几何可见性的早期规划与教学工具。发电、储能、电波链路、着陆动力学及未建模地表风险需要进一步模型；取样比例不能解释为着陆成功概率。
-
-OpenAI Codex 参与研究、代码、测试和文档，包括并行代理工作。开发在比赛前开始，用户知悉官方时间规则后仍明确要求继续。提交时应公开真实时间线，准确填写实际成员贡献。
-
-## Final publication gate
-
-- [ ] Verify feature statements against the final deployed application.
-- [ ] Replace result fields with traceable measurements or remove that section.
-- [ ] Fill [VALIDATION_RECORD.md](VALIDATION_RECORD.md) from actual checks.
-- [ ] Confirm official resource mapping, submission format and deadline.
-- [ ] Record the organizer's eligibility determination for advance development.
-- [ ] Verify public links without a private account.
-- [ ] Add registered members, actual contributions and source/AI acknowledgments.
-- [ ] Submit through the official team Project Tab; GitHub publication alone is not submission.
+1. **Verify the resource match.** The complete official 2026 Resources list was not confirmed during research. At least one actually used input must match a NASA source listed there; record its name and retrieval date.
+2. **Resolve eligibility transparently.** Obtain an organizer determination about advance development before claiming eligibility.
+3. **Complete account details.** Confirm actual members, same-event registration, Team Owner time zone, deadline and current demo format.
+4. **Provide public links and submit.** Use the verified deployed project and recorded-demo URLs in the official Project Tab. GitHub publication alone does not submit a project.

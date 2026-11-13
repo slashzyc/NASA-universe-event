@@ -1,4 +1,5 @@
-import {analyzeSite, interpolateHorizon, stressTestSite} from './analysis.js';
+import {readManifest,verifiedText,importVerifiedAlgorithm,validDigest,inspectRecord,scenarioURL} from './provenance.js';
+let analyzeSite,interpolateHorizon,stressTestSite,currentRelease,release,algorithmSource,datasetText,versionMode='current';
 import {drawTerrain,drawHorizon} from './visuals.js';
 import {interfaceCopy,presets,patchName,renderBeginnerView,renderDraft} from './navigator-ui.js';
 
@@ -51,12 +52,18 @@ function setLanguage(){
   $('export-html').textContent=tr('Readable mission brief · HTML ↓','可阅读任务简报 · HTML ↓');
   $('export-csv').textContent=tr('Comparison spreadsheet · CSV ↓','地点对比表格 · CSV ↓');
   $('export-json').textContent=tr('Full evidence record · JSON ↓','完整证据记录 · JSON ↓');
+  $('version-heading').textContent=tr('Calculation version & saved records','计算版本与已保存记录');
+  $('import-record').textContent=tr('Open a saved JSON record','打开已保存的 JSON 记录');
+  $('record-title').textContent=tr('Review a saved calculation','复查已保存的计算');
+  $('record-original').textContent=tr('Restore its original calculation','恢复记录中的原版计算');
+  $('record-current').textContent=tr('Recalculate with the current version','明确使用当前版本重新计算');
+  if(release)renderVersion();
   if(data){render();renderMethod();if(searchResult)renderSearch(false);}
   localStorage.setItem('lunamargin-language',lang);
 }
 function getSettings(){return{start:`${$('start-date').value}T${String($('start-hour').value).padStart(2,'0')}:00:00Z`,durationHours:Number($('duration').value),maxDarkHours:Number($('dark-limit').value),maxCommGapHours:Number($('comm-limit').value),minJointHours:Number($('joint-limit').value),clearanceDeg:Number($('clearance').value),observerHeightM:2,nominalStepHours:data.sampleIntervalMinutes/60};}
 function updateRangeLabels(){for(const key of ['dark','comm','joint'])$(key+'-value').textContent=$(key+'-limit').value+' h';const duration=Number($('duration').value);$('joint-limit').max=duration;$('joint-max').textContent=duration+' h';if(Number($('joint-limit').value)>duration)$('joint-limit').value=duration;$('joint-value').textContent=$('joint-limit').value+' h';const end=Date.parse(campaigns[campaign].end)-duration*HOUR;$('start-date').max=new Date(end).toISOString().slice(0,10);for(const o of $('start-hour').options)o.disabled=$('start-date').value===$('start-date').max&&Number(o.value)>new Date(end).getUTCHours();if($('start-hour').selectedOptions[0]?.disabled)$('start-hour').value='0';}
-function saveURL(){const params=new URLSearchParams();params.set('campaign',campaign);params.set('site',selectedId);params.set('patch',resolvePatch(selectedSite().patches,activePatch)?.id||'');for(const[key,value]of Object.entries(settings))if(!['nominalStepHours','observerHeightM'].includes(key))params.set(key,String(value));history.replaceState(null,'',`${location.pathname}?${params}${location.hash}`);}
+function saveURL(){const params=new URLSearchParams();params.set('campaign',campaign);params.set('lang',lang);if(release){params.set('build',release.buildId);params.set('algo',release.identity.algorithm.sha256);params.set('data',release.identity.datasets[campaign].sha256);}params.set('site',selectedId);params.set('patch',resolvePatch(selectedSite().patches,activePatch)?.id||'');for(const[key,value]of Object.entries(settings))if(key!=='nominalStepHours')params.set(key,String(value));history.replaceState(null,'',`${location.pathname}?${params}${location.hash}`);}
 function analyze(){
   if(!data||campaignLoading)return false;
   stopPlaying();updateRangeLabels();if(!$('mission-form').reportValidity())return false;
@@ -104,7 +111,7 @@ function renderVisuals(){
   renderHorizon();
 }
 function missionSamples(){const start=Date.parse(settings.start),end=start+settings.durationHours*HOUR;return selectedSite().samples.filter(s=>Date.parse(s.time)>=start&&Date.parse(s.time)<=end);}
-function renderHorizon(){const list=missionSamples();if(!list.length)return;timeIndex=Math.min(timeIndex,list.length-1);$('time-slider').max=list.length-1;$('time-slider').value=timeIndex;const sample=list[timeIndex],patch=currentPatch(),horizon=patch?.horizon||selectedSite().horizon;if($('horizon-canvas').getBoundingClientRect().width>0&&$('detail-charts')?.open)drawHorizon($('horizon-canvas'),horizon,sample,settings.clearanceDeg,lang);$('time-label').textContent=shortDate(sample.time);const sunMargin=sample.sunEl-interpolateHorizon(horizon,sample.sunAz)-settings.clearanceDeg,earthMargin=sample.earthEl-interpolateHorizon(horizon,sample.earthAz)-settings.clearanceDeg;$('horizon-readout').innerHTML=`<span>${tr('Viewing','查看位置')} <strong>${escape(patchName(patch,lang))}</strong></span><span>${tr('Sun clearance','太阳余量')} <strong style="color:var(--amber)">${fmt(sunMargin,2)}°</strong></span><span>${tr('Earth clearance','地球余量')} <strong style="color:var(--earth)">${fmt(earthMargin,2)}°</strong></span><span>${tr('Includes extra margin','已扣除额外余量')} ${settings.clearanceDeg}°</span>`;}
+function renderHorizon(){const list=missionSamples();if(!list.length)return;timeIndex=Math.min(timeIndex,list.length-1);$('time-slider').max=list.length-1;$('time-slider').value=timeIndex;const sample=list[timeIndex],patch=currentPatch(),horizon=patch?.horizon||selectedSite().horizon;if($('horizon-canvas').getBoundingClientRect().width>0&&$('detail-charts')?.open)drawHorizon($('horizon-canvas'),horizon,sample,settings.clearanceDeg,lang,interpolateHorizon);$('time-label').textContent=shortDate(sample.time);const sunMargin=sample.sunEl-interpolateHorizon(horizon,sample.sunAz)-settings.clearanceDeg,earthMargin=sample.earthEl-interpolateHorizon(horizon,sample.earthAz)-settings.clearanceDeg;$('horizon-readout').innerHTML=`<span>${tr('Viewing','查看位置')} <strong>${escape(patchName(patch,lang))}</strong></span><span>${tr('Sun clearance','太阳余量')} <strong style="color:var(--amber)">${fmt(sunMargin,2)}°</strong></span><span>${tr('Earth clearance','地球余量')} <strong style="color:var(--earth)">${fmt(earthMargin,2)}°</strong></span><span>${tr('Includes extra margin','已扣除额外余量')} ${settings.clearanceDeg}°</span>`;}
 function renderTimeline(r){const start=Date.parse(settings.start),length=settings.durationHours*HOUR;const rows=[['sun',tr('Sun','太阳'),'sunHours'],['earth',tr('Earth','地球'),'earthHours'],['joint',tr('Both','共同可见'),'jointHours']];$('timeline').innerHTML=rows.map(([key,label,metric])=>`<div class="timeline-row"><span class="timeline-label">${label}</span><div class="timeline-track" role="img" aria-label="${escape(`${label}: ${fmt(r.metrics[metric])} ${tr('hours visible','小时可见')}`)}">${r.windows[key].map(p=>`<span class="timeline-segment ${key}" style="left:${Math.max(0,(Date.parse(p.start)-start)/length*100)}%;width:${p.hours/settings.durationHours*100}%" title="${escape(shortDate(p.start)+' → '+shortDate(p.end))}"></span>`).join('')}</div><span class="timeline-total">${fmt(r.metrics[metric])} h</span></div>`).join('')+`<div class="timeline-axis"><span>+0 h</span><span>+${settings.durationHours/2} h</span><span>+${settings.durationHours} h</span></div>`;}
 function renderTable(){$('comparison-head').innerHTML=`<tr>${[tr('Research location','研究位置'),tr('Longest darkness','最长断光'),tr('Earth-view gap','地球不可见'),tr('Sun + Earth','日地共同可见'),tr('Footprint','周边取样'),tr('Center result','中心点结果')].map(t=>`<th scope="col">${t}</th>`).join('')}</tr>`;$('comparison-body').innerHTML=results.map(r=>{const site=data.sites.find(s=>s.id===r.siteId);return`<tr class="${r.siteId===selectedId?'selected-row':''}"><td><button class="row-select" data-site="${r.siteId}">${escape(siteName(site))}<small>${Math.abs(site.lat).toFixed(4)}° S · ${site.elevationM.toFixed(0)} m</small></button></td><td>${fmt(r.metrics.longestDarkHours)} h</td><td>${fmt(r.metrics.longestCommGapHours)} h</td><td>${fmt(r.metrics.jointHours)} h</td><td>${r.patchStats.feasibleCount} / ${r.patchStats.count}</td><td><span class="status-pill ${r.centerFeasible?'':'fail'}">${r.status!=='complete'?tr('Incomplete','数据不完整'):r.centerFeasible?tr('Within limits','满足条件'):tr('Outside limits','超出条件')}</span></td></tr>`;}).join('');$('comparison-body').querySelectorAll('button').forEach(b=>b.onclick=()=>{selectSite(b.dataset.site);$('read-result').scrollIntoView({behavior:'smooth',block:'start'});});}
 function lockCampaign(locked){
@@ -113,7 +120,7 @@ function lockCampaign(locked){
   $('export-btn').disabled=locked;
   if(data)updateDraftUI();
 }
-async function loadCampaign(key,initial=false){const request=++campaignRequest;searchId++;lockCampaign(true);$('campaign').value=key;stopPlaying();try{const response=await fetch(`data/${campaigns[key].file}`);if(!response.ok)throw new Error(tr('This observation campaign could not be loaded.','无法加载所选月份数据。'));const incoming=await response.json();if(request!==campaignRequest)return;if(!incoming.sites?.length)throw new Error('No valid sites in data bundle.');data=incoming;campaign=key;activePatch=initial?pendingPatch:null;pendingPatch=null;selectedId=data.sites.some(s=>s.id===selectedId)?selectedId:data.sites[0].id;$('start-date').min=campaigns[key].start;$('start-date').max=new Date(Date.parse(campaigns[key].end)-Number($('duration').value)*HOUR).toISOString().slice(0,10);if(!initial||!$('start-date').value.startsWith(campaigns[key].start.slice(0,7)))$('start-date').value=campaigns[key].start;if(initial&&($('start-date').value<$('start-date').min||$('start-date').value>$('start-date').max))$('start-date').value=$('start-date').min;lockCampaign(false);analyze();renderMethod();$('loading').hidden=true;$('app').hidden=false;$('compare').hidden=false;requestAnimationFrame(renderVisuals);}catch(error){if(request!==campaignRequest)return;$('campaign').value=campaign;lockCampaign(false);if(!data)$('loading').innerHTML=`<div><strong>${tr('The data could not be loaded.','数据加载失败。')}</strong><p>${escape(error.message)}</p><p>${tr('Serve the project through HTTP using node scripts/serve.mjs, then reload.','请通过本地 HTTP 服务打开项目，再刷新。')}</p><button onclick="location.reload()" class="secondary-btn">Retry / 重试</button></div>`;else notify(error.message);}}
+async function loadCampaign(key,initial=false){const request=++campaignRequest;searchId++;lockCampaign(true);$('campaign').value=key;stopPlaying();try{const descriptor=release.identity.datasets[key];if(initial&&params.has('data')&&params.get('data')!==descriptor.sha256)throw new Error('Saved dataset version does not match its release.');const raw=await verifiedText(descriptor,location.href);const incoming=JSON.parse(raw);if(request!==campaignRequest)return;if(!incoming.sites?.length)throw new Error('No valid sites in data bundle.');data=incoming;datasetText=raw;campaign=key;activePatch=initial?pendingPatch:null;pendingPatch=null;selectedId=data.sites.some(s=>s.id===selectedId)?selectedId:data.sites[0].id;$('start-date').min=campaigns[key].start;$('start-date').max=new Date(Date.parse(campaigns[key].end)-Number($('duration').value)*HOUR).toISOString().slice(0,10);if(!initial||!$('start-date').value.startsWith(campaigns[key].start.slice(0,7)))$('start-date').value=campaigns[key].start;if(initial&&($('start-date').value<$('start-date').min||$('start-date').value>$('start-date').max))$('start-date').value=$('start-date').min;lockCampaign(false);analyze();renderMethod();$('loading').hidden=true;$('app').hidden=false;$('compare').hidden=false;requestAnimationFrame(renderVisuals);}catch(error){if(request!==campaignRequest)return;$('campaign').value=campaign;lockCampaign(false);if(!data)$('loading').innerHTML=`<div><strong>${tr('The data could not be loaded.','数据加载失败。')}</strong><p>${escape(error.message)}</p><p>${tr('Serve the project through HTTP using node scripts/serve.mjs, then reload.','请通过本地 HTTP 服务打开项目，再刷新。')}</p><button onclick="location.reload()" class="secondary-btn">Retry / 重试</button></div>`;else notify(error.message);}}
 
 function renderMethod(){const sourceList=data.sources.map(s=>`<div class="source-item"><strong>${escape(s.title)}</strong><p><a href="${escape(s.url)}" target="_blank" rel="noreferrer">${escape(s.url)} ↗</a>${s.paper?` · <a href="${escape(s.paper)}" target="_blank" rel="noreferrer">Publication ↗</a>`:''}</p></div>`).join('');$('method-body').innerHTML=tr(`<p>LunaMargin compares three published research positions in Connecting Ridge, near the lunar south pole. Each position has nine nearby terrain samples at 25 m spacing. The downloadable evidence records the exact inputs and computed intervals.</p><h3>1. Terrain determines the local horizon</h3><p>We combine NASA LOLA terrain at 5 m pixel spacing with an 80 m regional model. Spherical ray calculations extend 250 km in 360 geographic directions. The observer is fixed at 2 m above the surface. Pixel spacing describes the raster, not the effective measurement resolution; many cells are interpolated.</p><h3>2. NASA ephemerides determine the sky</h3><p>NASA/JPL Horizons provides airless Sun and Earth center azimuth and elevation at 30-minute UTC samples. A body is visible when its elevation exceeds the terrain horizon plus your chosen angular clearance. Transitions are estimated by linear interpolation of clearance. Short events and eclipses are outside this model.</p><h3>3. Limits determine the comparison</h3><p>We measure the longest continuous darkness, longest Earth-center visibility gap, and total simultaneous visibility within your mission. The footprint count is the number of sampled positions meeting all three limits. It is neither a success probability nor a continuous area estimate. Nearby positions reuse the center ephemerides; their terrain profiles are distinct.</p><h3>Scope that matters</h3><p>All three sites are nearby research cases, not official landing recommendations. Earth-center visibility is a geometric proxy, not a ground-station link. Sun-center visibility does not compute electrical power. DEM uncertainty is recorded, not converted into a probability. Outages touching a mission boundary can continue outside it. The horizon profile and sampled timing also limit event accuracy.</p>`,`<p>LunaMargin 比较月球南极连接脊的三个公开研究位置。每处包含间距 25 米的九个周边地形取样点。证据导出保留你的输入及计算得到的时间区间。</p><h3>1. 用真实地形建立地平线</h3><p>结合 NASA LOLA 5 米像素间距地形与 80 米区域模型，使用球面几何，沿 360 个地理方位追踪至 250 公里。设备固定在地表上方 2 米。像素间距不代表有效测量精度；很多网格来自插值。</p><h3>2. 用 NASA 星历确定天体位置</h3><p>NASA/JPL Horizons 提供每 30 分钟的太阳、地球中心方位角与仰角，时间为 UTC，不考虑大气折射。天体仰角超过地形地平线与用户设置的角度余量之和时，计为可见。跨越时刻通过余量线性插值估算；短时事件和食现象未纳入。</p><h3>3. 用任务条件进行比较</h3><p>计算任务内最长连续断光、地球中心不可见空窗及日地共同可见总时长。取样通过数表示同时符合三项条件的位置数，不是任务成功概率，也不是整个区域的面积比例。附近位置复用中心星历，同时使用各自的地形地平线。</p><h3>理解结果的适用范围</h3><p>三个位置均为邻近研究案例，不是官方着陆建议。地球中心可见性是几何指标，不等于某地面站的通信链路；太阳中心可见性也不等于发电量。地形误差保留为元数据，不转换成概率。空窗可能超出任务边界继续存在；地平线与时间采样也限制事件精度。</p>`)+`<h3>${tr('Source trail','数据来源')}</h3>${sourceList}<div class="source-item"><strong>${tr('Coordinates & measurements','坐标与测量数据')}</strong><p>${data.sites.map(s=>`${escape(siteName(s))}: ${s.lat.toFixed(6)}°, ${s.lon.toFixed(6)}° E; ${s.elevationM.toFixed(1)} m; LOLA height RMS ${fmt(s.heightRmsErrorM,3)} m`).join('<br>')}</p></div><h3>${tr('Inspect the complete record','检查完整记录')}</h3><p><a href="data/source-manifest.json" target="_blank">Source manifest & hashes ↗</a> · <a href="docs/METHODOLOGY.md" target="_blank">Methodology ↗</a> · <a href="docs/AI_DISCLOSURE.md" target="_blank">AI & development disclosure ↗</a> · <a href="docs/validation-results.json" target="_blank">Computed validation results ↗</a></p><p class="small">${tr('NASA Space Apps 2026 · Independent project. Developed before the official event at the project owner’s explicit request; award eligibility must be checked against event rules.','NASA Space Apps 2026 独立项目。按项目所有者明确要求，在官方开赛前开发；评奖资格需按赛事规则核实。')}</p>`;}
 function findWindow(){
@@ -129,7 +136,7 @@ function findWindow(){
     };
     worker.onerror=()=>{searchBusy=false;updateDraftUI();notify(tr('Search could not finish. Please try again.','搜索未能完成，请再试一次。'));worker.terminate();worker=null;};
   }
-  worker.postMessage({id,sites:data.sites,settings:{...settings,minPatchCoverage:1,stepHours:6}});
+  worker.postMessage({id,algorithm:release.identity.algorithm,sites:data.sites,settings:{...settings,minPatchCoverage:1,stepHours:6}});
 }
 function renderRobustness(){
   const w=selectedResult().patchStats.worstCase;
@@ -147,12 +154,80 @@ function renderSearch(scroll=true){
 function evidence(){
   const site=selectedSite(),point=resolvePatch(site.patches,activePatch);
   saveURL();
-  return {project:'LunaMargin',schemaVersion:2,language:lang,exportedAt:new Date().toISOString(),campaign,settings:{...settings},selectedSiteId:selectedId,
+  return {project:'LunaMargin',schemaVersion:3,language:lang,exportedAt:new Date().toISOString(),campaign,settings:{...settings},selectedSiteId:selectedId,
     selectedPoint:{id:point.id,siteId:selectedId,dxM:point.dxM,dyM:point.dyM,lat:point.lat,lon:point.lon,elevationM:point.elevationM,isCenter:!point.dxM&&!point.dyM,result:displayResult()},
+    provenance:{buildId:release.buildId,calculationBuildId:release.buildId,interfaceBuildId:currentRelease.buildId,algorithmSha256:release.identity.algorithm.sha256,datasetSha256:release.identity.datasets[campaign].sha256,
+      modelMethodVersion:release.identity.methodVersion,observerHeightM:settings.observerHeightM,verification:'sha256-verified',
+      manifestURL:new URL(`evidence-assets/build-${release.buildId}.json`,location.href).href,
+      interfaceManifestURL:new URL(`evidence-assets/build-${currentRelease.buildId}.json`,location.href).href,
+      algorithmSnapshotURL:new URL(release.identity.algorithm.snapshot,location.href).href,
+      datasetSnapshotURL:new URL(release.identity.datasets[campaign].snapshot,location.href).href,
+      sourceIdentity:release.identity.sourceIdentity},
+    inputSnapshot:{format:'utf8-json',sha256:release.identity.datasets[campaign].sha256,text:datasetText},
+    algorithmSnapshot:{format:'javascript-source',sha256:release.identity.algorithm.sha256,text:algorithmSource},
     shareURL:location.href,stressTest:currentStress(),searchRule:'Earliest date first; then greatest minimum nine-point time margin; then darkness, Earth-gap and shared-view margins; center metrics; stable site ID.',
     data:{generatedAt:data.generatedAt,referenceFrame:data.referenceFrame,start:data.start,stop:data.stop,sampleIntervalMinutes:data.sampleIntervalMinutes,horizonMethod:data.horizonMethod,sources:data.sources,limitations:data.limitations},
     sites:data.sites.map(s=>({id:s.id,name:s.name,lat:s.lat,lon:s.lon,elevationM:s.elevationM,slopeDeg:s.slopeDeg,heightRmsErrorM:s.heightRmsErrorM,ephemerisSources:s.ephemerisSources,patches:s.patches.map(({id,dxM,dyM,lat,lon,elevationM})=>({id,dxM,dyM,lat,lon,elevationM}))})),
     results:results.map(({timeline,...r})=>r),interpretation:'Geometric screening, not flight safety, power or radio-link assurance. Footprint fractions are discrete scenario counts, not probabilities.'};
+}
+function renderVersion(){
+  const messages={
+    current:tr('This calculation uses verified, saved algorithm and data snapshots.','本次计算使用已核对并保存的算法与数据快照。'),
+    matched:tr('The shared version matches this calculation.','分享记录的版本与本次计算一致。'),
+    archived:tr('Restored the original calculation version. The interface is current; the algorithm and data come from the saved version.','已恢复记录中的原版计算。界面使用当前版本，算法和数据使用保存的原版本。'),
+    unversioned:tr('This entry did not record a version. These results use the verified version shown below.','此入口未记录历史版本，本次结果采用下方已核对的版本。'),
+    recalculated:tr('Recalculated with the current version at your request. This is a new calculation, not the original saved result.','已按你的选择使用当前版本重算。这是新的计算，不冒充原记录的结果。'),
+  };
+  const id=release.buildId;
+  $('version-details').innerHTML=`<p class="${['archived','recalculated'].includes(versionMode)?'version-note':''}">${messages[versionMode]}</p><p>${tr('Calculation version','计算版本')} <code>${id.slice(0,12)}</code> · ${tr('Algorithm','算法')} <code>${release.identity.algorithm.sha256.slice(0,12)}</code><br><a href="evidence-assets/build-${id}.json" target="_blank" rel="noreferrer">${tr('Inspect exact version & input snapshots ↗','查看完整版本与输入快照 ↗')}</a></p>`;
+  if(['archived','recalculated'].includes(versionMode))$('version-panel').open=true;
+}
+async function initializeCalculation(){
+  try{
+    currentRelease=await readManifest(new URL('build-info.json',location.href));
+    const requested=params.get('build');
+    if(requested&&!validDigest(requested))throw new Error('Invalid saved version identifier.');
+    release=requested&&requested!==currentRelease.buildId?await readManifest(new URL(`evidence-assets/build-${requested}.json`,location.href),requested):currentRelease;
+    if(params.has('algo')&&params.get('algo')!==release.identity.algorithm.sha256)throw new Error('Saved algorithm version does not match its release.');
+    const requestedCampaign=campaigns[params.get('campaign')]?params.get('campaign'):'jun',height=release.identity.datasets[requestedCampaign].observerHeightM;
+    if(height!==2||params.has('observerHeightM')&&Number(params.get('observerHeightM'))!==height)throw new Error(tr('This calculation version does not support the requested device height.','此计算版本不支持请求的设备高度。'));
+    const algorithm=await importVerifiedAlgorithm(release.identity.algorithm,location.href);algorithmSource=algorithm.source;
+    ({analyzeSite,interpolateHorizon,stressTestSite}=algorithm.module);
+    if(![analyzeSite,interpolateHorizon,stressTestSite].every(f=>typeof f==='function'))throw new Error('Saved calculation API is unsupported.');
+    versionMode=params.has('recalculated')?'recalculated':requested&&requested!==currentRelease.buildId?'archived':requested?'matched':params.has('site')||params.has('start')?'unversioned':'current';
+    renderVersion();await loadCampaign(campaigns[params.get('campaign')]?params.get('campaign'):'jun',true);
+  }catch(error){
+    const retry=new URL(location.href);for(const key of ['build','algo','data'])retry.searchParams.delete(key);retry.searchParams.set('recalculated','1');retry.searchParams.set('observerHeightM','2');
+    $('loading').innerHTML=`<div><strong>${tr('The saved calculation could not be verified.','无法核对保存的计算版本。')}</strong><p>${tr('Its version, inputs or snapshots could not be verified. No replacement calculation has been made.','无法核对版本、输入或快照，尚未用其他条件替换计算。')}</p><p>${escape(error.message)}</p><a class="secondary-btn" href="${escape(retry.href)}">${tr('Choose a new calculation with the current 2 m model →','选择以当前 2 米模型开展新计算 →')}</a></div>`;
+  }
+}
+async function openSavedRecord(file){
+  if(!file||!currentRelease)return;
+  $('record-dialog').showModal();$('record-original').disabled=true;$('record-current').disabled=true;
+  $('record-body').textContent=tr('Checking the record and saved input bytes…','正在核对记录与保存的输入字节…');
+  try{
+    if(file.size>50_000_000)throw new Error('Record exceeds the supported 50 MB size.');
+    const record=JSON.parse(await file.text()),inspection=await inspectRecord(record,currentRelease);
+    const result=record.selectedPoint?.result||record.results?.find(r=>r.siteId===record.selectedSiteId);
+    const headings={legacy:tr('Version unknown','版本未知'),build:tr('Application version differs','应用版本不同'),algorithm:tr('Algorithm differs','算法不同'),data:tr('Dataset differs','数据不同')};
+    const difference=inspection.differences.length?inspection.differences.map(k=>headings[k]).join(' · '):tr('Same verified version','相同已核对版本');
+    $('record-body').replaceChildren();
+    const add=text=>{const p=document.createElement('p');p.textContent=text;$('record-body').append(p);};
+    add(difference);add(tr('These are the values stored in your file, before any recalculation.','以下是文件中保存的结果，尚未重新计算。'));
+    add(`${record.selectedSiteId} · ${record.selectedPoint?.id||'center'} · ${record.settings.start}`);
+    if(result?.metrics)add(tr(`Saved darkness ${fmt(result.metrics.longestDarkHours,3)} h · Earth gap ${fmt(result.metrics.longestCommGapHours,3)} h · shared view ${fmt(result.metrics.jointHours,3)} h`,`记录的断光 ${fmt(result.metrics.longestDarkHours,3)} h · 地球不可见 ${fmt(result.metrics.longestCommGapHours,3)} h · 共同可见 ${fmt(result.metrics.jointHours,3)} h`));
+    add(inspection.snapshotStatus==='verified'?tr('Embedded input snapshot: SHA-256 verified.','内嵌输入快照：SHA-256 校验通过。'):tr('This file has no embedded input snapshot. Its original input availability must be checked separately.','此文件没有内嵌输入快照，需要另行核对原始输入是否仍可获取。'));
+    $('record-current').disabled=false;$('record-current').onclick=()=>location.assign(scenarioURL(record,location.href,{current:true}));
+    if(inspection.legacy){add(tr('An older record cannot establish its original version. You may explicitly start a new calculation.','旧格式记录无法确认原始版本；你可以明确选择开展一次新计算。'));return;}
+    try{
+      const original=await readManifest(new URL(`evidence-assets/build-${record.provenance.buildId}.json`,location.href),record.provenance.buildId);
+      if(original.identity.algorithm.sha256!==record.provenance.algorithmSha256||original.identity.datasets[inspection.campaign]?.sha256!==record.provenance.datasetSha256)throw new Error('Recorded version fingerprints disagree.');
+      if(record.settings.observerHeightM!==original.identity.datasets[inspection.campaign].observerHeightM)throw new Error('The recorded height does not match the input snapshot.');
+      await Promise.all([verifiedText(original.identity.algorithm,location.href),verifiedText(original.identity.datasets[inspection.campaign],location.href)]);
+      add(tr('The original calculation snapshots are available and verified.','原版计算快照可获取，且已校验通过。'));
+      $('record-original').disabled=false;$('record-original').onclick=()=>location.assign(scenarioURL(record,location.href));
+    }catch(error){add(tr('The original snapshots are unavailable or fail verification. The saved values above remain available; current-version recalculation requires your explicit choice.','原版快照缺失或未通过校验。上方仍保留文件中的旧结果；只有明确选择后才会使用当前版本重算。'));}
+  }catch(error){$('record-body').textContent=tr('This record could not be verified: ','记录无法通过校验：')+error.message;}
 }
 function currentStress(){const key=selectedId+JSON.stringify(settings);if(!stressCache.has(key))stressCache.set(key,stressTestSite(selectedSite(),settings));return stressCache.get(key);}
 function download(content,name,type){const url=URL.createObjectURL(new Blob([content],{type})),a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),5000);}
@@ -183,7 +258,7 @@ function showTour(){
   if(!$('tour-dialog').open)$('tour-dialog').showModal();
 }
 
-$('mission-form').onsubmit=e=>{e.preventDefault();if(analyze())$('read-result').scrollIntoView({behavior:'smooth',block:'start'});};$('lang-toggle').onclick=()=>{lang=lang==='en'?'zh':'en';setLanguage();};
+$('mission-form').onsubmit=e=>{e.preventDefault();if(analyze())$('read-result').scrollIntoView({behavior:'smooth',block:'start'});};$('lang-toggle').onclick=()=>{lang=lang==='en'?'zh':'en';setLanguage();if(data)saveURL();};
 labels.zh.exportTitle='把判断依据带走。';labels.zh.exportIntro='保存可阅读的任务简报、表格对比结果，或包含完整区间的计算记录。';
 for(const id of ['dark-limit','comm-limit','joint-limit'])$(id).addEventListener('input',updateRangeLabels);
 $('duration').onchange=updateRangeLabels;$('start-date').onchange=updateRangeLabels;$('campaign').onchange=()=>loadCampaign($('campaign').value);
@@ -234,10 +309,12 @@ $('example-start').onclick=startExample;
 $('help-start').onclick=()=>{tourIndex=0;showTour();};
 $('share-point').onclick=async()=>{if(updateDraftUI())return;saveURL();try{await navigator.clipboard.writeText(location.href);notify(tr('Link copied — it restores this exact point.','链接已复制，将恢复同一取样点。'));}catch{$('share-link').value=location.href;$('share-dialog').showModal();$('share-link').select();}};
 $('save-brief').onclick=()=>{if(!updateDraftUI())exportHTML();};
+$('import-record').onclick=()=>$('record-file').click();
+$('record-file').onchange=()=>{const file=$('record-file').files[0];$('record-file').value='';openSavedRecord(file);};
 $('inspect-risk').onclick=()=>{selectPatch($('inspect-risk').dataset.patch);$('read-result').scrollIntoView({behavior:'smooth',block:'start'});};
 $('detail-charts').addEventListener('toggle',()=>{if($('detail-charts').open)requestAnimationFrame(renderHorizon);else stopPlaying();});
 
-const params=new URLSearchParams(location.search);if(params.has('site'))selectedId=params.get('site');pendingPatch=params.get('patch');
+const params=new URLSearchParams(location.search);if(['en','zh'].includes(params.get('lang')))lang=params.get('lang');if(params.has('site'))selectedId=params.get('site');pendingPatch=params.get('patch');
 for(const [param,id] of [['durationHours','duration'],['maxDarkHours','dark-limit'],['maxCommGapHours','comm-limit'],['minJointHours','joint-limit'],['clearanceDeg','clearance']])if(params.has(param)&&Number.isFinite(Number(params.get(param)))){const e=$(id),value=params.get(param);if(e.tagName!=='SELECT'||[...e.options].some(o=>o.value===value))e.value=value;}
 if(params.has('start')&&Number.isFinite(Date.parse(params.get('start')))){const valid=new Date(params.get('start')).toISOString();$('start-date').value=valid.slice(0,10);const hour=String(Number(valid.slice(11,13)));if([...$('start-hour').options].some(o=>o.value===hour))$('start-hour').value=hour;}
-setLanguage();await loadCampaign(campaigns[params.get('campaign')]?params.get('campaign'):'jun',true);
+setLanguage();await initializeCalculation();

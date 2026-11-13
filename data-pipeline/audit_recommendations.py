@@ -16,6 +16,8 @@ import build_dataset as terrain
 import numpy as np
 import requests
 
+from recommendation_report import derive_results, render_markdown
+
 START = '2027-06-21T12:00:00Z'
 STOP = '2027-06-28T12:00:00Z'
 EXPECTED_COUNT = 2017
@@ -141,9 +143,9 @@ def evaluate(samples, horizon, clearance_deg=0):
     metrics['longestCommGapHours']=max((b-a for a,b in intervals['commGap']),default=0)
     reasons=[]
     for code,metric,limit,passes in [
-        ('dark-gap','longestDarkHours',24,metrics['longestDarkHours']<=24+1e-9),
-        ('comm-gap','longestCommGapHours',24,metrics['longestCommGapHours']<=24+1e-9),
-        ('joint-shortfall','jointHours',24,metrics['jointHours']>=24-1e-9)]:
+        ('dark-gap','longestDarkHours',LIMITS['maxDarkHours'],metrics['longestDarkHours']<=LIMITS['maxDarkHours']+1e-9),
+        ('comm-gap','longestCommGapHours',LIMITS['maxCommGapHours'],metrics['longestCommGapHours']<=LIMITS['maxCommGapHours']+1e-9),
+        ('joint-shortfall','jointHours',LIMITS['minJointHours'],metrics['jointHours']>=LIMITS['minJointHours']-1e-9)]:
         if not passes: reasons.append({'code':code,'actual':metrics[metric],'limit':limit})
     windows={key:[{'start':utc(timestamp(START)+timedelta(hours=a)),
                    'end':utc(timestamp(START)+timedelta(hours=b)),'hours':b-a} for a,b in parts]
@@ -165,15 +167,6 @@ def boundary_comparison(coarse,fine):
                      'maximumFineToNearestPublishedBoundarySeconds':nearest(new,old),
                      'interpretation':'Nearest boundary distance, not matched-event timing accuracy.'}
     return report
-
-
-def summary(cases,mode,angle):
-    rows=[{'id':c['patchId'],**c['evaluations'][mode][str(angle)]} for c in cases]
-    return {'passCount':sum(r['passes'] for r in rows),'count':len(rows),
-            'failedPoints':[{'id':r['id'],'reasons':r['reasons']} for r in rows if not r['passes']],
-            'worstDarkness':max(({'hours':r['metrics']['longestDarkHours'],'patchId':r['id']} for r in rows),key=lambda r:r['hours']),
-            'worstEarthGap':max(({'hours':r['metrics']['longestCommGapHours'],'patchId':r['id']} for r in rows),key=lambda r:r['hours']),
-            'leastJointVisibility':min(({'hours':r['metrics']['jointHours'],'patchId':r['id']} for r in rows),key=lambda r:r['hours'])}
 
 
 def run(fetch_only=False):
@@ -235,12 +228,11 @@ def run(fetch_only=False):
                           'sourceHeightRmsErrorM':float(rasters['height-error'].sample(x,y)),
                           'evaluations':evaluations,'comparisons':comparisons})
             print(f"Computed {label}: coarse dark {evaluations['published30Minute']['0.0']['metrics']['longestDarkHours']:.3f} h -> fine {evaluations['independent5MinuteFineHorizon']['0.0']['metrics']['longestDarkHours']:.3f} h",flush=True)
-    summaries={site['id']:{mode:{str(angle):summary([c for c in cases if c['siteId']==site['id']],mode,angle) for angle in ANGLES} for mode in cases[0]['evaluations']} for site in sites}
-    report={'schemaVersion':1,'createdAt':datetime.now(timezone.utc).isoformat(),'methodVersion':METHOD_VERSION,
+    report={'schemaVersion':2,'createdAt':datetime.now(timezone.utc).isoformat(),'methodVersion':METHOD_VERSION,
             'start':START,'stop':STOP,'durationHours':168,'sampleIntervalMinutes':5,'expectedEpochsPerBody':EXPECTED_COUNT,
             'observerHeightM':2,'constraints':LIMITS,'baseClearanceDeg':0,'addedClearanceDeg':ANGLES,
             'publishedBundle':{'path':'lunar-sites-june.json','sha256':terrain.sha256(bundle_path)},
-            'calculationPrograms':{name:terrain.sha256(terrain.PROJECT/name) for name in ['data-pipeline/audit_recommendations.py','data-pipeline/build_dataset.py']},
+            'calculationPrograms':{name:terrain.sha256(terrain.PROJECT/name) for name in ['data-pipeline/audit_recommendations.py','data-pipeline/build_dataset.py','data-pipeline/recommendation_report.py']},
             'publishedGeometryProgramAtAudit':{'path':'src/analysis.js','sha256':terrain.sha256(terrain.PROJECT/'src/analysis.js')},
             'terrainSources':provenance,
             'coordinateFrame':'LOLA Moon mean-Earth spherical south-polar stereographic; 1737400 m reference radius. Horizons coord@301 GEODETIC, east-positive longitude, DE421 mean-Earth lunar frame; elevation plus 2 m expressed in km.',
@@ -248,49 +240,21 @@ def run(fetch_only=False):
                                  'radialStepM':{'to2000m':1.25,'2000to8000m':5,'8000to250000m':20},'interpolation':'Bilinear DEM sampling; linearly interpolated angular horizon and event margins.'},
             'coverage':{'pointCount':len(cases),'rawResponseCount':len(cases)*2,'pairedEpochCount':sum(c['coverage']['sampleCount'] for c in cases),
                         'missingEpochCount':0,'nonfiniteAngleCount':0,'status':'complete'},
-            'cases':cases,'summaries':summaries,
+            'expectedPositions':[{'siteId':site['id'],'patchId':patch['id']} for site in sites for patch in site['patches']],
+            'cases':cases,
             'limitations':['Real new five-minute queries, not temporal upsampling of the published bundle.',
                            'The same NASA source terrain is reused, so this is numerical/observer-location sensitivity rather than independent ground truth.',
                            'Five-minute event boundaries still use linear interpolation; short events can remain unresolved.',
                            'Additional angles are deterministic stress conditions, not calibrated terrain errors or success probabilities.',
                            'Body-center visibility does not establish power generation, a ground-station radio link, or landing safety.']}
+    report['summaries'],report['conclusions']=derive_results(report)
     REPORT.write_text(json.dumps(report,ensure_ascii=False,separators=(',',':'),allow_nan=False),encoding='utf-8')
     write_markdown(report)
-    print(json.dumps({'saved':str(REPORT),'coverage':report['coverage'],'summaries':summaries},indent=2),flush=True)
+    print(json.dumps({'saved':str(REPORT),'coverage':report['coverage'],'conclusions':report['conclusions']},indent=2),flush=True)
 
 
 def write_markdown(report):
-    lines=['# Recommendation-window fine audit / 推荐窗口精算', '',
-           f"Generated: {report['createdAt']}. Method: `{METHOD_VERSION}`.", '',
-           'This audit uses **36 real NASA/JPL Horizons responses** for **18 distinct observing positions**, each containing **2,017 five-minute epochs** from 2027-06-21 12:00 UTC through 2027-06-28 12:00 UTC. Observer height is 2 m. All limits remain 24/24/24 h.', '',
-           '[Machine-readable full report](../data/recommendation-fine-validation.json) includes every original query URL, parameters, response hash, UTC retrieval time, missing-epoch check, coordinate, fine horizon, metric, failure reason, and full window boundary.', '',
-           '## Footprint comparison', '',
-           '| Site | Added angle | Published pass count | Fine pass count | Published worst darkness (h) | Fine worst darkness (h) | Fine limiting point |',
-           '|---|---:|---:|---:|---:|---:|---|']
-    for site_id,summary_set in report['summaries'].items():
-        for angle in ANGLES:
-            old=summary_set['published30Minute'][str(angle)];fine=summary_set['independent5MinuteFineHorizon'][str(angle)]
-            lines.append(f"| {site_id} | {angle:.2f}° | {old['passCount']}/9 | {fine['passCount']}/9 | {old['worstDarkness']['hours']:.3f} | {fine['worstDarkness']['hours']:.3f} | `{fine['worstDarkness']['patchId']}` |")
-    changed=[(c['siteId'],c['patchId'],a) for c in report['cases'] for a,v in c['comparisons'].items() if v['passConclusionChanged']]
-    r1=report['summaries']['ridge-1']['independent5MinuteFineHorizon']['0.0']
-    r4=report['summaries']['ridge-4']['independent5MinuteFineHorizon']['0.0']
-    lines+=['','## Interpretation / 结论','',
-            f"Across all 18 positions and four angle settings, **{len(changed)} of 72 pass/fail conclusions changed** relative to the published model. Both locations remain 9/9 at zero clearance. ROI 1 retains nine passes at every tested angle; ROI 4 loses its southwest sample at +0.02°, and additionally its west sample at +0.25°.", '',
-            f"At zero added angle, ROI 1's worst darkness is {r1['worstDarkness']['hours']:.3f} h and its longest Earth-view gap is {r1['worstEarthGap']['hours']:.3f} h. ROI 4's southwest darkness is {r4['worstDarkness']['hours']:.3f} h, leaving only {(24-r4['worstDarkness']['hours'])*60:.2f} minutes before the 24 h limit. The fine audit therefore preserves the evidence for preferring ROI 1 when the arrival time is tied and footprint margin matters. It does not certify either location for flight.", '',
-            f"真实精算未改变这 72 个点与角度组合的通过/失败结论。ROI 1 在四档条件下均为 9/9；ROI 4 在额外 0.02° 时西南点超过断光条件，0.25° 时西侧点也超过。ROI 4 基准西南点距离 24 小时断光上限只余 {(24-r4['worstDarkness']['hours'])*60:.2f} 分钟，因此只看中心点或 9/9 计数会遗漏重要差异。", '',
-            'The corresponding pass/fail changes, if any, are retained in `cases[*].comparisons[*].passConclusionChanged`; no failed sample is excluded from summaries.']
-    lines+=['','## Every position at zero added angle','','| Site | Sample | 30 min longest dark | Fine longest dark | Δ dark h | Fine Sun h | Fine Earth h | Fine longest Earth gap h | Fine both h | Published → fine pass |','|---|---|---:|---:|---:|---:|---:|---:|---:|---|']
-    for c in report['cases']:
-        old=c['evaluations']['published30Minute']['0.0'];fine=c['evaluations']['independent5MinuteFineHorizon']['0.0'];m=fine['metrics']
-        lines.append(f"| {c['siteId']} | `{c['patchId']}` | {old['metrics']['longestDarkHours']:.3f} | {m['longestDarkHours']:.3f} | {m['longestDarkHours']-old['metrics']['longestDarkHours']:+.3f} | {m['sunHours']:.3f} | {m['earthHours']:.3f} | {m['longestCommGapHours']:.3f} | {m['jointHours']:.3f} | {old['passes']} → {fine['passes']} |")
-    lines+=['','## Reproduce and interpret','',
-            'Run `python data-pipeline/audit_recommendations.py` after installing `data-pipeline/requirements.txt`. Cached original responses are reused only when all request parameters match. Source raster checksums must match `data/source-manifest.json`. Derived horizon caching is keyed by the published bundle, terrain program, and method version.', '',
-            'The report retains a middle comparison: independent five-minute queries with the **published** horizon. This separates timing/observer effects from the further terrain-ray refinement. No published UI input was overwritten.', '',
-            'Window comparisons include all exact interval boundaries and nearest-boundary displacement in both directions. This is not an assertion that differently counted events match one-to-one.', '',
-            'Additional angles are added to the zero-degree case baseline; they are deterministic stress tests. All failed points remain in the report. These results do not estimate actual terrain-error distributions, external accuracy, or landing-success probability.', '',
-            'The fine ray grid samples the same underlying NASA DEM more densely. Raster pixel spacing is not effective measurement resolution, and interpolation cannot create measured terrain detail.', '',
-            '[Horizons API](https://ssd-api.jpl.nasa.gov/doc/horizons.html) · [Horizons observing-site conventions](https://ssd.jpl.nasa.gov/horizons/manual.html#site), checked 2026-11-13.', '']
-    (terrain.PROJECT/'docs'/'RECOMMENDATION_VALIDATION.md').write_text('\n'.join(lines),encoding='utf-8')
+    (terrain.PROJECT/'docs'/'RECOMMENDATION_VALIDATION.md').write_text(render_markdown(report),encoding='utf-8')
 
 
 if __name__=='__main__':

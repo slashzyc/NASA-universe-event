@@ -1,0 +1,160 @@
+{
+  "startedAt": "2026-11-13T07:05:00.521Z",
+  "finishedAt": "2026-11-13T07:05:18.452Z",
+  "origin": "http://127.0.0.1:4194/",
+  "servedDirectory": "dist",
+  "datasetSha256": "c2258b262f2ee22599195090a9e652d8f6fd53c48bfb48139896be02a86f3d8f",
+  "faultInjection": null,
+  "fontMode": "system fallback (font CDN isolated)",
+  "passed": 7,
+  "failed": 0,
+  "transitions": [
+    {
+      "patch": "e-25-n-25",
+      "language": "en",
+      "darknessHours": 9.652977492675781,
+      "status": "PASS"
+    },
+    {
+      "patch": "e+0-n-25",
+      "language": "en",
+      "darknessHours": 12.388505051066081,
+      "status": "PASS"
+    },
+    {
+      "patch": "e+25-n-25",
+      "language": "en",
+      "darknessHours": 167.50097887980144,
+      "status": "PASS"
+    },
+    {
+      "patch": "e-25-n+0",
+      "language": "en",
+      "darknessHours": 9.679777850748698,
+      "status": "PASS"
+    },
+    {
+      "patch": "e+0-n+0",
+      "language": "en",
+      "darknessHours": 12.448013691880968,
+      "status": "PASS"
+    },
+    {
+      "patch": "e+25-n+0",
+      "language": "en",
+      "darknessHours": 16.892194220377604,
+      "status": "PASS"
+    },
+    {
+      "patch": "e-25-n+25",
+      "language": "en",
+      "darknessHours": 10.34105581732856,
+      "status": "PASS"
+    },
+    {
+      "patch": "e+0-n+25",
+      "language": "en",
+      "darknessHours": 12.904766839938693,
+      "status": "PASS"
+    },
+    {
+      "patch": "e+25-n+25",
+      "language": "en",
+      "darknessHours": 16.724252244737414,
+      "status": "PASS"
+    },
+    {
+      "patch": "e-25-n-25",
+      "language": "zh-CN",
+      "darknessHours": 9.652977492675781,
+      "status": "PASS"
+    },
+    {
+      "patch": "e+0-n-25",
+      "language": "zh-CN",
+      "darknessHours": 12.388505051066081,
+      "status": "PASS"
+    },
+    {
+      "patch": "e+25-n-25",
+      "language": "zh-CN",
+      "darknessHours": 167.50097887980144,
+      "status": "PASS"
+    },
+    {
+      "patch": "e-25-n+0",
+      "language": "zh-CN",
+      "darknessHours": 9.679777850748698,
+      "status": "PASS"
+    },
+    {
+      "patch": "e+0-n+0",
+      "language": "zh-CN",
+      "darknessHours": 12.448013691880968,
+      "status": "PASS"
+    },
+    {
+      "patch": "e+25-n+0",
+      "language": "zh-CN",
+      "darknessHours": 16.892194220377604,
+      "status": "PASS"
+    },
+    {
+      "patch": "e-25-n+25",
+      "language": "zh-CN",
+      "darknessHours": 10.34105581732856,
+      "status": "PASS"
+    },
+    {
+      "patch": "e+0-n+25",
+      "language": "zh-CN",
+      "darknessHours": 12.904766839938693,
+      "status": "PASS"
+    },
+    {
+      "patch": "e+25-n+25",
+      "language": "zh-CN",
+      "darknessHours": 16.724252244737414,
+      "status": "PASS"
+    }
+  ],
+  "errors": [],
+  "resourceErrors": [],
+  "records": [
+    {
+      "name": "R02: the browser receives the built artifact, not the source service",
+      "status": "PASS",
+      "durationMs": 45
+    },
+    {
+      "name": "R02: all nine homepage positions retain their case and language across eighteen entries",
+      "status": "PASS",
+      "durationMs": 11059
+    },
+    {
+      "name": "R02: language switching preserves the southeast case through save and a fresh-context restore",
+      "status": "PASS",
+      "durationMs": 1835
+    },
+    {
+      "name": "R02: browser Back and reload keep the chosen homepage point without redirecting",
+      "status": "PASS",
+      "durationMs": 1366
+    },
+    {
+      "name": "R02: legacy links and invalid point identifiers retain the documented center fallback",
+      "status": "PASS",
+      "durationMs": 1127
+    },
+    {
+      "name": "R02: the selected-case entry remains visible and usable on narrow screens",
+      "status": "PASS",
+      "durationMs": 1655
+    },
+    {
+      "name": "R02: the built entry, export and restoration flows have no application or resource failures",
+      "status": "PASS",
+      "durationMs": 0
+    }
+  ]
+}

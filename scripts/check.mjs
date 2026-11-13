@@ -1,11 +1,26 @@
-import {readFile,stat} from 'node:fs/promises';
+import {readFile,stat,readdir} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 import path from 'node:path';
+import {verifyManifest} from '../src/provenance.js';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const required=['index.html','navigator.html','src/landing.css','src/landing.js','assets/imagery/moon-gibbous.jpg','src/app.js','src/navigator-ui.js','src/navigator.css','src/analysis.js','src/visuals.js','src/search-worker.js','src/selection.js','src/evidence.js','src/robustness-ui.js','src/style.css','docs/METHODOLOGY.md','docs/AI_DISCLOSURE.md','docs/validation-results.json','docs/demo-evidence.json','data/source-manifest.json','data/geometry-audit.json','data/fine-ephemeris-validation.json','data/robustness-validation.json','data/recommendation-fine-validation.json'];
 for(const file of required){if(!(await stat(path.join(root,file))).isFile())throw new Error(`Missing ${file}`);}
 const sha256=async file=>createHash('sha256').update(await readFile(path.join(root,file))).digest('hex');
+const release=await verifyManifest(JSON.parse(await readFile(path.join(root,'build-info.json'),'utf8')));
+for(const [file,asset]of Object.entries(release.identity.application)){
+  const source=(await readFile(path.join(root,file),'utf8')).replaceAll('\r\n','\n');
+  if(createHash('sha256').update(source).digest('hex')!==asset.sha256)throw new Error(`Build identity is stale for ${file}; build again.`);
+}
+for(const asset of Object.values(release.identity.datasets))if(await sha256(asset.path)!==asset.sha256)throw new Error(`Build dataset is stale for ${asset.path}.`);
+for(const file of await readdir(path.join(root,'evidence-assets'))){
+  if(file.startsWith('build-')){
+    const archived=await verifyManifest(JSON.parse(await readFile(path.join(root,'evidence-assets',file),'utf8')),file.slice(6,-5));
+    for(const asset of [...Object.values(archived.identity.application),...Object.values(archived.identity.datasets)]){
+      if(await sha256(asset.snapshot)!==asset.sha256)throw new Error(`Archived snapshot changed: ${asset.snapshot}`);
+    }
+  }else if(await sha256('evidence-assets/'+file)!==file.split('.')[0])throw new Error(`Content-addressed bytes changed: ${file}`);
+}
 const demo=JSON.parse(await readFile(path.join(root,'docs/demo-evidence.json'),'utf8'));
 for(const [file,expected] of [[demo.dataset,demo.datasetSha256],['src/analysis.js',demo.analysisSha256],
   [demo.finerCheck.source,demo.finerCheck.sha256],[demo.recommendationCheck.source,demo.recommendationCheck.sha256]]) {

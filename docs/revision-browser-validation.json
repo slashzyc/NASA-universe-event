@@ -1,6 +1,6 @@
 {
-  "startedAt": "2026-11-13T06:05:28.914Z",
-  "finishedAt": "2026-11-13T06:05:41.213Z",
+  "startedAt": "2026-11-13T06:59:43.497Z",
+  "finishedAt": "2026-11-13T07:00:02.484Z",
   "base": "http://127.0.0.1:4190/navigator.html",
   "faultInjection": null,
   "fontMode": "system fallback (font CDN isolated)",
@@ -12,47 +12,47 @@
     {
       "name": "M01: all nine selected points survive share URL restoration with exact metrics",
       "status": "PASS",
-      "durationMs": 2485
+      "durationMs": 3413
     },
     {
       "name": "M01: legacy and invalid point links fall back to center; site and month switches reset it",
       "status": "PASS",
-      "durationMs": 630
+      "durationMs": 1000
     },
     {
       "name": "M01/M08: JSON, readable HTML and CSV identify the selected southeast point and applied settings",
       "status": "PASS",
-      "durationMs": 725
+      "durationMs": 1232
     },
     {
       "name": "M01: pending edits cannot be exported or shared and do not replace the applied point/result",
       "status": "PASS",
-      "durationMs": 1273
+      "durationMs": 1776
     },
     {
       "name": "M01: the copy-link fallback restores the selected point in a separate page",
       "status": "PASS",
-      "durationMs": 545
+      "durationMs": 887
     },
     {
       "name": "M02: north/south/east/west and all map edges follow physical coordinates in both languages",
       "status": "PASS",
-      "durationMs": 2054
+      "durationMs": 3726
     },
     {
       "name": "M03: earliest window ranks ROI 1 by visible footprint margins and adopts its exact conditions",
       "status": "PASS",
-      "durationMs": 1895
+      "durationMs": 2729
     },
     {
       "name": "M08: Chinese exports preserve values, reasons, intervals and sources",
       "status": "PASS",
-      "durationMs": 482
+      "durationMs": 866
     },
     {
       "name": "M08: desktop and 390/330 pixel layouts keep key actions and results in bounds",
       "status": "PASS",
-      "durationMs": 1772
+      "durationMs": 2569
     },
     {
       "name": "M08: no application exceptions or missing local resources",

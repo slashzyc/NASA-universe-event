@@ -54,6 +54,7 @@ The expanded audit independently queries **all 18 positions** in that recommenda
 - Same-date recommendations explain worst-position margins and four deterministic angular stress conditions.
 - Shareable scenario URLs, English/Chinese interface, keyboard navigation and mobile layout.
 - Downloadable HTML mission brief, CSV comparison and JSON evidence with provenance.
+- Verified, content-addressed algorithm/data snapshots; original-version restoration and an explicit choice before current-version recalculation. [Versioning and schema compatibility](docs/VERSIONING.md).
 - Reproducible NASA data acquisition, retained original API responses, SHA-256 manifests and numerical audits.
 
 ## Scientific scope
@@ -116,6 +117,7 @@ The browser has no third-party JavaScript dependencies. Scientific computation r
 - [AI and development disclosure](docs/AI_DISCLOSURE.md)
 - [Validation record](docs/VALIDATION_RECORD.md)
 - [修改清单逐项验收 / Revision acceptance](docs/REVISION_ACCEPTANCE.md)
+- [第二轮修改与验收 / Round-two acceptance](docs/ROUND2_ACCEPTANCE.md)
 - [Five-person novice test kit / 五人新手测试包](docs/USABILITY_TEST_KIT.md) and [blank observation records / 空白记录表](docs/USABILITY_TEST_RECORDS.md) — prepared; **0/5 people tested**.
 
 **Official resource match confirmed on 2026-11-13:** the challenge's Resources list includes **Horizons System**, which this project actually uses. [Exact mapping and retained inputs](docs/RESEARCH.md#hard-requirement-official-resource-mapping). Team registration, current format requirements and advance-development eligibility remain unconfirmed; **the official Project Tab submission has not been performed**. Resource matching and GitHub publication do not establish overall award eligibility.

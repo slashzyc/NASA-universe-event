@@ -35,6 +35,22 @@ let caseSite=null,selectedPatch=null,patchResults=new Map();
 const settings={start:'2027-06-02T06:00:00Z',durationHours:168,maxDarkHours:24,maxCommGapHours:24,minJointHours:24,clearanceDeg:0,observerHeightM:2,nominalStepHours:.5};
 const tr=(en,zh)=>language==='zh'?zh:en;
 
+function restoreSelectedPatch(){
+  const stored=history.state?.lunamarginLanding;
+  selectedPatch=caseSite.patches.find(patch=>stored?.site===caseSite.id&&patch.id===stored.patch)
+    ||caseSite.patches.find(patch=>patch.dxM===0&&patch.dyM===0);
+}
+
+function updateCaseLink(){
+  const parameters=new URLSearchParams({campaign:'jun',site:caseSite.id,patch:selectedPatch.id,lang:language});
+  for(const[key,value]of Object.entries(settings))if(key!=='nominalStepHours')parameters.set(key,String(value));
+  $('inspect-case').href=`navigator.html?${parameters}`;
+  // Keep the editorial URL intact: scenario query parameters intentionally
+  // redirect legacy homepage links into the navigator. History state also
+  // survives browser Back and reload without affecting another homepage tab.
+  history.replaceState({...history.state,lunamarginLanding:{site:caseSite.id,patch:selectedPatch.id}},'',location.href);
+}
+
 function setLanguage(){
   document.documentElement.lang=language==='zh'?'zh-CN':'en';
   document.querySelectorAll('[data-i18n]').forEach(element=>{element.innerHTML=language==='zh'?(chinese[element.dataset.i18n]??english[element.dataset.i18n]):english[element.dataset.i18n];});
@@ -67,6 +83,7 @@ function renderSampling(){
 
 function renderReading(){
   const result=patchResults.get(selectedPatch.id),pass=result.metrics.longestDarkHours<=settings.maxDarkHours;
+  updateCaseLink();
   $('sample-label').textContent=positionLabel(selectedPatch);
   $('dark-hours').textContent=result.metrics.longestDarkHours.toFixed(2);
   $('dark-hours').style.color=pass?'#253f2d':'#aa6945';
@@ -82,7 +99,7 @@ async function loadCase(){
     const bundle=await response.json();caseSite=bundle.sites.find(site=>site.id==='ridge-6');
     if(!caseSite?.patches?.length)throw new Error('The declared case is unavailable.');
     for(const patch of caseSite.patches)patchResults.set(patch.id,analyzeSite({...caseSite,...patch,samples:caseSite.samples,patches:[]},settings));
-    selectedPatch=caseSite.patches.find(p=>p.dxM===0&&p.dyM===0);renderSampling();renderReading();
+    restoreSelectedPatch();renderSampling();renderReading();
   }catch{
     $('sample-label').textContent=tr('INTERACTIVE CASE UNAVAILABLE','互动案例暂时无法加载');
     $('sampling-grid').textContent=tr('Open the navigator to explore the data.','请打开导航仪探索数据。');
@@ -95,6 +112,11 @@ $('close-film').addEventListener('click',()=>$('film-dialog').close());
 $('film-dialog').addEventListener('close',()=>$('film').pause());
 $('film-dialog').addEventListener('click',event=>{if(event.target===$('film-dialog')){const rect=event.target.getBoundingClientRect();if(event.clientX<rect.left||event.clientX>rect.right||event.clientY<rect.top||event.clientY>rect.bottom)event.target.close();}});
 $('language').addEventListener('click',()=>{language=language==='en'?'zh':'en';setLanguage();});
+window.addEventListener('pageshow',()=>{
+  if(!caseSite)return;
+  try{language=localStorage.getItem('lunamargin-language')==='zh'?'zh':'en';}catch{}
+  restoreSelectedPatch();setLanguage();
+});
 
 // Reveal editorial sections only when motion is welcome; all content works without it.
 if('IntersectionObserver' in window&&!matchMedia('(prefers-reduced-motion: reduce)').matches){

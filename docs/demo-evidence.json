@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-13T06:04:42.937Z",
+  "generatedAt": "2026-11-13T06:56:33.675Z",
   "generator": "scripts/snapshot-demo.mjs",
   "dataset": "data/lunar-sites-june.json",
   "datasetSha256": "c2258b262f2ee22599195090a9e652d8f6fd53c48bfb48139896be02a86f3d8f",
@@ -9886,7 +9886,7 @@
   },
   "recommendationCheck": {
     "source": "data/recommendation-fine-validation.json",
-    "sha256": "b0d26cbbe7a327be7cfb368817c311a07e725a1f43392c209436b5c6f12c82c1",
+    "sha256": "370b4ab273a40b6c548f8d70b5f7b9f855e82bac4be3cfe2e8f2b99e38c79609",
     "start": "2027-06-21T12:00:00Z",
     "sampleIntervalMinutes": 5,
     "coverage": {
@@ -9903,69 +9903,249 @@
           "0.0": {
             "passCount": 9,
             "count": 9,
+            "knownCount": 9,
+            "unknownCount": 0,
+            "allKnown": true,
             "failedPoints": [],
+            "unknownPoints": [],
+            "knownExtrema": {
+              "worstDarkness": {
+                "hours": 8.014745543890552,
+                "patchId": "e-25-n+25",
+                "tiedPatchIds": [
+                  "e-25-n+25"
+                ]
+              },
+              "worstEarthGap": {
+                "hours": 18.524580070109216,
+                "patchId": "e+25-n-25",
+                "tiedPatchIds": [
+                  "e+25-n-25"
+                ]
+              },
+              "leastJointVisibility": {
+                "hours": 141.60691788103412,
+                "patchId": "e+25-n-25",
+                "tiedPatchIds": [
+                  "e+25-n-25"
+                ]
+              }
+            },
+            "margins": {
+              "darknessHours": 15.985254456109448,
+              "earthGapHours": 5.4754199298907835,
+              "jointHours": 117.60691788103412
+            },
+            "minimumMarginHours": 5.4754199298907835,
+            "limitingMeasures": [
+              "earthGapHours"
+            ],
             "worstDarkness": {
               "hours": 8.014745543890552,
-              "patchId": "e-25-n+25"
+              "patchId": "e-25-n+25",
+              "tiedPatchIds": [
+                "e-25-n+25"
+              ]
             },
             "worstEarthGap": {
               "hours": 18.524580070109216,
-              "patchId": "e+25-n-25"
+              "patchId": "e+25-n-25",
+              "tiedPatchIds": [
+                "e+25-n-25"
+              ]
             },
             "leastJointVisibility": {
               "hours": 141.60691788103412,
-              "patchId": "e+25-n-25"
+              "patchId": "e+25-n-25",
+              "tiedPatchIds": [
+                "e+25-n-25"
+              ]
             }
           },
           "0.02": {
             "passCount": 9,
             "count": 9,
+            "knownCount": 9,
+            "unknownCount": 0,
+            "allKnown": true,
             "failedPoints": [],
+            "unknownPoints": [],
+            "knownExtrema": {
+              "worstDarkness": {
+                "hours": 8.402988593892864,
+                "patchId": "e-25-n+25",
+                "tiedPatchIds": [
+                  "e-25-n+25"
+                ]
+              },
+              "worstEarthGap": {
+                "hours": 18.79343899440593,
+                "patchId": "e+25-n-25",
+                "tiedPatchIds": [
+                  "e+25-n-25"
+                ]
+              },
+              "leastJointVisibility": {
+                "hours": 140.99524332982904,
+                "patchId": "e+25-n-25",
+                "tiedPatchIds": [
+                  "e+25-n-25"
+                ]
+              }
+            },
+            "margins": {
+              "darknessHours": 15.597011406107136,
+              "earthGapHours": 5.206561005594072,
+              "jointHours": 116.99524332982904
+            },
+            "minimumMarginHours": 5.206561005594072,
+            "limitingMeasures": [
+              "earthGapHours"
+            ],
             "worstDarkness": {
               "hours": 8.402988593892864,
-              "patchId": "e-25-n+25"
+              "patchId": "e-25-n+25",
+              "tiedPatchIds": [
+                "e-25-n+25"
+              ]
             },
             "worstEarthGap": {
               "hours": 18.79343899440593,
-              "patchId": "e+25-n-25"
+              "patchId": "e+25-n-25",
+              "tiedPatchIds": [
+                "e+25-n-25"
+              ]
             },
             "leastJointVisibility": {
               "hours": 140.99524332982904,
-              "patchId": "e+25-n-25"
+              "patchId": "e+25-n-25",
+              "tiedPatchIds": [
+                "e+25-n-25"
+              ]
             }
           },
           "0.1": {
             "passCount": 9,
             "count": 9,
+            "knownCount": 9,
+            "unknownCount": 0,
+            "allKnown": true,
             "failedPoints": [],
+            "unknownPoints": [],
+            "knownExtrema": {
+              "worstDarkness": {
+                "hours": 9.859769450118492,
+                "patchId": "e-25-n+25",
+                "tiedPatchIds": [
+                  "e-25-n+25"
+                ]
+              },
+              "worstEarthGap": {
+                "hours": 19.868345395874215,
+                "patchId": "e+25-n-25",
+                "tiedPatchIds": [
+                  "e+25-n-25"
+                ]
+              },
+              "leastJointVisibility": {
+                "hours": 138.56820930830744,
+                "patchId": "e+25-n-25",
+                "tiedPatchIds": [
+                  "e+25-n-25"
+                ]
+              }
+            },
+            "margins": {
+              "darknessHours": 14.140230549881508,
+              "earthGapHours": 4.131654604125785,
+              "jointHours": 114.56820930830744
+            },
+            "minimumMarginHours": 4.131654604125785,
+            "limitingMeasures": [
+              "earthGapHours"
+            ],
             "worstDarkness": {
               "hours": 9.859769450118492,
-              "patchId": "e-25-n+25"
+              "patchId": "e-25-n+25",
+              "tiedPatchIds": [
+                "e-25-n+25"
+              ]
             },
             "worstEarthGap": {
               "hours": 19.868345395874215,
-              "patchId": "e+25-n-25"
+              "patchId": "e+25-n-25",
+              "tiedPatchIds": [
+                "e+25-n-25"
+              ]
             },
             "leastJointVisibility": {
               "hours": 138.56820930830744,
-              "patchId": "e+25-n-25"
+              "patchId": "e+25-n-25",
+              "tiedPatchIds": [
+                "e+25-n-25"
+              ]
             }
           },
           "0.25": {
             "passCount": 9,
             "count": 9,
+            "knownCount": 9,
+            "unknownCount": 0,
+            "allKnown": true,
             "failedPoints": [],
+            "unknownPoints": [],
+            "knownExtrema": {
+              "worstDarkness": {
+                "hours": 14.953914698406212,
+                "patchId": "e-25-n+25",
+                "tiedPatchIds": [
+                  "e-25-n+25"
+                ]
+              },
+              "worstEarthGap": {
+                "hours": 21.881347877523257,
+                "patchId": "e+25-n-25",
+                "tiedPatchIds": [
+                  "e+25-n-25"
+                ]
+              },
+              "leastJointVisibility": {
+                "hours": 131.28059878911986,
+                "patchId": "e+25-n+25",
+                "tiedPatchIds": [
+                  "e+25-n+25"
+                ]
+              }
+            },
+            "margins": {
+              "darknessHours": 9.046085301593788,
+              "earthGapHours": 2.1186521224767425,
+              "jointHours": 107.28059878911986
+            },
+            "minimumMarginHours": 2.1186521224767425,
+            "limitingMeasures": [
+              "earthGapHours"
+            ],
             "worstDarkness": {
               "hours": 14.953914698406212,
-              "patchId": "e-25-n+25"
+              "patchId": "e-25-n+25",
+              "tiedPatchIds": [
+                "e-25-n+25"
+              ]
             },
             "worstEarthGap": {
               "hours": 21.881347877523257,
-              "patchId": "e+25-n-25"
+              "patchId": "e+25-n-25",
+              "tiedPatchIds": [
+                "e+25-n-25"
+              ]
             },
             "leastJointVisibility": {
               "hours": 131.28059878911986,
-              "patchId": "e+25-n+25"
+              "patchId": "e+25-n+25",
+              "tiedPatchIds": [
+                "e+25-n+25"
+              ]
             }
           }
         },
@@ -9973,69 +10153,249 @@
           "0.0": {
             "passCount": 9,
             "count": 9,
+            "knownCount": 9,
+            "unknownCount": 0,
+            "allKnown": true,
             "failedPoints": [],
+            "unknownPoints": [],
+            "knownExtrema": {
+              "worstDarkness": {
+                "hours": 8.012876684393042,
+                "patchId": "e-25-n+25",
+                "tiedPatchIds": [
+                  "e-25-n+25"
+                ]
+              },
+              "worstEarthGap": {
+                "hours": 18.25383843808211,
+                "patchId": "e+0-n-25",
+                "tiedPatchIds": [
+                  "e+0-n-25"
+                ]
+              },
+              "leastJointVisibility": {
+                "hours": 141.81070413534766,
+                "patchId": "e-25-n+25",
+                "tiedPatchIds": [
+                  "e-25-n+25"
+                ]
+              }
+            },
+            "margins": {
+              "darknessHours": 15.987123315606958,
+              "earthGapHours": 5.746161561917891,
+              "jointHours": 117.81070413534766
+            },
+            "minimumMarginHours": 5.746161561917891,
+            "limitingMeasures": [
+              "earthGapHours"
+            ],
             "worstDarkness": {
               "hours": 8.012876684393042,
-              "patchId": "e-25-n+25"
+              "patchId": "e-25-n+25",
+              "tiedPatchIds": [
+                "e-25-n+25"
+              ]
             },
             "worstEarthGap": {
               "hours": 18.25383843808211,
-              "patchId": "e+0-n-25"
+              "patchId": "e+0-n-25",
+              "tiedPatchIds": [
+                "e+0-n-25"
+              ]
             },
             "leastJointVisibility": {
               "hours": 141.81070413534766,
-              "patchId": "e-25-n+25"
+              "patchId": "e-25-n+25",
+              "tiedPatchIds": [
+                "e-25-n+25"
+              ]
             }
           },
           "0.02": {
             "passCount": 9,
             "count": 9,
+            "knownCount": 9,
+            "unknownCount": 0,
+            "allKnown": true,
             "failedPoints": [],
+            "unknownPoints": [],
+            "knownExtrema": {
+              "worstDarkness": {
+                "hours": 8.403499948213497,
+                "patchId": "e-25-n+25",
+                "tiedPatchIds": [
+                  "e-25-n+25"
+                ]
+              },
+              "worstEarthGap": {
+                "hours": 18.52225386919481,
+                "patchId": "e+0-n-25",
+                "tiedPatchIds": [
+                  "e+0-n-25"
+                ]
+              },
+              "leastJointVisibility": {
+                "hours": 141.1112146004999,
+                "patchId": "e-25-n+25",
+                "tiedPatchIds": [
+                  "e-25-n+25"
+                ]
+              }
+            },
+            "margins": {
+              "darknessHours": 15.596500051786503,
+              "earthGapHours": 5.4777461308051905,
+              "jointHours": 117.11121460049989
+            },
+            "minimumMarginHours": 5.4777461308051905,
+            "limitingMeasures": [
+              "earthGapHours"
+            ],
             "worstDarkness": {
               "hours": 8.403499948213497,
-              "patchId": "e-25-n+25"
+              "patchId": "e-25-n+25",
+              "tiedPatchIds": [
+                "e-25-n+25"
+              ]
             },
             "worstEarthGap": {
               "hours": 18.52225386919481,
-              "patchId": "e+0-n-25"
+              "patchId": "e+0-n-25",
+              "tiedPatchIds": [
+                "e+0-n-25"
+              ]
             },
             "leastJointVisibility": {
               "hours": 141.1112146004999,
-              "patchId": "e-25-n+25"
+              "patchId": "e-25-n+25",
+              "tiedPatchIds": [
+                "e-25-n+25"
+              ]
             }
           },
           "0.1": {
             "passCount": 9,
             "count": 9,
+            "knownCount": 9,
+            "unknownCount": 0,
+            "allKnown": true,
             "failedPoints": [],
+            "unknownPoints": [],
+            "knownExtrema": {
+              "worstDarkness": {
+                "hours": 9.857982540582356,
+                "patchId": "e-25-n+25",
+                "tiedPatchIds": [
+                  "e-25-n+25"
+                ]
+              },
+              "worstEarthGap": {
+                "hours": 19.690814251179212,
+                "patchId": "e-25-n-25",
+                "tiedPatchIds": [
+                  "e-25-n-25"
+                ]
+              },
+              "leastJointVisibility": {
+                "hours": 138.47738419898576,
+                "patchId": "e-25-n+25",
+                "tiedPatchIds": [
+                  "e-25-n+25"
+                ]
+              }
+            },
+            "margins": {
+              "darknessHours": 14.142017459417644,
+              "earthGapHours": 4.309185748820788,
+              "jointHours": 114.47738419898576
+            },
+            "minimumMarginHours": 4.309185748820788,
+            "limitingMeasures": [
+              "earthGapHours"
+            ],
             "worstDarkness": {
               "hours": 9.857982540582356,
-              "patchId": "e-25-n+25"
+              "patchId": "e-25-n+25",
+              "tiedPatchIds": [
+                "e-25-n+25"
+              ]
             },
             "worstEarthGap": {
               "hours": 19.690814251179212,
-              "patchId": "e-25-n-25"
+              "patchId": "e-25-n-25",
+              "tiedPatchIds": [
+                "e-25-n-25"
+              ]
             },
             "leastJointVisibility": {
               "hours": 138.47738419898576,
-              "patchId": "e-25-n+25"
+              "patchId": "e-25-n+25",
+              "tiedPatchIds": [
+                "e-25-n+25"
+              ]
             }
           },
           "0.25": {
             "passCount": 9,
             "count": 9,
+            "knownCount": 9,
+            "unknownCount": 0,
+            "allKnown": true,
             "failedPoints": [],
+            "unknownPoints": [],
+            "knownExtrema": {
+              "worstDarkness": {
+                "hours": 14.950890353476911,
+                "patchId": "e+0-n+25",
+                "tiedPatchIds": [
+                  "e+0-n+25"
+                ]
+              },
+              "worstEarthGap": {
+                "hours": 21.69250392447644,
+                "patchId": "e-25-n-25",
+                "tiedPatchIds": [
+                  "e-25-n-25"
+                ]
+              },
+              "leastJointVisibility": {
+                "hours": 131.3892521702688,
+                "patchId": "e-25-n+25",
+                "tiedPatchIds": [
+                  "e-25-n+25"
+                ]
+              }
+            },
+            "margins": {
+              "darknessHours": 9.049109646523089,
+              "earthGapHours": 2.3074960755235594,
+              "jointHours": 107.3892521702688
+            },
+            "minimumMarginHours": 2.3074960755235594,
+            "limitingMeasures": [
+              "earthGapHours"
+            ],
             "worstDarkness": {
               "hours": 14.950890353476911,
-              "patchId": "e+0-n+25"
+              "patchId": "e+0-n+25",
+              "tiedPatchIds": [
+                "e+0-n+25"
+              ]
             },
             "worstEarthGap": {
               "hours": 21.69250392447644,
-              "patchId": "e-25-n-25"
+              "patchId": "e-25-n-25",
+              "tiedPatchIds": [
+                "e-25-n-25"
+              ]
             },
             "leastJointVisibility": {
               "hours": 131.3892521702688,
-              "patchId": "e-25-n+25"
+              "patchId": "e-25-n+25",
+              "tiedPatchIds": [
+                "e-25-n+25"
+              ]
             }
           }
         },
@@ -10043,69 +10403,249 @@
           "0.0": {
             "passCount": 9,
             "count": 9,
+            "knownCount": 9,
+            "unknownCount": 0,
+            "allKnown": true,
             "failedPoints": [],
+            "unknownPoints": [],
+            "knownExtrema": {
+              "worstDarkness": {
+                "hours": 7.997371755951917,
+                "patchId": "e+0-n+25",
+                "tiedPatchIds": [
+                  "e+0-n+25"
+                ]
+              },
+              "worstEarthGap": {
+                "hours": 18.260249874504755,
+                "patchId": "e+0-n-25",
+                "tiedPatchIds": [
+                  "e+0-n-25"
+                ]
+              },
+              "leastJointVisibility": {
+                "hours": 141.77859570730092,
+                "patchId": "e+0-n-25",
+                "tiedPatchIds": [
+                  "e+0-n-25"
+                ]
+              }
+            },
+            "margins": {
+              "darknessHours": 16.002628244048083,
+              "earthGapHours": 5.739750125495245,
+              "jointHours": 117.77859570730092
+            },
+            "minimumMarginHours": 5.739750125495245,
+            "limitingMeasures": [
+              "earthGapHours"
+            ],
             "worstDarkness": {
               "hours": 7.997371755951917,
-              "patchId": "e+0-n+25"
+              "patchId": "e+0-n+25",
+              "tiedPatchIds": [
+                "e+0-n+25"
+              ]
             },
             "worstEarthGap": {
               "hours": 18.260249874504755,
-              "patchId": "e+0-n-25"
+              "patchId": "e+0-n-25",
+              "tiedPatchIds": [
+                "e+0-n-25"
+              ]
             },
             "leastJointVisibility": {
               "hours": 141.77859570730092,
-              "patchId": "e+0-n-25"
+              "patchId": "e+0-n-25",
+              "tiedPatchIds": [
+                "e+0-n-25"
+              ]
             }
           },
           "0.02": {
             "passCount": 9,
             "count": 9,
+            "knownCount": 9,
+            "unknownCount": 0,
+            "allKnown": true,
             "failedPoints": [],
+            "unknownPoints": [],
+            "knownExtrema": {
+              "worstDarkness": {
+                "hours": 8.346387308584838,
+                "patchId": "e+0-n+25",
+                "tiedPatchIds": [
+                  "e+0-n+25"
+                ]
+              },
+              "worstEarthGap": {
+                "hours": 18.545427686492058,
+                "patchId": "e-25-n-25",
+                "tiedPatchIds": [
+                  "e-25-n-25"
+                ]
+              },
+              "leastJointVisibility": {
+                "hours": 141.13894026369903,
+                "patchId": "e-25-n+25",
+                "tiedPatchIds": [
+                  "e-25-n+25"
+                ]
+              }
+            },
+            "margins": {
+              "darknessHours": 15.653612691415162,
+              "earthGapHours": 5.454572313507942,
+              "jointHours": 117.13894026369903
+            },
+            "minimumMarginHours": 5.454572313507942,
+            "limitingMeasures": [
+              "earthGapHours"
+            ],
             "worstDarkness": {
               "hours": 8.346387308584838,
-              "patchId": "e+0-n+25"
+              "patchId": "e+0-n+25",
+              "tiedPatchIds": [
+                "e+0-n+25"
+              ]
             },
             "worstEarthGap": {
               "hours": 18.545427686492058,
-              "patchId": "e-25-n-25"
+              "patchId": "e-25-n-25",
+              "tiedPatchIds": [
+                "e-25-n-25"
+              ]
             },
             "leastJointVisibility": {
               "hours": 141.13894026369903,
-              "patchId": "e-25-n+25"
+              "patchId": "e-25-n+25",
+              "tiedPatchIds": [
+                "e-25-n+25"
+              ]
             }
           },
           "0.1": {
             "passCount": 9,
             "count": 9,
+            "knownCount": 9,
+            "unknownCount": 0,
+            "allKnown": true,
             "failedPoints": [],
+            "unknownPoints": [],
+            "knownExtrema": {
+              "worstDarkness": {
+                "hours": 9.742434737739032,
+                "patchId": "e-25-n+25",
+                "tiedPatchIds": [
+                  "e-25-n+25"
+                ]
+              },
+              "worstEarthGap": {
+                "hours": 19.691638142883676,
+                "patchId": "e-25-n-25",
+                "tiedPatchIds": [
+                  "e-25-n-25"
+                ]
+              },
+              "leastJointVisibility": {
+                "hours": 138.59327691105608,
+                "patchId": "e-25-n+25",
+                "tiedPatchIds": [
+                  "e-25-n+25"
+                ]
+              }
+            },
+            "margins": {
+              "darknessHours": 14.257565262260968,
+              "earthGapHours": 4.308361857116324,
+              "jointHours": 114.59327691105608
+            },
+            "minimumMarginHours": 4.308361857116324,
+            "limitingMeasures": [
+              "earthGapHours"
+            ],
             "worstDarkness": {
               "hours": 9.742434737739032,
-              "patchId": "e-25-n+25"
+              "patchId": "e-25-n+25",
+              "tiedPatchIds": [
+                "e-25-n+25"
+              ]
             },
             "worstEarthGap": {
               "hours": 19.691638142883676,
-              "patchId": "e-25-n-25"
+              "patchId": "e-25-n-25",
+              "tiedPatchIds": [
+                "e-25-n-25"
+              ]
             },
             "leastJointVisibility": {
               "hours": 138.59327691105608,
-              "patchId": "e-25-n+25"
+              "patchId": "e-25-n+25",
+              "tiedPatchIds": [
+                "e-25-n+25"
+              ]
             }
           },
           "0.25": {
             "passCount": 9,
             "count": 9,
+            "knownCount": 9,
+            "unknownCount": 0,
+            "allKnown": true,
             "failedPoints": [],
+            "unknownPoints": [],
+            "knownExtrema": {
+              "worstDarkness": {
+                "hours": 14.248964954109503,
+                "patchId": "e-25-n+25",
+                "tiedPatchIds": [
+                  "e-25-n+25"
+                ]
+              },
+              "worstEarthGap": {
+                "hours": 21.697715069460443,
+                "patchId": "e-25-n-25",
+                "tiedPatchIds": [
+                  "e-25-n-25"
+                ]
+              },
+              "leastJointVisibility": {
+                "hours": 132.08900155311048,
+                "patchId": "e-25-n+25",
+                "tiedPatchIds": [
+                  "e-25-n+25"
+                ]
+              }
+            },
+            "margins": {
+              "darknessHours": 9.751035045890497,
+              "earthGapHours": 2.3022849305395567,
+              "jointHours": 108.08900155311048
+            },
+            "minimumMarginHours": 2.3022849305395567,
+            "limitingMeasures": [
+              "earthGapHours"
+            ],
             "worstDarkness": {
               "hours": 14.248964954109503,
-              "patchId": "e-25-n+25"
+              "patchId": "e-25-n+25",
+              "tiedPatchIds": [
+                "e-25-n+25"
+              ]
             },
             "worstEarthGap": {
               "hours": 21.697715069460443,
-              "patchId": "e-25-n-25"
+              "patchId": "e-25-n-25",
+              "tiedPatchIds": [
+                "e-25-n-25"
+              ]
             },
             "leastJointVisibility": {
               "hours": 132.08900155311048,
-              "patchId": "e-25-n+25"
+              "patchId": "e-25-n+25",
+              "tiedPatchIds": [
+                "e-25-n+25"
+              ]
             }
           }
         }
@@ -10115,23 +10655,71 @@
           "0.0": {
             "passCount": 9,
             "count": 9,
+            "knownCount": 9,
+            "unknownCount": 0,
+            "allKnown": true,
             "failedPoints": [],
+            "unknownPoints": [],
+            "knownExtrema": {
+              "worstDarkness": {
+                "hours": 23.749177332343066,
+                "patchId": "e-25-n-25",
+                "tiedPatchIds": [
+                  "e-25-n-25"
+                ]
+              },
+              "worstEarthGap": {
+                "hours": 18.905586588214547,
+                "patchId": "e+25-n-25",
+                "tiedPatchIds": [
+                  "e+25-n-25"
+                ]
+              },
+              "leastJointVisibility": {
+                "hours": 116.99174096409244,
+                "patchId": "e-25-n-25",
+                "tiedPatchIds": [
+                  "e-25-n-25"
+                ]
+              }
+            },
+            "margins": {
+              "darknessHours": 0.2508226676569336,
+              "earthGapHours": 5.094413411785453,
+              "jointHours": 92.99174096409244
+            },
+            "minimumMarginHours": 0.2508226676569336,
+            "limitingMeasures": [
+              "darknessHours"
+            ],
             "worstDarkness": {
               "hours": 23.749177332343066,
-              "patchId": "e-25-n-25"
+              "patchId": "e-25-n-25",
+              "tiedPatchIds": [
+                "e-25-n-25"
+              ]
             },
             "worstEarthGap": {
               "hours": 18.905586588214547,
-              "patchId": "e+25-n-25"
+              "patchId": "e+25-n-25",
+              "tiedPatchIds": [
+                "e+25-n-25"
+              ]
             },
             "leastJointVisibility": {
               "hours": 116.99174096409244,
-              "patchId": "e-25-n-25"
+              "patchId": "e-25-n-25",
+              "tiedPatchIds": [
+                "e-25-n-25"
+              ]
             }
           },
           "0.02": {
             "passCount": 8,
             "count": 9,
+            "knownCount": 9,
+            "unknownCount": 0,
+            "allKnown": true,
             "failedPoints": [
               {
                 "id": "e-25-n-25",
@@ -10144,22 +10732,67 @@
                 ]
               }
             ],
+            "unknownPoints": [],
+            "knownExtrema": {
+              "worstDarkness": {
+                "hours": 24.724782095111806,
+                "patchId": "e-25-n-25",
+                "tiedPatchIds": [
+                  "e-25-n-25"
+                ]
+              },
+              "worstEarthGap": {
+                "hours": 19.182256723966493,
+                "patchId": "e+25-n-25",
+                "tiedPatchIds": [
+                  "e+25-n-25"
+                ]
+              },
+              "leastJointVisibility": {
+                "hours": 111.48910426735591,
+                "patchId": "e-25-n-25",
+                "tiedPatchIds": [
+                  "e-25-n-25"
+                ]
+              }
+            },
+            "margins": {
+              "darknessHours": -0.7247820951118058,
+              "earthGapHours": 4.817743276033507,
+              "jointHours": 87.48910426735591
+            },
+            "minimumMarginHours": -0.7247820951118058,
+            "limitingMeasures": [
+              "darknessHours"
+            ],
             "worstDarkness": {
               "hours": 24.724782095111806,
-              "patchId": "e-25-n-25"
+              "patchId": "e-25-n-25",
+              "tiedPatchIds": [
+                "e-25-n-25"
+              ]
             },
             "worstEarthGap": {
               "hours": 19.182256723966493,
-              "patchId": "e+25-n-25"
+              "patchId": "e+25-n-25",
+              "tiedPatchIds": [
+                "e+25-n-25"
+              ]
             },
             "leastJointVisibility": {
               "hours": 111.48910426735591,
-              "patchId": "e-25-n-25"
+              "patchId": "e-25-n-25",
+              "tiedPatchIds": [
+                "e-25-n-25"
+              ]
             }
           },
           "0.1": {
             "passCount": 8,
             "count": 9,
+            "knownCount": 9,
+            "unknownCount": 0,
+            "allKnown": true,
             "failedPoints": [
               {
                 "id": "e-25-n-25",
@@ -10172,22 +10805,67 @@
                 ]
               }
             ],
+            "unknownPoints": [],
+            "knownExtrema": {
+              "worstDarkness": {
+                "hours": 46.20894047126569,
+                "patchId": "e-25-n-25",
+                "tiedPatchIds": [
+                  "e-25-n-25"
+                ]
+              },
+              "worstEarthGap": {
+                "hours": 20.261687213793284,
+                "patchId": "e+25-n-25",
+                "tiedPatchIds": [
+                  "e+25-n-25"
+                ]
+              },
+              "leastJointVisibility": {
+                "hours": 92.13023910527667,
+                "patchId": "e-25-n-25",
+                "tiedPatchIds": [
+                  "e-25-n-25"
+                ]
+              }
+            },
+            "margins": {
+              "darknessHours": -22.20894047126569,
+              "earthGapHours": 3.7383127862067163,
+              "jointHours": 68.13023910527667
+            },
+            "minimumMarginHours": -22.20894047126569,
+            "limitingMeasures": [
+              "darknessHours"
+            ],
             "worstDarkness": {
               "hours": 46.20894047126569,
-              "patchId": "e-25-n-25"
+              "patchId": "e-25-n-25",
+              "tiedPatchIds": [
+                "e-25-n-25"
+              ]
             },
             "worstEarthGap": {
               "hours": 20.261687213793284,
-              "patchId": "e+25-n-25"
+              "patchId": "e+25-n-25",
+              "tiedPatchIds": [
+                "e+25-n-25"
+              ]
             },
             "leastJointVisibility": {
               "hours": 92.13023910527667,
-              "patchId": "e-25-n-25"
+              "patchId": "e-25-n-25",
+              "tiedPatchIds": [
+                "e-25-n-25"
+              ]
             }
           },
           "0.25": {
             "passCount": 7,
             "count": 9,
+            "knownCount": 9,
+            "unknownCount": 0,
+            "allKnown": true,
             "failedPoints": [
               {
                 "id": "e-25-n-25",
@@ -10210,17 +10888,59 @@
                 ]
               }
             ],
+            "unknownPoints": [],
+            "knownExtrema": {
+              "worstDarkness": {
+                "hours": 52.09951606232626,
+                "patchId": "e-25-n-25",
+                "tiedPatchIds": [
+                  "e-25-n-25"
+                ]
+              },
+              "worstEarthGap": {
+                "hours": 22.28324868886689,
+                "patchId": "e+25-n-25",
+                "tiedPatchIds": [
+                  "e+25-n-25"
+                ]
+              },
+              "leastJointVisibility": {
+                "hours": 80.2895780641962,
+                "patchId": "e-25-n-25",
+                "tiedPatchIds": [
+                  "e-25-n-25"
+                ]
+              }
+            },
+            "margins": {
+              "darknessHours": -28.09951606232626,
+              "earthGapHours": 1.716751311133109,
+              "jointHours": 56.289578064196206
+            },
+            "minimumMarginHours": -28.09951606232626,
+            "limitingMeasures": [
+              "darknessHours"
+            ],
             "worstDarkness": {
               "hours": 52.09951606232626,
-              "patchId": "e-25-n-25"
+              "patchId": "e-25-n-25",
+              "tiedPatchIds": [
+                "e-25-n-25"
+              ]
             },
             "worstEarthGap": {
               "hours": 22.28324868886689,
-              "patchId": "e+25-n-25"
+              "patchId": "e+25-n-25",
+              "tiedPatchIds": [
+                "e+25-n-25"
+              ]
             },
             "leastJointVisibility": {
               "hours": 80.2895780641962,
-              "patchId": "e-25-n-25"
+              "patchId": "e-25-n-25",
+              "tiedPatchIds": [
+                "e-25-n-25"
+              ]
             }
           }
         },
@@ -10228,23 +10948,71 @@
           "0.0": {
             "passCount": 9,
             "count": 9,
+            "knownCount": 9,
+            "unknownCount": 0,
+            "allKnown": true,
             "failedPoints": [],
+            "unknownPoints": [],
+            "knownExtrema": {
+              "worstDarkness": {
+                "hours": 23.601577689794254,
+                "patchId": "e-25-n-25",
+                "tiedPatchIds": [
+                  "e-25-n-25"
+                ]
+              },
+              "worstEarthGap": {
+                "hours": 18.649324895547757,
+                "patchId": "e+0-n-25",
+                "tiedPatchIds": [
+                  "e+0-n-25"
+                ]
+              },
+              "leastJointVisibility": {
+                "hours": 116.73022567146724,
+                "patchId": "e-25-n-25",
+                "tiedPatchIds": [
+                  "e-25-n-25"
+                ]
+              }
+            },
+            "margins": {
+              "darknessHours": 0.3984223102057456,
+              "earthGapHours": 5.350675104452243,
+              "jointHours": 92.73022567146724
+            },
+            "minimumMarginHours": 0.3984223102057456,
+            "limitingMeasures": [
+              "darknessHours"
+            ],
             "worstDarkness": {
               "hours": 23.601577689794254,
-              "patchId": "e-25-n-25"
+              "patchId": "e-25-n-25",
+              "tiedPatchIds": [
+                "e-25-n-25"
+              ]
             },
             "worstEarthGap": {
               "hours": 18.649324895547757,
-              "patchId": "e+0-n-25"
+              "patchId": "e+0-n-25",
+              "tiedPatchIds": [
+                "e+0-n-25"
+              ]
             },
             "leastJointVisibility": {
               "hours": 116.73022567146724,
-              "patchId": "e-25-n-25"
+              "patchId": "e-25-n-25",
+              "tiedPatchIds": [
+                "e-25-n-25"
+              ]
             }
           },
           "0.02": {
             "passCount": 8,
             "count": 9,
+            "knownCount": 9,
+            "unknownCount": 0,
+            "allKnown": true,
             "failedPoints": [
               {
                 "id": "e-25-n-25",
@@ -10257,22 +11025,67 @@
                 ]
               }
             ],
+            "unknownPoints": [],
+            "knownExtrema": {
+              "worstDarkness": {
+                "hours": 24.587694576288357,
+                "patchId": "e-25-n-25",
+                "tiedPatchIds": [
+                  "e-25-n-25"
+                ]
+              },
+              "worstEarthGap": {
+                "hours": 18.935446063036363,
+                "patchId": "e+0-n-25",
+                "tiedPatchIds": [
+                  "e+0-n-25"
+                ]
+              },
+              "leastJointVisibility": {
+                "hours": 111.39509921667289,
+                "patchId": "e-25-n-25",
+                "tiedPatchIds": [
+                  "e-25-n-25"
+                ]
+              }
+            },
+            "margins": {
+              "darknessHours": -0.5876945762883565,
+              "earthGapHours": 5.064553936963637,
+              "jointHours": 87.39509921667289
+            },
+            "minimumMarginHours": -0.5876945762883565,
+            "limitingMeasures": [
+              "darknessHours"
+            ],
             "worstDarkness": {
               "hours": 24.587694576288357,
-              "patchId": "e-25-n-25"
+              "patchId": "e-25-n-25",
+              "tiedPatchIds": [
+                "e-25-n-25"
+              ]
             },
             "worstEarthGap": {
               "hours": 18.935446063036363,
-              "patchId": "e+0-n-25"
+              "patchId": "e+0-n-25",
+              "tiedPatchIds": [
+                "e+0-n-25"
+              ]
             },
             "leastJointVisibility": {
               "hours": 111.39509921667289,
-              "patchId": "e-25-n-25"
+              "patchId": "e-25-n-25",
+              "tiedPatchIds": [
+                "e-25-n-25"
+              ]
             }
           },
           "0.1": {
             "passCount": 8,
             "count": 9,
+            "knownCount": 9,
+            "unknownCount": 0,
+            "allKnown": true,
             "failedPoints": [
               {
                 "id": "e-25-n-25",
@@ -10285,22 +11098,67 @@
                 ]
               }
             ],
+            "unknownPoints": [],
+            "knownExtrema": {
+              "worstDarkness": {
+                "hours": 46.05426323496768,
+                "patchId": "e-25-n-25",
+                "tiedPatchIds": [
+                  "e-25-n-25"
+                ]
+              },
+              "worstEarthGap": {
+                "hours": 20.05724727419939,
+                "patchId": "e-25-n-25",
+                "tiedPatchIds": [
+                  "e-25-n-25"
+                ]
+              },
+              "leastJointVisibility": {
+                "hours": 91.98626177076727,
+                "patchId": "e-25-n-25",
+                "tiedPatchIds": [
+                  "e-25-n-25"
+                ]
+              }
+            },
+            "margins": {
+              "darknessHours": -22.054263234967678,
+              "earthGapHours": 3.9427527258006094,
+              "jointHours": 67.98626177076727
+            },
+            "minimumMarginHours": -22.054263234967678,
+            "limitingMeasures": [
+              "darknessHours"
+            ],
             "worstDarkness": {
               "hours": 46.05426323496768,
-              "patchId": "e-25-n-25"
+              "patchId": "e-25-n-25",
+              "tiedPatchIds": [
+                "e-25-n-25"
+              ]
             },
             "worstEarthGap": {
               "hours": 20.05724727419939,
-              "patchId": "e-25-n-25"
+              "patchId": "e-25-n-25",
+              "tiedPatchIds": [
+                "e-25-n-25"
+              ]
             },
             "leastJointVisibility": {
               "hours": 91.98626177076727,
-              "patchId": "e-25-n-25"
+              "patchId": "e-25-n-25",
+              "tiedPatchIds": [
+                "e-25-n-25"
+              ]
             }
           },
           "0.25": {
             "passCount": 7,
             "count": 9,
+            "knownCount": 9,
+            "unknownCount": 0,
+            "allKnown": true,
             "failedPoints": [
               {
                 "id": "e-25-n-25",
@@ -10323,17 +11181,59 @@
                 ]
               }
             ],
+            "unknownPoints": [],
+            "knownExtrema": {
+              "worstDarkness": {
+                "hours": 51.947816979627945,
+                "patchId": "e-25-n-25",
+                "tiedPatchIds": [
+                  "e-25-n-25"
+                ]
+              },
+              "worstEarthGap": {
+                "hours": 22.090105418568818,
+                "patchId": "e-25-n-25",
+                "tiedPatchIds": [
+                  "e-25-n-25"
+                ]
+              },
+              "leastJointVisibility": {
+                "hours": 80.11782983533581,
+                "patchId": "e-25-n-25",
+                "tiedPatchIds": [
+                  "e-25-n-25"
+                ]
+              }
+            },
+            "margins": {
+              "darknessHours": -27.947816979627945,
+              "earthGapHours": 1.9098945814311818,
+              "jointHours": 56.11782983533581
+            },
+            "minimumMarginHours": -27.947816979627945,
+            "limitingMeasures": [
+              "darknessHours"
+            ],
             "worstDarkness": {
               "hours": 51.947816979627945,
-              "patchId": "e-25-n-25"
+              "patchId": "e-25-n-25",
+              "tiedPatchIds": [
+                "e-25-n-25"
+              ]
             },
             "worstEarthGap": {
               "hours": 22.090105418568818,
-              "patchId": "e-25-n-25"
+              "patchId": "e-25-n-25",
+              "tiedPatchIds": [
+                "e-25-n-25"
+              ]
             },
             "leastJointVisibility": {
               "hours": 80.11782983533581,
-              "patchId": "e-25-n-25"
+              "patchId": "e-25-n-25",
+              "tiedPatchIds": [
+                "e-25-n-25"
+              ]
             }
           }
         },
@@ -10341,23 +11241,71 @@
           "0.0": {
             "passCount": 9,
             "count": 9,
+            "knownCount": 9,
+            "unknownCount": 0,
+            "allKnown": true,
             "failedPoints": [],
+            "unknownPoints": [],
+            "knownExtrema": {
+              "worstDarkness": {
+                "hours": 23.834068995331904,
+                "patchId": "e-25-n-25",
+                "tiedPatchIds": [
+                  "e-25-n-25"
+                ]
+              },
+              "worstEarthGap": {
+                "hours": 18.647821923631493,
+                "patchId": "e+0-n-25",
+                "tiedPatchIds": [
+                  "e+0-n-25"
+                ]
+              },
+              "leastJointVisibility": {
+                "hours": 115.8493118852726,
+                "patchId": "e-25-n-25",
+                "tiedPatchIds": [
+                  "e-25-n-25"
+                ]
+              }
+            },
+            "margins": {
+              "darknessHours": 0.16593100466809574,
+              "earthGapHours": 5.3521780763685065,
+              "jointHours": 91.8493118852726
+            },
+            "minimumMarginHours": 0.16593100466809574,
+            "limitingMeasures": [
+              "darknessHours"
+            ],
             "worstDarkness": {
               "hours": 23.834068995331904,
-              "patchId": "e-25-n-25"
+              "patchId": "e-25-n-25",
+              "tiedPatchIds": [
+                "e-25-n-25"
+              ]
             },
             "worstEarthGap": {
               "hours": 18.647821923631493,
-              "patchId": "e+0-n-25"
+              "patchId": "e+0-n-25",
+              "tiedPatchIds": [
+                "e+0-n-25"
+              ]
             },
             "leastJointVisibility": {
               "hours": 115.8493118852726,
-              "patchId": "e-25-n-25"
+              "patchId": "e-25-n-25",
+              "tiedPatchIds": [
+                "e-25-n-25"
+              ]
             }
           },
           "0.02": {
             "passCount": 8,
             "count": 9,
+            "knownCount": 9,
+            "unknownCount": 0,
+            "allKnown": true,
             "failedPoints": [
               {
                 "id": "e-25-n-25",
@@ -10370,22 +11318,67 @@
                 ]
               }
             ],
+            "unknownPoints": [],
+            "knownExtrema": {
+              "worstDarkness": {
+                "hours": 24.807283257754534,
+                "patchId": "e-25-n-25",
+                "tiedPatchIds": [
+                  "e-25-n-25"
+                ]
+              },
+              "worstEarthGap": {
+                "hours": 18.938594047876272,
+                "patchId": "e+0-n-25",
+                "tiedPatchIds": [
+                  "e+0-n-25"
+                ]
+              },
+              "leastJointVisibility": {
+                "hours": 110.96859194617502,
+                "patchId": "e-25-n-25",
+                "tiedPatchIds": [
+                  "e-25-n-25"
+                ]
+              }
+            },
+            "margins": {
+              "darknessHours": -0.8072832577545341,
+              "earthGapHours": 5.061405952123728,
+              "jointHours": 86.96859194617502
+            },
+            "minimumMarginHours": -0.8072832577545341,
+            "limitingMeasures": [
+              "darknessHours"
+            ],
             "worstDarkness": {
               "hours": 24.807283257754534,
-              "patchId": "e-25-n-25"
+              "patchId": "e-25-n-25",
+              "tiedPatchIds": [
+                "e-25-n-25"
+              ]
             },
             "worstEarthGap": {
               "hours": 18.938594047876272,
-              "patchId": "e+0-n-25"
+              "patchId": "e+0-n-25",
+              "tiedPatchIds": [
+                "e+0-n-25"
+              ]
             },
             "leastJointVisibility": {
               "hours": 110.96859194617502,
-              "patchId": "e-25-n-25"
+              "patchId": "e-25-n-25",
+              "tiedPatchIds": [
+                "e-25-n-25"
+              ]
             }
           },
           "0.1": {
             "passCount": 8,
             "count": 9,
+            "knownCount": 9,
+            "unknownCount": 0,
+            "allKnown": true,
             "failedPoints": [
               {
                 "id": "e-25-n-25",
@@ -10398,22 +11391,67 @@
                 ]
               }
             ],
+            "unknownPoints": [],
+            "knownExtrema": {
+              "worstDarkness": {
+                "hours": 46.073705714373176,
+                "patchId": "e-25-n-25",
+                "tiedPatchIds": [
+                  "e-25-n-25"
+                ]
+              },
+              "worstEarthGap": {
+                "hours": 20.062291126536515,
+                "patchId": "e-25-n-25",
+                "tiedPatchIds": [
+                  "e-25-n-25"
+                ]
+              },
+              "leastJointVisibility": {
+                "hours": 92.36546280052528,
+                "patchId": "e-25-n-25",
+                "tiedPatchIds": [
+                  "e-25-n-25"
+                ]
+              }
+            },
+            "margins": {
+              "darknessHours": -22.073705714373176,
+              "earthGapHours": 3.9377088734634853,
+              "jointHours": 68.36546280052528
+            },
+            "minimumMarginHours": -22.073705714373176,
+            "limitingMeasures": [
+              "darknessHours"
+            ],
             "worstDarkness": {
               "hours": 46.073705714373176,
-              "patchId": "e-25-n-25"
+              "patchId": "e-25-n-25",
+              "tiedPatchIds": [
+                "e-25-n-25"
+              ]
             },
             "worstEarthGap": {
               "hours": 20.062291126536515,
-              "patchId": "e-25-n-25"
+              "patchId": "e-25-n-25",
+              "tiedPatchIds": [
+                "e-25-n-25"
+              ]
             },
             "leastJointVisibility": {
               "hours": 92.36546280052528,
-              "patchId": "e-25-n-25"
+              "patchId": "e-25-n-25",
+              "tiedPatchIds": [
+                "e-25-n-25"
+              ]
             }
           },
           "0.25": {
             "passCount": 7,
             "count": 9,
+            "knownCount": 9,
+            "unknownCount": 0,
+            "allKnown": true,
             "failedPoints": [
               {
                 "id": "e-25-n-25",
@@ -10436,17 +11474,59 @@
                 ]
               }
             ],
+            "unknownPoints": [],
+            "knownExtrema": {
+              "worstDarkness": {
+                "hours": 51.96986667446227,
+                "patchId": "e-25-n-25",
+                "tiedPatchIds": [
+                  "e-25-n-25"
+                ]
+              },
+              "worstEarthGap": {
+                "hours": 22.11395071020712,
+                "patchId": "e-25-n-25",
+                "tiedPatchIds": [
+                  "e-25-n-25"
+                ]
+              },
+              "leastJointVisibility": {
+                "hours": 80.03194140312128,
+                "patchId": "e-25-n-25",
+                "tiedPatchIds": [
+                  "e-25-n-25"
+                ]
+              }
+            },
+            "margins": {
+              "darknessHours": -27.969866674462267,
+              "earthGapHours": 1.8860492897928793,
+              "jointHours": 56.03194140312128
+            },
+            "minimumMarginHours": -27.969866674462267,
+            "limitingMeasures": [
+              "darknessHours"
+            ],
             "worstDarkness": {
               "hours": 51.96986667446227,
-              "patchId": "e-25-n-25"
+              "patchId": "e-25-n-25",
+              "tiedPatchIds": [
+                "e-25-n-25"
+              ]
             },
             "worstEarthGap": {
               "hours": 22.11395071020712,
-              "patchId": "e-25-n-25"
+              "patchId": "e-25-n-25",
+              "tiedPatchIds": [
+                "e-25-n-25"
+              ]
             },
             "leastJointVisibility": {
               "hours": 80.03194140312128,
-              "patchId": "e-25-n-25"
+              "patchId": "e-25-n-25",
+              "tiedPatchIds": [
+                "e-25-n-25"
+              ]
             }
           }
         }

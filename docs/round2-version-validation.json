@@ -1,0 +1,79 @@
+{
+  "startedAt": "2026-11-13T07:05:12.366Z",
+  "finishedAt": "2026-11-13T07:05:24.341Z",
+  "artifact": "dist/",
+  "url": "http://127.0.0.1:4195/",
+  "buildId": "6426717dc7489e974391a4094cd12160bee92e1e51d2082b2ceefeefe205ebcf",
+  "syntheticFixturePolicy": "All changed algorithms/data, unavailable snapshots and old-format fixtures exist only in browser routes or memory. Scientific inputs and published snapshots are never edited.",
+  "passed": 11,
+  "failed": 0,
+  "applicationErrors": [],
+  "tests": [
+    {
+      "name": "R03: real schema 3 export binds the built algorithm, dataset, settings and intervals",
+      "status": "PASS",
+      "durationMs": 851,
+      "syntheticFixture": false
+    },
+    {
+      "name": "R03: same-version URL and imported JSON restore the same selected result",
+      "status": "PASS",
+      "durationMs": 1396,
+      "syntheticFixture": false
+    },
+    {
+      "name": "R03: a synthetic old algorithm is reported and actually used by main and search calculations",
+      "status": "PASS",
+      "durationMs": 2132,
+      "syntheticFixture": true
+    },
+    {
+      "name": "R03: a synthetic old dataset changes the restored calculation instead of silently using current data",
+      "status": "PASS",
+      "durationMs": 1435,
+      "syntheticFixture": true
+    },
+    {
+      "name": "R03: missing old snapshots retain saved values and wait for explicit current-version recalculation",
+      "status": "PASS",
+      "durationMs": 1103,
+      "syntheticFixture": true
+    },
+    {
+      "name": "R03: schema 2 records remain readable with unknown version and no automatic restoration",
+      "status": "PASS",
+      "durationMs": 966,
+      "syntheticFixture": true
+    },
+    {
+      "name": "R03: tampered embedded input bytes block both restoration and recalculation",
+      "status": "PASS",
+      "durationMs": 734,
+      "syntheticFixture": true
+    },
+    {
+      "name": "R03: tampered hosted input snapshot stops calculation with an explicit verification error",
+      "status": "PASS",
+      "durationMs": 319,
+      "syntheticFixture": true
+    },
+    {
+      "name": "R03: the executed algorithm uses the exact verified response without a second unverified fetch",
+      "status": "PASS",
+      "durationMs": 705,
+      "syntheticFixture": true
+    },
+    {
+      "name": "R03: an unsupported saved observing height cannot silently become a two-metre calculation",
+      "status": "PASS",
+      "durationMs": 858,
+      "syntheticFixture": true
+    },
+    {
+      "name": "R03: CSV alone reproduces all 30 verdicts from actual metrics and the three retained thresholds",
+      "status": "PASS",
+      "durationMs": 643,
+      "syntheticFixture": false
+    }
+  ]
+}

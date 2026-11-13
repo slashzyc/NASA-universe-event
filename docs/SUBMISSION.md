@@ -43,7 +43,7 @@ The recommendation-window audit adds **18 positions, 36 original Sun/Earth respo
 
 LunaMargin links horizon geometry, contiguous interruptions, user constraints and neighboring points in one inspectable decision. Existing lunar maps and ephemeris tools provide its foundation. The demonstrated contribution is a reproducible comparison with an explicit tradeoff and evidence trail.
 
-The tool supports education and early mission-concept exploration. Body-center visibility does not calculate solar electrical yield, radio-link budgets, landing dynamics or terrain hazards. DEM interpolation, product seams, finite bearing/time steps and unmodeled eclipses affect interpretation. A [five-person novice test kit](USABILITY_TEST_KIT.md) is ready; **0/5 people have been tested**. External expert review has not been conducted. A different terrain region is a documented follow-up, not part of the current dataset.
+The tool supports education and early mission-concept exploration. Body-center visibility does not calculate solar electrical yield, radio-link budgets, landing dynamics or terrain hazards. DEM interpolation, product seams, finite bearing/time steps and unmodeled eclipses affect interpretation. A [five-person comparison protocol](USABILITY_TEST_KIT.md) and [static tables/timelines with the same decision information](study/static-condition.html) are ready; **0/5 people have been tested**. The planned teacher/researcher needs interview is **0/1**, with no approval or feedback recorded. External expert review has not been conducted. A different terrain region is a documented follow-up, not part of the current dataset.
 
 ### Development and attribution
 
@@ -81,7 +81,7 @@ OpenAI Codex assisted research, implementation, tests and documentation, includi
 
 新增推荐窗口精算覆盖 **18 个位置、36 份真实原始响应、每点 2017 个五分钟时刻**，无缺测，各点使用自身坐标。额外角度 **0°、0.02°、0.10°、0.25°** 下，共 **72** 组点与条件的通过结论均未改变：ROI 1 均为 **9/9**，ROI 4 依次为 **9/9、8/9、8/9、7/9**。基准最坏断光精算为 **7.997 与 23.834 小时**，ROI 4 西南点余量缩至约 **9.96 分钟**，仍支持优先显示 ROI 1。附加角度属于确定性压力条件，并非实测误差概率。详见 [完整精算报告](RECOMMENDATION_VALIDATION.md)。
 
-项目将地平线、窗口、约束与周边取样连接为一个可检查的决策流程，服务科学教育和早期任务概念探索。发电、通信链路、着陆动力学和地表危险需要其他模型；地形插值、数据拼接、有限采样及未建模食现象影响解释。[五人新手测试材料](USABILITY_TEST_KIT.md) 已准备，实际 **0/5 已测试，尚无参与者**，没有真人完成率或引语。外部专家评审尚未开展；不同地形区域留待后续扩展。
+项目将地平线、窗口、约束与周边取样连接为一个可检查的决策流程，服务科学教育和早期任务概念探索。发电、通信链路、着陆动力学和地表危险需要其他模型；地形插值、数据拼接、有限采样及未建模食现象影响解释。[五人对照测试协议](USABILITY_TEST_KIT.md) 与[相同决策信息的静态表及时间线](study/static-condition.html) 已准备，实际 **0/5 已测试，尚无参与者**，没有真人完成率、耗时或引语。教师/研究者需求访谈 **0/1，尚无认可或反馈**。外部专家评审尚未开展；不同地形区域留待后续扩展。
 
 OpenAI Codex 协助研究、实现、测试与文档。开发早于正式比赛，用户知悉规则后仍明确要求继续。提交应保留真实时间线与 AI 披露，填写真实成员贡献。
 
@@ -95,7 +95,8 @@ OpenAI Codex 协助研究、实现、测试与文档。开发早于正式比赛�
 | Team registration and deadline / 团队与截止时间 | **UNCONFIRMED / 待确认** — actual same-event members, Team Owner time zone and registered-event deadline |
 | Advance-development eligibility / 提前开发资格 | **UNCONFIRMED / 待确认** — actual development began before the event; preserve the disclosed history and obtain an organizer determination before claiming eligibility |
 | AI and actual contributions / AI 与真实贡献 | Documented in [AI_DISCLOSURE.md](AI_DISCLOSURE.md); final members must report their actual contributions |
-| Novice study / 真人测试 | **PREPARED, 0/5 TESTED / 已备材料，0/5 已测试** — no invented observations |
+| Novice study / 真人测试 | **PREPARED, 0/5 TESTED / 对照材料准备完成，真人观察待开展** — fixed matching information, crossed case/order allocation, no observations |
+| Needs interview / 需求访谈 | **PREPARED, 0/1 / 已备题目，未访谈** — no recruitment, external endorsement or quotations |
 | Official Project Tab submission / 官方提交 | **NOT SUBMITTED / 未提交** — GitHub publication and this document do not submit the project |
 
 Before submitting, confirm the actual current format and registered-team details, adapt the final text/video if needed, retain accurate eligibility and AI disclosures, and enter the public project and demonstration links in the official Project Tab. Resource matching alone does not establish Global Awards eligibility.

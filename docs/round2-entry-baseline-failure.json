@@ -1,0 +1,14 @@
+{
+  "startedAt": "2026-11-13T06:44:51.244Z",
+  "sourceBaseline": "6e4610a",
+  "servedDirectory": "dist",
+  "expectedPoint": "e+25-n-25",
+  "homeDarkness": "167.50",
+  "entryURL": "navigator.html?campaign=jun&site=ridge-6&start=2027-06-02T06%3A00%3A00Z&durationHours=168&maxDarkHours=24&maxCommGapHours=24&minJointHours=24&clearanceDeg=0",
+  "servedLandingSha256": "f6a5845a4c10f2ee9045ec185446f49714605a63720772a5a03d2c3dd5fa6387",
+  "buildLandingSha256": "f6a5845a4c10f2ee9045ec185446f49714605a63720772a5a03d2c3dd5fa6387",
+  "actualPoint": "e+0-n+0",
+  "navigatorDarkness": "12.4h",
+  "regressionReproduced": true,
+  "status": "EXPECTED PRE-FIX FAILURE"
+}

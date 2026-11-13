@@ -71,7 +71,7 @@ try{
   });
   await test('M01/M08: JSON, readable HTML and CSV identify the selected southeast point and applied settings',async()=>{
     await go();await choose(se);const doc=await json();
-    assert.equal(doc.schemaVersion,2);assert.equal(doc.selectedPoint.id,se);assert.equal(doc.selectedPoint.siteId,'ridge-6');assert.equal(doc.selectedPoint.dxM,25);assert.equal(doc.selectedPoint.dyM,-25);
+    assert.equal(doc.schemaVersion,3);assert.equal(doc.selectedPoint.id,se);assert.equal(doc.selectedPoint.siteId,'ridge-6');assert.equal(doc.selectedPoint.dxM,25);assert.equal(doc.selectedPoint.dyM,-25);
     close(doc.selectedPoint.result.metrics.longestDarkHours,167.5,.1);close(doc.selectedPoint.result.metrics.jointHours,0);
     assert.deepEqual(doc.selectedPoint.result.reasons.map(r=>r.code).sort(),['dark-gap','joint-shortfall']);
     assert.ok(doc.selectedPoint.result.windows.dark.length);assert.equal(new URL(doc.shareURL).searchParams.get('patch'),se);

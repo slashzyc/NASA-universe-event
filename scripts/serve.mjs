@@ -1,8 +1,12 @@
 import http from 'node:http';
 import { readFile, stat } from 'node:fs/promises';
 import path from 'node:path';
+import {prepareRelease} from './prepare-release.mjs';
 import { fileURLToPath } from 'node:url';
-const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const checkout = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const root = path.resolve(checkout,process.env.LUNAMARGIN_SERVE_ROOT||'.');
+if(root!==checkout&&root!==path.join(checkout,'dist'))throw new Error('Preview root must be this checkout or its dist directory.');
+if(root===checkout)await prepareRelease();
 const port = Number(process.env.PORT || 4173);
 const mime = {'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.mjs':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.json':'application/json; charset=utf-8','.svg':'image/svg+xml','.png':'image/png','.jpg':'image/jpeg','.webp':'image/webp','.webm':'video/webm','.md':'text/plain; charset=utf-8','.txt':'text/plain; charset=utf-8'};
 const server = http.createServer(async (req, res) => {

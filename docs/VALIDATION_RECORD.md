@@ -65,7 +65,7 @@ All **72 point/angle pass-or-fail conclusions remain the same**, supporting the 
 
 ## Browser evidence
 
-The revision passed **30/30 core tests**, including eight margin/ranking tests, three recommendation-audit tests and three coordinate-direction tests, alongside the existing 16 analysis tests. The full browser suite passed **19/19**, and the navigator user-interface suite passed **18/18**. Their scope includes three sites and campaigns, date/duration/ranges, pointer selection, time control, worker search, language persistence, sources, tour, URLs and exports. Actual run records: [browser-validation.json](browser-validation.json) and [navigator-ux-validation.json](navigator-ux-validation.json).
+The first revision passed **30/30 core tests**, including eight margin/ranking tests, three recommendation-audit tests and three coordinate-direction tests, alongside the existing 16 analysis tests. The full browser suite passed **19/19**, and the navigator user-interface suite passed **18/18**. Their scope includes three sites and campaigns, date/duration/ranges, pointer selection, time control, worker search, language persistence, sources, tour, URLs and exports. Actual run records: [browser-validation.json](browser-validation.json) and [navigator-ux-validation.json](navigator-ux-validation.json).
 
 The added CI browser gate passed **10/10 checks**, covering current-point sharing and exports, coordinate-based arrow directions, applied versus pending settings, bilingual reports, desktop, 390 px and 330 px screens. Run it with `npm run test:browser`; results are in [revision-browser-validation.json](revision-browser-validation.json). A deliberate `drop-patch` fault made the first gate check fail with exit code 1, demonstrating that a lost shared selection blocks this gate: [fault-probe record](revision-fault-probe.json). The production build runs after successful checks in the publication workflow.
 
@@ -77,7 +77,7 @@ The revised bilingual brief, print layout, search cards and expanded stress resu
 - Terrain uses interpolated source products, two resolutions, finite bearing steps and a 250 km search radius.
 - Time-window events are estimated by interpolation and clipped to the requested mission interval.
 - The main application reuses center ephemerides for nearby offsets; the two-point default-case audit and 18-point recommendation audit examine this approximation in their declared windows.
-- Human test materials are prepared, but **0/5 people have been tested**. No human completion rates, timings or quotations are available. [Protocol](USABILITY_TEST_KIT.md) · [Blank records](USABILITY_TEST_RECORDS.md).
+- R06 comparison materials are prepared, but **0/5 people have been tested**. The same decision information is provided as [static nine-point tables and timelines](study/static-condition.html) or the application, using two structurally matched cases and crossed order. Case difficulty has not been tested with people. No human completion rates, timings or quotations are available. A teacher/researcher needs-interview protocol is ready, **0/1 conducted**, with no demand validation or endorsement. [Protocol](USABILITY_TEST_KIT.md) · [Blank records](USABILITY_TEST_RECORDS.md).
 - External expert review and flight-data validation have not been conducted. M07's different-terrain region remains a later extension requiring its own sources, coordinate/resolution records, coverage checks and reproduction path.
 
 ## Submission status
@@ -96,3 +96,8 @@ The named-resource match is resolved. It does not establish overall award eligib
 ## Production verification and demonstration media
 
 Public GitHub Pages checks and the version/time they cover are retained in [production-validation.json](production-validation.json). The captioned [browser walkthrough](media/lunamargin-walkthrough.webm) is a teaching demonstration with a visible AI-assistance label. Its existence is separate from current-year submission-format confirmation. [DEMO_SCRIPT.md](DEMO_SCRIPT.md) uses the same ROI 1 recommendation, whole-footprint margins and audit scope as this record.
+
+
+## Second revision: generated conclusions and versioned records
+
+R01–R03 passed 44 JavaScript tests, 11 new pure-Python reporting checks (21 in the complete Python suite), and built-site browser gates of 10/10, 7/7 and 11/11. The NASA inputs and all 216 point/mode/angle numerical evaluations remain unchanged from `6e4610a`; the bilingual audit narrative is now generated from those values. Exports bind their calculation and interface versions separately, preserve exact input bytes, and restore verified historical algorithms and datasets. Missing or unsupported originals require an explicit choice before any new calculation. See [round-two acceptance](ROUND2_ACCEPTANCE.md), [version behavior](VERSIONING.md), and the [version browser record](round2-version-validation.json).

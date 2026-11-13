@@ -1,0 +1,10 @@
+{
+  "fixture": "SYNTHETIC IN-MEMORY COUNTEREXAMPLE; NOT NASA DATA",
+  "baselineCommit": "6e4610a",
+  "scenario": "one fine pass changed to a 30-hour darkness failure",
+  "expected": "table and narrative both report 8/9 for ridge-1 at zero clearance",
+  "observedTable": "| ridge-1 | 0.00° | 9/9 | 8/9 | 8.015 | 30.000 | `e-25-n-25` |",
+  "observedNarrative": "Across all 18 positions and four angle settings, **1 of 72 pass/fail conclusions changed** relative to the published model. Both locations remain 9/9 at zero clearance. ROI 1 retains nine passes at every tested angle; ROI 4 loses its southwest sample at +0.02°, and additionally its west sample at +0.25°.",
+  "regressionReproduced": true,
+  "productionFilesModified": false
+}

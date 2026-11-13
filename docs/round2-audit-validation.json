@@ -1,0 +1,23 @@
+{
+  "baselineCommit": "6e4610a",
+  "realCasesUnchanged": 18,
+  "evaluationsUnchanged": 216,
+  "coverageUnchanged": true,
+  "terrainSourcesUnchanged": true,
+  "publishedBundleUnchanged": true,
+  "rawResponseCount": 36,
+  "pureReportTests": 11,
+  "fullPythonTests": 21,
+  "nodeRecommendationTests": 3,
+  "comparison": {
+    "expectedCount": 72,
+    "comparableCount": 72,
+    "changedCount": 0,
+    "unchangedCount": 72,
+    "unknownCount": 0,
+    "changedPoints": [],
+    "unknownPoints": []
+  },
+  "fineBaselinePreference": "ridge-1",
+  "reportSha256": "370b4ab273a40b6c548f8d70b5f7b9f855e82bac4be3cfe2e8f2b99e38c79609"
+}

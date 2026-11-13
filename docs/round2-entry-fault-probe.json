@@ -1,0 +1,26 @@
+{
+  "startedAt": "2026-11-13T07:00:26.738Z",
+  "finishedAt": "2026-11-13T07:00:28.048Z",
+  "origin": "http://127.0.0.1:4194/",
+  "servedDirectory": "dist",
+  "datasetSha256": "c2258b262f2ee22599195090a9e652d8f6fd53c48bfb48139896be02a86f3d8f",
+  "faultInjection": "drop-entry-patch",
+  "fontMode": "system fallback (font CDN isolated)",
+  "passed": 1,
+  "failed": 1,
+  "transitions": [],
+  "errors": [],
+  "resourceErrors": [],
+  "records": [
+    {
+      "name": "R02: the browser receives the built artifact, not the source service",
+      "status": "PASS",
+      "durationMs": 28
+    },
+    {
+      "name": "R02: all nine homepage positions retain their case and language across eighteen entries",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Homepage entry must carry the selected point\n+ actual - expected\n\n+ null\n- 'e-25-n-25'\n\n    at verifyEntry (file:///C:/Users/slash/OneDrive/%E6%96%87%E6%A1%A3/ChatGPT/NASA%E9%BB%91%E5%AE%A2%E6%9D%BE/lunar-margin/tests/round2-entry-browser.mjs:61:10)\n    at file:///C:/Users/slash/OneDrive/%E6%96%87%E6%A1%A3/ChatGPT/NASA%E9%BB%91%E5%AE%A2%E6%9D%BE/lunar-margin/tests/round2-entry-browser.mjs:85:92\n    at async test (file:///C:/Users/slash/OneDrive/%E6%96%87%E6%A1%A3/ChatGPT/NASA%E9%BB%91%E5%AE%A2%E6%9D%BE/lunar-margin/tests/round2-entry-browser.mjs:58:71)\n    at async file:///C:/Users/slash/OneDrive/%E6%96%87%E6%A1%A3/ChatGPT/NASA%E9%BB%91%E5%AE%A2%E6%9D%BE/lunar-margin/tests/round2-entry-browser.mjs:81:3"
+    }
+  ]
+}

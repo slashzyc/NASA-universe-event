@@ -436,3 +436,8 @@ html[lang=zh-CN] .result-verdict,html[lang=zh-CN] dialog h2 { font-family:var(--
   .result-card .metric-value,.result-card .result-verdict { color:#222!important; }
   .detail-charts { display:block; }
 }
+.version-panel{border-top:1px solid #cdd1c5;margin-top:16px;padding-top:14px;font-size:12px;line-height:1.7;color:#59654f}
+.version-panel summary{cursor:pointer}.version-panel p{margin:12px 0}.version-panel a{color:inherit;text-underline-offset:3px;overflow-wrap:anywhere}.version-panel .result-secondary{font-size:12px;margin:8px 0 0}
+.version-note{font-size:13px;border-left:2px solid #a67d4d;padding:8px 12px;line-height:1.7}
+.record-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}.record-actions button{max-width:100%;white-space:normal}.record-actions button:disabled{opacity:.4;cursor:not-allowed}
+#record-body{overflow-wrap:anywhere;line-height:1.8}#record-body pre{white-space:pre-wrap;font-size:12px;padding:16px;background:#ffffff08}

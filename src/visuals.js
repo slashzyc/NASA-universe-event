@@ -1,5 +1,4 @@
 // AI-assisted visualization of supplied NASA data. No synthetic scientific values.
-import { interpolateHorizon } from './analysis.js';
 const TAU = Math.PI * 2;
 function setup(canvas) {
   const r = canvas.getBoundingClientRect(), dpr = Math.min(devicePixelRatio || 1, 2);
@@ -78,7 +77,8 @@ export function drawTerrain(canvas, site, result, activePatch, lang="en") {
   ctx.font='8px Consolas,monospace';ctx.fillStyle='#c0cdcb';ctx.fillText(lang==='zh'?`${(physical/1000).toFixed(1)} 千米 · 地形阴影 · 100 米等高线`:`${(physical/1000).toFixed(1)} km · cartographic shading · 100 m contours`,20,h-110);
   return hits;
 }
-export function drawHorizon(canvas, horizon, sample, clearance=0, lang="en") {
+export function drawHorizon(canvas, horizon, sample, clearance=0, lang="en", interpolateHorizon) {
+  if(typeof interpolateHorizon!=='function')throw new Error('A verified horizon calculation is required.');
   const {ctx,w,h}=setup(canvas),left=36,right=18,top=21,bottom=30,pw=w-left-right,ph=h-top-bottom;
   const min=Math.floor(Math.min(-3,...horizon,sample?.sunEl??0,sample?.earthEl??0))-1;
   const max=Math.ceil(Math.max(4,...horizon,sample?.sunEl??0,sample?.earthEl??0))+1;

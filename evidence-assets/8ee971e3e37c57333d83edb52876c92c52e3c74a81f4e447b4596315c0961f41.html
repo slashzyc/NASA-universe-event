@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#080b0d"><meta name="description" content="Explore lunar landing windows with real NASA terrain and ephemerides. Compare dates, visibility gaps, and sensitivity to a landing footprint.">
+  <meta name="ai-assistance" content="OpenAI Codex assisted code, documentation and interface graphics. Scientific inputs: NASA LOLA and NASA/JPL Horizons. See docs/AI_DISCLOSURE.md.">
+  <title>LunaMargin — Every landing needs a little margin.</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="src/style.css"><link rel="stylesheet" href="src/navigator.css">
+</head>
+<body class="navigator-page">
+  <a class="skip-link" href="#workspace">Skip to mission workspace</a>
+  <header class="topbar">
+    <a class="brand" href="./" aria-label="LunaMargin home"><span class="brand-symbol" aria-hidden="true"></span><span>LUNA<span class="brand-light">MARGIN</span><small data-i18n="navigatorBrand">THE LUNAR NAVIGATOR</small></span></a>
+    <nav aria-label="Main navigation"><a href="#workspace" class="nav-active" data-i18n="navWorkspace">Workspace</a><a href="#compare" data-i18n="navCompare">Compare</a><button class="text-btn" id="method-open" data-i18n="navMethod">Science & sources ↗</button></nav>
+    <div class="header-tools"><span class="data-badge"><i></i> NASA OPEN DATA</span><button id="lang-toggle" class="lang-btn" aria-label="切换为中文">中文</button><a class="repo-link" href="https://github.com/slashzyc/NASA-universe-event" target="_blank" rel="noreferrer" aria-label="View source on GitHub">GitHub ↗</a></div>
+  </header>
+  <main id="workspace">
+    <section class="navigator-welcome" aria-labelledby="welcome-title">
+      <div class="welcome-copy"><p class="eyebrow"><span class="welcome-dot" aria-hidden="true"></span><span data-i18n="welcomeKicker">YOUR FIRST LUNAR MISSION STARTS HERE</span></p><h1 id="welcome-title" data-i18n="welcomeTitle">Find your <em>window.</em></h1><p data-i18n="welcomeIntro">Choose a place, set a trip, and discover what changes nearby. No space knowledge needed.</p></div>
+      <div class="welcome-actions"><button type="button" id="example-start" class="primary-btn"><span data-i18n="exampleStart">Try the example</span><span aria-hidden="true">↗</span></button><button type="button" id="help-start" class="welcome-help"><span class="help-mark" aria-hidden="true">?</span><span data-i18n="helpStart">Show me how</span></button></div>
+    </section>
+    <nav class="step-rail" aria-label="Mission steps"><a href="#choose-site"><span class="step-index">01</span><span data-i18n="stepChoose">Choose a place</span><span aria-hidden="true">↗</span></a><a href="#mission-settings"><span class="step-index">02</span><span data-i18n="stepMission">Set your mission</span><span aria-hidden="true">↗</span></a><a href="#read-result"><span class="step-index">03</span><span data-i18n="stepResult">Read the result</span><span aria-hidden="true">↗</span></a></nav>
+    <div id="loading" role="status" class="loading-panel"><span class="loading-ring"></span><div><strong data-i18n="loading">Loading the lunar field notes…</strong><p>NASA LOLA terrain · JPL Horizons ephemerides</p></div></div>
+    <div id="app" class="app-layout" hidden>
+      <aside class="mission-panel panel">
+        <form id="mission-form">
+          <section id="choose-site" class="form-step"><p class="panel-kicker"><span data-i18n="placeKicker">01 / THE PLACE</span><span class="step-ornament" aria-hidden="true">✦</span></p><h2 data-i18n="chooseSiteTitle">Where shall we land?</h2><p class="form-intro" data-i18n="chooseSiteIntro">Three nearby research locations at the Moon’s south pole. Start anywhere.</p><div class="site-tabs" id="site-tabs" role="group" aria-label="Select a research site"></div></section>
+          <section id="mission-settings" class="form-step"><p class="panel-kicker" data-i18n="settingsKicker">02 / THE MISSION</p><h2 data-i18n="settingsTitle">Make it your mission.</h2><p class="form-intro" data-i18n="settingsIntro">Choose an example, or adjust the date and length of your stay.</p><div id="preset-buttons" class="preset-buttons" role="group" aria-label="Mission examples"></div><p id="preset-description" class="preset-description"></p>
+          <div class="campaign-field"><label for="campaign" data-i18n="campaignLabel">OBSERVATION CAMPAIGN</label><select id="campaign"><option value="dec">December 2026</option><option value="mar">March 2027</option><option value="jun" selected>June 2027</option></select></div>
+          <label for="start-date" data-i18n="dateLabel">ARRIVAL DATE · UTC</label><input id="start-date" type="date" value="2027-06-02" min="2027-06-01" max="2027-06-24" required>
+          <div class="field-pair"><div><label for="start-hour" data-i18n="hourLabel">TIME · UTC</label><select id="start-hour"><option value="0">00:00</option><option value="6" selected>06:00</option><option value="12">12:00</option><option value="18">18:00</option></select></div><div><label for="duration" data-i18n="durationLabel">DURATION</label><select id="duration"><option value="24">24 hours</option><option value="72">72 hours</option><option value="168" selected>7 days</option></select></div></div>
+          <p class="timezone-hint" data-i18n="timezoneHint">Times use UTC, the same reference everywhere on Earth.</p>
+          <details id="advanced-settings" class="advanced-settings"><summary><span data-i18n="advancedTitle">Fine-tune your limits</span><span class="details-plus" aria-hidden="true">+</span></summary><p class="advanced-intro" data-i18n="advancedIntro">The examples include starting limits. Open these controls when you want to try your own.</p><div class="range-label"><label for="dark-limit" data-i18n="darkLabel">Longest darkness allowed</label><output id="dark-value">24 h</output></div><input type="range" id="dark-limit" min="0" max="72" step="1" value="24"><div class="range-ends"><span>0 h</span><span>72 h</span></div>
+          <div class="range-label"><label for="comm-limit" data-i18n="commLabel">Longest Earth-view gap</label><output id="comm-value">24 h</output></div><input type="range" id="comm-limit" min="0" max="72" step="1" value="24"><div class="range-ends"><span>0 h</span><span>72 h</span></div>
+          <div class="range-label"><label for="joint-limit" data-i18n="jointLabel">Sun + Earth overlap needed</label><output id="joint-value">24 h</output></div><input type="range" id="joint-limit" min="0" max="168" step="1" value="24"><div class="range-ends"><span>0 h</span><span id="joint-max">168 h</span></div>
+          <details id="geometry-assumptions" class="assumptions"><summary data-i18n="assumptions">Geometry assumptions</summary><label for="clearance" data-i18n="clearanceLabel">Additional angular clearance</label><select id="clearance"><option value="0" selected>0.00° — geometric center</option><option value="0.25">0.25° — extra margin</option><option value="0.5">0.50° — extra margin</option><option value="1">1.00° — extra margin</option></select><p class="small muted" data-i18n="fixedHeight">Observer: 2 m above terrain. The footprint uses discrete positions, not a landing-error probability model.</p></details>
+          </details></section>
+          <button type="submit" class="primary-btn" id="analyze-btn"><span data-i18n="analyze">View mission results</span><span aria-hidden="true">↗</span></button>
+          <p id="settings-status" class="settings-status" aria-live="polite"></p>
+        </form>
+        <p class="scope-note" data-i18n="scopeNote">We compare geometric visibility. Power generation and a working radio link also depend on your hardware.</p>
+      </aside>
+      <div class="main-column">
+        <section id="read-result" class="result-card" aria-label="Mission results" aria-live="polite">
+          <div class="result-topline"><span data-i18n="resultKicker">03 / YOUR MISSION, AT A GLANCE</span><span class="result-decoration" aria-hidden="true">✦</span></div>
+          <div id="pending-note" class="pending-note" hidden></div>
+          <div id="result-summary"></div>
+          <p id="inspection-context" class="inspection-context"></p><div class="metrics-row" id="metrics"></div>
+          <details id="robustness-details" class="robustness-details"><summary id="robustness-summary"></summary><div id="robustness-body"></div></details>
+          <div id="result-actions" class="result-actions"><button type="button" id="inspect-risk" class="result-primary" data-i18n="inspectRisk">Explore the nearby points ↗</button><button type="button" id="find-window" class="result-secondary" data-i18n="findWindow">Find a later window →</button><button type="button" id="share-point" class="result-secondary" data-i18n="sharePoint">Share this point ↗</button><button type="button" id="save-brief" class="result-secondary" data-i18n="saveBrief">Save this brief ↓</button></div>
+          <p class="model-scope" data-i18n="modelScope">This model checks whether terrain blocks the Sun or Earth. Actual power and communication also depend on your equipment.</p>
+          <details id="version-panel" class="version-panel"><summary id="version-heading">Calculation version &amp; saved records</summary><div id="version-details"></div><button id="import-record" class="result-secondary" type="button">Open a saved JSON record</button></details>
+        </section>
+        <section id="search-results" class="search-section panel" hidden aria-live="polite"></section>
+        <section class="terrain-workspace" aria-labelledby="selected-title">
+          <div class="workspace-heading"><div><p class="panel-kicker" data-i18n="terrainKicker">A CLOSER LOOK / REAL LUNAR TERRAIN</p><h2 id="selected-title">Connecting Ridge</h2></div><span id="site-coordinates" class="mono"></span></div>
+          <div class="terrain-panel panel" aria-label="Interactive lunar terrain map">
+          <div class="map-topline"><span class="map-tag"><i></i> LOLA / REAL TERRAIN</span></div>
+          <canvas id="terrain-canvas" aria-label="Terrain height map with sampled landing positions" tabindex="0"></canvas>
+          <div class="map-bottom"><div><span class="map-label" data-i18n="landingFootprint">LANDING FOOTPRINT</span><strong id="footprint-label">9 sampled positions</strong><span class="map-caption" data-i18n="mapHint">Select a point to inspect its horizon</span></div><div class="map-legend"><span><i class="legend-dot amber"></i><span data-i18n="passes">Passes limits</span></span><span><i class="legend-dot grey"></i><span data-i18n="outside">Outside limits</span></span><span class="north-arrow">↑ N</span></div></div>
+          </div>
+          <div class="point-explorer"><div class="point-explorer-copy"><p class="panel-kicker" data-i18n="pointsKicker">SMALL SHIFT. DIFFERENT VIEW.</p><h3 data-i18n="pointsTitle">What changes 25 metres away?</h3><p data-i18n="pointsIntro">Tap any of the nine points to compare neighbouring positions, spaced 25 metres apart.</p><p id="point-caption" class="point-caption" aria-live="polite"></p></div><div id="point-selector" class="point-selector" role="group" aria-label="Nine sampled landing positions"></div></div>
+        </section>
+        <details id="detail-charts" class="detail-charts"><summary><span><span class="panel-kicker" data-i18n="detailKicker">THE SCIENCE, ONE LAYER DEEPER</span><span class="detail-title" data-i18n="detailTitle">See why · Light & horizon</span></span><span class="details-plus" aria-hidden="true">+</span></summary>
+        <section class="insight-strip" id="insight" aria-live="polite"></section>
+        <section class="horizon-panel panel">
+          <div class="section-heading"><div><p class="panel-kicker">03 / AT THE HORIZON</p><h2 data-i18n="horizonTitle">What can your lander see?</h2></div><div class="chart-legend"><span><i class="legend-dot sun"></i>Sun</span><span><i class="legend-dot earth"></i>Earth</span><span><i class="legend-dot grey"></i>Terrain</span></div></div>
+          <canvas id="horizon-canvas" aria-label="360 degree terrain horizon, Sun and Earth positions"></canvas>
+          <div class="time-scrubber"><button id="play-btn" aria-label="Play time animation" class="play-btn">▶</button><input id="time-slider" aria-label="Explore mission time" type="range" min="0" max="100" value="0"><time id="time-label" class="mono"></time></div>
+          <div class="horizon-readout" id="horizon-readout"></div>
+        </section>
+        <section class="timeline-panel panel"><div class="section-heading"><div><p class="panel-kicker">04 / THE WHOLE MISSION</p><h2 data-i18n="timelineTitle">Windows, not averages.</h2></div><span class="small muted" id="sample-resolution"></span></div><div id="timeline"></div><p class="small muted" data-i18n="timelineCaption">A long uninterrupted gap can matter more than a high average. Event boundaries are interpolated between ephemeris samples.</p></section>
+        </details>
+      </div>
+    </div>
+    <section id="compare" class="comparison-section" hidden><div class="section-heading"><div><p class="panel-kicker">05 / DECISION TABLE</p><h2 data-i18n="compareTitle">Choose with the trade-offs in view.</h2></div><button id="export-btn" class="secondary-btn compact" data-i18n="export">Export evidence ↓</button></div><div class="table-wrap"><table><thead id="comparison-head"></thead><tbody id="comparison-body"></tbody></table></div><p class="small muted" data-i18n="comparisonNote">Footprint pass rate is the share of sampled positions meeting your limits. It is not a landing success probability.</p></section>
+    <section class="closing-note"><span class="tiny-cross">✦</span><div><h3 data-i18n="closingTitle">Every recommendation leaves a trail.</h3><p data-i18n="closingBody">Real NASA data. Inspectable assumptions. Reproducible calculations.<br>Made for the moment you ask: “What changes if we land over there?”</p></div><button id="sources-open" class="text-btn" data-i18n="exploreMethod">Explore the method ↗</button></section>
+  </main>
+  <footer><span>LUNAMARGIN <span class="muted">/</span> SPACE APPS 2026</span><span data-i18n="footerScope">Educational mission exploration · Independent project · No NASA endorsement</span><button id="tour-start" class="text-btn" data-i18n="tour">Take the 60-second tour ↗</button></footer>
+  <dialog id="record-dialog"><div class="dialog-top"><span class="panel-kicker">LUNAMARGIN / SAVED RECORD</span><button class="close-btn" data-close="record-dialog" aria-label="Close / 关闭">×</button></div><h2 id="record-title">Review a saved calculation</h2><div id="record-body"></div><div class="record-actions"><button id="record-original" class="primary-btn">Restore its original calculation</button><button id="record-current" class="secondary-btn">Recalculate with the current version</button></div></dialog>
+  <input id="record-file" type="file" accept=".json,application/json" hidden>
+  <dialog id="method-dialog"><div class="dialog-top"><span class="panel-kicker">SCIENCE / SOURCES / REPRODUCIBILITY</span><button class="close-btn" data-close="method-dialog" aria-label="Close science panel">×</button></div><h2 data-i18n="methodTitle">The evidence behind the view.</h2><div id="method-body"></div></dialog>
+  <dialog id="tour-dialog"><div class="dialog-top"><span id="tour-step" class="panel-kicker"></span><button class="close-btn" data-close="tour-dialog" aria-label="Close guided tour">×</button></div><h2 id="tour-title"></h2><p id="tour-body"></p><button id="tour-next" class="primary-btn">Next →</button></dialog>
+  <dialog id="export-dialog"><div class="dialog-top"><span class="panel-kicker">PORTABLE / REPRODUCIBLE / YOUR EVIDENCE</span><button class="close-btn" data-close="export-dialog" aria-label="Close export panel">×</button></div><h2 data-i18n="exportTitle">Take the evidence with you.</h2><p data-i18n="exportIntro">Save a readable mission brief, compare results in a spreadsheet, or inspect the full calculation record.</p><div class="export-choices"><button id="export-html" class="secondary-btn">Mission brief · HTML ↓</button><button id="export-csv" class="secondary-btn">Comparison · CSV ↓</button><button id="export-json" class="secondary-btn">Full evidence · JSON ↓</button></div></dialog>
+  <dialog id="share-dialog"><div class="dialog-top"><h2 data-i18n="shareTitle">Copy this point’s link</h2><button class="close-btn" data-close="share-dialog" aria-label="Close">×</button></div><label for="share-link" data-i18n="shareHint">The link includes your point and applied settings.</label><input id="share-link" type="url" readonly style="width:100%;padding:14px;color:inherit;background:transparent;border:1px solid #87917b"></dialog>
+  <div id="toast" role="status" class="toast" hidden></div>
+  <script type="module" src="src/app.js"></script>
+</body></html>

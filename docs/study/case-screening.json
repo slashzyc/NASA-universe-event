@@ -1,0 +1,1698 @@
+{
+  "generatedAt": "2026-11-13T06:58:06.631Z",
+  "analysisSha256": "981e49c08ae6457450c5e0fbb8d9c743521dbb91ed6eeb2cbb01b3e132ea5fcd",
+  "rule": "Retain center-pass, 8/9 scenarios before the fixed A/B structural choice. No human outcomes were available.",
+  "evaluatedCount": 861,
+  "inputs": [
+    {
+      "file": "lunar-sites-june.json",
+      "sha256": "c2258b262f2ee22599195090a9e652d8f6fd53c48bfb48139896be02a86f3d8f"
+    },
+    {
+      "file": "lunar-sites-march.json",
+      "sha256": "266011b3d2c20224c75a44a93d414986d9751ac7ae5a0d463ba5744434618aab"
+    },
+    {
+      "file": "lunar-sites.json",
+      "sha256": "8a1126508f01911c562a2fa20d7721773028dc4f5fd437c869ba8bc567113f2b"
+    }
+  ],
+  "candidates": [
+    {
+      "campaign": "jun",
+      "siteId": "ridge-4",
+      "settings": {
+        "durationHours": 168,
+        "maxDarkHours": 24,
+        "maxCommGapHours": 24,
+        "minJointHours": 24,
+        "clearanceDeg": 0,
+        "observerHeightM": 2,
+        "nominalStepHours": 0.5,
+        "start": "2027-06-21T18:00:00.000Z"
+      },
+      "centerMetrics": {
+        "sunHours": 160.31822226738825,
+        "earthHours": 155.383702027181,
+        "jointHours": 147.70192429456924,
+        "longestDarkHours": 7.681777732611762,
+        "longestCommGapHours": 12.61629797281901
+      },
+      "failedPoints": [
+        {
+          "id": "e-25-n-25",
+          "metrics": {
+            "sunHours": 129.34890659057618,
+            "earthHours": 155.64283437357585,
+            "jointHours": 116.99174096415203,
+            "longestDarkHours": 29.74917733235677,
+            "longestCommGapHours": 12.357165626424154
+          },
+          "reasons": [
+            {
+              "code": "dark-gap",
+              "message": "The longest modeled darkness exceeds the mission limit.",
+              "actual": 29.74917733235677,
+              "limit": 24
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "campaign": "jun",
+      "siteId": "ridge-4",
+      "settings": {
+        "durationHours": 168,
+        "maxDarkHours": 24,
+        "maxCommGapHours": 24,
+        "minJointHours": 24,
+        "clearanceDeg": 0,
+        "observerHeightM": 2,
+        "nominalStepHours": 0.5,
+        "start": "2027-06-22T00:00:00.000Z"
+      },
+      "centerMetrics": {
+        "sunHours": 160.31822226738825,
+        "earthHours": 161.383702027181,
+        "jointHours": 153.70192429456924,
+        "longestDarkHours": 7.681777732611762,
+        "longestCommGapHours": 6.6162979728190106
+      },
+      "failedPoints": [
+        {
+          "id": "e-25-n-25",
+          "metrics": {
+            "sunHours": 123.34890659057618,
+            "earthHours": 161.64283437357585,
+            "jointHours": 116.99174096415203,
+            "longestDarkHours": 35.74917733235677,
+            "longestCommGapHours": 6.357165626424154
+          },
+          "reasons": [
+            {
+              "code": "dark-gap",
+              "message": "The longest modeled darkness exceeds the mission limit.",
+              "actual": 35.74917733235677,
+              "limit": 24
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "campaign": "jun",
+      "siteId": "ridge-4",
+      "settings": {
+        "durationHours": 168,
+        "maxDarkHours": 24,
+        "maxCommGapHours": 24,
+        "minJointHours": 24,
+        "clearanceDeg": 0,
+        "observerHeightM": 2,
+        "nominalStepHours": 0.5,
+        "start": "2027-06-22T06:00:00.000Z"
+      },
+      "centerMetrics": {
+        "sunHours": 160.31822226738825,
+        "earthHours": 167.383702027181,
+        "jointHours": 159.70192429456924,
+        "longestDarkHours": 7.681777732611762,
+        "longestCommGapHours": 0.6162979728190104
+      },
+      "failedPoints": [
+        {
+          "id": "e-25-n-25",
+          "metrics": {
+            "sunHours": 117.34890659057618,
+            "earthHours": 167.64283437357585,
+            "jointHours": 116.99174096415203,
+            "longestDarkHours": 41.74917733235677,
+            "longestCommGapHours": 0.35716562642415367
+          },
+          "reasons": [
+            {
+              "code": "dark-gap",
+              "message": "The longest modeled darkness exceeds the mission limit.",
+              "actual": 41.74917733235677,
+              "limit": 24
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "campaign": "jun",
+      "siteId": "ridge-4",
+      "settings": {
+        "durationHours": 168,
+        "maxDarkHours": 24,
+        "maxCommGapHours": 24,
+        "minJointHours": 24,
+        "clearanceDeg": 0,
+        "observerHeightM": 2,
+        "nominalStepHours": 0.5,
+        "start": "2027-06-22T12:00:00.000Z"
+      },
+      "centerMetrics": {
+        "sunHours": 160.31822226738825,
+        "earthHours": 168,
+        "jointHours": 160.31822226738825,
+        "longestDarkHours": 7.681777732611762,
+        "longestCommGapHours": 0
+      },
+      "failedPoints": [
+        {
+          "id": "e-25-n-25",
+          "metrics": {
+            "sunHours": 111.34890659057618,
+            "earthHours": 168,
+            "jointHours": 111.34890659057618,
+            "longestDarkHours": 47.74917733235677,
+            "longestCommGapHours": 0
+          },
+          "reasons": [
+            {
+              "code": "dark-gap",
+              "message": "The longest modeled darkness exceeds the mission limit.",
+              "actual": 47.74917733235677,
+              "limit": 24
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "campaign": "jun",
+      "siteId": "ridge-4",
+      "settings": {
+        "durationHours": 168,
+        "maxDarkHours": 24,
+        "maxCommGapHours": 24,
+        "minJointHours": 24,
+        "clearanceDeg": 0,
+        "observerHeightM": 2,
+        "nominalStepHours": 0.5,
+        "start": "2027-06-22T18:00:00.000Z"
+      },
+      "centerMetrics": {
+        "sunHours": 159.71355000298394,
+        "earthHours": 168,
+        "jointHours": 159.71355000298394,
+        "longestDarkHours": 6.875600618150499,
+        "longestCommGapHours": 0
+      },
+      "failedPoints": [
+        {
+          "id": "e-25-n-25",
+          "metrics": {
+            "sunHours": 106.23928814927844,
+            "earthHours": 168,
+            "jointHours": 106.23928814927844,
+            "longestDarkHours": 53.74917733235677,
+            "longestCommGapHours": 0
+          },
+          "reasons": [
+            {
+              "code": "dark-gap",
+              "message": "The longest modeled darkness exceeds the mission limit.",
+              "actual": 53.74917733235677,
+              "limit": 24
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "campaign": "jun",
+      "siteId": "ridge-6",
+      "settings": {
+        "durationHours": 168,
+        "maxDarkHours": 24,
+        "maxCommGapHours": 24,
+        "minJointHours": 24,
+        "clearanceDeg": 0,
+        "observerHeightM": 2,
+        "nominalStepHours": 0.5,
+        "start": "2027-06-02T00:00:00.000Z"
+      },
+      "centerMetrics": {
+        "sunHours": 149.55198630811904,
+        "earthHours": 167.68126468519424,
+        "jointHours": 149.23325099331325,
+        "longestDarkHours": 18.448013691880966,
+        "longestCommGapHours": 0.31873531480577255
+      },
+      "failedPoints": [
+        {
+          "id": "e+25-n-25",
+          "metrics": {
+            "sunHours": 0,
+            "earthHours": 167.70803764539932,
+            "jointHours": 0,
+            "longestDarkHours": 168,
+            "longestCommGapHours": 0.2919623546006944
+          },
+          "reasons": [
+            {
+              "code": "dark-gap",
+              "message": "The longest modeled darkness exceeds the mission limit.",
+              "actual": 168,
+              "limit": 24
+            },
+            {
+              "code": "joint-shortfall",
+              "message": "The simultaneous Sun/Earth visibility duration is below the mission requirement.",
+              "actual": 0,
+              "limit": 24
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "campaign": "jun",
+      "siteId": "ridge-6",
+      "settings": {
+        "durationHours": 168,
+        "maxDarkHours": 24,
+        "maxCommGapHours": 24,
+        "minJointHours": 24,
+        "clearanceDeg": 0,
+        "observerHeightM": 2,
+        "nominalStepHours": 0.5,
+        "start": "2027-06-02T06:00:00.000Z"
+      },
+      "centerMetrics": {
+        "sunHours": 155.55198630811904,
+        "earthHours": 161.68126468519424,
+        "jointHours": 149.23325099331325,
+        "longestDarkHours": 12.448013691880968,
+        "longestCommGapHours": 6.318735314805773
+      },
+      "failedPoints": [
+        {
+          "id": "e+25-n-25",
+          "metrics": {
+            "sunHours": 0.4990211201985677,
+            "earthHours": 161.70803764539932,
+            "jointHours": 0,
+            "longestDarkHours": 167.50097887980144,
+            "longestCommGapHours": 6.291962354600694
+          },
+          "reasons": [
+            {
+              "code": "dark-gap",
+              "message": "The longest modeled darkness exceeds the mission limit.",
+              "actual": 167.50097887980144,
+              "limit": 24
+            },
+            {
+              "code": "joint-shortfall",
+              "message": "The simultaneous Sun/Earth visibility duration is below the mission requirement.",
+              "actual": 0,
+              "limit": 24
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "campaign": "jun",
+      "siteId": "ridge-6",
+      "settings": {
+        "durationHours": 168,
+        "maxDarkHours": 24,
+        "maxCommGapHours": 24,
+        "minJointHours": 24,
+        "clearanceDeg": 0,
+        "observerHeightM": 2,
+        "nominalStepHours": 0.5,
+        "start": "2027-06-02T12:00:00.000Z"
+      },
+      "centerMetrics": {
+        "sunHours": 161.55198630811904,
+        "earthHours": 155.68126468519424,
+        "jointHours": 149.23325099331325,
+        "longestDarkHours": 6.448013691880968,
+        "longestCommGapHours": 12.318735314805773
+      },
+      "failedPoints": [
+        {
+          "id": "e+25-n-25",
+          "metrics": {
+            "sunHours": 6.4990211201985675,
+            "earthHours": 155.70803764539932,
+            "jointHours": 0,
+            "longestDarkHours": 161.50097887980144,
+            "longestCommGapHours": 12.291962354600695
+          },
+          "reasons": [
+            {
+              "code": "dark-gap",
+              "message": "The longest modeled darkness exceeds the mission limit.",
+              "actual": 161.50097887980144,
+              "limit": 24
+            },
+            {
+              "code": "joint-shortfall",
+              "message": "The simultaneous Sun/Earth visibility duration is below the mission requirement.",
+              "actual": 0,
+              "limit": 24
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "campaign": "jun",
+      "siteId": "ridge-6",
+      "settings": {
+        "durationHours": 168,
+        "maxDarkHours": 24,
+        "maxCommGapHours": 24,
+        "minJointHours": 24,
+        "clearanceDeg": 0,
+        "observerHeightM": 2,
+        "nominalStepHours": 0.5,
+        "start": "2027-06-02T18:00:00.000Z"
+      },
+      "centerMetrics": {
+        "sunHours": 167.55198630811904,
+        "earthHours": 149.68126468519424,
+        "jointHours": 149.23325099331325,
+        "longestDarkHours": 0.4480136918809679,
+        "longestCommGapHours": 18.31873531480577
+      },
+      "failedPoints": [
+        {
+          "id": "e+25-n-25",
+          "metrics": {
+            "sunHours": 12.499021120198568,
+            "earthHours": 149.70803764539932,
+            "jointHours": 0,
+            "longestDarkHours": 155.50097887980144,
+            "longestCommGapHours": 18.291962354600695
+          },
+          "reasons": [
+            {
+              "code": "dark-gap",
+              "message": "The longest modeled darkness exceeds the mission limit.",
+              "actual": 155.50097887980144,
+              "limit": 24
+            },
+            {
+              "code": "joint-shortfall",
+              "message": "The simultaneous Sun/Earth visibility duration is below the mission requirement.",
+              "actual": 0,
+              "limit": 24
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "campaign": "mar",
+      "siteId": "ridge-1",
+      "settings": {
+        "durationHours": 168,
+        "maxDarkHours": 24,
+        "maxCommGapHours": 24,
+        "minJointHours": 24,
+        "clearanceDeg": 0,
+        "observerHeightM": 2,
+        "nominalStepHours": 0.5,
+        "start": "2027-03-04T18:00:00.000Z"
+      },
+      "centerMetrics": {
+        "sunHours": 168,
+        "earthHours": 150.22716088460285,
+        "jointHours": 150.22716088460285,
+        "longestDarkHours": 0,
+        "longestCommGapHours": 17.772839115397137
+      },
+      "failedPoints": [
+        {
+          "id": "e+25-n-25",
+          "metrics": {
+            "sunHours": 112.44436748413086,
+            "earthHours": 149.898247540351,
+            "jointHours": 94.34261502448189,
+            "longestDarkHours": 28.791771393975154,
+            "longestCommGapHours": 18.10175245964898
+          },
+          "reasons": [
+            {
+              "code": "dark-gap",
+              "message": "The longest modeled darkness exceeds the mission limit.",
+              "actual": 28.791771393975154,
+              "limit": 24
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "campaign": "mar",
+      "siteId": "ridge-1",
+      "settings": {
+        "durationHours": 168,
+        "maxDarkHours": 24,
+        "maxCommGapHours": 24,
+        "minJointHours": 24,
+        "clearanceDeg": 0,
+        "observerHeightM": 2,
+        "nominalStepHours": 0.5,
+        "start": "2027-03-05T00:00:00.000Z"
+      },
+      "centerMetrics": {
+        "sunHours": 168,
+        "earthHours": 156.22716088460285,
+        "jointHours": 156.22716088460285,
+        "longestDarkHours": 0,
+        "longestCommGapHours": 11.772839115397135
+      },
+      "failedPoints": [
+        {
+          "id": "e+25-n-25",
+          "metrics": {
+            "sunHours": 106.44436748413086,
+            "earthHours": 155.898247540351,
+            "jointHours": 94.34261502448189,
+            "longestDarkHours": 34.791771393975154,
+            "longestCommGapHours": 12.10175245964898
+          },
+          "reasons": [
+            {
+              "code": "dark-gap",
+              "message": "The longest modeled darkness exceeds the mission limit.",
+              "actual": 34.791771393975154,
+              "limit": 24
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "campaign": "mar",
+      "siteId": "ridge-1",
+      "settings": {
+        "durationHours": 168,
+        "maxDarkHours": 24,
+        "maxCommGapHours": 24,
+        "minJointHours": 24,
+        "clearanceDeg": 0,
+        "observerHeightM": 2,
+        "nominalStepHours": 0.5,
+        "start": "2027-03-05T06:00:00.000Z"
+      },
+      "centerMetrics": {
+        "sunHours": 168,
+        "earthHours": 162.22716088460285,
+        "jointHours": 162.22716088460285,
+        "longestDarkHours": 0,
+        "longestCommGapHours": 5.772839115397136
+      },
+      "failedPoints": [
+        {
+          "id": "e+25-n-25",
+          "metrics": {
+            "sunHours": 100.44436748413086,
+            "earthHours": 161.898247540351,
+            "jointHours": 94.34261502448189,
+            "longestDarkHours": 40.791771393975154,
+            "longestCommGapHours": 6.10175245964898
+          },
+          "reasons": [
+            {
+              "code": "dark-gap",
+              "message": "The longest modeled darkness exceeds the mission limit.",
+              "actual": 40.791771393975154,
+              "limit": 24
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "campaign": "mar",
+      "siteId": "ridge-4",
+      "settings": {
+        "durationHours": 168,
+        "maxDarkHours": 24,
+        "maxCommGapHours": 24,
+        "minJointHours": 24,
+        "clearanceDeg": 0,
+        "observerHeightM": 2,
+        "nominalStepHours": 0.5,
+        "start": "2027-03-06T00:00:00.000Z"
+      },
+      "centerMetrics": {
+        "sunHours": 165.54131349704318,
+        "earthHours": 168,
+        "jointHours": 165.54131349704318,
+        "longestDarkHours": 2.458686502956814,
+        "longestCommGapHours": 0
+      },
+      "failedPoints": [
+        {
+          "id": "e+25-n-25",
+          "metrics": {
+            "sunHours": 112.16251487040202,
+            "earthHours": 168,
+            "jointHours": 112.16251487040202,
+            "longestDarkHours": 55.83748512959798,
+            "longestCommGapHours": 0
+          },
+          "reasons": [
+            {
+              "code": "dark-gap",
+              "message": "The longest modeled darkness exceeds the mission limit.",
+              "actual": 55.83748512959798,
+              "limit": 24
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "campaign": "mar",
+      "siteId": "ridge-4",
+      "settings": {
+        "durationHours": 168,
+        "maxDarkHours": 24,
+        "maxCommGapHours": 24,
+        "minJointHours": 24,
+        "clearanceDeg": 0,
+        "observerHeightM": 2,
+        "nominalStepHours": 0.5,
+        "start": "2027-03-06T06:00:00.000Z"
+      },
+      "centerMetrics": {
+        "sunHours": 168,
+        "earthHours": 168,
+        "jointHours": 168,
+        "longestDarkHours": 0,
+        "longestCommGapHours": 0
+      },
+      "failedPoints": [
+        {
+          "id": "e+25-n-25",
+          "metrics": {
+            "sunHours": 118.16251487040202,
+            "earthHours": 168,
+            "jointHours": 118.16251487040202,
+            "longestDarkHours": 49.83748512959798,
+            "longestCommGapHours": 0
+          },
+          "reasons": [
+            {
+              "code": "dark-gap",
+              "message": "The longest modeled darkness exceeds the mission limit.",
+              "actual": 49.83748512959798,
+              "limit": 24
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "campaign": "mar",
+      "siteId": "ridge-4",
+      "settings": {
+        "durationHours": 168,
+        "maxDarkHours": 24,
+        "maxCommGapHours": 24,
+        "minJointHours": 24,
+        "clearanceDeg": 0,
+        "observerHeightM": 2,
+        "nominalStepHours": 0.5,
+        "start": "2027-03-06T12:00:00.000Z"
+      },
+      "centerMetrics": {
+        "sunHours": 168,
+        "earthHours": 168,
+        "jointHours": 168,
+        "longestDarkHours": 0,
+        "longestCommGapHours": 0
+      },
+      "failedPoints": [
+        {
+          "id": "e+25-n-25",
+          "metrics": {
+            "sunHours": 124.16251487040202,
+            "earthHours": 168,
+            "jointHours": 124.16251487040202,
+            "longestDarkHours": 43.83748512959798,
+            "longestCommGapHours": 0
+          },
+          "reasons": [
+            {
+              "code": "dark-gap",
+              "message": "The longest modeled darkness exceeds the mission limit.",
+              "actual": 43.83748512959798,
+              "limit": 24
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "campaign": "mar",
+      "siteId": "ridge-4",
+      "settings": {
+        "durationHours": 168,
+        "maxDarkHours": 24,
+        "maxCommGapHours": 24,
+        "minJointHours": 24,
+        "clearanceDeg": 0,
+        "observerHeightM": 2,
+        "nominalStepHours": 0.5,
+        "start": "2027-03-06T18:00:00.000Z"
+      },
+      "centerMetrics": {
+        "sunHours": 168,
+        "earthHours": 168,
+        "jointHours": 168,
+        "longestDarkHours": 0,
+        "longestCommGapHours": 0
+      },
+      "failedPoints": [
+        {
+          "id": "e+25-n-25",
+          "metrics": {
+            "sunHours": 130.16251487040202,
+            "earthHours": 168,
+            "jointHours": 130.16251487040202,
+            "longestDarkHours": 37.83748512959798,
+            "longestCommGapHours": 0
+          },
+          "reasons": [
+            {
+              "code": "dark-gap",
+              "message": "The longest modeled darkness exceeds the mission limit.",
+              "actual": 37.83748512959798,
+              "limit": 24
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "campaign": "mar",
+      "siteId": "ridge-4",
+      "settings": {
+        "durationHours": 168,
+        "maxDarkHours": 24,
+        "maxCommGapHours": 24,
+        "minJointHours": 24,
+        "clearanceDeg": 0,
+        "observerHeightM": 2,
+        "nominalStepHours": 0.5,
+        "start": "2027-03-07T00:00:00.000Z"
+      },
+      "centerMetrics": {
+        "sunHours": 168,
+        "earthHours": 168,
+        "jointHours": 168,
+        "longestDarkHours": 0,
+        "longestCommGapHours": 0
+      },
+      "failedPoints": [
+        {
+          "id": "e+25-n-25",
+          "metrics": {
+            "sunHours": 136.16251487040202,
+            "earthHours": 168,
+            "jointHours": 136.16251487040202,
+            "longestDarkHours": 31.837485129597983,
+            "longestCommGapHours": 0
+          },
+          "reasons": [
+            {
+              "code": "dark-gap",
+              "message": "The longest modeled darkness exceeds the mission limit.",
+              "actual": 31.837485129597983,
+              "limit": 24
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "campaign": "mar",
+      "siteId": "ridge-4",
+      "settings": {
+        "durationHours": 168,
+        "maxDarkHours": 24,
+        "maxCommGapHours": 24,
+        "minJointHours": 24,
+        "clearanceDeg": 0,
+        "observerHeightM": 2,
+        "nominalStepHours": 0.5,
+        "start": "2027-03-07T06:00:00.000Z"
+      },
+      "centerMetrics": {
+        "sunHours": 168,
+        "earthHours": 168,
+        "jointHours": 168,
+        "longestDarkHours": 0,
+        "longestCommGapHours": 0
+      },
+      "failedPoints": [
+        {
+          "id": "e+25-n-25",
+          "metrics": {
+            "sunHours": 142.16251487040202,
+            "earthHours": 168,
+            "jointHours": 142.16251487040202,
+            "longestDarkHours": 25.837485129597983,
+            "longestCommGapHours": 0
+          },
+          "reasons": [
+            {
+              "code": "dark-gap",
+              "message": "The longest modeled darkness exceeds the mission limit.",
+              "actual": 25.837485129597983,
+              "limit": 24
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "campaign": "mar",
+      "siteId": "ridge-6",
+      "settings": {
+        "durationHours": 168,
+        "maxDarkHours": 24,
+        "maxCommGapHours": 24,
+        "minJointHours": 24,
+        "clearanceDeg": 0,
+        "observerHeightM": 2,
+        "nominalStepHours": 0.5,
+        "start": "2027-03-05T00:00:00.000Z"
+      },
+      "centerMetrics": {
+        "sunHours": 152.29102695902506,
+        "earthHours": 154.99677365715874,
+        "jointHours": 152.29102695902506,
+        "longestDarkHours": 15.708973040974936,
+        "longestCommGapHours": 13.003226342841254
+      },
+      "failedPoints": [
+        {
+          "id": "e+25-n-25",
+          "metrics": {
+            "sunHours": 17.422305312093098,
+            "earthHours": 154.6503713342285,
+            "jointHours": 17.422305312093098,
+            "longestDarkHours": 150.5776946879069,
+            "longestCommGapHours": 13.349628665771485
+          },
+          "reasons": [
+            {
+              "code": "dark-gap",
+              "message": "The longest modeled darkness exceeds the mission limit.",
+              "actual": 150.5776946879069,
+              "limit": 24
+            },
+            {
+              "code": "joint-shortfall",
+              "message": "The simultaneous Sun/Earth visibility duration is below the mission requirement.",
+              "actual": 17.422305312093098,
+              "limit": 24
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "campaign": "mar",
+      "siteId": "ridge-6",
+      "settings": {
+        "durationHours": 168,
+        "maxDarkHours": 24,
+        "maxCommGapHours": 24,
+        "minJointHours": 24,
+        "clearanceDeg": 0,
+        "observerHeightM": 2,
+        "nominalStepHours": 0.5,
+        "start": "2027-03-05T06:00:00.000Z"
+      },
+      "centerMetrics": {
+        "sunHours": 158.29102695902506,
+        "earthHours": 160.99677365715874,
+        "jointHours": 158.29102695902506,
+        "longestDarkHours": 9.708973040974936,
+        "longestCommGapHours": 7.003226342841255
+      },
+      "failedPoints": [
+        {
+          "id": "e+25-n-25",
+          "metrics": {
+            "sunHours": 23.422305312093098,
+            "earthHours": 160.6503713342285,
+            "jointHours": 23.422305312093098,
+            "longestDarkHours": 144.5776946879069,
+            "longestCommGapHours": 7.349628665771484
+          },
+          "reasons": [
+            {
+              "code": "dark-gap",
+              "message": "The longest modeled darkness exceeds the mission limit.",
+              "actual": 144.5776946879069,
+              "limit": 24
+            },
+            {
+              "code": "joint-shortfall",
+              "message": "The simultaneous Sun/Earth visibility duration is below the mission requirement.",
+              "actual": 23.422305312093098,
+              "limit": 24
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "campaign": "mar",
+      "siteId": "ridge-6",
+      "settings": {
+        "durationHours": 168,
+        "maxDarkHours": 24,
+        "maxCommGapHours": 24,
+        "minJointHours": 24,
+        "clearanceDeg": 0,
+        "observerHeightM": 2,
+        "nominalStepHours": 0.5,
+        "start": "2027-03-05T12:00:00.000Z"
+      },
+      "centerMetrics": {
+        "sunHours": 164.29102695902506,
+        "earthHours": 166.99677365715874,
+        "jointHours": 164.29102695902506,
+        "longestDarkHours": 3.708973040974935,
+        "longestCommGapHours": 1.0032263428412544
+      },
+      "failedPoints": [
+        {
+          "id": "e+25-n-25",
+          "metrics": {
+            "sunHours": 29.422305312093098,
+            "earthHours": 166.6503713342285,
+            "jointHours": 29.422305312093098,
+            "longestDarkHours": 138.5776946879069,
+            "longestCommGapHours": 1.3496286657714844
+          },
+          "reasons": [
+            {
+              "code": "dark-gap",
+              "message": "The longest modeled darkness exceeds the mission limit.",
+              "actual": 138.5776946879069,
+              "limit": 24
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "campaign": "mar",
+      "siteId": "ridge-6",
+      "settings": {
+        "durationHours": 168,
+        "maxDarkHours": 24,
+        "maxCommGapHours": 24,
+        "minJointHours": 24,
+        "clearanceDeg": 0,
+        "observerHeightM": 2,
+        "nominalStepHours": 0.5,
+        "start": "2027-03-05T18:00:00.000Z"
+      },
+      "centerMetrics": {
+        "sunHours": 168,
+        "earthHours": 168,
+        "jointHours": 168,
+        "longestDarkHours": 0,
+        "longestCommGapHours": 0
+      },
+      "failedPoints": [
+        {
+          "id": "e+25-n-25",
+          "metrics": {
+            "sunHours": 35.4223053120931,
+            "earthHours": 168,
+            "jointHours": 35.4223053120931,
+            "longestDarkHours": 132.5776946879069,
+            "longestCommGapHours": 0
+          },
+          "reasons": [
+            {
+              "code": "dark-gap",
+              "message": "The longest modeled darkness exceeds the mission limit.",
+              "actual": 132.5776946879069,
+              "limit": 24
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "campaign": "mar",
+      "siteId": "ridge-6",
+      "settings": {
+        "durationHours": 168,
+        "maxDarkHours": 24,
+        "maxCommGapHours": 24,
+        "minJointHours": 24,
+        "clearanceDeg": 0,
+        "observerHeightM": 2,
+        "nominalStepHours": 0.5,
+        "start": "2027-03-06T00:00:00.000Z"
+      },
+      "centerMetrics": {
+        "sunHours": 168,
+        "earthHours": 168,
+        "jointHours": 168,
+        "longestDarkHours": 0,
+        "longestCommGapHours": 0
+      },
+      "failedPoints": [
+        {
+          "id": "e+25-n-25",
+          "metrics": {
+            "sunHours": 41.4223053120931,
+            "earthHours": 168,
+            "jointHours": 41.4223053120931,
+            "longestDarkHours": 126.5776946879069,
+            "longestCommGapHours": 0
+          },
+          "reasons": [
+            {
+              "code": "dark-gap",
+              "message": "The longest modeled darkness exceeds the mission limit.",
+              "actual": 126.5776946879069,
+              "limit": 24
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "campaign": "mar",
+      "siteId": "ridge-6",
+      "settings": {
+        "durationHours": 168,
+        "maxDarkHours": 24,
+        "maxCommGapHours": 24,
+        "minJointHours": 24,
+        "clearanceDeg": 0,
+        "observerHeightM": 2,
+        "nominalStepHours": 0.5,
+        "start": "2027-03-06T06:00:00.000Z"
+      },
+      "centerMetrics": {
+        "sunHours": 168,
+        "earthHours": 168,
+        "jointHours": 168,
+        "longestDarkHours": 0,
+        "longestCommGapHours": 0
+      },
+      "failedPoints": [
+        {
+          "id": "e+25-n-25",
+          "metrics": {
+            "sunHours": 47.4223053120931,
+            "earthHours": 168,
+            "jointHours": 47.4223053120931,
+            "longestDarkHours": 120.5776946879069,
+            "longestCommGapHours": 0
+          },
+          "reasons": [
+            {
+              "code": "dark-gap",
+              "message": "The longest modeled darkness exceeds the mission limit.",
+              "actual": 120.5776946879069,
+              "limit": 24
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "campaign": "mar",
+      "siteId": "ridge-6",
+      "settings": {
+        "durationHours": 168,
+        "maxDarkHours": 24,
+        "maxCommGapHours": 24,
+        "minJointHours": 24,
+        "clearanceDeg": 0,
+        "observerHeightM": 2,
+        "nominalStepHours": 0.5,
+        "start": "2027-03-06T12:00:00.000Z"
+      },
+      "centerMetrics": {
+        "sunHours": 168,
+        "earthHours": 168,
+        "jointHours": 168,
+        "longestDarkHours": 0,
+        "longestCommGapHours": 0
+      },
+      "failedPoints": [
+        {
+          "id": "e+25-n-25",
+          "metrics": {
+            "sunHours": 53.4223053120931,
+            "earthHours": 168,
+            "jointHours": 53.4223053120931,
+            "longestDarkHours": 114.5776946879069,
+            "longestCommGapHours": 0
+          },
+          "reasons": [
+            {
+              "code": "dark-gap",
+              "message": "The longest modeled darkness exceeds the mission limit.",
+              "actual": 114.5776946879069,
+              "limit": 24
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "campaign": "mar",
+      "siteId": "ridge-6",
+      "settings": {
+        "durationHours": 168,
+        "maxDarkHours": 24,
+        "maxCommGapHours": 24,
+        "minJointHours": 24,
+        "clearanceDeg": 0,
+        "observerHeightM": 2,
+        "nominalStepHours": 0.5,
+        "start": "2027-03-06T18:00:00.000Z"
+      },
+      "centerMetrics": {
+        "sunHours": 168,
+        "earthHours": 168,
+        "jointHours": 168,
+        "longestDarkHours": 0,
+        "longestCommGapHours": 0
+      },
+      "failedPoints": [
+        {
+          "id": "e+25-n-25",
+          "metrics": {
+            "sunHours": 59.4223053120931,
+            "earthHours": 168,
+            "jointHours": 59.4223053120931,
+            "longestDarkHours": 108.5776946879069,
+            "longestCommGapHours": 0
+          },
+          "reasons": [
+            {
+              "code": "dark-gap",
+              "message": "The longest modeled darkness exceeds the mission limit.",
+              "actual": 108.5776946879069,
+              "limit": 24
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "campaign": "mar",
+      "siteId": "ridge-6",
+      "settings": {
+        "durationHours": 168,
+        "maxDarkHours": 24,
+        "maxCommGapHours": 24,
+        "minJointHours": 24,
+        "clearanceDeg": 0,
+        "observerHeightM": 2,
+        "nominalStepHours": 0.5,
+        "start": "2027-03-07T00:00:00.000Z"
+      },
+      "centerMetrics": {
+        "sunHours": 168,
+        "earthHours": 168,
+        "jointHours": 168,
+        "longestDarkHours": 0,
+        "longestCommGapHours": 0
+      },
+      "failedPoints": [
+        {
+          "id": "e+25-n-25",
+          "metrics": {
+            "sunHours": 65.4223053120931,
+            "earthHours": 168,
+            "jointHours": 65.4223053120931,
+            "longestDarkHours": 102.5776946879069,
+            "longestCommGapHours": 0
+          },
+          "reasons": [
+            {
+              "code": "dark-gap",
+              "message": "The longest modeled darkness exceeds the mission limit.",
+              "actual": 102.5776946879069,
+              "limit": 24
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "campaign": "mar",
+      "siteId": "ridge-6",
+      "settings": {
+        "durationHours": 168,
+        "maxDarkHours": 24,
+        "maxCommGapHours": 24,
+        "minJointHours": 24,
+        "clearanceDeg": 0,
+        "observerHeightM": 2,
+        "nominalStepHours": 0.5,
+        "start": "2027-03-07T06:00:00.000Z"
+      },
+      "centerMetrics": {
+        "sunHours": 168,
+        "earthHours": 168,
+        "jointHours": 168,
+        "longestDarkHours": 0,
+        "longestCommGapHours": 0
+      },
+      "failedPoints": [
+        {
+          "id": "e+25-n-25",
+          "metrics": {
+            "sunHours": 71.4223053120931,
+            "earthHours": 168,
+            "jointHours": 71.4223053120931,
+            "longestDarkHours": 96.5776946879069,
+            "longestCommGapHours": 0
+          },
+          "reasons": [
+            {
+              "code": "dark-gap",
+              "message": "The longest modeled darkness exceeds the mission limit.",
+              "actual": 96.5776946879069,
+              "limit": 24
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "campaign": "mar",
+      "siteId": "ridge-6",
+      "settings": {
+        "durationHours": 168,
+        "maxDarkHours": 24,
+        "maxCommGapHours": 24,
+        "minJointHours": 24,
+        "clearanceDeg": 0,
+        "observerHeightM": 2,
+        "nominalStepHours": 0.5,
+        "start": "2027-03-07T12:00:00.000Z"
+      },
+      "centerMetrics": {
+        "sunHours": 167.75958975375704,
+        "earthHours": 168,
+        "jointHours": 167.75958975375704,
+        "longestDarkHours": 0.24041024624294705,
+        "longestCommGapHours": 0
+      },
+      "failedPoints": [
+        {
+          "id": "e+25-n-25",
+          "metrics": {
+            "sunHours": 77.05656381496853,
+            "earthHours": 168,
+            "jointHours": 77.05656381496853,
+            "longestDarkHours": 90.5776946879069,
+            "longestCommGapHours": 0
+          },
+          "reasons": [
+            {
+              "code": "dark-gap",
+              "message": "The longest modeled darkness exceeds the mission limit.",
+              "actual": 90.5776946879069,
+              "limit": 24
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "campaign": "mar",
+      "siteId": "ridge-6",
+      "settings": {
+        "durationHours": 168,
+        "maxDarkHours": 24,
+        "maxCommGapHours": 24,
+        "minJointHours": 24,
+        "clearanceDeg": 0,
+        "observerHeightM": 2,
+        "nominalStepHours": 0.5,
+        "start": "2027-03-07T18:00:00.000Z"
+      },
+      "centerMetrics": {
+        "sunHours": 167.75958975375704,
+        "earthHours": 168,
+        "jointHours": 167.75958975375704,
+        "longestDarkHours": 0.24041024624294705,
+        "longestCommGapHours": 0
+      },
+      "failedPoints": [
+        {
+          "id": "e+25-n-25",
+          "metrics": {
+            "sunHours": 83.05656381496853,
+            "earthHours": 168,
+            "jointHours": 83.05656381496853,
+            "longestDarkHours": 84.5776946879069,
+            "longestCommGapHours": 0
+          },
+          "reasons": [
+            {
+              "code": "dark-gap",
+              "message": "The longest modeled darkness exceeds the mission limit.",
+              "actual": 84.5776946879069,
+              "limit": 24
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "campaign": "mar",
+      "siteId": "ridge-6",
+      "settings": {
+        "durationHours": 168,
+        "maxDarkHours": 24,
+        "maxCommGapHours": 24,
+        "minJointHours": 24,
+        "clearanceDeg": 0,
+        "observerHeightM": 2,
+        "nominalStepHours": 0.5,
+        "start": "2027-03-08T00:00:00.000Z"
+      },
+      "centerMetrics": {
+        "sunHours": 167.75958975375704,
+        "earthHours": 168,
+        "jointHours": 167.75958975375704,
+        "longestDarkHours": 0.24041024624294705,
+        "longestCommGapHours": 0
+      },
+      "failedPoints": [
+        {
+          "id": "e+25-n-25",
+          "metrics": {
+            "sunHours": 89.05656381496853,
+            "earthHours": 168,
+            "jointHours": 89.05656381496853,
+            "longestDarkHours": 78.5776946879069,
+            "longestCommGapHours": 0
+          },
+          "reasons": [
+            {
+              "code": "dark-gap",
+              "message": "The longest modeled darkness exceeds the mission limit.",
+              "actual": 78.5776946879069,
+              "limit": 24
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "campaign": "mar",
+      "siteId": "ridge-6",
+      "settings": {
+        "durationHours": 168,
+        "maxDarkHours": 24,
+        "maxCommGapHours": 24,
+        "minJointHours": 24,
+        "clearanceDeg": 0,
+        "observerHeightM": 2,
+        "nominalStepHours": 0.5,
+        "start": "2027-03-08T06:00:00.000Z"
+      },
+      "centerMetrics": {
+        "sunHours": 167.75958975375704,
+        "earthHours": 168,
+        "jointHours": 167.75958975375704,
+        "longestDarkHours": 0.24041024624294705,
+        "longestCommGapHours": 0
+      },
+      "failedPoints": [
+        {
+          "id": "e+25-n-25",
+          "metrics": {
+            "sunHours": 95.05656381496853,
+            "earthHours": 168,
+            "jointHours": 95.05656381496853,
+            "longestDarkHours": 72.5776946879069,
+            "longestCommGapHours": 0
+          },
+          "reasons": [
+            {
+              "code": "dark-gap",
+              "message": "The longest modeled darkness exceeds the mission limit.",
+              "actual": 72.5776946879069,
+              "limit": 24
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "campaign": "mar",
+      "siteId": "ridge-6",
+      "settings": {
+        "durationHours": 168,
+        "maxDarkHours": 24,
+        "maxCommGapHours": 24,
+        "minJointHours": 24,
+        "clearanceDeg": 0,
+        "observerHeightM": 2,
+        "nominalStepHours": 0.5,
+        "start": "2027-03-08T12:00:00.000Z"
+      },
+      "centerMetrics": {
+        "sunHours": 167.75958975375704,
+        "earthHours": 168,
+        "jointHours": 167.75958975375704,
+        "longestDarkHours": 0.24041024624294705,
+        "longestCommGapHours": 0
+      },
+      "failedPoints": [
+        {
+          "id": "e+25-n-25",
+          "metrics": {
+            "sunHours": 101.05656381496853,
+            "earthHours": 168,
+            "jointHours": 101.05656381496853,
+            "longestDarkHours": 66.5776946879069,
+            "longestCommGapHours": 0
+          },
+          "reasons": [
+            {
+              "code": "dark-gap",
+              "message": "The longest modeled darkness exceeds the mission limit.",
+              "actual": 66.5776946879069,
+              "limit": 24
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "campaign": "mar",
+      "siteId": "ridge-6",
+      "settings": {
+        "durationHours": 168,
+        "maxDarkHours": 24,
+        "maxCommGapHours": 24,
+        "minJointHours": 24,
+        "clearanceDeg": 0,
+        "observerHeightM": 2,
+        "nominalStepHours": 0.5,
+        "start": "2027-03-08T18:00:00.000Z"
+      },
+      "centerMetrics": {
+        "sunHours": 167.75958975375704,
+        "earthHours": 168,
+        "jointHours": 167.75958975375704,
+        "longestDarkHours": 0.24041024624294705,
+        "longestCommGapHours": 0
+      },
+      "failedPoints": [
+        {
+          "id": "e+25-n-25",
+          "metrics": {
+            "sunHours": 107.05656381496853,
+            "earthHours": 168,
+            "jointHours": 107.05656381496853,
+            "longestDarkHours": 60.5776946879069,
+            "longestCommGapHours": 0
+          },
+          "reasons": [
+            {
+              "code": "dark-gap",
+              "message": "The longest modeled darkness exceeds the mission limit.",
+              "actual": 60.5776946879069,
+              "limit": 24
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "campaign": "mar",
+      "siteId": "ridge-6",
+      "settings": {
+        "durationHours": 168,
+        "maxDarkHours": 24,
+        "maxCommGapHours": 24,
+        "minJointHours": 24,
+        "clearanceDeg": 0,
+        "observerHeightM": 2,
+        "nominalStepHours": 0.5,
+        "start": "2027-03-09T00:00:00.000Z"
+      },
+      "centerMetrics": {
+        "sunHours": 167.75958975375704,
+        "earthHours": 168,
+        "jointHours": 167.75958975375704,
+        "longestDarkHours": 0.24041024624294705,
+        "longestCommGapHours": 0
+      },
+      "failedPoints": [
+        {
+          "id": "e+25-n-25",
+          "metrics": {
+            "sunHours": 113.05656381496853,
+            "earthHours": 168,
+            "jointHours": 113.05656381496853,
+            "longestDarkHours": 54.5776946879069,
+            "longestCommGapHours": 0
+          },
+          "reasons": [
+            {
+              "code": "dark-gap",
+              "message": "The longest modeled darkness exceeds the mission limit.",
+              "actual": 54.5776946879069,
+              "limit": 24
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "campaign": "mar",
+      "siteId": "ridge-6",
+      "settings": {
+        "durationHours": 168,
+        "maxDarkHours": 24,
+        "maxCommGapHours": 24,
+        "minJointHours": 24,
+        "clearanceDeg": 0,
+        "observerHeightM": 2,
+        "nominalStepHours": 0.5,
+        "start": "2027-03-09T06:00:00.000Z"
+      },
+      "centerMetrics": {
+        "sunHours": 167.75958975375704,
+        "earthHours": 168,
+        "jointHours": 167.75958975375704,
+        "longestDarkHours": 0.24041024624294705,
+        "longestCommGapHours": 0
+      },
+      "failedPoints": [
+        {
+          "id": "e+25-n-25",
+          "metrics": {
+            "sunHours": 119.05656381496853,
+            "earthHours": 168,
+            "jointHours": 119.05656381496853,
+            "longestDarkHours": 48.5776946879069,
+            "longestCommGapHours": 0
+          },
+          "reasons": [
+            {
+              "code": "dark-gap",
+              "message": "The longest modeled darkness exceeds the mission limit.",
+              "actual": 48.5776946879069,
+              "limit": 24
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "campaign": "mar",
+      "siteId": "ridge-6",
+      "settings": {
+        "durationHours": 168,
+        "maxDarkHours": 24,
+        "maxCommGapHours": 24,
+        "minJointHours": 24,
+        "clearanceDeg": 0,
+        "observerHeightM": 2,
+        "nominalStepHours": 0.5,
+        "start": "2027-03-09T12:00:00.000Z"
+      },
+      "centerMetrics": {
+        "sunHours": 167.75958975375704,
+        "earthHours": 168,
+        "jointHours": 167.75958975375704,
+        "longestDarkHours": 0.24041024624294705,
+        "longestCommGapHours": 0
+      },
+      "failedPoints": [
+        {
+          "id": "e+25-n-25",
+          "metrics": {
+            "sunHours": 125.05656381496853,
+            "earthHours": 168,
+            "jointHours": 125.05656381496853,
+            "longestDarkHours": 42.5776946879069,
+            "longestCommGapHours": 0
+          },
+          "reasons": [
+            {
+              "code": "dark-gap",
+              "message": "The longest modeled darkness exceeds the mission limit.",
+              "actual": 42.5776946879069,
+              "limit": 24
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "campaign": "mar",
+      "siteId": "ridge-6",
+      "settings": {
+        "durationHours": 168,
+        "maxDarkHours": 24,
+        "maxCommGapHours": 24,
+        "minJointHours": 24,
+        "clearanceDeg": 0,
+        "observerHeightM": 2,
+        "nominalStepHours": 0.5,
+        "start": "2027-03-09T18:00:00.000Z"
+      },
+      "centerMetrics": {
+        "sunHours": 167.75958975375704,
+        "earthHours": 168,
+        "jointHours": 167.75958975375704,
+        "longestDarkHours": 0.24041024624294705,
+        "longestCommGapHours": 0
+      },
+      "failedPoints": [
+        {
+          "id": "e+25-n-25",
+          "metrics": {
+            "sunHours": 131.0565638149685,
+            "earthHours": 168,
+            "jointHours": 131.0565638149685,
+            "longestDarkHours": 36.5776946879069,
+            "longestCommGapHours": 0
+          },
+          "reasons": [
+            {
+              "code": "dark-gap",
+              "message": "The longest modeled darkness exceeds the mission limit.",
+              "actual": 36.5776946879069,
+              "limit": 24
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "campaign": "mar",
+      "siteId": "ridge-6",
+      "settings": {
+        "durationHours": 168,
+        "maxDarkHours": 24,
+        "maxCommGapHours": 24,
+        "minJointHours": 24,
+        "clearanceDeg": 0,
+        "observerHeightM": 2,
+        "nominalStepHours": 0.5,
+        "start": "2027-03-10T00:00:00.000Z"
+      },
+      "centerMetrics": {
+        "sunHours": 167.75958975375704,
+        "earthHours": 168,
+        "jointHours": 167.75958975375704,
+        "longestDarkHours": 0.24041024624294705,
+        "longestCommGapHours": 0
+      },
+      "failedPoints": [
+        {
+          "id": "e+25-n-25",
+          "metrics": {
+            "sunHours": 137.0565638149685,
+            "earthHours": 168,
+            "jointHours": 137.0565638149685,
+            "longestDarkHours": 30.577694687906902,
+            "longestCommGapHours": 0
+          },
+          "reasons": [
+            {
+              "code": "dark-gap",
+              "message": "The longest modeled darkness exceeds the mission limit.",
+              "actual": 30.577694687906902,
+              "limit": 24
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "campaign": "mar",
+      "siteId": "ridge-6",
+      "settings": {
+        "durationHours": 168,
+        "maxDarkHours": 24,
+        "maxCommGapHours": 24,
+        "minJointHours": 24,
+        "clearanceDeg": 0,
+        "observerHeightM": 2,
+        "nominalStepHours": 0.5,
+        "start": "2027-03-10T06:00:00.000Z"
+      },
+      "centerMetrics": {
+        "sunHours": 167.75958975375704,
+        "earthHours": 168,
+        "jointHours": 167.75958975375704,
+        "longestDarkHours": 0.24041024624294705,
+        "longestCommGapHours": 0
+      },
+      "failedPoints": [
+        {
+          "id": "e+25-n-25",
+          "metrics": {
+            "sunHours": 143.0565638149685,
+            "earthHours": 168,
+            "jointHours": 143.0565638149685,
+            "longestDarkHours": 24.577694687906902,
+            "longestCommGapHours": 0
+          },
+          "reasons": [
+            {
+              "code": "dark-gap",
+              "message": "The longest modeled darkness exceeds the mission limit.",
+              "actual": 24.577694687906902,
+              "limit": 24
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

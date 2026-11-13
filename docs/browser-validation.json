@@ -1,6 +1,6 @@
 {
-  "startedAt": "2026-11-13T05:19:35.196Z",
-  "finishedAt": "2026-11-13T05:19:46.948Z",
+  "startedAt": "2026-11-13T05:56:14.612Z",
+  "finishedAt": "2026-11-13T05:56:27.237Z",
   "base": "http://127.0.0.1:4175/navigator.html",
   "environment": {
     "node": "v24.22.1",
@@ -22,92 +22,92 @@
     {
       "name": "loads three research sites and real data canvases",
       "status": "PASS",
-      "durationMs": 643
+      "durationMs": 637
     },
     {
       "name": "all three site tabs update title and URL",
       "status": "PASS",
-      "durationMs": 127
+      "durationMs": 137
     },
     {
       "name": "December March and June campaigns load their own time coverage",
       "status": "PASS",
-      "durationMs": 178
+      "durationMs": 221
     },
     {
       "name": "date duration and ranges produce the requested evidence settings",
       "status": "PASS",
-      "durationMs": 1435
+      "durationMs": 1525
     },
     {
       "name": "nine magnified footprint points are clickable and update horizon context",
       "status": "PASS",
-      "durationMs": 950
+      "durationMs": 922
     },
     {
       "name": "terrain keyboard and timeline slider change the inspected state",
       "status": "PASS",
-      "durationMs": 32
+      "durationMs": 48
     },
     {
       "name": "worker search completes and a returned window can be applied",
       "status": "PASS",
-      "durationMs": 1122
+      "durationMs": 1495
     },
     {
       "name": "language switch translates primary content and persists across reload",
       "status": "PASS",
-      "durationMs": 585
+      "durationMs": 599
     },
     {
       "name": "science modal opens closes and links to existing local evidence",
       "status": "PASS",
-      "durationMs": 70
+      "durationMs": 62
     },
     {
       "name": "four-step guided tour finishes",
       "status": "PASS",
-      "durationMs": 140
+      "durationMs": 136
     },
     {
       "name": "shared URL restores the mission and selected site",
       "status": "PASS",
-      "durationMs": 742
+      "durationMs": 691
     },
     {
       "name": "standalone HTML and CSV exports contain the actual scenario",
       "status": "PASS",
-      "durationMs": 344
+      "durationMs": 331
     },
     {
       "name": "search after unsaved form changes keeps displayed and exported results consistent",
       "status": "PASS",
-      "durationMs": 1362
+      "durationMs": 1660
     },
     {
       "name": "late campaign response cannot replace the most recently selected campaign",
       "status": "PASS",
-      "durationMs": 547
+      "durationMs": 520
     },
     {
       "name": "invalid empty arrival cannot overwrite the previously analyzed evidence",
       "status": "PASS",
-      "durationMs": 484
+      "durationMs": 416
     },
     {
       "name": "unsupported shared duration and clearance values retain valid defaults",
       "status": "PASS",
-      "durationMs": 315
+      "durationMs": 331
     },
     {
       "name": "last possible arrival date permits only midnight for a seven-day mission",
       "status": "PASS",
-      "durationMs": 1115
+      "durationMs": 1208
     },
     {
       "name": "380px phone layout has no page overflow or overlapping mission controls",
       "status": "PASS",
-      "durationMs": 807
+      "durationMs": 908
     },
     {
       "name": "no uncaught browser errors",

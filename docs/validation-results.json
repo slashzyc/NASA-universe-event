@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-13T03:57:44.080Z",
+  "generatedAt": "2026-11-13T05:54:09.852Z",
   "software": {
     "node": "v24.22.1",
-    "analysisSha256": "9c7e2b3d0b36a495bb9c56cfd48924f616cdb8381a670223b789466df0ce9297"
+    "analysisSha256": "981e49c08ae6457450c5e0fbb8d9c743521dbb91ed6eeb2cbb01b3e132ea5fcd"
   },
   "status": "passed",
   "checkCount": 46212,
@@ -1274,7 +1274,7 @@
           "observerHeightM": 2,
           "start": "2027-06-01T00:00:00Z"
         },
-        "elapsedMilliseconds": 290.23,
+        "elapsedMilliseconds": 319.02,
         "evaluatedCandidates": 279,
         "excludedCandidates": 0,
         "earliestDelayHours": 30,
@@ -1295,10 +1295,62 @@
               "longestCommGapHours": 13.623532190348307
             },
             "patchCoverage": 0.7777777777777778,
+            "worstCase": {
+              "status": "complete",
+              "allKnown": true,
+              "count": 9,
+              "knownCount": 9,
+              "metrics": {
+                "longestDarkHours": 168,
+                "longestCommGapHours": 13.66840288248698,
+                "jointHours": 0
+              },
+              "knownMetrics": {
+                "longestDarkHours": 168,
+                "longestCommGapHours": 13.66840288248698,
+                "jointHours": 0
+              },
+              "points": {
+                "longestDarkHours": {
+                  "id": "e+25-n-25",
+                  "dxM": 25,
+                  "dyM": -25,
+                  "tiedPointIds": [
+                    "e+25-n-25"
+                  ]
+                },
+                "longestCommGapHours": {
+                  "id": "e-25-n-25",
+                  "dxM": -25,
+                  "dyM": -25,
+                  "tiedPointIds": [
+                    "e-25-n-25"
+                  ]
+                },
+                "jointHours": {
+                  "id": "e+25-n-25",
+                  "dxM": 25,
+                  "dyM": -25,
+                  "tiedPointIds": [
+                    "e+25-n-25"
+                  ]
+                }
+              },
+              "margins": {
+                "darknessHours": -144,
+                "earthGapHours": 10.33159711751302,
+                "jointHours": -24
+              },
+              "minimumMarginHours": -144,
+              "limitingMetrics": [
+                "darknessHours"
+              ],
+              "interpretation": "Worst values among supplied discrete positions. Positive margins are hours inside each threshold; negative margins miss it. The minimum is the smallest of the three explicitly reported margins, not a weighted score, probability, or calibrated uncertainty."
+            },
             "reasons": []
           }
         ],
-        "paretoCount": 20
+        "paretoCount": 99
       },
       "defaultScenario": {
         "settings": {
@@ -1942,24 +1994,6 @@
         ],
         "earliestAllNinePass": [
           {
-            "siteId": "ridge-4",
-            "name": "Connecting Ridge · ROI 4",
-            "start": "2027-06-21T12:00:00.000Z",
-            "end": "2027-06-28T12:00:00.000Z",
-            "delayHours": 462,
-            "feasible": true,
-            "centerFeasible": true,
-            "metrics": {
-              "sunHours": 160.31822226738825,
-              "earthHours": 149.383702027181,
-              "jointHours": 141.70192429456924,
-              "longestDarkHours": 7.681777732611762,
-              "longestCommGapHours": 18.61629797281901
-            },
-            "patchCoverage": 1,
-            "reasons": []
-          },
-          {
             "siteId": "ridge-1",
             "name": "Connecting Ridge · ROI 1",
             "start": "2027-06-21T12:00:00.000Z",
@@ -1975,6 +2009,128 @@
               "longestCommGapHours": 18.232986191541883
             },
             "patchCoverage": 1,
+            "worstCase": {
+              "status": "complete",
+              "allKnown": true,
+              "count": 9,
+              "knownCount": 9,
+              "metrics": {
+                "longestDarkHours": 8.01474554389106,
+                "longestCommGapHours": 18.524580070122614,
+                "jointHours": 141.606917880995
+              },
+              "knownMetrics": {
+                "longestDarkHours": 8.01474554389106,
+                "longestCommGapHours": 18.524580070122614,
+                "jointHours": 141.606917880995
+              },
+              "points": {
+                "longestDarkHours": {
+                  "id": "e-25-n+25",
+                  "dxM": -25,
+                  "dyM": 25,
+                  "tiedPointIds": [
+                    "e-25-n+25"
+                  ]
+                },
+                "longestCommGapHours": {
+                  "id": "e+25-n-25",
+                  "dxM": 25,
+                  "dyM": -25,
+                  "tiedPointIds": [
+                    "e+25-n-25"
+                  ]
+                },
+                "jointHours": {
+                  "id": "e+25-n-25",
+                  "dxM": 25,
+                  "dyM": -25,
+                  "tiedPointIds": [
+                    "e+25-n-25"
+                  ]
+                }
+              },
+              "margins": {
+                "darknessHours": 15.98525445610894,
+                "earthGapHours": 5.475419929877386,
+                "jointHours": 117.60691788099501
+              },
+              "minimumMarginHours": 5.475419929877386,
+              "limitingMetrics": [
+                "earthGapHours"
+              ],
+              "interpretation": "Worst values among supplied discrete positions. Positive margins are hours inside each threshold; negative margins miss it. The minimum is the smallest of the three explicitly reported margins, not a weighted score, probability, or calibrated uncertainty."
+            },
+            "reasons": []
+          },
+          {
+            "siteId": "ridge-4",
+            "name": "Connecting Ridge · ROI 4",
+            "start": "2027-06-21T12:00:00.000Z",
+            "end": "2027-06-28T12:00:00.000Z",
+            "delayHours": 462,
+            "feasible": true,
+            "centerFeasible": true,
+            "metrics": {
+              "sunHours": 160.31822226738825,
+              "earthHours": 149.383702027181,
+              "jointHours": 141.70192429456924,
+              "longestDarkHours": 7.681777732611762,
+              "longestCommGapHours": 18.61629797281901
+            },
+            "patchCoverage": 1,
+            "worstCase": {
+              "status": "complete",
+              "allKnown": true,
+              "count": 9,
+              "knownCount": 9,
+              "metrics": {
+                "longestDarkHours": 23.74917733235677,
+                "longestCommGapHours": 18.90558658820258,
+                "jointHours": 116.99174096415203
+              },
+              "knownMetrics": {
+                "longestDarkHours": 23.74917733235677,
+                "longestCommGapHours": 18.90558658820258,
+                "jointHours": 116.99174096415203
+              },
+              "points": {
+                "longestDarkHours": {
+                  "id": "e-25-n-25",
+                  "dxM": -25,
+                  "dyM": -25,
+                  "tiedPointIds": [
+                    "e-25-n-25"
+                  ]
+                },
+                "longestCommGapHours": {
+                  "id": "e+25-n-25",
+                  "dxM": 25,
+                  "dyM": -25,
+                  "tiedPointIds": [
+                    "e+25-n-25"
+                  ]
+                },
+                "jointHours": {
+                  "id": "e-25-n-25",
+                  "dxM": -25,
+                  "dyM": -25,
+                  "tiedPointIds": [
+                    "e-25-n-25"
+                  ]
+                }
+              },
+              "margins": {
+                "darknessHours": 0.2508226676432308,
+                "earthGapHours": 5.094413411797419,
+                "jointHours": 92.99174096415203
+              },
+              "minimumMarginHours": 0.2508226676432308,
+              "limitingMetrics": [
+                "darknessHours"
+              ],
+              "interpretation": "Worst values among supplied discrete positions. Positive margins are hours inside each threshold; negative margins miss it. The minimum is the smallest of the three explicitly reported margins, not a weighted score, probability, or calibrated uncertainty."
+            },
             "reasons": []
           }
         ],
@@ -3283,7 +3439,7 @@
           "observerHeightM": 2,
           "start": "2027-03-01T00:00:00Z"
         },
-        "elapsedMilliseconds": 282.12,
+        "elapsedMilliseconds": 286.16,
         "evaluatedCandidates": 291,
         "excludedCandidates": 0,
         "earliestDelayHours": 102,
@@ -3304,10 +3460,62 @@
               "longestCommGapHours": 13.801864094441731
             },
             "patchCoverage": 0.6666666666666666,
+            "worstCase": {
+              "status": "complete",
+              "allKnown": true,
+              "count": 9,
+              "knownCount": 9,
+              "metrics": {
+                "longestDarkHours": 168,
+                "longestCommGapHours": 14.174751503634983,
+                "jointHours": 0
+              },
+              "knownMetrics": {
+                "longestDarkHours": 168,
+                "longestCommGapHours": 14.174751503634983,
+                "jointHours": 0
+              },
+              "points": {
+                "longestDarkHours": {
+                  "id": "e+25-n-25",
+                  "dxM": 25,
+                  "dyM": -25,
+                  "tiedPointIds": [
+                    "e+25-n-25"
+                  ]
+                },
+                "longestCommGapHours": {
+                  "id": "e+25-n-25",
+                  "dxM": 25,
+                  "dyM": -25,
+                  "tiedPointIds": [
+                    "e+25-n-25"
+                  ]
+                },
+                "jointHours": {
+                  "id": "e+25-n-25",
+                  "dxM": 25,
+                  "dyM": -25,
+                  "tiedPointIds": [
+                    "e+25-n-25"
+                  ]
+                }
+              },
+              "margins": {
+                "darknessHours": -144,
+                "earthGapHours": 9.825248496365017,
+                "jointHours": -24
+              },
+              "minimumMarginHours": -144,
+              "limitingMetrics": [
+                "darknessHours"
+              ],
+              "interpretation": "Worst values among supplied discrete positions. Positive margins are hours inside each threshold; negative margins miss it. The minimum is the smallest of the three explicitly reported margins, not a weighted score, probability, or calibrated uncertainty."
+            },
             "reasons": []
           }
         ],
-        "paretoCount": 29
+        "paretoCount": 68
       },
       "defaultScenario": {
         "settings": {
@@ -4723,7 +4931,7 @@
           "observerHeightM": 2,
           "start": "2026-12-01T00:00:00Z"
         },
-        "elapsedMilliseconds": 272.04,
+        "elapsedMilliseconds": 266.32,
         "evaluatedCandidates": 291,
         "excludedCandidates": 0,
         "earliestDelayHours": 288,
@@ -4744,10 +4952,70 @@
               "longestCommGapHours": 23.954236711290147
             },
             "patchCoverage": 0.7777777777777778,
+            "worstCase": {
+              "status": "complete",
+              "allKnown": true,
+              "count": 9,
+              "knownCount": 9,
+              "metrics": {
+                "longestDarkHours": 0,
+                "longestCommGapHours": 24.018270492011176,
+                "jointHours": 143.98172950798883
+              },
+              "knownMetrics": {
+                "longestDarkHours": 0,
+                "longestCommGapHours": 24.018270492011176,
+                "jointHours": 143.98172950798883
+              },
+              "points": {
+                "longestDarkHours": {
+                  "id": "e+0-n+0",
+                  "dxM": 0,
+                  "dyM": 0,
+                  "tiedPointIds": [
+                    "e+0-n+0",
+                    "e+0-n+25",
+                    "e+0-n-25",
+                    "e+25-n+0",
+                    "e+25-n+25",
+                    "e+25-n-25",
+                    "e-25-n+0",
+                    "e-25-n+25",
+                    "e-25-n-25"
+                  ]
+                },
+                "longestCommGapHours": {
+                  "id": "e+25-n-25",
+                  "dxM": 25,
+                  "dyM": -25,
+                  "tiedPointIds": [
+                    "e+25-n-25"
+                  ]
+                },
+                "jointHours": {
+                  "id": "e+25-n-25",
+                  "dxM": 25,
+                  "dyM": -25,
+                  "tiedPointIds": [
+                    "e+25-n-25"
+                  ]
+                }
+              },
+              "margins": {
+                "darknessHours": 24,
+                "earthGapHours": -0.01827049201117603,
+                "jointHours": 119.98172950798883
+              },
+              "minimumMarginHours": -0.01827049201117603,
+              "limitingMetrics": [
+                "earthGapHours"
+              ],
+              "interpretation": "Worst values among supplied discrete positions. Positive margins are hours inside each threshold; negative margins miss it. The minimum is the smallest of the three explicitly reported margins, not a weighted score, probability, or calibrated uncertainty."
+            },
             "reasons": []
           }
         ],
-        "paretoCount": 32
+        "paretoCount": 35
       },
       "defaultScenario": {
         "settings": {

@@ -1,6 +1,6 @@
 # Measured validation results
 
-Generated: 2026-11-13T03:57:44.080Z. Node v24.22.1.
+Generated: 2026-11-13T05:54:09.852Z. Node v24.22.1.
 
 **PASSED internal consistency checks** — 46,212 checks; 0 failures.
 
@@ -81,7 +81,7 @@ Maximum range between the nine locations over all six-hour-start, seven-day wind
 - ridge-4, 2027-06-03T18:00:00.000Z, 168 h: clearance 0°; darkness limit 48 h; Earth-gap limit 48 h; joint requirement 24 h. Center passes; 6/9 locations pass. Largest additional outage: 67.814 h. Contrast exceeds the native temporal sample step; this alone is not an accuracy guarantee.
 - ridge-1, 2027-06-01T00:00:00.000Z, 168 h: clearance 0°; darkness limit 24 h; Earth-gap limit 0 h; joint requirement 24 h. Center passes; 4/9 locations pass. Largest additional outage: 61.622 h. Contrast exceeds the native temporal sample step; this alone is not an accuracy guarantee.
 
-Cached search: 279 candidates in 290.23 ms on this run; earliest feasible delay 30 h. Timing is host-dependent.
+Cached search: 279 candidates in 319.02 ms on this run; earliest feasible delay 30 h. Timing is host-dependent.
 
 ### Selected reproducible walkthrough
 
@@ -89,8 +89,8 @@ ridge-6, 2027-06-02T06:00:00Z, 168 h, zero additional angular clearance. Limits:
 
 Center sunlight: 155.55 h; longest center darkness: 12.45 h. 8/9 locations pass. Worst sampled-location darkness: 167.50 h. Both 60-minute decimation phases retain 8 and 8 passing locations.
 
-- Earliest later all-nine-pass candidate on the six-hour grid: ridge-4, 2027-06-21T12:00:00.000Z, a 462 h delay.
 - Earliest later all-nine-pass candidate on the six-hour grid: ridge-1, 2027-06-21T12:00:00.000Z, a 462 h delay.
+- Earliest later all-nine-pass candidate on the six-hour grid: ridge-4, 2027-06-21T12:00:00.000Z, a 462 h delay.
 
 Selected after inspecting the modeled cases. This is a reproducible illustration, not a representative success-rate benchmark.
 
@@ -162,7 +162,7 @@ Maximum range between the nine locations over all six-hour-start, seven-day wind
 - ridge-4, 2027-03-07T06:00:00.000Z, 168 h: clearance 0.5°; darkness limit 48 h; Earth-gap limit 48 h; joint requirement 24 h. Center passes; 6/9 locations pass. Largest additional outage: 68.434 h. Contrast exceeds the native temporal sample step; this alone is not an accuracy guarantee.
 - ridge-1, 2027-03-05T18:00:00.000Z, 168 h: clearance 0.5°; darkness limit 48 h; Earth-gap limit 48 h; joint requirement 24 h. Center passes; 4/9 locations pass. Largest additional outage: 59.683 h. Contrast exceeds the native temporal sample step; this alone is not an accuracy guarantee.
 
-Cached search: 291 candidates in 282.12 ms on this run; earliest feasible delay 102 h. Timing is host-dependent.
+Cached search: 291 candidates in 286.16 ms on this run; earliest feasible delay 102 h. Timing is host-dependent.
 
 ## lunar-sites.json
 
@@ -219,4 +219,4 @@ Maximum range between the nine locations over all six-hour-start, seven-day wind
 
 - ridge-1, 2026-12-13T18:00:00.000Z, 168 h: clearance 0.5°; darkness limit 48 h; Earth-gap limit 6 h; joint requirement 24 h. Center passes; 7/9 locations pass. Largest additional outage: 0.064 h. Contrast is below the native temporal sample step; do not use it as a resolved operational benefit.
 
-Cached search: 291 candidates in 272.04 ms on this run; earliest feasible delay 288 h. Timing is host-dependent.
+Cached search: 291 candidates in 266.32 ms on this run; earliest feasible delay 288 h. Timing is host-dependent.

@@ -1,6 +1,6 @@
 # LunaMargin — challenge and evidence research
 
-Research date: 12 November 2026, America/New_York. This record distinguishes verified rules, research-based strategy and remaining checks. Some official pages returned fetch errors; those gaps are recorded below.
+Research updated: 13 November 2026, America/New_York. This record distinguishes verified rules, research-based strategy and remaining checks. The official challenge Resources and participant Resources pages were inspected in their rendered form on this date.
 
 ## Challenge fit
 
@@ -26,13 +26,30 @@ The nearby-point result is the fraction of evaluated points meeting the stated c
 
 The owner explicitly requested full implementation before the official start after being informed of the advance-work rule. Preserve that history. GitHub publication and technical quality do not establish award eligibility. See [AI_DISCLOSURE.md](AI_DISCLOSURE.md).
 
-The current Universal Event deadline, required submission fields and demonstration format must be checked in the registered event and current guides. Do not infer the Team Owner's time zone from this record's time zone.
+The registered team's deadline and required submission fields still need confirmation in its Project Tab. Do not infer the Team Owner's time zone from this record's time zone.
 
 ## Hard requirement: official resource mapping
 
-**OPEN — the full official 2026 challenge Resources list has not been verified.** The summary was retrieved; the current resource list was not confirmed in this research pass. The GO Team said resources would be available on 12 November. NASA origin alone does not establish the named-resource requirement.
+**CONFIRMED — named-resource match verified 2026-11-13.** The official [2026 challenge Resources tab](https://www.spaceappschallenge.org/2026/challenges/lunar-landing-site-navigator/?tab=resources) lists **Horizons System** under **NASA DATA & RESOURCES**, alongside Quickmap and Moon Trek. Its link points to the [NASA/JPL Horizons System](https://ssd.jpl.nasa.gov/horizons/) actually used by this project. Quickmap and Moon Trek are not claimed as implemented inputs.
 
-Before submitting, inspect the Resources tab, record its retrieval date and exact listed source, and map at least one actually used input to it in [VALIDATION_RECORD.md](VALIDATION_RECORD.md). If none of the implemented inputs appears there, incorporate and document a qualifying source before claiming the requirement is satisfied.
+| Mapping stage | Actual project use and evidence |
+| --- | --- |
+| Official resource name | **Horizons System**, NASA DATA & RESOURCES, checked 2026-11-13 at the challenge link above |
+| Project call | `https://ssd.jpl.nasa.gov/api/horizons.api`; API queries retained in each site's `ephemerisSources` in [June bundle](../data/lunar-sites-june.json) |
+| Request fields | `COMMAND=10` (Sun) or `399` (Earth), `EPHEM_TYPE=OBSERVER`, `CENTER=coord@301`, `COORD_TYPE=GEODETIC`, `SITE_COORD` (longitude, latitude, observer elevation in km), `START_TIME`, `STOP_TIME`, `STEP_SIZE`, `QUANTITIES=4`, `APPARENT=AIRLESS` |
+| Source outputs | Timestamped azimuth and elevation parsed into `time`, `sunAz`, `sunEl`, `earthAz`, `earthEl`; original responses and SHA-256 hashes retained, e.g. [ROI 1 Sun](../data/raw/ridge-1-10-2027-06-horizons.json) and [Earth](../data/raw/ridge-1-399-2027-06-horizons.json) |
+| Derived results | Compare source directions with the LOLA-derived terrain horizon, interpolate visibility crossings, integrate continuous darkness / Earth-view gaps / simultaneous visibility, then compare nine positions with the user's conditions |
+| Additional source verification | [Recommendation audit](RECOMMENDATION_VALIDATION.md): 36 original responses for 18 observing positions, each with 2,017 real five-minute epochs, query parameters, coordinates, retrieval timestamps, hashes and missing-data checks |
+
+The normal application uses 30-minute queries and reuses each center's ephemerides for nearby positions. The real five-minute audit uses each position's own coordinates. This distinction is preserved in the reports. NASA LOLA terrain is separately attributed with exact source products and hashes; the named challenge-resource match is established through Horizons.
+
+**Resource matching is confirmed; overall award eligibility is not.** This mapping does not resolve registration, advance-development eligibility, the final submission format or the act of submitting. Status is synchronized in [SUBMISSION.md](SUBMISSION.md) and [VALIDATION_RECORD.md](VALIDATION_RECORD.md).
+
+## Current submission-format check
+
+On 2026-11-13, the rendered official [participant Resources page](https://www.spaceappschallenge.org/resources/) listed Participant FAQs, Team Formation Guide and Space Apps Connect Guide. It did not expose a 2026 Project Submission Guide or central Judging Guide in that list. The registered team's Project Tab has not been inspected. Therefore the permitted video duration, slide count, language and text-field limits are **UNCONFIRMED for 2026**.
+
+The recorded browser walkthrough is a teaching asset. Its availability and public URL do not establish formal demo compliance. This project's three-minute presentation script is also a suggested talk, not a format requirement. Historical submission limits must not be treated as current-year rules. Before formal submission, record the actual current guide or Project Tab requirements and adapt the final assets to them.
 
 ## Data and interpretation
 
@@ -63,8 +80,14 @@ These establish that Universal Event projects can win global awards. They do not
 
 [The 2025 official awards page](https://www.spaceappschallenge.org/2025/awards/) describes Best Use of Science through valid scientific methods and Best Use of Data through accessible data or a distinct application. Nomination is followed by expert review and executive selection.
 
-Impact, Creativity, Validity, Relevance and Presentation recur in official-hosted local guidance, including [Ajmer 2026](https://www.spaceappschallenge.org/2026/local-events/ajmer/). Local Lead pages are organizer-authored content. The central 2026 guide was not retrieved here. Use these dimensions as planning lenses; no numeric weighting is asserted.
+Impact, Creativity, Validity, Relevance and Presentation recur in official-hosted local guidance, including [Ajmer 2026](https://www.spaceappschallenge.org/2026/local-events/ajmer/). Local Lead pages are organizer-authored content. The central 2026 guide was not available from the inspected public Resources list. Use these dimensions as planning lenses; no numeric weighting is asserted.
 
 Comparable public tools already offer lunar geometry charts and site comparisons. LunaMargin's positioning should rest on a specific verified workflow: compare contiguous interruptions, inspect their terrain context, test neighboring points and export the assumptions. “First,” “unique,” “most accurate” and award-likelihood claims require further evidence.
 
 Our research-based strategy prioritizes scientific validity, understandable decisions and a reproducible demo. It is a project strategy, not a prediction of what judges will choose.
+
+## Follow-up scope
+
+M06 has a prepared [five-person novice test protocol](USABILITY_TEST_KIT.md) and [blank observation record](USABILITY_TEST_RECORDS.md). **0/5 people have been tested**; no completion rates, timings or quotations are available.
+
+M07 remains a later extension: add a region with genuinely different terrain only after retaining its public sources, coordinate frame, resolution, coverage checks and reproduction path. Choose the second case from actual computations and record the selection process, including negative findings. The current three Connecting Ridge sites and three cached campaigns are unchanged; no new-region coverage is claimed.

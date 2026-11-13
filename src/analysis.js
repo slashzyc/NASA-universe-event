@@ -259,6 +259,42 @@ function patchSite(site, patch, index) {
   };
 }
 
+const metricKeys = ['longestDarkHours', 'longestCommGapHours', 'jointHours'];
+const stableIdOrder = (a, b) => String(a) < String(b) ? -1 : String(a) > String(b) ? 1 : 0;
+
+/** Worst supplied position for each mission threshold, with no uncertainty model.
+ * An incomplete footprint has no certified whole-footprint extreme: values from
+ * its known subset are explicitly separate and never enter robustness ranking.
+ */
+function summarizeFootprint(scenarios, options) {
+  const known = scenarios.filter(item => item.status === 'complete' && item.feasible !== null
+    && metricKeys.every(key => finite(item.metrics[key])));
+  const allKnown = scenarios.length > 0 && known.length === scenarios.length;
+  const knownMetrics = Object.fromEntries(metricKeys.map(key => [key, known.length
+    ? (key === 'jointHours' ? Math.min : Math.max)(...known.map(item => item.metrics[key])) : null]));
+  const metrics = Object.fromEntries(metricKeys.map(key => [key, allKnown ? knownMetrics[key] : null]));
+  const points = Object.fromEntries(metricKeys.map(key => {
+    if (!allKnown) return [key, null];
+    const tied = known.filter(item => Math.abs(item.metrics[key] - metrics[key]) <= 1e-9)
+      .sort((a, b) => stableIdOrder(a.id, b.id));
+    return [key, {id: tied[0].id, dxM: tied[0].dxM, dyM: tied[0].dyM,
+      tiedPointIds: tied.map(item => item.id)}];
+  }));
+  const margins = {
+    darknessHours: allKnown ? options.maxDarkHours - metrics.longestDarkHours : null,
+    earthGapHours: allKnown ? options.maxCommGapHours - metrics.longestCommGapHours : null,
+    jointHours: allKnown ? metrics.jointHours - options.minJointHours : null,
+  };
+  const minimumMarginHours = allKnown ? Math.min(...Object.values(margins)) : null;
+  return {
+    status: allKnown ? 'complete' : known.length ? 'partial' : 'unavailable',
+    allKnown, count: scenarios.length, knownCount: known.length, metrics, knownMetrics, points, margins,
+    minimumMarginHours,
+    limitingMetrics: allKnown ? Object.entries(margins).filter(([,value]) => Math.abs(value - minimumMarginHours) <= 1e-9).map(([key]) => key) : [],
+    interpretation: 'Worst values among supplied discrete positions. Positive margins are hours inside each threshold; negative margins miss it. The minimum is the smallest of the three explicitly reported margins, not a weighted score, probability, or calibrated uncertainty.',
+  };
+}
+
 function analyzeSiteWithOptions(site, options, preparations, detailed = true) {
   const result = analyzeGeometry(site, options, preparations?.center, detailed);
   result.centerFeasible = result.feasible;
@@ -283,7 +319,7 @@ function analyzeSiteWithOptions(site, options, preparations, detailed = true) {
     completeFraction: scenarios.length ? completeCount / scenarios.length : null,
     allKnown: scenarios.length > 0 && knownFeasibilityCount === scenarios.length,
     interpretation: 'Fraction of supplied geometric scenarios meeting thresholds; not a landing probability or spatial area estimate unless sampling supports it.',
-    scenarios,
+    scenarios, worstCase: summarizeFootprint(scenarios, options),
   };
   if (scenarios.some(item => item.ephemerides === 'center-reused-approximation')) {
     result.warnings.push('Surrounding patches reuse central-site Sun/Earth angles where patch-specific ephemerides are absent. This approximation is separate from terrain effects.');
@@ -306,11 +342,69 @@ export function analyzeSite(site, settings = {}) {
   return analyzeSiteWithOptions(site, normalizeSettings(settings));
 }
 
-function dominates(a, b, includePatch) {
+/** Deterministic angular sensitivity, always ADDED to the requested baseline.
+ * These are user-selected geometric thresholds, not measured error bounds.
+ */
+export function stressTestSite(site, settings = {}, increments = [0, 0.02, 0.10, 0.25]) {
+  const base = normalizeSettings(settings);
+  if (!Array.isArray(increments) || !increments.length || increments.some(value => !finite(value) || value < 0)) {
+    throw new RangeError('Stress increments must be a nonempty array of finite, nonnegative angles.');
+  }
+  const levels = [...new Set(increments)].sort((a,b) => a-b).map(incrementDeg => {
+    const clearanceDeg = base.clearanceDeg + incrementDeg;
+    const result = analyzeSite(site, {...settings, clearanceDeg});
+    return {
+      incrementDeg, clearanceDeg, centerFeasible: result.centerFeasible,
+      count: result.patchStats.count, feasibleCount: result.patchStats.feasibleCount,
+      allKnown: result.patchStats.allKnown, worstCase: result.patchStats.worstCase,
+      scenarios: result.patchStats.scenarios.map(({id, dxM, dyM, status, feasible, metrics, reasons}) => ({id, dxM, dyM, status, feasible, metrics, reasons})),
+    };
+  });
+  return {
+    siteId: site.id, baselineClearanceDeg: base.clearanceDeg,
+    start: iso(base.startMs), end: iso(base.endMs), durationHours: base.durationHours,
+    thresholds: {maxDarkHours:base.maxDarkHours,maxCommGapHours:base.maxCommGapHours,minJointHours:base.minJointHours},
+    levels,
+    interpretation: 'Deterministic geometric sensitivity: each nonnegative increment is added to the baseline clearance. These levels are not a calibrated terrain-error range or a success probability.',
+  };
+}
+
+export const SEARCH_RANKING = Object.freeze({
+  id: 'earliest-then-footprint-margin-v1',
+  criteria: ['delayHours:asc', 'feasible:true-first', 'worstCase.allKnown:true-first',
+    'worstCase.minimumMarginHours:desc', 'worstCase.margins.darknessHours:desc',
+    'worstCase.margins.earthGapHours:desc', 'worstCase.margins.jointHours:desc',
+    'center.longestDarkHours:asc', 'center.longestCommGapHours:asc', 'center.jointHours:desc', 'siteId:codepoint-asc'],
+  explanation: 'Keep the earliest feasible arrival. At the same arrival, prefer complete footprints with the largest smallest threshold margin (hours). Break ties by darkness, Earth-gap, and joint-time margins, then center metrics and site ID. All components remain visible; this is a declared preference, not a universal optimum.',
+});
+
+function compareCandidates(a, b) {
+  const dateOrder = a.delayHours - b.delayHours;
+  if (dateOrder) return dateOrder;
+  if (a.feasible !== b.feasible) return Number(b.feasible) - Number(a.feasible);
+  if (a.worstCase.allKnown !== b.worstCase.allKnown) return Number(b.worstCase.allKnown) - Number(a.worstCase.allKnown);
+  if (a.worstCase.allKnown) {
+    const pairs = [[a.worstCase.minimumMarginHours,b.worstCase.minimumMarginHours],
+      ...['darknessHours','earthGapHours','jointHours'].map(key => [a.worstCase.margins[key],b.worstCase.margins[key]])];
+    // Compare unrounded values so the ordering stays transitive. The 1e-9
+    // feasibility tolerance belongs to threshold checks, not sort equivalence.
+    for (const [left,right] of pairs) if (left !== right) return right-left;
+  }
+  return a.metrics.longestDarkHours - b.metrics.longestDarkHours
+    || a.metrics.longestCommGapHours - b.metrics.longestCommGapHours
+    || b.metrics.jointHours - a.metrics.jointHours || stableIdOrder(a.siteId,b.siteId);
+}
+
+function dominates(a, b, includePatch, includeWorstCase) {
   const lowerA = [a.delayHours, a.metrics.longestDarkHours, a.metrics.longestCommGapHours];
   const lowerB = [b.delayHours, b.metrics.longestDarkHours, b.metrics.longestCommGapHours];
   const higherA = [a.metrics.jointHours], higherB = [b.metrics.jointHours];
   if (includePatch) { higherA.push(a.patchCoverage); higherB.push(b.patchCoverage); }
+  if (includeWorstCase) {
+    lowerA.push(a.worstCase.metrics.longestDarkHours, a.worstCase.metrics.longestCommGapHours);
+    lowerB.push(b.worstCase.metrics.longestDarkHours, b.worstCase.metrics.longestCommGapHours);
+    higherA.push(a.worstCase.metrics.jointHours); higherB.push(b.worstCase.metrics.jointHours);
+  }
   const noWorse = lowerA.every((value, index) => value <= lowerB[index] + 1e-9)
     && higherA.every((value, index) => value + 1e-9 >= higherB[index]);
   const strictlyBetter = lowerA.some((value, index) => value + 1e-9 < lowerB[index])
@@ -323,7 +417,9 @@ function dominates(a, b, includePatch) {
  * Never extrapolates. searchEnd, when supplied, bounds candidate START dates.
  * Returns earliest feasible candidates and the non-dominated complete results
  * under delay/darkness/comm-gap (minimize) and joint hours (maximize). Patch
- * coverage joins Pareto objectives only when EVERY candidate has known patches.
+ * coverage and worst-position metrics join Pareto objectives only when EVERY
+ * candidate has known patches. The explicit ranking is separate from Pareto
+ * dominance: a preferred candidate can still have a trade-off with another.
  * This is a discrete cached search, not a globally optimal mission solution.
  */
 export function searchWindows(sites, settings = {}) {
@@ -337,7 +433,7 @@ export function searchWindows(sites, settings = {}) {
   let excludedCount = 0;
   let evaluatedCount = 0;
   let truncated = false;
-  for (const site of sites) {
+  for (const site of [...sites].sort((a,b) => stableIdOrder(a.id,b.id))) {
     const epochs = (Array.isArray(site.samples) ? site.samples : []).map(item => timestamp(item?.time)).filter(Number.isFinite);
     if (epochs.length < 2) { excludedCount++; continue; }
     const first = Math.min(...epochs), last = Math.max(...epochs);
@@ -362,25 +458,24 @@ export function searchWindows(sites, settings = {}) {
         delayHours: hours(startMs - options.startMs), feasible: result.feasible,
         centerFeasible: result.centerFeasible, metrics: result.metrics,
         patchCoverage: result.patchStats.allKnown ? result.patchStats.coverageFraction : null,
+        worstCase: result.patchStats.worstCase,
         reasons: result.reasons,
       });
     }
     if (truncated) break;
   }
-  candidates.sort((a, b) => a.delayHours - b.delayHours
-    || a.metrics.longestDarkHours - b.metrics.longestDarkHours
-    || a.metrics.longestCommGapHours - b.metrics.longestCommGapHours
-    || b.metrics.jointHours - a.metrics.jointHours
-    || String(a.siteId).localeCompare(String(b.siteId)));
+  candidates.sort(compareCandidates);
   const feasible = candidates.filter(item => item.feasible);
   const earliestDelay = feasible.length ? feasible[0].delayHours : null;
   const includePatch = candidates.length > 0 && candidates.every(item => item.patchCoverage !== null);
-  const pareto = candidates.filter((candidate, index) => !candidates.some((other, otherIndex) => otherIndex !== index && dominates(other, candidate, includePatch)));
+  const includeWorstCase = candidates.length > 0 && candidates.every(item => item.worstCase.allKnown);
+  const pareto = candidates.filter((candidate, index) => !candidates.some((other, otherIndex) => otherIndex !== index && dominates(other, candidate, includePatch, includeWorstCase)));
   return {
     baselineStart: iso(options.startMs), stepHours, evaluatedCount, excludedCount, truncated,
     candidates, earliestFeasible: feasible.filter(item => item.delayHours === earliestDelay),
     earliestDelayHours: earliestDelay, pareto,
-    objectives: ['delayHours:min', 'longestDarkHours:min', 'longestCommGapHours:min', 'jointHours:max', ...(includePatch ? ['patchCoverage:max'] : [])],
+    ranking: SEARCH_RANKING,
+    objectives: ['delayHours:min', 'longestDarkHours:min', 'longestCommGapHours:min', 'jointHours:max', ...(includePatch ? ['patchCoverage:max'] : []), ...(includeWorstCase ? ['worstCase.longestDarkHours:min','worstCase.longestCommGapHours:min','worstCase.jointHours:max'] : [])],
     interpretation: 'Discrete search over cached samples. Earliest is relative to the chosen grid and data coverage; no missing interval is treated as feasible.',
   };
 }

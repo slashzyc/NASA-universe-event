@@ -34,9 +34,11 @@ The default case is **Connecting Ridge ROI 6**, arriving **2027-06-02 06:00 UTC*
 
 The published 30-minute model gives approximately **155.55 h of Sun-center visibility (92.6%)**, a **12.45 h longest dark interval**, and **8 of 9 sampled locations passing**. The position **25 m east and 25 m south** of the center has about **167.50 h of continuous darkness** and no simultaneous Sun/Earth visibility. The actual terrain changes the decision.
 
-A separate query using **5-minute real Horizons observations**, each position's own coordinates, and a finer terrain calculation preserves the conclusion: center darkness **12.44 h**, offset darkness **167.35 h**. This is a numerical sensitivity check, not external flight validation. Near-field DEM interpolation and measurement uncertainty remain relevant. [Inspect the numerical audit](data/fine-ephemeris-validation.json).
+A separate query using **real 5-minute Horizons tables**, each position's own coordinates, and a finer terrain calculation preserves the conclusion: center darkness **12.44 h**, offset darkness **167.35 h**. This is a numerical sensitivity check, not external flight validation. Near-field DEM interpolation and measurement uncertainty remain relevant. [Inspect the numerical audit](data/fine-ephemeris-validation.json).
 
-Search all nine sampled positions with the same limits: the first available six-hour-grid arrival is **2027-06-21 12:00 UTC** at ROI 4 or ROI 1. The date search is bounded by the selected cached month, and its earliest result is relative to that grid.
+Search all nine sampled positions with the same limits: the first available six-hour-grid arrival is **2027-06-21 12:00 UTC** at ROI 1 or ROI 4. **ROI 1 now appears first at this tied arrival** because its weakest nine-point threshold margin is **5.475 h**, versus **0.251 h** for ROI 4. ROI 4's southwest point is close to its darkness limit even though both groups pass 9/9. The ordering is explicit and deterministic; “earliest” is bounded by the cached month and six-hour grid. [Compare all components and stress tests](docs/ROBUSTNESS_VALIDATION.md).
+
+The expanded audit independently queries **all 18 positions** in that recommendation window: **36 original responses, 2,017 five-minute epochs per position, no missing epochs**. Fine calculations preserve all 72 point/angle pass-or-fail conclusions. ROI 1 stays 9/9 at the four tested angle settings; ROI 4 falls to 8/9 at +0.02° and 7/9 at +0.25°. Its baseline southwest darkness margin becomes **9.96 minutes** in the fine calculation. These are deterministic sensitivity results, not measured probabilities. [Inspect the complete fine audit](docs/RECOMMENDATION_VALIDATION.md).
 
 ## What works
 
@@ -49,6 +51,7 @@ Search all nine sampled positions with the same limits: the first available six-
 - Interactive 360° horizon with Sun/Earth positions, time animation, and individual footprint inspection.
 - Mission limits, longest continuous gaps, simultaneous visibility, and complete interval timelines.
 - Background-worker search for the first later date where the center and all nine locations meet the limits.
+- Same-date recommendations explain worst-position margins and four deterministic angular stress conditions.
 - Shareable scenario URLs, English/Chinese interface, keyboard navigation and mobile layout.
 - Downloadable HTML mission brief, CSV comparison and JSON evidence with provenance.
 - Reproducible NASA data acquisition, retained original API responses, SHA-256 manifests and numerical audits.
@@ -79,9 +82,12 @@ python data-pipeline/build_dataset.py --include-seasons
 python -m unittest discover -s data-pipeline
 python data-pipeline/audit_geometry.py
 python data-pipeline/audit_demo.py
+python data-pipeline/audit_recommendations.py
 ```
 
 This downloads approximately 350 MB of original NASA terrain into a sibling cache. The browser only needs the compact published bundles. [Measured results](docs/validation-results.md) distinguish internal checks from independent external validation.
+
+Regenerate the footprint comparison with `node scripts/validate-robustness.mjs`. Browser regression checks require the development dependency (`npm ci`) and Playwright Chrome/Chromium; run `npm run test:browser`. [The validation record](docs/VALIDATION_RECORD.md) separates numerical audits, browser checks and human testing.
 
 ## Project structure
 
@@ -104,13 +110,16 @@ The browser has no third-party JavaScript dependencies. Scientific computation r
 - [中文操作指南](docs/QUICKSTART_ZH.md)
 - [Submission narrative / 中英提交说明](docs/SUBMISSION.md)
 - [Demonstration script / 中英演示脚本](docs/DEMO_SCRIPT.md)
-- [Captioned application walkthrough](docs/media/lunamargin-walkthrough.webm) — a real browser recording, silent, approximately 50 seconds, with AI-assistance disclosure.
+- [Captioned application walkthrough](docs/media/lunamargin-walkthrough.webm) — a real, silent browser teaching demonstration with AI-assistance disclosure; current-year formal demo compliance is unconfirmed.
 - [Judging strategy and prior winners](docs/JUDGING_STRATEGY.md)
 - [Rules and sources](docs/RESEARCH.md)
 - [AI and development disclosure](docs/AI_DISCLOSURE.md)
 - [Validation record](docs/VALIDATION_RECORD.md)
+- [Five-person novice test kit / 五人新手测试包](docs/USABILITY_TEST_KIT.md) and [blank observation records / 空白记录表](docs/USABILITY_TEST_RECORDS.md) — prepared; **0/5 people tested**.
 
-Team registration, challenge-resource compliance, final event requirements and the project-page submission must be confirmed on the official Space Apps site. The app does not submit or impersonate team members.
+**Official resource match confirmed on 2026-11-13:** the challenge's Resources list includes **Horizons System**, which this project actually uses. [Exact mapping and retained inputs](docs/RESEARCH.md#hard-requirement-official-resource-mapping). Team registration, current format requirements and advance-development eligibility remain unconfirmed; **the official Project Tab submission has not been performed**. Resource matching and GitHub publication do not establish overall award eligibility.
+
+M07's different-terrain region is a later extension. The present release keeps the three Connecting Ridge sites and three cached campaigns; new terrain requires source, coordinate, resolution, coverage and reproduction evidence before inclusion.
 
 ## NASA sources
 

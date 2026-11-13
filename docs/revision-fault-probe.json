@@ -1,0 +1,18 @@
+{
+  "startedAt": "2026-11-13T05:57:49.087Z",
+  "finishedAt": "2026-11-13T05:57:50.443Z",
+  "base": "http://127.0.0.1:4175/navigator.html",
+  "faultInjection": "drop-patch",
+  "fontMode": "system fallback (font CDN isolated)",
+  "passed": 0,
+  "failed": 1,
+  "errors": [],
+  "resourceErrors": [],
+  "records": [
+    {
+      "name": "M01: all nine selected points survive share URL restoration with exact metrics",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ 'e+0-n+0'\n- 'e-25-n-25'\n\n    at file:///C:/Users/slash/OneDrive/%E6%96%87%E6%A1%A3/ChatGPT/NASA%E9%BB%91%E5%AE%A2%E6%9D%BE/lunar-margin/tests/revision-browser.mjs:60:54\n    at async test (file:///C:/Users/slash/OneDrive/%E6%96%87%E6%A1%A3/ChatGPT/NASA%E9%BB%91%E5%AE%A2%E6%9D%BE/lunar-margin/tests/revision-browser.mjs:40:70)\n    at async file:///C:/Users/slash/OneDrive/%E6%96%87%E6%A1%A3/ChatGPT/NASA%E9%BB%91%E5%AE%A2%E6%9D%BE/lunar-margin/tests/revision-browser.mjs:55:3"
+    }
+  ]
+}

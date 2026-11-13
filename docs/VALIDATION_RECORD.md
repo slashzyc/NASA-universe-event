@@ -1,12 +1,12 @@
 # LunaMargin — validation and evidence record
 
-Recorded 12 November 2026, America/New_York. Exact run timestamps, environment information and hashes are preserved in the linked machine-readable reports. The validation establishes the checks described below, not flight qualification or an external observational benchmark.
+Updated 13 November 2026, America/New_York. Exact run timestamps, environment information and hashes are preserved in the linked machine-readable reports. The validation establishes the checks described below, not flight qualification or an external observational benchmark.
 
 ## Scientific and numerical evidence
 
 | Check | Observed result | Evidence |
 | --- | --- | --- |
-| Internal checks and data sensitivity | 46,212 checks, zero failures in the recorded science run | [validation-results.md](validation-results.md), [JSON](validation-results.json) |
+| Internal checks and data sensitivity | Rerun after the M03 ranking change: 46,212 checks, zero failures; all three campaigns' searches checked | [validation-results.md](validation-results.md), [JSON](validation-results.json) |
 | Source bytes and settings | Exact NASA file/API URLs, input hashes, query parameters and source metadata retained | [source-manifest.json](../data/source-manifest.json), [raw responses](../data/raw/) |
 | Projection | Custom inverse agrees with PROJ to less than 3 × 10⁻¹³ degrees for checked points | [geometry-audit.json](../data/geometry-audit.json) |
 | Terrain seam | 804 boundary samples; local/regional RMS difference 2.4163 m, maximum absolute difference 10.4718 m | [geometry-audit.json](../data/geometry-audit.json) |
@@ -15,8 +15,10 @@ Recorded 12 November 2026, America/New_York. Exact run timestamps, environment i
 | Temporal sensitivity | 30-to-60-minute decimation tested in both phases; some short windows materially alter longest darkness | [validation-results.md](validation-results.md) |
 | Actual five-minute demonstration check | Separate Horizons queries and finer terrain rays preserve center-pass / southeast-fail | [fine-ephemeris-validation.json](../data/fine-ephemeris-validation.json) |
 | Nearby ephemeris reuse | In the two-point check, maximum direction differences are about 0.08996° azimuth and 0.001167° elevation | [fine-ephemeris-validation.json](../data/fine-ephemeris-validation.json) |
+| Footprint margins and ordering (M03) | All eight review-baseline rows reproduced; ROI 1 is first at the tied earliest arrival, with a wider weakest threshold margin | [ROBUSTNESS_VALIDATION.md](ROBUSTNESS_VALIDATION.md), [JSON](../data/robustness-validation.json) |
+| Recommendation-window real five-minute audit (M04) | 18 positions, 36 raw responses, 2,017 paired epochs per position, zero missing epochs; 0/72 pass/fail changes across four angles | [RECOMMENDATION_VALIDATION.md](RECOMMENDATION_VALIDATION.md), [JSON](../data/recommendation-fine-validation.json) |
 
-The seam differences combine source adjustment and resolution effects; they are not confidence intervals. Refinement checks measure numerical sensitivity, not unknown terrain error. The five-minute check uses real new queries and a separate Python interval calculation but the same terrain sources.
+The seam differences combine source adjustment and resolution effects; they are not confidence intervals. Refinement checks measure numerical sensitivity, not unknown terrain error. The two five-minute audit reports use real source queries and a separate Python interval calculation but the same terrain sources. Five-minute **interpolation** in the internal science suite is a different numerical check and is not new Horizons source data.
 
 ## Reproducible demonstration
 
@@ -30,37 +32,67 @@ Inputs: **ROI 6**, **2027-06-02 06:00 UTC**, **168 h**; maximum darkness **24 h*
 | Joint visibility h | 149.2333 | 0 | 149.1909 | 0 |
 | Meets chosen constraints | Yes | No | Yes | No |
 
-Southeast means east 25 m / north −25 m, a 35.36 m offset. Its sampled surface is 2.023 m lower than the center. The published application reports **8/9 passing**, with all nine scenarios evaluated. That is neither a probability nor an area estimate. Fine verification covers these two points, not all nine.
+Southeast means east 25 m / north −25 m, a 35.36 m offset. Its sampled surface is 2.023 m lower than the center. The published application reports **8/9 passing**, with all nine scenarios evaluated. That is neither a probability nor an area estimate. Fine verification of this **default ROI 6 case** covers its center and southeast point. The separate recommendation audit below covers all nine positions at each of two other sites and a later window.
 
-The six-hour-grid search evaluates 264 combinations. Earliest all-nine passing candidates are ROI 1 and ROI 4 at **2027-06-21 12:00 UTC**, **462 h later**. ROI 4 has longest darkness 7.6818 h, longest Earth gap 18.6163 h and joint visibility 141.7019 h. The result is limited to this cached interval and search grid.
+The six-hour-grid search evaluates 264 combinations. Earliest all-nine passing candidates are ROI 1 and ROI 4 at **2027-06-21 12:00 UTC**, **462 h later**. **ROI 1 is now ordered first** at this tied arrival using the weakest threshold margin across the nine positions. This changes the preference order, not the input data or single-point visibility calculation. The result is limited to this cached interval and search grid.
 
 All exact values, analysis/data hashes and settings: [demo-evidence.json](demo-evidence.json). The case was selected after data exploration; it is not a held-out performance benchmark.
 
+## Recommendation margins and fine verification
+
+At the recommended seven-day window, the published model gives these **whole-footprint extrema**, not just center metrics:
+
+| Quantity | ROI 1 | ROI 4 |
+| --- | ---: | ---: |
+| Passing positions | 9/9 | 9/9 |
+| Worst darkness h | 8.0147 | 23.7492 |
+| Worst Earth gap h | 18.5246 | 18.9056 |
+| Least simultaneous visibility h | 141.6069 | 116.9917 |
+| Smallest threshold margin h | 5.4754 (Earth gap) | 0.2508 (southwest darkness) |
+
+The preference order is earliest arrival, constraint satisfaction, complete known coverage, largest smallest threshold margin, individual margins, center metrics and stable site ID. The components remain visible; this is an explicit deterministic preference, not a weighted score or a proof of a globally optimal site. Unknown samples do not become passing samples.
+
+The M04 audit requested independent Sun/Earth directions for every one of the **18 positions**, from **2027-06-21 12:00 UTC through 2027-06-28 12:00 UTC**, at **five-minute cadence including both endpoints**. The report keeps all **36 raw responses**, request parameters, retrieval times, hashes, coordinates, coverage checks, window boundaries and per-point differences. It compares the published 30-minute calculation, independent five-minute queries with the published horizon, and independent five-minute queries with finer 0.5° terrain horizons.
+
+| Extra angle above 0° baseline | ROI 1 published → fine count | ROI 1 published → fine worst dark h | ROI 4 published → fine count | ROI 4 published → fine worst dark h |
+| --- | --- | --- | --- | --- |
+| +0.00° | 9/9 → 9/9 | 8.015 → 7.997 | 9/9 → 9/9 | 23.749 → 23.834 |
+| +0.02° | 9/9 → 9/9 | 8.403 → 8.346 | 8/9 → 8/9 | 24.725 → 24.807 |
+| +0.10° | 9/9 → 9/9 | 9.860 → 9.742 | 8/9 → 8/9 | 46.209 → 46.074 |
+| +0.25° | 9/9 → 9/9 | 14.954 → 14.249 | 7/9 → 7/9 | 52.100 → 51.970 |
+
+All **72 point/angle pass-or-fail conclusions remain the same**, supporting the preference for ROI 1 at the tied date. ROI 4's southwest baseline darkness margin changes from about **15.05 minutes to 9.96 minutes**. The numerical difference matters even though its baseline pass label stays unchanged. Every failed point, failure reason and extremal position remains in the full report. Additional angles are deterministic stress conditions; they do not estimate real terrain-error distributions or landing-success probabilities. Refining the same DEM does not create new measured terrain detail.
+
 ## Browser evidence
 
-Automated browser checks use installed Chrome through Playwright. The recorded final local run passed **19 checks with zero failures**. Tests cover three sites, three campaigns, date/duration/ranges, nine pointer selections, keyboard/time control, worker search and applying its result, language persistence, source links, tour, URL restoration, HTML/CSV/JSON downloads, stale-setting consistency and a 380 px phone viewport. Regressions also verify that an older delayed campaign response cannot replace the latest selection, an empty date cannot overwrite the saved analysis, unsupported URL options keep valid defaults, and the final seven-day arrival date permits midnight only.
+The revision passed **30/30 core tests**, including eight margin/ranking tests, three recommendation-audit tests and three coordinate-direction tests, alongside the existing 16 analysis tests. The full browser suite passed **19/19**, and the navigator user-interface suite passed **18/18**. Their scope includes three sites and campaigns, date/duration/ranges, pointer selection, time control, worker search, language persistence, sources, tour, URLs and exports. Actual run records: [browser-validation.json](browser-validation.json) and [navigator-ux-validation.json](navigator-ux-validation.json).
 
-The authoritative latest pass/fail counts and any open issue are in [browser-validation.json](browser-validation.json); rerun `node tests/browser-smoke.mjs` with an installed Playwright package. Screenshots: [desktop](screenshots/desktop.png), [380 px phone](screenshots/phone-380.png). Screenshots were visually inspected in addition to automated overflow/overlap checks. A successful browser suite is functional QA, not a human usability study.
+The added CI browser gate passed **10/10 checks**, covering current-point sharing and exports, coordinate-based arrow directions, applied versus pending settings, bilingual reports, desktop, 390 px and 330 px screens. Run it with `npm run test:browser`; results are in [revision-browser-validation.json](revision-browser-validation.json). A deliberate `drop-patch` fault made the first gate check fail with exit code 1, demonstrating that a lost shared selection blocks this gate: [fault-probe record](revision-fault-probe.json). The production build runs after successful checks in the publication workflow.
+
+The revised bilingual brief, print layout, search cards and expanded stress results were also visually inspected. Earlier screenshots remain available: [desktop](screenshots/desktop.png), [380 px phone](screenshots/phone-380.png). A successful browser suite is functional QA, not a human usability study.
 
 ## Remaining scientific scope
 
 - Body centers are used. Partial discs, eclipses, ground-station links, power/thermal models and landing hazards are not included.
 - Terrain uses interpolated source products, two resolutions, finite bearing steps and a 250 km search radius.
 - Time-window events are estimated by interpolation and clipped to the requested mission interval.
-- The main application reuses center ephemerides for nearby offsets; the two-point audit measures this approximation for the demonstration.
-- No human usability study, external expert review or flight-data validation has been conducted.
+- The main application reuses center ephemerides for nearby offsets; the two-point default-case audit and 18-point recommendation audit examine this approximation in their declared windows.
+- Human test materials are prepared, but **0/5 people have been tested**. No human completion rates, timings or quotations are available. [Protocol](USABILITY_TEST_KIT.md) · [Blank records](USABILITY_TEST_RECORDS.md).
+- External expert review and flight-data validation have not been conducted. M07's different-terrain region remains a later extension requiring its own sources, coordinate/resolution records, coverage checks and reproduction path.
 
 ## Submission status
 
 | Requirement | Status |
 | --- | --- |
-| Match a used input to official 2026 challenge Resources | **OPEN — hard requirement.** Full current list not confirmed; record exact listed resource and retrieval date. |
-| Current central judging/demo rules | Owner must verify current guide, language and format limits. |
+| Match a used input to official 2026 challenge Resources | **CONFIRMED, 2026-11-13:** official NASA DATA & RESOURCES lists **Horizons System**, which the project actually calls. [Official list](https://www.spaceappschallenge.org/2026/challenges/lunar-landing-site-navigator/?tab=resources) · [name → API → fields → results evidence](RESEARCH.md#hard-requirement-official-resource-mapping). |
+| Current central judging/demo rules | **UNCONFIRMED for 2026.** The inspected public [Resources](https://www.spaceappschallenge.org/resources/) list did not expose a current Project Submission Guide or central Judging Guide. Registered Project Tab limits remain unchecked. The walkthrough is a teaching asset; formal format compliance has not been established. |
 | Team registration and deadline | Owner must confirm actual members at the same event and Team Owner time zone. |
 | Advance-development eligibility | **UNCONFIRMED.** Development preceded the official event with the owner's informed instruction. |
 | AI disclosure | Recorded in [AI_DISCLOSURE.md](AI_DISCLOSURE.md); final members/contributions and any later media remain to be declared accurately. |
 | Official submission | Not performed by these development and validation steps. |
 
+The named-resource match is resolved. It does not establish overall award eligibility, which depends on the separate items above. Source matching and status agree with [RESEARCH.md](RESEARCH.md) and [SUBMISSION.md](SUBMISSION.md).
+
 ## Production verification and demonstration media
 
-The public GitHub Pages application passed six production checks with no browser errors: campaign loads, window search, relative source links and three evidence exports. See [production-validation.json](production-validation.json). The delivered silent, captioned walkthrough is 1440×960 and approximately 50 seconds, recorded from the working application with a visible AI-assistance label.
+Public GitHub Pages checks and the version/time they cover are retained in [production-validation.json](production-validation.json). The captioned [browser walkthrough](media/lunamargin-walkthrough.webm) is a teaching demonstration with a visible AI-assistance label. Its existence is separate from current-year submission-format confirmation. [DEMO_SCRIPT.md](DEMO_SCRIPT.md) uses the same ROI 1 recommendation, whole-footprint margins and audit scope as this record.

@@ -12,13 +12,28 @@ concurrency:
 jobs:
   verify:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-node@v6
         with:
           node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
       - run: node --test tests/*.test.js
       - run: node scripts/check.mjs
+      - name: Verify browser behavior before publication
+        run: npm run test:browser
+        env:
+          CI: 'true'
+      - name: Retain browser verification report
+        if: always()
+        uses: actions/upload-artifact@v5
+        with:
+          name: browser-verification
+          path: test-results/revision-browser/
+          if-no-files-found: ignore
       - run: node scripts/build.mjs
       - uses: actions/upload-pages-artifact@v4
         with:

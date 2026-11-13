@@ -407,6 +407,29 @@ html[lang=zh-CN] .result-verdict,html[lang=zh-CN] dialog h2 { font-family:var(--
   .point-explorer h3 { font-size:24px; }
   .detail-title { font-size:20px; }
 }
+.robustness-details { border-bottom:1px solid #71806040; margin-top:14px; font-size:12px; }
+.robustness-details>summary { cursor:pointer; min-height:48px; padding:14px 0; line-height:1.6; color:#4e6043; }
+.robustness-details h3 { font-size:16px; margin:20px 0 12px; }
+.robustness-details p { line-height:1.8; }
+.worst-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; margin:18px 0; }
+.worst-grid dt { font-size:11px; line-height:1.7; }
+.worst-grid dd { margin:7px 0 0; }
+.worst-grid strong { font:400 24px/1.3 var(--display); display:block; }
+.worst-grid strong small { font:12px var(--font); }
+.worst-grid dd span { display:block; font-size:11px; margin-top:5px; line-height:1.7; }
+.margin-note { font-size:12px; line-height:1.7; }
+.stress-table-wrap { overflow-x:auto; margin:16px 0; }
+.stress-table { white-space:normal; table-layout:fixed; min-width:0; }
+.stress-table th,.stress-table td { color:inherit; font-size:11px; padding:10px 7px; overflow-wrap:anywhere; border-color:#71806040; }
+.stress-table th { text-transform:none; letter-spacing:0; }
+.stress-table thead { background:#dfe3d6; }
+.search-explainer { font-size:12px; line-height:1.8; color:#b5bfae; margin-top:14px; }
+.search-explainer a { color:var(--amber); text-decoration:underline; }
+.search-card h4 { margin-top:20px; font-size:12px; color:#d9d9ca; font-weight:500; }
+.search-card .worst-grid { grid-template-columns:1fr; gap:13px; }
+.search-card .worst-grid>div { display:grid; grid-template-columns:1fr 1fr; gap:8px; border-bottom:1px solid #7f8b7733; padding-bottom:9px; }
+.search-card .worst-grid dd { margin:0; }
+@media(max-width:600px){.worst-grid{grid-template-columns:1fr}.worst-grid>div{display:flex;justify-content:space-between;gap:14px}.worst-grid dd{text-align:right;margin:0}.search-card .worst-grid dd{text-align:left}.robustness-details>summary{font-size:12px}.stress-table th,.stress-table td{font-size:10px;padding:9px 4px}}
 @media print {
   .navigator-welcome,.step-rail,.result-actions,.point-explorer,.detail-charts>summary { display:none!important; }
   .result-card { background:white; color:#222; padding:0; }

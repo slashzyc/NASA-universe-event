@@ -3,8 +3,14 @@ import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 import path from 'node:path';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
-const required=['index.html','navigator.html','src/landing.css','src/landing.js','assets/imagery/moon-gibbous.jpg','src/app.js','src/navigator-ui.js','src/navigator.css','src/analysis.js','src/visuals.js','src/search-worker.js','src/style.css','docs/METHODOLOGY.md','docs/AI_DISCLOSURE.md','docs/validation-results.json','data/source-manifest.json','data/geometry-audit.json','data/fine-ephemeris-validation.json'];
+const required=['index.html','navigator.html','src/landing.css','src/landing.js','assets/imagery/moon-gibbous.jpg','src/app.js','src/navigator-ui.js','src/navigator.css','src/analysis.js','src/visuals.js','src/search-worker.js','src/selection.js','src/evidence.js','src/robustness-ui.js','src/style.css','docs/METHODOLOGY.md','docs/AI_DISCLOSURE.md','docs/validation-results.json','docs/demo-evidence.json','data/source-manifest.json','data/geometry-audit.json','data/fine-ephemeris-validation.json','data/robustness-validation.json','data/recommendation-fine-validation.json'];
 for(const file of required){if(!(await stat(path.join(root,file))).isFile())throw new Error(`Missing ${file}`);}
+const sha256=async file=>createHash('sha256').update(await readFile(path.join(root,file))).digest('hex');
+const demo=JSON.parse(await readFile(path.join(root,'docs/demo-evidence.json'),'utf8'));
+for(const [file,expected] of [[demo.dataset,demo.datasetSha256],['src/analysis.js',demo.analysisSha256],
+  [demo.finerCheck.source,demo.finerCheck.sha256],[demo.recommendationCheck.source,demo.recommendationCheck.sha256]]) {
+  if(await sha256(file)!==expected)throw new Error(`Demo evidence is stale for ${file}; run node scripts/snapshot-demo.mjs.`);
+}
 let samples=0;
 for(const file of ['lunar-sites.json','lunar-sites-march.json','lunar-sites-june.json']){
   const data=JSON.parse(await readFile(path.join(root,'data',file),'utf8'));

@@ -46,7 +46,8 @@
           <div id="pending-note" class="pending-note" hidden></div>
           <div id="result-summary"></div>
           <p id="inspection-context" class="inspection-context"></p><div class="metrics-row" id="metrics"></div>
-          <div id="result-actions" class="result-actions"><button type="button" id="inspect-risk" class="result-primary" data-i18n="inspectRisk">Explore the nearby points ↗</button><button type="button" id="find-window" class="result-secondary" data-i18n="findWindow">Find a later window →</button><button type="button" id="save-brief" class="result-secondary" data-i18n="saveBrief">Save this brief ↓</button></div>
+          <details id="robustness-details" class="robustness-details"><summary id="robustness-summary"></summary><div id="robustness-body"></div></details>
+          <div id="result-actions" class="result-actions"><button type="button" id="inspect-risk" class="result-primary" data-i18n="inspectRisk">Explore the nearby points ↗</button><button type="button" id="find-window" class="result-secondary" data-i18n="findWindow">Find a later window →</button><button type="button" id="share-point" class="result-secondary" data-i18n="sharePoint">Share this point ↗</button><button type="button" id="save-brief" class="result-secondary" data-i18n="saveBrief">Save this brief ↓</button></div>
           <p class="model-scope" data-i18n="modelScope">This model checks whether terrain blocks the Sun or Earth. Actual power and communication also depend on your equipment.</p>
         </section>
         <section id="search-results" class="search-section panel" hidden aria-live="polite"></section>
@@ -78,6 +79,7 @@
   <dialog id="method-dialog"><div class="dialog-top"><span class="panel-kicker">SCIENCE / SOURCES / REPRODUCIBILITY</span><button class="close-btn" data-close="method-dialog" aria-label="Close science panel">×</button></div><h2 data-i18n="methodTitle">The evidence behind the view.</h2><div id="method-body"></div></dialog>
   <dialog id="tour-dialog"><div class="dialog-top"><span id="tour-step" class="panel-kicker"></span><button class="close-btn" data-close="tour-dialog" aria-label="Close guided tour">×</button></div><h2 id="tour-title"></h2><p id="tour-body"></p><button id="tour-next" class="primary-btn">Next →</button></dialog>
   <dialog id="export-dialog"><div class="dialog-top"><span class="panel-kicker">PORTABLE / REPRODUCIBLE / YOUR EVIDENCE</span><button class="close-btn" data-close="export-dialog" aria-label="Close export panel">×</button></div><h2 data-i18n="exportTitle">Take the evidence with you.</h2><p data-i18n="exportIntro">Save a readable mission brief, compare results in a spreadsheet, or inspect the full calculation record.</p><div class="export-choices"><button id="export-html" class="secondary-btn">Mission brief · HTML ↓</button><button id="export-csv" class="secondary-btn">Comparison · CSV ↓</button><button id="export-json" class="secondary-btn">Full evidence · JSON ↓</button></div></dialog>
+  <dialog id="share-dialog"><div class="dialog-top"><h2 data-i18n="shareTitle">Copy this point’s link</h2><button class="close-btn" data-close="share-dialog" aria-label="Close">×</button></div><label for="share-link" data-i18n="shareHint">The link includes your point and applied settings.</label><input id="share-link" type="url" readonly style="width:100%;padding:14px;color:inherit;background:transparent;border:1px solid #87917b"></dialog>
   <div id="toast" role="status" class="toast" hidden></div>
   <script type="module" src="src/app.js"></script>
 </body></html>

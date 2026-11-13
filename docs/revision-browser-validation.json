@@ -1,0 +1,63 @@
+{
+  "startedAt": "2026-11-13T06:05:28.914Z",
+  "finishedAt": "2026-11-13T06:05:41.213Z",
+  "base": "http://127.0.0.1:4190/navigator.html",
+  "faultInjection": null,
+  "fontMode": "system fallback (font CDN isolated)",
+  "passed": 10,
+  "failed": 0,
+  "errors": [],
+  "resourceErrors": [],
+  "records": [
+    {
+      "name": "M01: all nine selected points survive share URL restoration with exact metrics",
+      "status": "PASS",
+      "durationMs": 2485
+    },
+    {
+      "name": "M01: legacy and invalid point links fall back to center; site and month switches reset it",
+      "status": "PASS",
+      "durationMs": 630
+    },
+    {
+      "name": "M01/M08: JSON, readable HTML and CSV identify the selected southeast point and applied settings",
+      "status": "PASS",
+      "durationMs": 725
+    },
+    {
+      "name": "M01: pending edits cannot be exported or shared and do not replace the applied point/result",
+      "status": "PASS",
+      "durationMs": 1273
+    },
+    {
+      "name": "M01: the copy-link fallback restores the selected point in a separate page",
+      "status": "PASS",
+      "durationMs": 545
+    },
+    {
+      "name": "M02: north/south/east/west and all map edges follow physical coordinates in both languages",
+      "status": "PASS",
+      "durationMs": 2054
+    },
+    {
+      "name": "M03: earliest window ranks ROI 1 by visible footprint margins and adopts its exact conditions",
+      "status": "PASS",
+      "durationMs": 1895
+    },
+    {
+      "name": "M08: Chinese exports preserve values, reasons, intervals and sources",
+      "status": "PASS",
+      "durationMs": 482
+    },
+    {
+      "name": "M08: desktop and 390/330 pixel layouts keep key actions and results in bounds",
+      "status": "PASS",
+      "durationMs": 1772
+    },
+    {
+      "name": "M08: no application exceptions or missing local resources",
+      "status": "PASS",
+      "durationMs": 0
+    }
+  ]
+}

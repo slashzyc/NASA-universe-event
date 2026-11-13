@@ -12,7 +12,7 @@ import {readFile,writeFile,mkdir,mkdtemp,rmdir,stat} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
-import {analyzeSite} from '../src/analysis.js';
+import {analyzeSite,searchWindows} from '../src/analysis.js';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const require = createRequire(import.meta.url);
@@ -51,6 +51,10 @@ const southeast = center.patchStats.scenarios.find(item => item.id === 'e+25-n-2
 assert.equal(center.centerFeasible, true);
 assert.equal(center.patchStats.feasibleCount, 8);
 assert.equal(southeast.feasible, false);
+const recommended=searchWindows(bundle.sites,{...settings,minPatchCoverage:1,stepHours:6}).candidates.find(item=>item.feasible);
+assert.equal(recommended.siteId,'ridge-1');
+const recommendedSite=bundle.sites.find(item=>item.id===recommended.siteId);
+const recommendedResult=analyzeSite(recommendedSite,{...settings,start:recommended.start});
 const query = new URLSearchParams({campaign: 'jun', site: site.id, ...settings});
 const url = new URL(`navigator.html?${query}`, base).href;
 let browser, context, video, nativeRecorder, captureSession, captureQueue = Promise.resolve();
@@ -61,7 +65,7 @@ const wallStart = performance.now();
 try {
   browser = await playwright.chromium.launch({headless: true,
     ...(executablePath ? {executablePath} : {}), args: ['--no-proxy-server']});
-  const contextOptions = {viewport: {width: 1440, height: 960}, reducedMotion: 'reduce', acceptDownloads: true};
+  const contextOptions = {viewport: {width: 1440, height: 960}, reducedMotion: 'reduce', acceptDownloads: true, locale:'en-US', permissions:['clipboard-read','clipboard-write']};
   context = await browser.newContext({...contextOptions, recordVideo: {dir: temporary, size: {width: 1440, height: 960}}});
   let page;
   try { page = await context.newPage(); video = page.video(); }
@@ -106,7 +110,7 @@ try {
   await page.waitForFunction(() => document.querySelectorAll('#comparison-body tr').length === 3);
   assert.match(await page.locator('#metrics').innerText(), /12\.4/);
 
-  await page.evaluate(() => {
+  const installOverlay=async()=>page.evaluate(() => {
     const style = document.createElement('style');
     style.textContent = `html{scroll-behavior:auto!important}body{padding-bottom:116px!important}
       #recording-disclosure{position:fixed;z-index:2147483647;top:12px;right:14px;padding:8px 13px;border:1px solid #d3aa7266;border-radius:2px;background:#080b0def;color:#d6bc95;font:600 10px/1.5 system-ui,sans-serif;letter-spacing:1px;pointer-events:none}
@@ -118,6 +122,7 @@ try {
     tag.textContent = 'AI-ASSISTED PROJECT RECORDING · NOT AN OFFICIAL SUBMISSION'; document.body.append(tag);
     const caption = document.createElement('div'); caption.id = 'recording-caption'; document.body.append(caption);
   });
+  await installOverlay();
   const caption = async (section, sentence) => page.evaluate(({section, sentence}) => {
     const element = document.getElementById('recording-caption'); element.replaceChildren();
     const small = document.createElement('small'); small.textContent = section; element.append(small, document.createTextNode(sentence));
@@ -129,10 +134,10 @@ try {
   };
 
   await caption('01 / YOUR FIRST LUNAR MISSION', 'Choose a place. Set your mission. Read the result — no space knowledge needed.');
-  await hold(4500);
+  await hold(3500);
   await scrollTo('#read-result', 'start');
   await caption('01 / THE CENTER MEETS THE EXAMPLE LIMITS', `ROI 6: ${center.metrics.longestDarkHours.toFixed(1)} hours without Sun visibility. Eight of nine sampled locations pass.`);
-  await hold(5000);
+  await hold(4000);
 
   await page.locator('#inspect-risk').click();
   assert.equal(await page.locator('#point-selector [data-patch="e+25-n-25"]').getAttribute('aria-pressed'), 'true');
@@ -140,57 +145,74 @@ try {
   assert.match(await page.locator('#result-summary').innerText(), /2/);
   await caption('02 / EXPLORE THE POINT OUTSIDE THE LIMITS', `Move 25 m east and 25 m south: ${southeast.metrics.longestDarkHours.toFixed(1)} hours without Sun visibility. Two limits are missed.`);
   await scrollTo('#read-result', 'start');
-  await hold(7000);
+  await hold(4500);
 
+  await caption('03 / KEEP THE POINT YOU ACTUALLY SELECTED', 'Share or save this southeast sample. The link and brief retain its two missed limits.');
+  await page.locator('#share-point').click();
+  const sharedURL=page.url();
+  assert.equal(new URL(sharedURL).searchParams.get('patch'),'e+25-n-25');
+  const pointDownload=page.waitForEvent('download');
+  await page.locator('#save-brief').click();
+  const pointBrief=await pointDownload;
+  const pointHtml=await readFile(await pointBrief.path(),'utf8');
+  assert.match(pointHtml,/e\+25-n-25/);assert.match(pointHtml,/167\.5/);
+  await hold(1500);
+  // Navigate to the saved artifact so the application's pending callbacks are
+  // discarded along with its document, as when opening the downloaded brief.
+  await page.goto('data:text/html;charset=utf-8,'+encodeURIComponent(pointHtml),{waitUntil:'load'});
+  await installOverlay();
+  await caption('03 / THE EXPORTED BRIEF AGREES WITH THE SCREEN', 'Selected point: southeast. Its metrics, failure reasons, intervals and restore link stay together.');
+  await hold(4000);
+  await page.goto(sharedURL,{waitUntil:'networkidle'});
+  await page.waitForSelector('#app:not([hidden])');
+  assert.equal(await page.locator('#point-selector [data-patch="e+25-n-25"]').getAttribute('aria-pressed'),'true');
+  await installOverlay();
   await scrollTo('.point-explorer');
-  await caption('03 / NINE POINTS. ONE CLEAR COMPARISON.', 'Tap a direction to compare nearby terrain. The sample count is not a landing-success probability.');
-  await page.locator('#point-selector [data-patch="e+0-n+0"]').click();
-  await hold(1800);
-  await page.locator('#point-selector [data-patch="e+25-n-25"]').click();
-  await hold(2200);
+  await caption('03 / RESTORED TO THE SAME SOUTHEAST POINT', 'The restored view selects the same sample. Nine tested positions are not a landing-success probability.');
+  await hold(3000);
   await page.locator('#detail-charts > summary').click();
   await scrollTo('.horizon-panel');
-  await caption('03 / OPEN THE SCIENCE WHEN YOU ARE READY', 'Move through time to see the Sun and Earth above — or behind — the local terrain.');
-  for (const value of [30, 90, 150, 210, 270]) {
-    await page.locator('#time-slider').evaluate((element, next) => {
-      element.value = String(next); element.dispatchEvent(new Event('input', {bubbles: true}));
-    }, value);
-    await hold(1100);
+  await caption('03 / INSPECT THE GEOMETRY', 'Move through time to see the Sun and Earth above or behind the local terrain.');
+  for (const value of [30,150,270]) {
+    await page.locator('#time-slider').evaluate((element,next)=>{element.value=String(next);element.dispatchEvent(new Event('input',{bubbles:true}));},value);
+    await hold(800);
   }
 
   await caption('04 / FIND A LATER DATE', 'Search the same month in six-hour steps, keeping all mission limits unchanged.');
   await page.locator('#find-window').click();
   await page.waitForSelector('#search-results:not([hidden])', {timeout: 30000});
   await scrollTo('#search-results', 'center');
-  const choice = page.locator('#search-results button[data-site="ridge-4"]').first();
+  const firstChoice=page.locator('#search-results button[data-site]').first();
+  assert.equal(await firstChoice.getAttribute('data-site'),recommended.siteId);
+  const choice = firstChoice;
   const nextStart = await choice.getAttribute('data-start');
-  assert.equal(nextStart, '2027-06-21T12:00:00.000Z');
-  await hold(4500);
-  await caption('04 / THE EARLIEST ALL-NINE-PASS OPTIONS ON THIS GRID', '21 June 2027, 12:00 UTC. A later arrival changes the modeled trade-off.');
+  assert.equal(Date.parse(nextStart),Date.parse(recommended.start));
+  await hold(3500);
+  await caption('04 / SAME DATE. COMPARE THE WEAKEST MARGIN.', `ROI ${recommendedSite.sourceRoiNumber} comes first: its smallest nine-point spare time is ${recommended.worstCase.minimumMarginHours.toFixed(2)} hours. Every trade-off remains visible.`);
   await hold(3000);
   await choice.click();
   await scrollTo('#read-result', 'start');
-  assert.match(await page.locator('#metrics').innerText(), /7\.7/);
-  await caption('04 / USE THIS WINDOW', 'ROI 4: 7.7 hours without Sun visibility. All nine sampled locations meet the example limits.');
+  assert.ok((await page.locator('#metrics').innerText()).includes(recommendedResult.metrics.longestDarkHours.toFixed(1)));
+  await caption('04 / USE THE WINDOW WITH MORE FOOTPRINT MARGIN', `ROI ${recommendedSite.sourceRoiNumber}: center darkness ${recommendedResult.metrics.longestDarkHours.toFixed(1)} hours; worst sample ${recommendedResult.patchStats.worstCase.metrics.longestDarkHours.toFixed(2)} hours. All nine meet the limits.`);
   await hold(5000);
 
   await caption('05 / SAVE A READABLE MISSION BRIEF', 'One click saves the settings, comparison, and NASA source trail in a printable document.');
   const briefDownload = page.waitForEvent('download');
   await page.locator('#save-brief').click();
   const brief = await briefDownload;
-  assert.match(await readFile(await brief.path(), 'utf8'), /2027-06-21 12:00 UTC/);
-  await hold(2500);
+  assert.ok((await readFile(await brief.path(), 'utf8')).includes(new Date(recommended.start).toISOString().replace('T',' ').replace('.000Z',' UTC')));
+  await hold(1800);
 
   await caption('05 / KEEP THE FULL CALCULATION RECORD', 'Export HTML, CSV, or JSON to inspect the assumptions and reproduce the result.');
   await page.locator('#export-btn').click();
-  await hold(2500);
+  await hold(1800);
   const downloaded = page.waitForEvent('download');
   await page.locator('#export-json').click();
   const download = await downloaded;
   const exported = JSON.parse(await readFile(await download.path(), 'utf8'));
   assert.equal(exported.settings.start, '2027-06-21T12:00:00Z');
-  assert.equal(exported.selectedSiteId, 'ridge-4');
-  assert.equal(exported.results.find(item => item.siteId === 'ridge-4').patchStats.feasibleCount, 9);
+  assert.equal(exported.selectedSiteId, recommended.siteId);
+  assert.equal(exported.results.find(item => item.siteId === recommended.siteId).patchStats.feasibleCount, 9);
   await hold(1000);
   await page.locator('[data-close="export-dialog"]').click();
   await page.locator('#method-open').click();

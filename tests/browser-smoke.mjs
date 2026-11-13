@@ -75,7 +75,7 @@ try{
     await p.screenshot({path:path.join(screenshots,'desktop-footprint.png'),fullPage:true});
   });
   await test('terrain keyboard and timeline slider change the inspected state',async()=>{
-    await p.locator('#terrain-canvas').focus();const before=await p.locator('#horizon-readout').innerText();await p.keyboard.press('ArrowRight');assert.notEqual(await p.locator('#horizon-readout').innerText(),before);
+    await p.locator('#terrain-canvas').focus();const before=await p.locator('#horizon-readout').innerText();await p.keyboard.press('ArrowRight');assert.equal(await p.locator('#horizon-readout').innerText(),before);await p.keyboard.press('ArrowLeft');assert.equal(await p.locator('#point-selector [aria-pressed="true"]').getAttribute('data-patch'),'e+0-n-25');
     await reveal(p,'#time-slider');const time=await p.locator('#time-label').innerText();await p.locator('#time-slider').focus();await p.keyboard.press('ArrowRight');assert.notEqual(await p.locator('#time-label').innerText(),time);
   });
   await test('worker search completes and a returned window can be applied',async()=>{
@@ -96,7 +96,7 @@ try{
   });
   await test('standalone HTML and CSV exports contain the actual scenario',async()=>{
     await scenario(p);await p.locator('#export-btn').click();
-    for(const [selector,extension,expected] of [['#export-html','.html','2027-06-02'],['#export-csv','.csv','ridge-6']]){const pending=p.waitForEvent('download');await p.locator(selector).click();const d=await pending;assert.ok(d.suggestedFilename().endsWith(extension));const text=await readFile(await d.path(),'utf8');assert.ok(text.includes(expected));if(extension==='.html')assert.ok(text.includes('Source trail'));else assert.ok(text.split('\n').length===4);}
+    for(const [selector,extension,expected] of [['#export-html','.html','2027-06-02'],['#export-csv','.csv','ridge-6']]){const pending=p.waitForEvent('download');await p.locator(selector).click();const d=await pending;assert.ok(d.suggestedFilename().endsWith(extension));const text=await readFile(await d.path(),'utf8');assert.ok(text.includes(expected));if(extension==='.html')assert.ok(text.includes('Source trail'));else {assert.equal(text.split('\n').length,31);assert.ok(text.includes('"sample"'));assert.ok(text.includes('"selected"'));}}
     await p.locator('[data-close="export-dialog"]').click();
   });
   await test('search after unsaved form changes keeps displayed and exported results consistent',async()=>{

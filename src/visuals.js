@@ -8,7 +8,7 @@ function setup(canvas) {
   return {ctx,w:r.width,h:r.height};
 }
 function line(ctx, x1,y1,x2,y2,color,width=1){ctx.strokeStyle=color;ctx.lineWidth=width;ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();}
-export function drawTerrain(canvas, site, result, activePatch) {
+export function drawTerrain(canvas, site, result, activePatch, lang="en") {
   const {ctx,w,h}=setup(canvas),t=site.terrain;
   ctx.fillStyle='#15232c';ctx.fillRect(0,0,w,h);
   if(!t?.elevations?.length)return [];
@@ -60,7 +60,7 @@ export function drawTerrain(canvas, site, result, activePatch) {
   const mx=w/2,my=h/2;
   ctx.strokeStyle='#e7b965bb';ctx.setLineDash([4,4]);ctx.strokeRect(mx-8,my-8,16,16);line(ctx,mx+9,my,lx,ly+lensSize/2,'#d4b47670');ctx.setLineDash([]);
   ctx.fillStyle='#081218ef';ctx.strokeStyle='#6c7c7c80';ctx.lineWidth=1;ctx.fillRect(lx,ly,lensSize,lensSize);ctx.strokeRect(lx,ly,lensSize,lensSize);
-  ctx.font='8px "Segoe UI",sans-serif';ctx.fillStyle='#adc0c7';ctx.fillText('FOOTPRINT LENS / 50 × 50 m',lx+10,ly+15);
+  ctx.font='8px "Segoe UI",sans-serif';ctx.fillStyle='#adc0c7';ctx.fillText(lang==='zh'?'九点放大 / 50 × 50 米':'FOOTPRINT LENS / 50 × 50 m',lx+10,ly+15);
   const inner=lensSize-44,centerX=lx+lensSize/2,centerY=ly+lensSize/2+7;
   for(let j=-1;j<=1;j++){line(ctx,centerX-inner/2,centerY+j*inner/2,centerX+inner/2,centerY+j*inner/2,'#324b58',.7);line(ctx,centerX+j*inner/2,centerY-inner/2,centerX+j*inner/2,centerY+inner/2,'#324b58',.7);}
   const hits=[];
@@ -75,10 +75,10 @@ export function drawTerrain(canvas, site, result, activePatch) {
   ctx.font='9px Consolas,monospace';ctx.fillStyle='#afc2ca';ctx.fillText(`${site.elevationM.toFixed(0)} m`,Math.max(20,mx-70),my);
   const scaleBar=Math.min(100,w*.2),physical=scaleBar/(scale)*t.cellSizeM;
   line(ctx,20,h-100,20+scaleBar,h-100,'#c9d4d5');line(ctx,20,h-104,20,h-96,'#c9d4d5');line(ctx,20+scaleBar,h-104,20+scaleBar,h-96,'#c9d4d5');
-  ctx.font='8px Consolas,monospace';ctx.fillStyle='#c0cdcb';ctx.fillText(`${(physical/1000).toFixed(1)} km · cartographic shading · 100 m contours`,20,h-110);
+  ctx.font='8px Consolas,monospace';ctx.fillStyle='#c0cdcb';ctx.fillText(lang==='zh'?`${(physical/1000).toFixed(1)} 千米 · 地形阴影 · 100 米等高线`:`${(physical/1000).toFixed(1)} km · cartographic shading · 100 m contours`,20,h-110);
   return hits;
 }
-export function drawHorizon(canvas, horizon, sample, clearance=0) {
+export function drawHorizon(canvas, horizon, sample, clearance=0, lang="en") {
   const {ctx,w,h}=setup(canvas),left=36,right=18,top=21,bottom=30,pw=w-left-right,ph=h-top-bottom;
   const min=Math.floor(Math.min(-3,...horizon,sample?.sunEl??0,sample?.earthEl??0))-1;
   const max=Math.ceil(Math.max(4,...horizon,sample?.sunEl??0,sample?.earthEl??0))+1;
@@ -87,12 +87,12 @@ export function drawHorizon(canvas, horizon, sample, clearance=0) {
   ctx.font='9px Consolas,monospace';ctx.textAlign='right';
   for(let el=Math.ceil(min/2)*2;el<=max;el+=2){line(ctx,left,y(el),w-right,y(el),'#2a3d48',.6);ctx.fillStyle='#7f97a3';ctx.fillText(`${el}°`,left-8,y(el)+3);}
   ctx.textAlign='center';
-  for(let az=0;az<=360;az+=45){line(ctx,x(az),top,x(az),top+ph,'#2a3d48',.6);ctx.fillStyle='#8199a5';ctx.fillText(az%90===0?`${['N','E','S','W','N'][az/90]} ${az}°`:`${az}°`,x(az),h-10);}
+  for(let az=0;az<=360;az+=45){line(ctx,x(az),top,x(az),top+ph,'#2a3d48',.6);ctx.fillStyle='#8199a5';ctx.fillText(az%90===0?`${(lang==='zh'?['北','东','南','西','北']:['N','E','S','W','N'])[az/90]} ${az}°`:`${az}°`,x(az),h-10);}
   line(ctx,left,y(0),w-right,y(0),'#9ab5c160',1);
   ctx.beginPath();ctx.moveTo(x(0),top+ph);for(let az=0;az<=360;az++)ctx.lineTo(x(az),y(horizon[az%360]));ctx.lineTo(x(360),top+ph);ctx.closePath();ctx.fillStyle='#344954';ctx.fill();
   ctx.beginPath();for(let az=0;az<=360;az++){if(!az)ctx.moveTo(x(az),y(horizon[0]));else ctx.lineTo(x(az),y(horizon[az%360]));}ctx.strokeStyle='#8b9d9f';ctx.lineWidth=1.2;ctx.stroke();
   if(clearance){ctx.beginPath();ctx.setLineDash([3,4]);for(let az=0;az<=360;az++){if(!az)ctx.moveTo(x(az),y(horizon[0]+clearance));else ctx.lineTo(x(az),y(horizon[az%360]+clearance));}ctx.strokeStyle='#e7b9656b';ctx.stroke();ctx.setLineDash([]);}
-  if(sample)for(const body of [{key:'sun',name:'SUN',color:'#f0c574',radius:6},{key:'earth',name:'EARTH',color:'#94d2e0',radius:5}]){
+  if(sample)for(const body of [{key:'sun',name:lang==='zh'?'太阳':'SUN',color:'#f0c574',radius:6},{key:'earth',name:lang==='zh'?'地球':'EARTH',color:'#94d2e0',radius:5}]){
     const az=sample[body.key+'Az'],el=sample[body.key+'El'],px=x(az),py=y(el),visible=el>interpolateHorizon(horizon,az)+clearance;
     ctx.save();ctx.shadowColor=body.color;ctx.shadowBlur=visible?18:0;ctx.beginPath();ctx.arc(px,py,body.radius,0,TAU);ctx.fillStyle=body.color;ctx.globalAlpha=visible?1:.55;ctx.fill();ctx.restore();
     if(body.key==='sun')for(let i=0;i<8;i++){const a=i*TAU/8;line(ctx,px+Math.cos(a)*9,py+Math.sin(a)*9,px+Math.cos(a)*12,py+Math.sin(a)*12,body.color,.7);}

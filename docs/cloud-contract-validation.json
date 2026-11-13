@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-13T09:03:12.883Z",
+  "checkedAt": "2026-11-13T09:14:05.382Z",
   "buildId": "ea778e1b823c522b00899ac3580e1a01d51e490baef49caaeea366f4de8d043b",
   "mode": "Compiled Worker with real disk SQLite/files behind D1/R2 test adapters; not a claim of cloud deployment",
   "checks": [
@@ -45,6 +45,10 @@
     },
     {
       "name": "Tampered object evidence is rejected before viewing or exporting",
+      "status": "PASS"
+    },
+    {
+      "name": "Frontend proxy uses edge-supported redirect mode and refuses upstream redirects",
       "status": "PASS"
     }
   ]

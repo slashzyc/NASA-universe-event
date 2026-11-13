@@ -4,11 +4,11 @@ import {createHash} from 'node:crypto';
 import {writeFile} from 'node:fs/promises';
 const origin=new URL(process.argv[2]||'https://lunamargin-slashzyc.laceysquirrel4.chatgpt.site').origin;
 if(!origin.startsWith('https://'))throw new Error('A public HTTPS deployment is required.');
-const checks=[],timings=[],created=[];let cookie='';
+const checks=[],timings=[],created=[],cookies=new Map();let cookie='';
 const sha=text=>createHash('sha256').update(text).digest('hex');
 async function call(path,{method='GET',body,anonymous=false}={}){
  const started=performance.now(),r=await fetch(origin+path,{method,headers:{...(cookie&&!anonymous?{Cookie:cookie}:{}),...(body?{'Content-Type':'application/json',Origin:origin}:{})},body:body?JSON.stringify(body):undefined});
- const set=r.headers.get('set-cookie');if(set&&!anonymous)cookie=set.split(';')[0];
+ if(!anonymous){for(const set of r.headers.getSetCookie()){const pair=set.split(';')[0],separator=pair.indexOf('=');cookies.set(pair.slice(0,separator),pair.slice(separator+1));}cookie=[...cookies].map(([name,value])=>name+'='+value).join('; ');}
  const raw=await r.text();let value;try{value=JSON.parse(raw);}catch{throw new Error(`${method} ${path.split('?')[0]} returned ${r.status}, not JSON: ${raw.slice(0,120)}`);}
  timings.push({action:`${method} ${path.replace(/[a-f0-9]{64}|[a-f0-9-]{36}/g,':id')}`,milliseconds:Math.round(performance.now()-started),status:r.status});
  return{status:r.status,value};

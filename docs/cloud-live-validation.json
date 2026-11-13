@@ -1,0 +1,141 @@
+{
+  "checkedAt": "2026-11-13T09:06:01.057Z",
+  "origin": "https://lunamargin-slashzyc.laceysquirrel4.chatgpt.site",
+  "buildId": "ea778e1b823c522b00899ac3580e1a01d51e490baef49caaeea366f4de8d043b",
+  "verification": "Actual public HTTP service backed by Cloudflare D1 and R2. Browser interaction and platform restart are separate checks.",
+  "checks": [
+    {
+      "name": "Actual public D1/R2 health and honest capabilities",
+      "status": "PASS"
+    },
+    {
+      "name": "Database-backed public coverage and anonymous editing session",
+      "status": "PASS"
+    },
+    {
+      "name": "Public server computes verified science and consistent complete evidence",
+      "status": "PASS"
+    },
+    {
+      "name": "Changed threshold produces a distinct genuine calculation",
+      "status": "PASS"
+    },
+    {
+      "name": "Save, list and independent HTTP reopen preserve exact parameters and evidence",
+      "status": "PASS"
+    },
+    {
+      "name": "Another visitor reads shared evidence and cannot change the original",
+      "status": "PASS"
+    },
+    {
+      "name": "Rename and copy preserve immutable evidence",
+      "status": "PASS"
+    },
+    {
+      "name": "Unsupported location, date and height return explicit failures",
+      "status": "PASS"
+    },
+    {
+      "name": "Deletion revokes the share and preserves a separate saved copy",
+      "status": "PASS"
+    }
+  ],
+  "timings": [
+    {
+      "action": "GET /api/health",
+      "milliseconds": 131,
+      "status": 200
+    },
+    {
+      "action": "GET /service-config.json",
+      "milliseconds": 35,
+      "status": 200
+    },
+    {
+      "action": "GET /api/coverage",
+      "milliseconds": 210,
+      "status": 200
+    },
+    {
+      "action": "POST /api/analyses",
+      "milliseconds": 1234,
+      "status": 201
+    },
+    {
+      "action": "POST /api/analyses",
+      "milliseconds": 1073,
+      "status": 201
+    },
+    {
+      "action": "POST /api/tasks",
+      "milliseconds": 730,
+      "status": 201
+    },
+    {
+      "action": "GET /api/tasks",
+      "milliseconds": 93,
+      "status": 200
+    },
+    {
+      "action": "GET /api/tasks/:id",
+      "milliseconds": 382,
+      "status": 200
+    },
+    {
+      "action": "POST /api/tasks/:id/share",
+      "milliseconds": 309,
+      "status": 201
+    },
+    {
+      "action": "GET /api/shared/:id",
+      "milliseconds": 405,
+      "status": 200
+    },
+    {
+      "action": "PATCH /api/tasks/:id",
+      "milliseconds": 179,
+      "status": 404
+    },
+    {
+      "action": "PATCH /api/tasks/:id",
+      "milliseconds": 608,
+      "status": 200
+    },
+    {
+      "action": "POST /api/tasks/:id/copy",
+      "milliseconds": 930,
+      "status": 201
+    },
+    {
+      "action": "POST /api/analyses",
+      "milliseconds": 138,
+      "status": 422
+    },
+    {
+      "action": "POST /api/analyses",
+      "milliseconds": 203,
+      "status": 422
+    },
+    {
+      "action": "POST /api/analyses",
+      "milliseconds": 209,
+      "status": 422
+    },
+    {
+      "action": "DELETE /api/tasks/:id",
+      "milliseconds": 210,
+      "status": 200
+    },
+    {
+      "action": "GET /api/shared/:id",
+      "milliseconds": 130,
+      "status": 404
+    },
+    {
+      "action": "GET /api/tasks/:id",
+      "milliseconds": 496,
+      "status": 200
+    }
+  ]
+}

@@ -1,0 +1,139 @@
+{
+  "checkedAt": "2026-11-13T09:05:36.182Z",
+  "viewport": "390x844",
+  "method": "WCAG sRGB relative luminance. Text against nearest opaque solid background; does not claim full-page gradient/imagery accessibility audit.",
+  "rows": [
+    {
+      "selector": ".moon-message",
+      "fontPx": 12,
+      "foreground": "rgb(183, 194, 180)",
+      "background": [
+        8,
+        11,
+        13
+      ],
+      "contrast": 10.7
+    },
+    {
+      "selector": ".moon-art-note",
+      "fontPx": 12,
+      "foreground": "rgb(165, 183, 167)",
+      "background": [
+        8,
+        11,
+        13
+      ],
+      "contrast": 9.33
+    },
+    {
+      "selector": "#moon-place-coordinates",
+      "fontPx": 12,
+      "foreground": "rgb(157, 177, 148)",
+      "background": [
+        8,
+        11,
+        13
+      ],
+      "contrast": 8.6
+    },
+    {
+      "selector": "#moon-coverage",
+      "fontPx": 12,
+      "foreground": "rgb(175, 194, 169)",
+      "background": [
+        8,
+        11,
+        13
+      ],
+      "contrast": 10.44
+    },
+    {
+      "selector": ".ribbon-label-bottom",
+      "fontPx": 12,
+      "foreground": "rgb(111, 122, 114)",
+      "background": [
+        12,
+        16,
+        17
+      ],
+      "contrast": 4.28
+    },
+    {
+      "selector": ".reading-line",
+      "fontPx": 14,
+      "foreground": "rgb(118, 131, 111)",
+      "background": [
+        238,
+        238,
+        230
+      ],
+      "contrast": 3.43
+    },
+    {
+      "selector": ".story-disclosure",
+      "fontPx": 15,
+      "foreground": "rgb(132, 145, 124)",
+      "background": [
+        238,
+        238,
+        230
+      ],
+      "contrast": 2.85
+    },
+    {
+      "selector": ".diagram-note",
+      "fontPx": 12,
+      "foreground": "rgb(140, 151, 139)",
+      "background": [
+        238,
+        238,
+        230
+      ],
+      "contrast": 2.6
+    },
+    {
+      "selector": ".science-sources p",
+      "fontPx": 15,
+      "foreground": "rgb(170, 189, 163)",
+      "background": [
+        17,
+        23,
+        22
+      ],
+      "contrast": 9.08
+    },
+    {
+      "selector": ".science-sources .source-eyebrow",
+      "fontPx": 12,
+      "foreground": "rgb(170, 189, 163)",
+      "background": [
+        17,
+        23,
+        22
+      ],
+      "contrast": 9.08
+    },
+    {
+      "selector": ".footer-bottom",
+      "fontPx": 12,
+      "foreground": "rgb(155, 175, 148)",
+      "background": [
+        9,
+        14,
+        13
+      ],
+      "contrast": 8.29
+    },
+    {
+      "selector": ".home-task-summary",
+      "fontPx": 12,
+      "foreground": "rgb(185, 198, 189)",
+      "background": [
+        8,
+        11,
+        13
+      ],
+      "contrast": 11.16
+    }
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "frozenAt": "2026-11-13T17:17:44.227Z",
+  "blocks": [
+    {
+      "id": "nominal",
+      "variable": "none",
+      "samples": "published 30 min center-reused",
+      "horizon": "1 degree / radial scale .5"
+    },
+    {
+      "id": "own30",
+      "variable": "observer location",
+      "samples": "every sixth real 5 min sample, same individual observer",
+      "horizon": "published"
+    },
+    {
+      "id": "dense5",
+      "variable": "time cadence only relative to own30",
+      "samples": "actual JPL 5 min individual observer",
+      "horizon": "published"
+    },
+    {
+      "id": "radial",
+      "variable": "radial sampling only relative to dense5",
+      "samples": "same dense5",
+      "horizon": "1 degree / radial scale .25"
+    },
+    {
+      "id": "azimuth",
+      "variable": "azimuth sampling only relative to dense5",
+      "samples": "same dense5",
+      "horizon": "0.5 degree / radial scale .5"
+    },
+    {
+      "id": "combined",
+      "variable": "joint geometric refinement",
+      "samples": "same dense5",
+      "horizon": "0.5 degree / radial scale .25"
+    },
+    {
+      "id": "stress",
+      "variable": "deterministic added clearance",
+      "incrementsDeg": [
+        0,
+        0.02,
+        0.1,
+        0.25
+      ],
+      "interpretation": "not terrain uncertainty"
+    }
+  ],
+  "dependencies": [
+    "freeze rules",
+    "compute and freeze nominal candidates/selected IDs",
+    "fetch real data serially",
+    "recompute isolated factors",
+    "audit all outcomes"
+  ],
+  "requiredOutputs": [
+    "data/science-validation-cases.json",
+    "data/science-validation-audit.json",
+    "docs/science-validation/VALIDATION.md"
+  ],
+  "execution": "node scripts/plan-science-validation.mjs; python data-pipeline/audit_case_matrix.py; node scripts/summarize-science-validation.mjs"
+}

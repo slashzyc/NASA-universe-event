@@ -1,6 +1,6 @@
 {
-  "checkedAt": "2026-11-13T09:25:44.841Z",
-  "buildId": "4cb916cef0737e03fdacd18b6326df860685f971e0087d654ceaafeddb96ce88",
+  "checkedAt": "2026-11-13T17:49:55.068Z",
+  "buildId": "0a03dbcfd13043549533c05a82a9ad63146b1e02d3a4d6941abf319b67b9b242",
   "mode": "Compiled Worker with real disk SQLite/files behind D1/R2 test adapters; not a claim of cloud deployment",
   "checks": [
     {
@@ -17,6 +17,10 @@
     },
     {
       "name": "Named task binds the completed calculation and its R2 checksum",
+      "status": "PASS"
+    },
+    {
+      "name": "Formal evidence retains exact matched sensitive audit and immutable catalog identity inside its checksum",
       "status": "PASS"
     },
     {
@@ -48,7 +52,7 @@
       "status": "PASS"
     },
     {
-      "name": "Frontend proxy uses edge-supported redirect mode and refuses upstream redirects",
+      "name": "Release-qualified interface is served from the same bundle without external frontend fetches",
       "status": "PASS"
     }
   ]

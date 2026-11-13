@@ -1,0 +1,63 @@
+{
+  "checkedAt": "2026-11-13T06:58:47.577Z",
+  "kind": "automated-material-check-not-human-study",
+  "cases": [
+    {
+      "case": "A",
+      "plans": 4,
+      "points": 36,
+      "metricAssertions": 108,
+      "printBoxes": [
+        {
+          "width": 1046,
+          "height": 633.984375,
+          "overflow": false
+        },
+        {
+          "width": 1046,
+          "height": 633.984375,
+          "overflow": false
+        },
+        {
+          "width": 1046,
+          "height": 633.984375,
+          "overflow": false
+        },
+        {
+          "width": 1046,
+          "height": 633.984375,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "case": "B",
+      "plans": 4,
+      "points": 36,
+      "metricAssertions": 108,
+      "printBoxes": [
+        {
+          "width": 1046,
+          "height": 633.984375,
+          "overflow": false
+        },
+        {
+          "width": 1046,
+          "height": 633.984375,
+          "overflow": false
+        },
+        {
+          "width": 1046,
+          "height": 633.984375,
+          "overflow": false
+        },
+        {
+          "width": 1046,
+          "height": 633.984375,
+          "overflow": false
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

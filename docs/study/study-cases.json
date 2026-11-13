@@ -1,7 +1,9 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "status": "materials-prepared-no-human-observations",
-  "generatedAt": "2026-11-13T06:58:06.631Z",
+  "primaryUseCase": "early lunar mission-concept location/date comparison",
+  "releaseFreeze": "Before first participant, record the actual immutable /releases/<id>/ URL, build identity and exact material SHA. Stop if anything differs; no participants have been tested.",
+  "generatedAt": "2026-11-13T17:22:35.897Z",
   "analysisSha256": "981e49c08ae6457450c5e0fbb8d9c743521dbb91ed6eeb2cbb01b3e132ea5fcd",
   "participantsTested": 0,
   "cases": [
@@ -11,7 +13,8 @@
       "file": "lunar-sites-june.json",
       "siteId": "ridge-4",
       "start": "2027-06-21T18:00:00Z",
-      "generatedAt": "2026-11-13T06:58:06.631Z",
+      "maxDelayHours": 12,
+      "generatedAt": "2026-11-13T17:22:35.897Z",
       "analysisSha256": "981e49c08ae6457450c5e0fbb8d9c743521dbb91ed6eeb2cbb01b3e132ea5fcd",
       "datasetSha256": "c2258b262f2ee22599195090a9e652d8f6fd53c48bfb48139896be02a86f3d8f",
       "sources": [
@@ -36,25 +39,28 @@
         "screeningRecord": "case-screening.json",
         "empiricallyMatchedDifficulty": false
       },
+      "missionConstraints": {
+        "schemaVersion": 1,
+        "referenceStart": "2027-06-21T18:00:00.000Z",
+        "latestArrival": "2027-06-22T06:00:00.000Z",
+        "maxDelayHours": 12,
+        "rankingPreference": "earliest"
+      },
       "search": {
-        "evaluatedCount": 30,
+        "evaluatedCount": 9,
         "stepHours": 6,
         "ranking": {
-          "id": "earliest-then-footprint-margin-v1",
-          "criteria": [
-            "delayHours:asc",
-            "feasible:true-first",
-            "worstCase.allKnown:true-first",
-            "worstCase.minimumMarginHours:desc",
-            "worstCase.margins.darknessHours:desc",
-            "worstCase.margins.earthGapHours:desc",
-            "worstCase.margins.jointHours:desc",
-            "center.longestDarkHours:asc",
-            "center.longestCommGapHours:asc",
-            "center.jointHours:desc",
-            "siteId:codepoint-asc"
-          ],
-          "explanation": "Keep the earliest feasible arrival. At the same arrival, prefer complete footprints with the largest smallest threshold margin (hours). Break ties by darkness, Earth-gap, and joint-time margins, then center metrics and site ID. All components remain visible; this is a declared preference, not a universal optimum."
+          "id": "mission-earliest-then-margin-v1",
+          "preference": "earliest"
+        },
+        "coverage": {
+          "requestedStart": "2027-06-21T18:00:00.000Z",
+          "requestedLatest": "2027-06-22T06:00:00.000Z",
+          "effectiveLatest": "2027-06-22T06:00:00.000Z",
+          "complete": true,
+          "boundedByData": false,
+          "gridHours": 6,
+          "interpretation": "Only complete mission intervals on the stated search grid are evaluated. A partial date range is not a no-solution finding for missing dates."
         }
       },
       "plans": [
@@ -75,7 +81,27 @@
             "nominalStepHours": 0.5,
             "start": "2027-06-21T18:00:00Z"
           },
-          "appURL": "../../navigator.html?campaign=jun&site=ridge-4&patch=e%2B0-n%2B0&durationHours=168&maxDarkHours=24&maxCommGapHours=24&minJointHours=24&clearanceDeg=0&observerHeightM=2&start=2027-06-21T18%3A00%3A00Z&lang=zh",
+          "missionConstraints": {
+            "schemaVersion": 1,
+            "referenceStart": "2027-06-21T18:00:00.000Z",
+            "latestArrival": "2027-06-22T06:00:00.000Z",
+            "maxDelayHours": 12,
+            "rankingPreference": "earliest"
+          },
+          "verification": {
+            "status": "not-verified-for-this-exact-nine-point-mission",
+            "completed": [
+              "nominal 30-minute calculation",
+              "declared angular stress scenarios"
+            ],
+            "unknown": [
+              "all-nine independent fine ephemerides for this exact interval",
+              "terrain error over the full horizon",
+              "electrical yield, link budget and landing safety"
+            ],
+            "angularStressIsTerrainError": false
+          },
+          "appURL": "../../navigator.html?campaign=jun&site=ridge-4&patch=e%2B0-n%2B0&durationHours=168&maxDarkHours=24&maxCommGapHours=24&minJointHours=24&clearanceDeg=0&observerHeightM=2&start=2027-06-21T18%3A00%3A00Z&lang=zh&missionConstraintsVersion=1&referenceStart=2027-06-21T18%3A00%3A00.000Z&rankingPreference=earliest&latestArrival=2027-06-22T06%3A00%3A00.000Z&maxDelayHours=12",
           "centerFeasible": true,
           "feasibleCount": 8,
           "worstCase": {
@@ -2239,7 +2265,27 @@
             "nominalStepHours": 0.5,
             "start": "2027-06-21T18:00:00.000Z"
           },
-          "appURL": "../../navigator.html?campaign=jun&site=ridge-1&patch=e%2B0-n%2B0&durationHours=168&maxDarkHours=24&maxCommGapHours=24&minJointHours=24&clearanceDeg=0&observerHeightM=2&start=2027-06-21T18%3A00%3A00.000Z&lang=zh",
+          "missionConstraints": {
+            "schemaVersion": 1,
+            "referenceStart": "2027-06-21T18:00:00.000Z",
+            "latestArrival": "2027-06-22T06:00:00.000Z",
+            "maxDelayHours": 12,
+            "rankingPreference": "earliest"
+          },
+          "verification": {
+            "status": "not-verified-for-this-exact-nine-point-mission",
+            "completed": [
+              "nominal 30-minute calculation",
+              "declared angular stress scenarios"
+            ],
+            "unknown": [
+              "all-nine independent fine ephemerides for this exact interval",
+              "terrain error over the full horizon",
+              "electrical yield, link budget and landing safety"
+            ],
+            "angularStressIsTerrainError": false
+          },
+          "appURL": "../../navigator.html?campaign=jun&site=ridge-1&patch=e%2B0-n%2B0&durationHours=168&maxDarkHours=24&maxCommGapHours=24&minJointHours=24&clearanceDeg=0&observerHeightM=2&start=2027-06-21T18%3A00%3A00.000Z&lang=zh&missionConstraintsVersion=1&referenceStart=2027-06-21T18%3A00%3A00.000Z&rankingPreference=earliest&latestArrival=2027-06-22T06%3A00%3A00.000Z&maxDelayHours=12",
           "centerFeasible": true,
           "feasibleCount": 9,
           "worstCase": {
@@ -4305,7 +4351,27 @@
             "nominalStepHours": 0.5,
             "start": "2027-06-22T00:00:00.000Z"
           },
-          "appURL": "../../navigator.html?campaign=jun&site=ridge-1&patch=e%2B0-n%2B0&durationHours=168&maxDarkHours=24&maxCommGapHours=24&minJointHours=24&clearanceDeg=0&observerHeightM=2&start=2027-06-22T00%3A00%3A00.000Z&lang=zh",
+          "missionConstraints": {
+            "schemaVersion": 1,
+            "referenceStart": "2027-06-21T18:00:00.000Z",
+            "latestArrival": "2027-06-22T06:00:00.000Z",
+            "maxDelayHours": 12,
+            "rankingPreference": "earliest"
+          },
+          "verification": {
+            "status": "not-verified-for-this-exact-nine-point-mission",
+            "completed": [
+              "nominal 30-minute calculation",
+              "declared angular stress scenarios"
+            ],
+            "unknown": [
+              "all-nine independent fine ephemerides for this exact interval",
+              "terrain error over the full horizon",
+              "electrical yield, link budget and landing safety"
+            ],
+            "angularStressIsTerrainError": false
+          },
+          "appURL": "../../navigator.html?campaign=jun&site=ridge-1&patch=e%2B0-n%2B0&durationHours=168&maxDarkHours=24&maxCommGapHours=24&minJointHours=24&clearanceDeg=0&observerHeightM=2&start=2027-06-22T00%3A00%3A00.000Z&lang=zh&missionConstraintsVersion=1&referenceStart=2027-06-21T18%3A00%3A00.000Z&rankingPreference=earliest&latestArrival=2027-06-22T06%3A00%3A00.000Z&maxDelayHours=12",
           "centerFeasible": true,
           "feasibleCount": 9,
           "worstCase": {
@@ -6371,7 +6437,27 @@
             "nominalStepHours": 0.5,
             "start": "2027-06-22T06:00:00.000Z"
           },
-          "appURL": "../../navigator.html?campaign=jun&site=ridge-1&patch=e%2B0-n%2B0&durationHours=168&maxDarkHours=24&maxCommGapHours=24&minJointHours=24&clearanceDeg=0&observerHeightM=2&start=2027-06-22T06%3A00%3A00.000Z&lang=zh",
+          "missionConstraints": {
+            "schemaVersion": 1,
+            "referenceStart": "2027-06-21T18:00:00.000Z",
+            "latestArrival": "2027-06-22T06:00:00.000Z",
+            "maxDelayHours": 12,
+            "rankingPreference": "earliest"
+          },
+          "verification": {
+            "status": "not-verified-for-this-exact-nine-point-mission",
+            "completed": [
+              "nominal 30-minute calculation",
+              "declared angular stress scenarios"
+            ],
+            "unknown": [
+              "all-nine independent fine ephemerides for this exact interval",
+              "terrain error over the full horizon",
+              "electrical yield, link budget and landing safety"
+            ],
+            "angularStressIsTerrainError": false
+          },
+          "appURL": "../../navigator.html?campaign=jun&site=ridge-1&patch=e%2B0-n%2B0&durationHours=168&maxDarkHours=24&maxCommGapHours=24&minJointHours=24&clearanceDeg=0&observerHeightM=2&start=2027-06-22T06%3A00%3A00.000Z&lang=zh&missionConstraintsVersion=1&referenceStart=2027-06-21T18%3A00%3A00.000Z&rankingPreference=earliest&latestArrival=2027-06-22T06%3A00%3A00.000Z&maxDelayHours=12",
           "centerFeasible": true,
           "feasibleCount": 9,
           "worstCase": {
@@ -8420,7 +8506,8 @@
       "file": "lunar-sites-march.json",
       "siteId": "ridge-1",
       "start": "2027-03-04T18:00:00Z",
-      "generatedAt": "2026-11-13T06:58:06.631Z",
+      "maxDelayHours": 78,
+      "generatedAt": "2026-11-13T17:22:35.897Z",
       "analysisSha256": "981e49c08ae6457450c5e0fbb8d9c743521dbb91ed6eeb2cbb01b3e132ea5fcd",
       "datasetSha256": "266011b3d2c20224c75a44a93d414986d9751ac7ae5a0d463ba5744434618aab",
       "sources": [
@@ -8445,25 +8532,28 @@
         "screeningRecord": "case-screening.json",
         "empiricallyMatchedDifficulty": false
       },
+      "missionConstraints": {
+        "schemaVersion": 1,
+        "referenceStart": "2027-03-04T18:00:00.000Z",
+        "latestArrival": "2027-03-08T00:00:00.000Z",
+        "maxDelayHours": 78,
+        "rankingPreference": "earliest"
+      },
       "search": {
-        "evaluatedCount": 246,
+        "evaluatedCount": 42,
         "stepHours": 6,
         "ranking": {
-          "id": "earliest-then-footprint-margin-v1",
-          "criteria": [
-            "delayHours:asc",
-            "feasible:true-first",
-            "worstCase.allKnown:true-first",
-            "worstCase.minimumMarginHours:desc",
-            "worstCase.margins.darknessHours:desc",
-            "worstCase.margins.earthGapHours:desc",
-            "worstCase.margins.jointHours:desc",
-            "center.longestDarkHours:asc",
-            "center.longestCommGapHours:asc",
-            "center.jointHours:desc",
-            "siteId:codepoint-asc"
-          ],
-          "explanation": "Keep the earliest feasible arrival. At the same arrival, prefer complete footprints with the largest smallest threshold margin (hours). Break ties by darkness, Earth-gap, and joint-time margins, then center metrics and site ID. All components remain visible; this is a declared preference, not a universal optimum."
+          "id": "mission-earliest-then-margin-v1",
+          "preference": "earliest"
+        },
+        "coverage": {
+          "requestedStart": "2027-03-04T18:00:00.000Z",
+          "requestedLatest": "2027-03-08T00:00:00.000Z",
+          "effectiveLatest": "2027-03-08T00:00:00.000Z",
+          "complete": true,
+          "boundedByData": false,
+          "gridHours": 6,
+          "interpretation": "Only complete mission intervals on the stated search grid are evaluated. A partial date range is not a no-solution finding for missing dates."
         }
       },
       "plans": [
@@ -8484,7 +8574,27 @@
             "nominalStepHours": 0.5,
             "start": "2027-03-04T18:00:00Z"
           },
-          "appURL": "../../navigator.html?campaign=mar&site=ridge-1&patch=e%2B0-n%2B0&durationHours=168&maxDarkHours=24&maxCommGapHours=24&minJointHours=24&clearanceDeg=0&observerHeightM=2&start=2027-03-04T18%3A00%3A00Z&lang=zh",
+          "missionConstraints": {
+            "schemaVersion": 1,
+            "referenceStart": "2027-03-04T18:00:00.000Z",
+            "latestArrival": "2027-03-08T00:00:00.000Z",
+            "maxDelayHours": 78,
+            "rankingPreference": "earliest"
+          },
+          "verification": {
+            "status": "not-verified-for-this-exact-nine-point-mission",
+            "completed": [
+              "nominal 30-minute calculation",
+              "declared angular stress scenarios"
+            ],
+            "unknown": [
+              "all-nine independent fine ephemerides for this exact interval",
+              "terrain error over the full horizon",
+              "electrical yield, link budget and landing safety"
+            ],
+            "angularStressIsTerrainError": false
+          },
+          "appURL": "../../navigator.html?campaign=mar&site=ridge-1&patch=e%2B0-n%2B0&durationHours=168&maxDarkHours=24&maxCommGapHours=24&minJointHours=24&clearanceDeg=0&observerHeightM=2&start=2027-03-04T18%3A00%3A00Z&lang=zh&missionConstraintsVersion=1&referenceStart=2027-03-04T18%3A00%3A00.000Z&rankingPreference=earliest&latestArrival=2027-03-08T00%3A00%3A00.000Z&maxDelayHours=78",
           "centerFeasible": true,
           "feasibleCount": 8,
           "worstCase": {
@@ -10439,7 +10549,27 @@
             "nominalStepHours": 0.5,
             "start": "2027-03-07T12:00:00.000Z"
           },
-          "appURL": "../../navigator.html?campaign=mar&site=ridge-4&patch=e%2B0-n%2B0&durationHours=168&maxDarkHours=24&maxCommGapHours=24&minJointHours=24&clearanceDeg=0&observerHeightM=2&start=2027-03-07T12%3A00%3A00.000Z&lang=zh",
+          "missionConstraints": {
+            "schemaVersion": 1,
+            "referenceStart": "2027-03-04T18:00:00.000Z",
+            "latestArrival": "2027-03-08T00:00:00.000Z",
+            "maxDelayHours": 78,
+            "rankingPreference": "earliest"
+          },
+          "verification": {
+            "status": "not-verified-for-this-exact-nine-point-mission",
+            "completed": [
+              "nominal 30-minute calculation",
+              "declared angular stress scenarios"
+            ],
+            "unknown": [
+              "all-nine independent fine ephemerides for this exact interval",
+              "terrain error over the full horizon",
+              "electrical yield, link budget and landing safety"
+            ],
+            "angularStressIsTerrainError": false
+          },
+          "appURL": "../../navigator.html?campaign=mar&site=ridge-4&patch=e%2B0-n%2B0&durationHours=168&maxDarkHours=24&maxCommGapHours=24&minJointHours=24&clearanceDeg=0&observerHeightM=2&start=2027-03-07T12%3A00%3A00.000Z&lang=zh&missionConstraintsVersion=1&referenceStart=2027-03-04T18%3A00%3A00.000Z&rankingPreference=earliest&latestArrival=2027-03-08T00%3A00%3A00.000Z&maxDelayHours=78",
           "centerFeasible": true,
           "feasibleCount": 9,
           "worstCase": {
@@ -12445,7 +12575,27 @@
             "nominalStepHours": 0.5,
             "start": "2027-03-07T18:00:00.000Z"
           },
-          "appURL": "../../navigator.html?campaign=mar&site=ridge-4&patch=e%2B0-n%2B0&durationHours=168&maxDarkHours=24&maxCommGapHours=24&minJointHours=24&clearanceDeg=0&observerHeightM=2&start=2027-03-07T18%3A00%3A00.000Z&lang=zh",
+          "missionConstraints": {
+            "schemaVersion": 1,
+            "referenceStart": "2027-03-04T18:00:00.000Z",
+            "latestArrival": "2027-03-08T00:00:00.000Z",
+            "maxDelayHours": 78,
+            "rankingPreference": "earliest"
+          },
+          "verification": {
+            "status": "not-verified-for-this-exact-nine-point-mission",
+            "completed": [
+              "nominal 30-minute calculation",
+              "declared angular stress scenarios"
+            ],
+            "unknown": [
+              "all-nine independent fine ephemerides for this exact interval",
+              "terrain error over the full horizon",
+              "electrical yield, link budget and landing safety"
+            ],
+            "angularStressIsTerrainError": false
+          },
+          "appURL": "../../navigator.html?campaign=mar&site=ridge-4&patch=e%2B0-n%2B0&durationHours=168&maxDarkHours=24&maxCommGapHours=24&minJointHours=24&clearanceDeg=0&observerHeightM=2&start=2027-03-07T18%3A00%3A00.000Z&lang=zh&missionConstraintsVersion=1&referenceStart=2027-03-04T18%3A00%3A00.000Z&rankingPreference=earliest&latestArrival=2027-03-08T00%3A00%3A00.000Z&maxDelayHours=78",
           "centerFeasible": true,
           "feasibleCount": 9,
           "worstCase": {
@@ -14563,7 +14713,27 @@
             "nominalStepHours": 0.5,
             "start": "2027-03-08T00:00:00.000Z"
           },
-          "appURL": "../../navigator.html?campaign=mar&site=ridge-4&patch=e%2B0-n%2B0&durationHours=168&maxDarkHours=24&maxCommGapHours=24&minJointHours=24&clearanceDeg=0&observerHeightM=2&start=2027-03-08T00%3A00%3A00.000Z&lang=zh",
+          "missionConstraints": {
+            "schemaVersion": 1,
+            "referenceStart": "2027-03-04T18:00:00.000Z",
+            "latestArrival": "2027-03-08T00:00:00.000Z",
+            "maxDelayHours": 78,
+            "rankingPreference": "earliest"
+          },
+          "verification": {
+            "status": "not-verified-for-this-exact-nine-point-mission",
+            "completed": [
+              "nominal 30-minute calculation",
+              "declared angular stress scenarios"
+            ],
+            "unknown": [
+              "all-nine independent fine ephemerides for this exact interval",
+              "terrain error over the full horizon",
+              "electrical yield, link budget and landing safety"
+            ],
+            "angularStressIsTerrainError": false
+          },
+          "appURL": "../../navigator.html?campaign=mar&site=ridge-4&patch=e%2B0-n%2B0&durationHours=168&maxDarkHours=24&maxCommGapHours=24&minJointHours=24&clearanceDeg=0&observerHeightM=2&start=2027-03-08T00%3A00%3A00.000Z&lang=zh&missionConstraintsVersion=1&referenceStart=2027-03-04T18%3A00%3A00.000Z&rankingPreference=earliest&latestArrival=2027-03-08T00%3A00%3A00.000Z&maxDelayHours=78",
           "centerFeasible": true,
           "feasibleCount": 9,
           "worstCase": {

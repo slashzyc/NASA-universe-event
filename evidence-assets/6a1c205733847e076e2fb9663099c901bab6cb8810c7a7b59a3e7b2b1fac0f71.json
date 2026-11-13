@@ -1,0 +1,5380 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-11-13T05:54:09.852Z",
+  "software": {
+    "node": "v24.22.1",
+    "analysisSha256": "981e49c08ae6457450c5e0fbb8d9c743521dbb91ed6eeb2cbb01b3e132ea5fcd"
+  },
+  "status": "passed",
+  "checkCount": 46212,
+  "failures": [],
+  "evidenceScope": "Internal correctness, actual-data sensitivity and baseline comparisons. This is not an independent validation against flight measurements or an independent terrain/ephemeris solution.",
+  "interpretation": [
+    "A 30-to-60-minute change measures sensitivity to time sampling; it does not establish absolute event-time accuracy.",
+    "The 5-minute comparator interpolates existing observations and is not a new 5-minute NASA ephemeris query.",
+    "The zero-degree flat comparator is a local tangent-plane simplification; downhill terrain can legitimately increase visibility relative to it.",
+    "Angular clearance is a user-selected deterministic requirement, not a calibrated uncertainty interval.",
+    "Patch count fractions are fractions of nine declared locations, not landing probabilities or area-weighted success estimates.",
+    "A footprint contrast smaller than the native temporal sample step is reported but should not be presented as a resolved operational advantage.",
+    "Selecting demonstration windows after inspecting results is exploratory; it is not a held-out performance benchmark."
+  ],
+  "bundles": [
+    {
+      "filename": "lunar-sites-june.json",
+      "sha256": "c2258b262f2ee22599195090a9e652d8f6fd53c48bfb48139896be02a86f3d8f",
+      "dataGeneratedAt": "2026-11-13T03:54:13.285309+00:00",
+      "start": "2027-06-01T00:00:00Z",
+      "stop": "2027-07-01T00:00:00Z",
+      "sampleIntervalMinutes": 30,
+      "siteCount": 3,
+      "fullInterval": [
+        {
+          "siteId": "ridge-1",
+          "start": "2027-06-01T00:00:00.000Z",
+          "end": "2027-07-01T00:00:00.000Z",
+          "feasible": false,
+          "metrics": {
+            "sunHours": 438.323,
+            "earthHours": 401.2437,
+            "jointHours": 351.3911,
+            "longestDarkHours": 248.5471,
+            "longestCommGapHours": 318.7563
+          },
+          "patchCoverage": 0,
+          "patches": [
+            {
+              "id": "e-25-n-25",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 463.6868,
+                "earthHours": 401.4017,
+                "jointHours": 356.7049,
+                "longestDarkHours": 107.2811,
+                "longestCommGapHours": 318.5983
+              }
+            },
+            {
+              "id": "e+0-n-25",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 431.7089,
+                "earthHours": 401.2089,
+                "jointHours": 334.4793,
+                "longestDarkHours": 146.2551,
+                "longestCommGapHours": 318.7911
+              }
+            },
+            {
+              "id": "e+25-n-25",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 379.9184,
+                "earthHours": 400.9678,
+                "jointHours": 289.5243,
+                "longestDarkHours": 306.9928,
+                "longestCommGapHours": 319.0322
+              }
+            },
+            {
+              "id": "e-25-n+0",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 468.6666,
+                "earthHours": 401.4277,
+                "jointHours": 380.3923,
+                "longestDarkHours": 105.8738,
+                "longestCommGapHours": 318.5723
+              }
+            },
+            {
+              "id": "e+0-n+0",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 438.323,
+                "earthHours": 401.2437,
+                "jointHours": 351.3911,
+                "longestDarkHours": 248.5471,
+                "longestCommGapHours": 318.7563
+              }
+            },
+            {
+              "id": "e+25-n+0",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 419.8891,
+                "earthHours": 401.0046,
+                "jointHours": 328.1764,
+                "longestDarkHours": 267.018,
+                "longestCommGapHours": 318.9954
+              }
+            },
+            {
+              "id": "e-25-n+25",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 437.1771,
+                "earthHours": 401.4502,
+                "jointHours": 368.6808,
+                "longestDarkHours": 274.8082,
+                "longestCommGapHours": 318.5498
+              }
+            },
+            {
+              "id": "e+0-n+25",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 426.5667,
+                "earthHours": 401.2729,
+                "jointHours": 341.48,
+                "longestDarkHours": 259.3028,
+                "longestCommGapHours": 318.7271
+              }
+            },
+            {
+              "id": "e+25-n+25",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 435.4999,
+                "earthHours": 401.0365,
+                "jointHours": 343.1588,
+                "longestDarkHours": 251.394,
+                "longestCommGapHours": 318.9635
+              }
+            }
+          ]
+        },
+        {
+          "siteId": "ridge-4",
+          "start": "2027-06-01T00:00:00.000Z",
+          "end": "2027-07-01T00:00:00.000Z",
+          "feasible": false,
+          "metrics": {
+            "sunHours": 455.5709,
+            "earthHours": 400.9426,
+            "jointHours": 273.7854,
+            "longestDarkHours": 91.5115,
+            "longestCommGapHours": 319.0574
+          },
+          "patchCoverage": 0,
+          "patches": [
+            {
+              "id": "e-25-n-25",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 403.0605,
+                "earthHours": 401.1576,
+                "jointHours": 231.0877,
+                "longestDarkHours": 100.9723,
+                "longestCommGapHours": 318.8424
+              }
+            },
+            {
+              "id": "e+0-n-25",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 454.3014,
+                "earthHours": 400.9039,
+                "jointHours": 273.785,
+                "longestDarkHours": 92.7609,
+                "longestCommGapHours": 319.0961
+              }
+            },
+            {
+              "id": "e+25-n-25",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 420.3746,
+                "earthHours": 400.668,
+                "jointHours": 237.8803,
+                "longestDarkHours": 119.5472,
+                "longestCommGapHours": 319.332
+              }
+            },
+            {
+              "id": "e-25-n+0",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 417.8317,
+                "earthHours": 401.2035,
+                "jointHours": 244.0842,
+                "longestDarkHours": 99.2201,
+                "longestCommGapHours": 318.7965
+              }
+            },
+            {
+              "id": "e+0-n+0",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 455.5709,
+                "earthHours": 400.9426,
+                "jointHours": 273.7854,
+                "longestDarkHours": 91.5115,
+                "longestCommGapHours": 319.0574
+              }
+            },
+            {
+              "id": "e+25-n+0",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 413.06,
+                "earthHours": 400.7046,
+                "jointHours": 229.3566,
+                "longestDarkHours": 129.5816,
+                "longestCommGapHours": 319.2954
+              }
+            },
+            {
+              "id": "e-25-n+25",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 447.0479,
+                "earthHours": 401.2523,
+                "jointHours": 270.9254,
+                "longestDarkHours": 96.8677,
+                "longestCommGapHours": 318.7477
+              }
+            },
+            {
+              "id": "e+0-n+25",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 455.4676,
+                "earthHours": 400.9846,
+                "jointHours": 272.2524,
+                "longestDarkHours": 91.3875,
+                "longestCommGapHours": 319.0154
+              }
+            },
+            {
+              "id": "e+25-n+25",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 392.2428,
+                "earthHours": 400.7374,
+                "jointHours": 208.3941,
+                "longestDarkHours": 155.8781,
+                "longestCommGapHours": 319.2626
+              }
+            }
+          ]
+        },
+        {
+          "siteId": "ridge-6",
+          "start": "2027-06-01T00:00:00.000Z",
+          "end": "2027-07-01T00:00:00.000Z",
+          "feasible": false,
+          "metrics": {
+            "sunHours": 495.2724,
+            "earthHours": 400.7348,
+            "jointHours": 283.2796,
+            "longestDarkHours": 67.5184,
+            "longestCommGapHours": 319.2652
+          },
+          "patchCoverage": 0,
+          "patches": [
+            {
+              "id": "e-25-n-25",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 444.8736,
+                "earthHours": 400.9481,
+                "jointHours": 233.7678,
+                "longestDarkHours": 120.0028,
+                "longestCommGapHours": 319.0519
+              }
+            },
+            {
+              "id": "e+0-n-25",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 489.1486,
+                "earthHours": 400.6914,
+                "jointHours": 277.8469,
+                "longestDarkHours": 72.9553,
+                "longestCommGapHours": 319.3086
+              }
+            },
+            {
+              "id": "e+25-n-25",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 328.1586,
+                "earthHours": 400.4239,
+                "jointHours": 123.1513,
+                "longestDarkHours": 197.501,
+                "longestCommGapHours": 319.5761
+              }
+            },
+            {
+              "id": "e-25-n+0",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 484.3882,
+                "earthHours": 400.9885,
+                "jointHours": 272.6763,
+                "longestDarkHours": 81.0903,
+                "longestCommGapHours": 319.0115
+              }
+            },
+            {
+              "id": "e+0-n+0",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 495.2724,
+                "earthHours": 400.7348,
+                "jointHours": 283.2796,
+                "longestDarkHours": 67.5184,
+                "longestCommGapHours": 319.2652
+              }
+            },
+            {
+              "id": "e+25-n+0",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 497.6069,
+                "earthHours": 400.4809,
+                "jointHours": 284.7937,
+                "longestDarkHours": 61.2868,
+                "longestCommGapHours": 319.5191
+              }
+            },
+            {
+              "id": "e-25-n+25",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 478.6644,
+                "earthHours": 401.0244,
+                "jointHours": 267.7625,
+                "longestDarkHours": 85.3652,
+                "longestCommGapHours": 318.9756
+              }
+            },
+            {
+              "id": "e+0-n+25",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 494.78,
+                "earthHours": 400.775,
+                "jointHours": 282.9482,
+                "longestDarkHours": 67.4176,
+                "longestCommGapHours": 319.225
+              }
+            },
+            {
+              "id": "e+25-n+25",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 500.8553,
+                "earthHours": 400.5223,
+                "jointHours": 287.6865,
+                "longestDarkHours": 58.617,
+                "longestCommGapHours": 319.4777
+              }
+            }
+          ]
+        }
+      ],
+      "clearanceMonotonicity": {
+        "comparisons": 1800,
+        "violations": 0
+      },
+      "samplingSensitivity": [
+        {
+          "siteId": "ridge-1",
+          "clearanceDeg": 0,
+          "fineMinutes": 30,
+          "coarseMinutes": 60,
+          "comparedIntervals": 50,
+          "maximumAbsoluteDifferences": {
+            "sunHours": {
+              "absoluteHours": 0.035735,
+              "start": "2027-06-16T00:00:00.000Z",
+              "durationHours": 168,
+              "phase": 0
+            },
+            "earthHours": {
+              "absoluteHours": 0.014252,
+              "start": "2027-06-01T00:00:00.000Z",
+              "durationHours": 720,
+              "phase": 1
+            },
+            "jointHours": {
+              "absoluteHours": 0.035722,
+              "start": "2027-06-22T00:00:00.000Z",
+              "durationHours": 168,
+              "phase": 0
+            },
+            "longestDarkHours": {
+              "absoluteHours": 0.03567,
+              "start": "2027-06-20T00:00:00.000Z",
+              "durationHours": 168,
+              "phase": 0
+            },
+            "longestCommGapHours": {
+              "absoluteHours": 0.014252,
+              "start": "2027-06-01T00:00:00.000Z",
+              "durationHours": 720,
+              "phase": 1
+            }
+          }
+        },
+        {
+          "siteId": "ridge-1",
+          "clearanceDeg": 0.5,
+          "fineMinutes": 30,
+          "coarseMinutes": 60,
+          "comparedIntervals": 50,
+          "maximumAbsoluteDifferences": {
+            "sunHours": {
+              "absoluteHours": 0.080534,
+              "start": "2027-06-19T00:00:00.000Z",
+              "durationHours": 168,
+              "phase": 1
+            },
+            "earthHours": {
+              "absoluteHours": 0.000069,
+              "start": "2027-06-01T00:00:00.000Z",
+              "durationHours": 720,
+              "phase": 1
+            },
+            "jointHours": {
+              "absoluteHours": 0.080503,
+              "start": "2027-06-17T00:00:00.000Z",
+              "durationHours": 168,
+              "phase": 1
+            },
+            "longestDarkHours": {
+              "absoluteHours": 35.512081,
+              "start": "2027-06-01T00:00:00.000Z",
+              "durationHours": 720,
+              "phase": 1
+            },
+            "longestCommGapHours": {
+              "absoluteHours": 0.000069,
+              "start": "2027-06-01T00:00:00.000Z",
+              "durationHours": 720,
+              "phase": 1
+            }
+          }
+        },
+        {
+          "siteId": "ridge-4",
+          "clearanceDeg": 0,
+          "fineMinutes": 30,
+          "coarseMinutes": 60,
+          "comparedIntervals": 50,
+          "maximumAbsoluteDifferences": {
+            "sunHours": {
+              "absoluteHours": 0.163116,
+              "start": "2027-06-24T00:00:00.000Z",
+              "durationHours": 168,
+              "phase": 0
+            },
+            "earthHours": {
+              "absoluteHours": 0.012443,
+              "start": "2027-06-01T00:00:00.000Z",
+              "durationHours": 720,
+              "phase": 0
+            },
+            "jointHours": {
+              "absoluteHours": 0.163116,
+              "start": "2027-06-24T00:00:00.000Z",
+              "durationHours": 168,
+              "phase": 0
+            },
+            "longestDarkHours": {
+              "absoluteHours": 0.163116,
+              "start": "2027-06-24T00:00:00.000Z",
+              "durationHours": 168,
+              "phase": 0
+            },
+            "longestCommGapHours": {
+              "absoluteHours": 0.012443,
+              "start": "2027-06-01T00:00:00.000Z",
+              "durationHours": 720,
+              "phase": 0
+            }
+          }
+        },
+        {
+          "siteId": "ridge-4",
+          "clearanceDeg": 0.5,
+          "fineMinutes": 30,
+          "coarseMinutes": 60,
+          "comparedIntervals": 50,
+          "maximumAbsoluteDifferences": {
+            "sunHours": {
+              "absoluteHours": 0.109807,
+              "start": "2027-06-01T00:00:00.000Z",
+              "durationHours": 720,
+              "phase": 1
+            },
+            "earthHours": {
+              "absoluteHours": 0.004243,
+              "start": "2027-06-01T00:00:00.000Z",
+              "durationHours": 720,
+              "phase": 0
+            },
+            "jointHours": {
+              "absoluteHours": 0.074211,
+              "start": "2027-06-01T00:00:00.000Z",
+              "durationHours": 720,
+              "phase": 1
+            },
+            "longestDarkHours": {
+              "absoluteHours": 0.076766,
+              "start": "2027-06-17T00:00:00.000Z",
+              "durationHours": 168,
+              "phase": 0
+            },
+            "longestCommGapHours": {
+              "absoluteHours": 0.004243,
+              "start": "2027-06-01T00:00:00.000Z",
+              "durationHours": 720,
+              "phase": 0
+            }
+          }
+        },
+        {
+          "siteId": "ridge-6",
+          "clearanceDeg": 0,
+          "fineMinutes": 30,
+          "coarseMinutes": 60,
+          "comparedIntervals": 50,
+          "maximumAbsoluteDifferences": {
+            "sunHours": {
+              "absoluteHours": 0.244762,
+              "start": "2027-06-13T00:00:00.000Z",
+              "durationHours": 168,
+              "phase": 0
+            },
+            "earthHours": {
+              "absoluteHours": 0.000143,
+              "start": "2027-06-01T00:00:00.000Z",
+              "durationHours": 720,
+              "phase": 1
+            },
+            "jointHours": {
+              "absoluteHours": 0.030349,
+              "start": "2027-06-01T00:00:00.000Z",
+              "durationHours": 168,
+              "phase": 0
+            },
+            "longestDarkHours": {
+              "absoluteHours": 0.124715,
+              "start": "2027-06-09T00:00:00.000Z",
+              "durationHours": 168,
+              "phase": 0
+            },
+            "longestCommGapHours": {
+              "absoluteHours": 0.000143,
+              "start": "2027-06-01T00:00:00.000Z",
+              "durationHours": 720,
+              "phase": 1
+            }
+          }
+        },
+        {
+          "siteId": "ridge-6",
+          "clearanceDeg": 0.5,
+          "fineMinutes": 30,
+          "coarseMinutes": 60,
+          "comparedIntervals": 50,
+          "maximumAbsoluteDifferences": {
+            "sunHours": {
+              "absoluteHours": 0.078106,
+              "start": "2027-06-16T00:00:00.000Z",
+              "durationHours": 168,
+              "phase": 0
+            },
+            "earthHours": {
+              "absoluteHours": 0.000036,
+              "start": "2027-06-01T00:00:00.000Z",
+              "durationHours": 720,
+              "phase": 1
+            },
+            "jointHours": {
+              "absoluteHours": 0.063339,
+              "start": "2027-06-23T00:00:00.000Z",
+              "durationHours": 168,
+              "phase": 0
+            },
+            "longestDarkHours": {
+              "absoluteHours": 0.076604,
+              "start": "2027-06-17T00:00:00.000Z",
+              "durationHours": 168,
+              "phase": 0
+            },
+            "longestCommGapHours": {
+              "absoluteHours": 0.000036,
+              "start": "2027-06-01T00:00:00.000Z",
+              "durationHours": 720,
+              "phase": 1
+            }
+          }
+        }
+      ],
+      "terrainComparison": [
+        {
+          "siteId": "ridge-1",
+          "clearanceDeg": 0,
+          "terrain": {
+            "sunHours": 438.323,
+            "earthHours": 401.2437,
+            "jointHours": 351.3911,
+            "longestDarkHours": 248.5471,
+            "longestCommGapHours": 318.7563
+          },
+          "flatTangentPlane": {
+            "sunHours": 0,
+            "earthHours": 363.5064,
+            "jointHours": 0,
+            "longestDarkHours": 720,
+            "longestCommGapHours": 356.4936
+          },
+          "terrainMinusFlatHours": {
+            "sunHours": 438.323,
+            "earthHours": 37.7372,
+            "jointHours": 351.3911,
+            "longestDarkHours": -471.4529,
+            "longestCommGapHours": -37.7372
+          }
+        },
+        {
+          "siteId": "ridge-1",
+          "clearanceDeg": 0.5,
+          "terrain": {
+            "sunHours": 351.2338,
+            "earthHours": 387.3235,
+            "jointHours": 299.5446,
+            "longestDarkHours": 296.331,
+            "longestCommGapHours": 332.6765
+          },
+          "flatTangentPlane": {
+            "sunHours": 0,
+            "earthHours": 347.7734,
+            "jointHours": 0,
+            "longestDarkHours": 720,
+            "longestCommGapHours": 372.2266
+          },
+          "terrainMinusFlatHours": {
+            "sunHours": 351.2338,
+            "earthHours": 39.5501,
+            "jointHours": 299.5446,
+            "longestDarkHours": -423.669,
+            "longestCommGapHours": -39.5501
+          }
+        },
+        {
+          "siteId": "ridge-4",
+          "clearanceDeg": 0,
+          "terrain": {
+            "sunHours": 455.5709,
+            "earthHours": 400.9426,
+            "jointHours": 273.7854,
+            "longestDarkHours": 91.5115,
+            "longestCommGapHours": 319.0574
+          },
+          "flatTangentPlane": {
+            "sunHours": 0,
+            "earthHours": 363.8098,
+            "jointHours": 0,
+            "longestDarkHours": 720,
+            "longestCommGapHours": 356.1902
+          },
+          "terrainMinusFlatHours": {
+            "sunHours": 455.5709,
+            "earthHours": 37.1328,
+            "jointHours": 273.7854,
+            "longestDarkHours": -628.4885,
+            "longestCommGapHours": -37.1328
+          }
+        },
+        {
+          "siteId": "ridge-4",
+          "clearanceDeg": 0.5,
+          "terrain": {
+            "sunHours": 317.1007,
+            "earthHours": 386.9134,
+            "jointHours": 220.9965,
+            "longestDarkHours": 186.056,
+            "longestCommGapHours": 333.0866
+          },
+          "flatTangentPlane": {
+            "sunHours": 0,
+            "earthHours": 348.0765,
+            "jointHours": 0,
+            "longestDarkHours": 720,
+            "longestCommGapHours": 371.9235
+          },
+          "terrainMinusFlatHours": {
+            "sunHours": 317.1007,
+            "earthHours": 38.8369,
+            "jointHours": 220.9965,
+            "longestDarkHours": -533.944,
+            "longestCommGapHours": -38.8369
+          }
+        },
+        {
+          "siteId": "ridge-6",
+          "clearanceDeg": 0,
+          "terrain": {
+            "sunHours": 495.2724,
+            "earthHours": 400.7348,
+            "jointHours": 283.2796,
+            "longestDarkHours": 67.5184,
+            "longestCommGapHours": 319.2652
+          },
+          "flatTangentPlane": {
+            "sunHours": 0,
+            "earthHours": 364.2518,
+            "jointHours": 0,
+            "longestDarkHours": 720,
+            "longestCommGapHours": 355.7482
+          },
+          "terrainMinusFlatHours": {
+            "sunHours": 495.2724,
+            "earthHours": 36.483,
+            "jointHours": 283.2796,
+            "longestDarkHours": -652.4816,
+            "longestCommGapHours": -36.483
+          }
+        },
+        {
+          "siteId": "ridge-6",
+          "clearanceDeg": 0.5,
+          "terrain": {
+            "sunHours": 323.8636,
+            "earthHours": 386.2527,
+            "jointHours": 218.3241,
+            "longestDarkHours": 178.2312,
+            "longestCommGapHours": 333.7473
+          },
+          "flatTangentPlane": {
+            "sunHours": 0,
+            "earthHours": 348.5176,
+            "jointHours": 0,
+            "longestDarkHours": 720,
+            "longestCommGapHours": 371.4824
+          },
+          "terrainMinusFlatHours": {
+            "sunHours": 323.8636,
+            "earthHours": 37.7351,
+            "jointHours": 218.3241,
+            "longestDarkHours": -541.7688,
+            "longestCommGapHours": -37.7351
+          }
+        }
+      ],
+      "footprintComparison": [
+        {
+          "siteId": "ridge-1",
+          "clearanceDeg": 0,
+          "sampleCount": 9,
+          "spacingM": 25,
+          "maximumAcrossWindowSpreadHours": {
+            "longestDark": 121.3169,
+            "longestCommGap": 0.5367,
+            "joint": 90.4387
+          },
+          "strongestCenterPassFootprintFail": {
+            "bundle": "lunar-sites-june.json",
+            "siteId": "ridge-1",
+            "start": "2027-06-01T00:00:00.000Z",
+            "durationHours": 168,
+            "clearanceDeg": 0,
+            "maxDarkHours": 24,
+            "maxCommGapHours": 0,
+            "minJointHours": 24,
+            "center": {
+              "sunHours": 149.5392,
+              "earthHours": 168,
+              "jointHours": 149.5392,
+              "longestDarkHours": 18.4608,
+              "longestCommGapHours": 0
+            },
+            "patchPassingCount": 4,
+            "patchCount": 9,
+            "patchCoverage": 0.4444444444444444,
+            "worstExtraDarkHours": 61.6218,
+            "worstExtraCommGapHours": 0,
+            "exceedsNativeSampleStep": true,
+            "scope": "Illustrative thresholds; finite scenario coverage, not a success probability."
+          }
+        },
+        {
+          "siteId": "ridge-1",
+          "clearanceDeg": 0.5,
+          "sampleCount": 9,
+          "spacingM": 25,
+          "maximumAcrossWindowSpreadHours": {
+            "longestDark": 87.7243,
+            "longestCommGap": 0.5783,
+            "joint": 101.1128
+          },
+          "strongestCenterPassFootprintFail": null
+        },
+        {
+          "siteId": "ridge-4",
+          "clearanceDeg": 0,
+          "sampleCount": 9,
+          "spacingM": 25,
+          "maximumAcrossWindowSpreadHours": {
+            "longestDark": 78.4593,
+            "longestCommGap": 0.6264,
+            "joint": 81.7334
+          },
+          "strongestCenterPassFootprintFail": {
+            "bundle": "lunar-sites-june.json",
+            "siteId": "ridge-4",
+            "start": "2027-06-03T18:00:00.000Z",
+            "durationHours": 168,
+            "clearanceDeg": 0,
+            "maxDarkHours": 48,
+            "maxCommGapHours": 48,
+            "minJointHours": 24,
+            "center": {
+              "sunHours": 139.3601,
+              "earthHours": 125.5589,
+              "jointHours": 103.4943,
+              "longestDarkHours": 22.0645,
+              "longestCommGapHours": 42.4411
+            },
+            "patchPassingCount": 6,
+            "patchCount": 9,
+            "patchCoverage": 0.6666666666666666,
+            "worstExtraDarkHours": 67.8135,
+            "worstExtraCommGapHours": 0.0441,
+            "exceedsNativeSampleStep": true,
+            "scope": "Illustrative thresholds; finite scenario coverage, not a success probability."
+          }
+        },
+        {
+          "siteId": "ridge-4",
+          "clearanceDeg": 0.5,
+          "sampleCount": 9,
+          "spacingM": 25,
+          "maximumAcrossWindowSpreadHours": {
+            "longestDark": 109.3304,
+            "longestCommGap": 0.614,
+            "joint": 97.2639
+          },
+          "strongestCenterPassFootprintFail": {
+            "bundle": "lunar-sites-june.json",
+            "siteId": "ridge-4",
+            "start": "2027-06-03T12:00:00.000Z",
+            "durationHours": 168,
+            "clearanceDeg": 0.5,
+            "maxDarkHours": 48,
+            "maxCommGapHours": 48,
+            "minJointHours": 24,
+            "center": {
+              "sunHours": 125.4251,
+              "earthHours": 124.26,
+              "jointHours": 87.916,
+              "longestDarkHours": 36.344,
+              "longestCommGapHours": 43.74
+            },
+            "patchPassingCount": 6,
+            "patchCount": 9,
+            "patchCoverage": 0.6666666666666666,
+            "worstExtraDarkHours": 99.9682,
+            "worstExtraCommGapHours": 0.0144,
+            "exceedsNativeSampleStep": true,
+            "scope": "Illustrative thresholds; finite scenario coverage, not a success probability."
+          }
+        },
+        {
+          "siteId": "ridge-6",
+          "clearanceDeg": 0,
+          "sampleCount": 9,
+          "spacingM": 25,
+          "maximumAcrossWindowSpreadHours": {
+            "longestDark": 157.848,
+            "longestCommGap": 0.6867,
+            "joint": 151.9616
+          },
+          "strongestCenterPassFootprintFail": {
+            "bundle": "lunar-sites-june.json",
+            "siteId": "ridge-6",
+            "start": "2027-06-02T06:00:00.000Z",
+            "durationHours": 168,
+            "clearanceDeg": 0,
+            "maxDarkHours": 24,
+            "maxCommGapHours": 12,
+            "minJointHours": 24,
+            "center": {
+              "sunHours": 155.552,
+              "earthHours": 161.6813,
+              "jointHours": 149.2333,
+              "longestDarkHours": 12.448,
+              "longestCommGapHours": 6.3187
+            },
+            "patchPassingCount": 8,
+            "patchCount": 9,
+            "patchCoverage": 0.8888888888888888,
+            "worstExtraDarkHours": 155.053,
+            "worstExtraCommGapHours": 0.0667,
+            "exceedsNativeSampleStep": true,
+            "scope": "Illustrative thresholds; finite scenario coverage, not a success probability."
+          }
+        },
+        {
+          "siteId": "ridge-6",
+          "clearanceDeg": 0.5,
+          "sampleCount": 9,
+          "spacingM": 25,
+          "maximumAcrossWindowSpreadHours": {
+            "longestDark": 168,
+            "longestCommGap": 0.6283,
+            "joint": 136.6923
+          },
+          "strongestCenterPassFootprintFail": {
+            "bundle": "lunar-sites-june.json",
+            "siteId": "ridge-6",
+            "start": "2027-06-03T06:00:00.000Z",
+            "durationHours": 168,
+            "clearanceDeg": 0.5,
+            "maxDarkHours": 48,
+            "maxCommGapHours": 48,
+            "minJointHours": 24,
+            "center": {
+              "sunHours": 166.2686,
+              "earthHours": 130.3765,
+              "jointHours": 130.3765,
+              "longestDarkHours": 1.7314,
+              "longestCommGapHours": 37.6235
+            },
+            "patchPassingCount": 8,
+            "patchCount": 9,
+            "patchCoverage": 0.8888888888888888,
+            "worstExtraDarkHours": 166.2686,
+            "worstExtraCommGapHours": 0.0449,
+            "exceedsNativeSampleStep": true,
+            "scope": "Illustrative thresholds; finite scenario coverage, not a success probability."
+          }
+        }
+      ],
+      "independentInterpolationComparison": [
+        {
+          "siteId": "ridge-1",
+          "clearanceDeg": 0,
+          "midpointStepMinutes": 5,
+          "mainHours": {
+            "sunHours": 438.323,
+            "earthHours": 401.2437,
+            "jointHours": 351.3911
+          },
+          "independentlyIntegratedHours": {
+            "sunHours": 438.25,
+            "earthHours": 401.25,
+            "jointHours": 351.3333
+          },
+          "mainMinusComparatorHours": {
+            "sunHours": 0.073,
+            "earthHours": -0.0063,
+            "jointHours": 0.0578
+          }
+        },
+        {
+          "siteId": "ridge-1",
+          "clearanceDeg": 0.5,
+          "midpointStepMinutes": 5,
+          "mainHours": {
+            "sunHours": 351.2338,
+            "earthHours": 387.3235,
+            "jointHours": 299.5446
+          },
+          "independentlyIntegratedHours": {
+            "sunHours": 351.5,
+            "earthHours": 387.3333,
+            "jointHours": 299.5833
+          },
+          "mainMinusComparatorHours": {
+            "sunHours": -0.2662,
+            "earthHours": -0.0098,
+            "jointHours": -0.0388
+          }
+        },
+        {
+          "siteId": "ridge-4",
+          "clearanceDeg": 0,
+          "midpointStepMinutes": 5,
+          "mainHours": {
+            "sunHours": 455.5709,
+            "earthHours": 400.9426,
+            "jointHours": 273.7854
+          },
+          "independentlyIntegratedHours": {
+            "sunHours": 455.5,
+            "earthHours": 401,
+            "jointHours": 273.75
+          },
+          "mainMinusComparatorHours": {
+            "sunHours": 0.0709,
+            "earthHours": -0.0574,
+            "jointHours": 0.0354
+          }
+        },
+        {
+          "siteId": "ridge-4",
+          "clearanceDeg": 0.5,
+          "midpointStepMinutes": 5,
+          "mainHours": {
+            "sunHours": 317.1007,
+            "earthHours": 386.9134,
+            "jointHours": 220.9965
+          },
+          "independentlyIntegratedHours": {
+            "sunHours": 317.0833,
+            "earthHours": 386.9167,
+            "jointHours": 221
+          },
+          "mainMinusComparatorHours": {
+            "sunHours": 0.0174,
+            "earthHours": -0.0033,
+            "jointHours": -0.0035
+          }
+        },
+        {
+          "siteId": "ridge-6",
+          "clearanceDeg": 0,
+          "midpointStepMinutes": 5,
+          "mainHours": {
+            "sunHours": 495.2724,
+            "earthHours": 400.7348,
+            "jointHours": 283.2796
+          },
+          "independentlyIntegratedHours": {
+            "sunHours": 495.3333,
+            "earthHours": 400.75,
+            "jointHours": 283.3333
+          },
+          "mainMinusComparatorHours": {
+            "sunHours": -0.061,
+            "earthHours": -0.0152,
+            "jointHours": -0.0538
+          }
+        },
+        {
+          "siteId": "ridge-6",
+          "clearanceDeg": 0.5,
+          "midpointStepMinutes": 5,
+          "mainHours": {
+            "sunHours": 323.8636,
+            "earthHours": 386.2527,
+            "jointHours": 218.3241
+          },
+          "independentlyIntegratedHours": {
+            "sunHours": 324,
+            "earthHours": 386.3333,
+            "jointHours": 218.4167
+          },
+          "mainMinusComparatorHours": {
+            "sunHours": -0.1364,
+            "earthHours": -0.0806,
+            "jointHours": -0.0926
+          }
+        }
+      ],
+      "missingDataChecks": [
+        {
+          "siteId": "ridge-1",
+          "injected": "missing-epoch",
+          "status": "partial",
+          "missingHours": 1,
+          "passed": true
+        },
+        {
+          "siteId": "ridge-1",
+          "injected": "null-angle",
+          "status": "partial",
+          "missingHours": 1,
+          "passed": true
+        },
+        {
+          "siteId": "ridge-1",
+          "injected": "duplicate-epoch",
+          "status": "partial",
+          "missingHours": 1,
+          "passed": true
+        },
+        {
+          "siteId": "ridge-4",
+          "injected": "missing-epoch",
+          "status": "partial",
+          "missingHours": 1,
+          "passed": true
+        },
+        {
+          "siteId": "ridge-4",
+          "injected": "null-angle",
+          "status": "partial",
+          "missingHours": 1,
+          "passed": true
+        },
+        {
+          "siteId": "ridge-4",
+          "injected": "duplicate-epoch",
+          "status": "partial",
+          "missingHours": 1,
+          "passed": true
+        },
+        {
+          "siteId": "ridge-6",
+          "injected": "missing-epoch",
+          "status": "partial",
+          "missingHours": 1,
+          "passed": true
+        },
+        {
+          "siteId": "ridge-6",
+          "injected": "null-angle",
+          "status": "partial",
+          "missingHours": 1,
+          "passed": true
+        },
+        {
+          "siteId": "ridge-6",
+          "injected": "duplicate-epoch",
+          "status": "partial",
+          "missingHours": 1,
+          "passed": true
+        }
+      ],
+      "demoCandidates": [
+        {
+          "bundle": "lunar-sites-june.json",
+          "siteId": "ridge-6",
+          "start": "2027-06-03T06:00:00.000Z",
+          "durationHours": 168,
+          "clearanceDeg": 0.5,
+          "maxDarkHours": 48,
+          "maxCommGapHours": 48,
+          "minJointHours": 24,
+          "center": {
+            "sunHours": 166.2686,
+            "earthHours": 130.3765,
+            "jointHours": 130.3765,
+            "longestDarkHours": 1.7314,
+            "longestCommGapHours": 37.6235
+          },
+          "patchPassingCount": 8,
+          "patchCount": 9,
+          "patchCoverage": 0.8888888888888888,
+          "worstExtraDarkHours": 166.2686,
+          "worstExtraCommGapHours": 0.0449,
+          "exceedsNativeSampleStep": true,
+          "scope": "Illustrative thresholds; finite scenario coverage, not a success probability."
+        },
+        {
+          "bundle": "lunar-sites-june.json",
+          "siteId": "ridge-6",
+          "start": "2027-06-02T06:00:00.000Z",
+          "durationHours": 168,
+          "clearanceDeg": 0,
+          "maxDarkHours": 24,
+          "maxCommGapHours": 12,
+          "minJointHours": 24,
+          "center": {
+            "sunHours": 155.552,
+            "earthHours": 161.6813,
+            "jointHours": 149.2333,
+            "longestDarkHours": 12.448,
+            "longestCommGapHours": 6.3187
+          },
+          "patchPassingCount": 8,
+          "patchCount": 9,
+          "patchCoverage": 0.8888888888888888,
+          "worstExtraDarkHours": 155.053,
+          "worstExtraCommGapHours": 0.0667,
+          "exceedsNativeSampleStep": true,
+          "scope": "Illustrative thresholds; finite scenario coverage, not a success probability."
+        },
+        {
+          "bundle": "lunar-sites-june.json",
+          "siteId": "ridge-4",
+          "start": "2027-06-03T12:00:00.000Z",
+          "durationHours": 168,
+          "clearanceDeg": 0.5,
+          "maxDarkHours": 48,
+          "maxCommGapHours": 48,
+          "minJointHours": 24,
+          "center": {
+            "sunHours": 125.4251,
+            "earthHours": 124.26,
+            "jointHours": 87.916,
+            "longestDarkHours": 36.344,
+            "longestCommGapHours": 43.74
+          },
+          "patchPassingCount": 6,
+          "patchCount": 9,
+          "patchCoverage": 0.6666666666666666,
+          "worstExtraDarkHours": 99.9682,
+          "worstExtraCommGapHours": 0.0144,
+          "exceedsNativeSampleStep": true,
+          "scope": "Illustrative thresholds; finite scenario coverage, not a success probability."
+        },
+        {
+          "bundle": "lunar-sites-june.json",
+          "siteId": "ridge-4",
+          "start": "2027-06-03T18:00:00.000Z",
+          "durationHours": 168,
+          "clearanceDeg": 0,
+          "maxDarkHours": 48,
+          "maxCommGapHours": 48,
+          "minJointHours": 24,
+          "center": {
+            "sunHours": 139.3601,
+            "earthHours": 125.5589,
+            "jointHours": 103.4943,
+            "longestDarkHours": 22.0645,
+            "longestCommGapHours": 42.4411
+          },
+          "patchPassingCount": 6,
+          "patchCount": 9,
+          "patchCoverage": 0.6666666666666666,
+          "worstExtraDarkHours": 67.8135,
+          "worstExtraCommGapHours": 0.0441,
+          "exceedsNativeSampleStep": true,
+          "scope": "Illustrative thresholds; finite scenario coverage, not a success probability."
+        },
+        {
+          "bundle": "lunar-sites-june.json",
+          "siteId": "ridge-1",
+          "start": "2027-06-01T00:00:00.000Z",
+          "durationHours": 168,
+          "clearanceDeg": 0,
+          "maxDarkHours": 24,
+          "maxCommGapHours": 0,
+          "minJointHours": 24,
+          "center": {
+            "sunHours": 149.5392,
+            "earthHours": 168,
+            "jointHours": 149.5392,
+            "longestDarkHours": 18.4608,
+            "longestCommGapHours": 0
+          },
+          "patchPassingCount": 4,
+          "patchCount": 9,
+          "patchCoverage": 0.4444444444444444,
+          "worstExtraDarkHours": 61.6218,
+          "worstExtraCommGapHours": 0,
+          "exceedsNativeSampleStep": true,
+          "scope": "Illustrative thresholds; finite scenario coverage, not a success probability."
+        }
+      ],
+      "cachedSearch": {
+        "settings": {
+          "durationHours": 168,
+          "maxDarkHours": 24,
+          "maxCommGapHours": 24,
+          "minJointHours": 24,
+          "clearanceDeg": 0.5,
+          "observerHeightM": 2,
+          "start": "2027-06-01T00:00:00Z"
+        },
+        "elapsedMilliseconds": 319.02,
+        "evaluatedCandidates": 279,
+        "excludedCandidates": 0,
+        "earliestDelayHours": 30,
+        "earliestFeasible": [
+          {
+            "siteId": "ridge-6",
+            "name": "Connecting Ridge · ROI 6",
+            "start": "2027-06-02T06:00:00.000Z",
+            "end": "2027-06-09T06:00:00.000Z",
+            "delayHours": 30,
+            "feasible": true,
+            "centerFeasible": true,
+            "metrics": {
+              "sunHours": 147.67482692192925,
+              "earthHours": 154.3764678096517,
+              "jointHours": 134.05129473158095,
+              "longestDarkHours": 20.325173078070748,
+              "longestCommGapHours": 13.623532190348307
+            },
+            "patchCoverage": 0.7777777777777778,
+            "worstCase": {
+              "status": "complete",
+              "allKnown": true,
+              "count": 9,
+              "knownCount": 9,
+              "metrics": {
+                "longestDarkHours": 168,
+                "longestCommGapHours": 13.66840288248698,
+                "jointHours": 0
+              },
+              "knownMetrics": {
+                "longestDarkHours": 168,
+                "longestCommGapHours": 13.66840288248698,
+                "jointHours": 0
+              },
+              "points": {
+                "longestDarkHours": {
+                  "id": "e+25-n-25",
+                  "dxM": 25,
+                  "dyM": -25,
+                  "tiedPointIds": [
+                    "e+25-n-25"
+                  ]
+                },
+                "longestCommGapHours": {
+                  "id": "e-25-n-25",
+                  "dxM": -25,
+                  "dyM": -25,
+                  "tiedPointIds": [
+                    "e-25-n-25"
+                  ]
+                },
+                "jointHours": {
+                  "id": "e+25-n-25",
+                  "dxM": 25,
+                  "dyM": -25,
+                  "tiedPointIds": [
+                    "e+25-n-25"
+                  ]
+                }
+              },
+              "margins": {
+                "darknessHours": -144,
+                "earthGapHours": 10.33159711751302,
+                "jointHours": -24
+              },
+              "minimumMarginHours": -144,
+              "limitingMetrics": [
+                "darknessHours"
+              ],
+              "interpretation": "Worst values among supplied discrete positions. Positive margins are hours inside each threshold; negative margins miss it. The minimum is the smallest of the three explicitly reported margins, not a weighted score, probability, or calibrated uncertainty."
+            },
+            "reasons": []
+          }
+        ],
+        "paretoCount": 99
+      },
+      "defaultScenario": {
+        "settings": {
+          "durationHours": 168,
+          "maxDarkHours": 24,
+          "maxCommGapHours": 24,
+          "minJointHours": 24,
+          "clearanceDeg": 0.5,
+          "observerHeightM": 2,
+          "start": "2027-06-01T00:00:00Z"
+        },
+        "baseline": [
+          {
+            "siteId": "ridge-1",
+            "start": "2027-06-01T00:00:00.000Z",
+            "end": "2027-06-08T00:00:00.000Z",
+            "feasible": false,
+            "metrics": {
+              "sunHours": 116.6186,
+              "earthHours": 168,
+              "jointHours": 116.6186,
+              "longestDarkHours": 51.3814,
+              "longestCommGapHours": 0
+            },
+            "patchCoverage": 0,
+            "patches": [
+              {
+                "id": "e-25-n-25",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 94.7993,
+                  "earthHours": 168,
+                  "jointHours": 94.7993,
+                  "longestDarkHours": 73.2007,
+                  "longestCommGapHours": 0
+                }
+              },
+              {
+                "id": "e+0-n-25",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 101.1538,
+                  "earthHours": 168,
+                  "jointHours": 101.1538,
+                  "longestDarkHours": 66.8462,
+                  "longestCommGapHours": 0
+                }
+              },
+              {
+                "id": "e+25-n-25",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 35.0001,
+                  "earthHours": 168,
+                  "jointHours": 35.0001,
+                  "longestDarkHours": 116.7869,
+                  "longestCommGapHours": 0
+                }
+              },
+              {
+                "id": "e-25-n+0",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 136.1129,
+                  "earthHours": 168,
+                  "jointHours": 136.1129,
+                  "longestDarkHours": 29.0626,
+                  "longestCommGapHours": 0
+                }
+              },
+              {
+                "id": "e+0-n+0",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 116.6186,
+                  "earthHours": 168,
+                  "jointHours": 116.6186,
+                  "longestDarkHours": 51.3814,
+                  "longestCommGapHours": 0
+                }
+              },
+              {
+                "id": "e+25-n+0",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 110.8542,
+                  "earthHours": 168,
+                  "jointHours": 110.8542,
+                  "longestDarkHours": 57.1458,
+                  "longestCommGapHours": 0
+                }
+              },
+              {
+                "id": "e-25-n+25",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 127.8029,
+                  "earthHours": 168,
+                  "jointHours": 127.8029,
+                  "longestDarkHours": 40.1971,
+                  "longestCommGapHours": 0
+                }
+              },
+              {
+                "id": "e+0-n+25",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 129.3598,
+                  "earthHours": 168,
+                  "jointHours": 129.3598,
+                  "longestDarkHours": 38.6402,
+                  "longestCommGapHours": 0
+                }
+              },
+              {
+                "id": "e+25-n+25",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 127.6148,
+                  "earthHours": 168,
+                  "jointHours": 127.6148,
+                  "longestDarkHours": 40.3852,
+                  "longestCommGapHours": 0
+                }
+              }
+            ]
+          },
+          {
+            "siteId": "ridge-4",
+            "start": "2027-06-01T00:00:00.000Z",
+            "end": "2027-06-08T00:00:00.000Z",
+            "feasible": false,
+            "metrics": {
+              "sunHours": 71.656,
+              "earthHours": 168,
+              "jointHours": 71.656,
+              "longestDarkHours": 96.344,
+              "longestCommGapHours": 0
+            },
+            "patchCoverage": 0,
+            "patches": [
+              {
+                "id": "e-25-n-25",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 81.0182,
+                  "earthHours": 168,
+                  "jointHours": 81.0182,
+                  "longestDarkHours": 86.9818,
+                  "longestCommGapHours": 0
+                }
+              },
+              {
+                "id": "e+0-n-25",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 63.4003,
+                  "earthHours": 168,
+                  "jointHours": 63.4003,
+                  "longestDarkHours": 102.4872,
+                  "longestCommGapHours": 0
+                }
+              },
+              {
+                "id": "e+25-n-25",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 11.5508,
+                  "earthHours": 168,
+                  "jointHours": 11.5508,
+                  "longestDarkHours": 156.4492,
+                  "longestCommGapHours": 0
+                }
+              },
+              {
+                "id": "e-25-n+0",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 78.9425,
+                  "earthHours": 168,
+                  "jointHours": 78.9425,
+                  "longestDarkHours": 89.0575,
+                  "longestCommGapHours": 0
+                }
+              },
+              {
+                "id": "e+0-n+0",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 71.656,
+                  "earthHours": 168,
+                  "jointHours": 71.656,
+                  "longestDarkHours": 96.344,
+                  "longestCommGapHours": 0
+                }
+              },
+              {
+                "id": "e+25-n+0",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 5.1965,
+                  "earthHours": 168,
+                  "jointHours": 5.1965,
+                  "longestDarkHours": 162.8035,
+                  "longestCommGapHours": 0
+                }
+              },
+              {
+                "id": "e-25-n+25",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 75.4688,
+                  "earthHours": 168,
+                  "jointHours": 75.4688,
+                  "longestDarkHours": 92.5312,
+                  "longestCommGapHours": 0
+                }
+              },
+              {
+                "id": "e+0-n+25",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 67.3424,
+                  "earthHours": 168,
+                  "jointHours": 67.3424,
+                  "longestDarkHours": 100.6576,
+                  "longestCommGapHours": 0
+                }
+              },
+              {
+                "id": "e+25-n+25",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 0,
+                  "earthHours": 168,
+                  "jointHours": 0,
+                  "longestDarkHours": 168,
+                  "longestCommGapHours": 0
+                }
+              }
+            ]
+          },
+          {
+            "siteId": "ridge-6",
+            "start": "2027-06-01T00:00:00.000Z",
+            "end": "2027-06-08T00:00:00.000Z",
+            "feasible": false,
+            "metrics": {
+              "sunHours": 117.6748,
+              "earthHours": 168,
+              "jointHours": 117.6748,
+              "longestDarkHours": 50.3252,
+              "longestCommGapHours": 0
+            },
+            "patchCoverage": 0,
+            "patches": [
+              {
+                "id": "e-25-n-25",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 116.5365,
+                  "earthHours": 168,
+                  "jointHours": 116.5365,
+                  "longestDarkHours": 51.4635,
+                  "longestCommGapHours": 0
+                }
+              },
+              {
+                "id": "e+0-n-25",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 102.9733,
+                  "earthHours": 168,
+                  "jointHours": 102.9733,
+                  "longestDarkHours": 49.9826,
+                  "longestCommGapHours": 0
+                }
+              },
+              {
+                "id": "e+25-n-25",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 0,
+                  "earthHours": 168,
+                  "jointHours": 0,
+                  "longestDarkHours": 168,
+                  "longestCommGapHours": 0
+                }
+              },
+              {
+                "id": "e-25-n+0",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 120.3565,
+                  "earthHours": 168,
+                  "jointHours": 120.3565,
+                  "longestDarkHours": 47.6435,
+                  "longestCommGapHours": 0
+                }
+              },
+              {
+                "id": "e+0-n+0",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 117.6748,
+                  "earthHours": 168,
+                  "jointHours": 117.6748,
+                  "longestDarkHours": 50.3252,
+                  "longestCommGapHours": 0
+                }
+              },
+              {
+                "id": "e+25-n+0",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 114.365,
+                  "earthHours": 168,
+                  "jointHours": 114.365,
+                  "longestDarkHours": 53.635,
+                  "longestCommGapHours": 0
+                }
+              },
+              {
+                "id": "e-25-n+25",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 119.8168,
+                  "earthHours": 168,
+                  "jointHours": 119.8168,
+                  "longestDarkHours": 48.1832,
+                  "longestCommGapHours": 0
+                }
+              },
+              {
+                "id": "e+0-n+25",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 116.6052,
+                  "earthHours": 168,
+                  "jointHours": 116.6052,
+                  "longestDarkHours": 51.3948,
+                  "longestCommGapHours": 0
+                }
+              },
+              {
+                "id": "e+25-n+25",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 113.8363,
+                  "earthHours": 168,
+                  "jointHours": 113.8363,
+                  "longestDarkHours": 54.1637,
+                  "longestCommGapHours": 0
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "selectedDemonstration": {
+        "settings": {
+          "durationHours": 168,
+          "maxDarkHours": 24,
+          "maxCommGapHours": 24,
+          "minJointHours": 24,
+          "clearanceDeg": 0,
+          "observerHeightM": 2,
+          "start": "2027-06-02T06:00:00Z"
+        },
+        "selectedSiteId": "ridge-6",
+        "baseline": {
+          "siteId": "ridge-6",
+          "start": "2027-06-02T06:00:00.000Z",
+          "end": "2027-06-09T06:00:00.000Z",
+          "feasible": true,
+          "metrics": {
+            "sunHours": 155.552,
+            "earthHours": 161.6813,
+            "jointHours": 149.2333,
+            "longestDarkHours": 12.448,
+            "longestCommGapHours": 6.3187
+          },
+          "patchCoverage": 0.8888888888888888,
+          "patches": [
+            {
+              "id": "e-25-n-25",
+              "feasible": true,
+              "metrics": {
+                "sunHours": 158.347,
+                "earthHours": 161.6146,
+                "jointHours": 151.9616,
+                "longestDarkHours": 9.653,
+                "longestCommGapHours": 6.3854
+              }
+            },
+            {
+              "id": "e+0-n-25",
+              "feasible": true,
+              "metrics": {
+                "sunHours": 155.6115,
+                "earthHours": 161.6745,
+                "jointHours": 149.286,
+                "longestDarkHours": 12.3885,
+                "longestCommGapHours": 6.3255
+              }
+            },
+            {
+              "id": "e+25-n-25",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 0.499,
+                "earthHours": 161.708,
+                "jointHours": 0,
+                "longestDarkHours": 167.501,
+                "longestCommGapHours": 6.292
+              }
+            },
+            {
+              "id": "e-25-n+0",
+              "feasible": true,
+              "metrics": {
+                "sunHours": 158.3202,
+                "earthHours": 161.6173,
+                "jointHours": 151.9375,
+                "longestDarkHours": 9.6798,
+                "longestCommGapHours": 6.3827
+              }
+            },
+            {
+              "id": "e+0-n+0",
+              "feasible": true,
+              "metrics": {
+                "sunHours": 155.552,
+                "earthHours": 161.6813,
+                "jointHours": 149.2333,
+                "longestDarkHours": 12.448,
+                "longestCommGapHours": 6.3187
+              }
+            },
+            {
+              "id": "e+25-n+0",
+              "feasible": true,
+              "metrics": {
+                "sunHours": 151.1078,
+                "earthHours": 161.7231,
+                "jointHours": 144.8309,
+                "longestDarkHours": 16.8922,
+                "longestCommGapHours": 6.2769
+              }
+            },
+            {
+              "id": "e-25-n+25",
+              "feasible": true,
+              "metrics": {
+                "sunHours": 157.6589,
+                "earthHours": 161.6217,
+                "jointHours": 151.2807,
+                "longestDarkHours": 10.3411,
+                "longestCommGapHours": 6.3783
+              }
+            },
+            {
+              "id": "e+0-n+25",
+              "feasible": true,
+              "metrics": {
+                "sunHours": 155.0952,
+                "earthHours": 161.6845,
+                "jointHours": 148.7797,
+                "longestDarkHours": 12.9048,
+                "longestCommGapHours": 6.3155
+              }
+            },
+            {
+              "id": "e+25-n+25",
+              "feasible": true,
+              "metrics": {
+                "sunHours": 151.2757,
+                "earthHours": 161.7297,
+                "jointHours": 145.0055,
+                "longestDarkHours": 16.7243,
+                "longestCommGapHours": 6.2703
+              }
+            }
+          ]
+        },
+        "sixtyMinutePhaseChecks": [
+          {
+            "phase": 0,
+            "centerFeasibilityUnchanged": true,
+            "patchPassCount": 8,
+            "differences": [
+              {
+                "sunHours": -0.030349,
+                "earthHours": 0.000073,
+                "jointHours": -0.030276,
+                "longestDarkHours": 0.030349,
+                "longestCommGapHours": -0.000073
+              },
+              {
+                "sunHours": -0.000053,
+                "earthHours": 0.00009,
+                "jointHours": 0.000037,
+                "longestDarkHours": 0.000053,
+                "longestCommGapHours": -0.00009
+              },
+              {
+                "sunHours": -0.02832,
+                "earthHours": 0.000074,
+                "jointHours": -0.028246,
+                "longestDarkHours": 0.02832,
+                "longestCommGapHours": -0.000074
+              },
+              {
+                "sunHours": 0.243116,
+                "earthHours": 0.000064,
+                "jointHours": 0,
+                "longestDarkHours": -0.243116,
+                "longestCommGapHours": -0.000064
+              },
+              {
+                "sunHours": -0.000045,
+                "earthHours": 0.00009,
+                "jointHours": 0.000045,
+                "longestDarkHours": 0.000045,
+                "longestCommGapHours": -0.00009
+              },
+              {
+                "sunHours": -0.030349,
+                "earthHours": 0.000073,
+                "jointHours": -0.030276,
+                "longestDarkHours": 0.030349,
+                "longestCommGapHours": -0.000073
+              },
+              {
+                "sunHours": 0.036266,
+                "earthHours": 0.000061,
+                "jointHours": 0.036327,
+                "longestDarkHours": -0.036266,
+                "longestCommGapHours": -0.000061
+              },
+              {
+                "sunHours": -0.019672,
+                "earthHours": 0.000089,
+                "jointHours": -0.019583,
+                "longestDarkHours": 0.019672,
+                "longestCommGapHours": -0.000089
+              },
+              {
+                "sunHours": -0.007292,
+                "earthHours": 0.000072,
+                "jointHours": -0.00722,
+                "longestDarkHours": 0.007292,
+                "longestCommGapHours": -0.000072
+              },
+              {
+                "sunHours": -0.040331,
+                "earthHours": 0.00006,
+                "jointHours": -0.040272,
+                "longestDarkHours": 0.040331,
+                "longestCommGapHours": -0.00006
+              }
+            ]
+          },
+          {
+            "phase": 1,
+            "centerFeasibilityUnchanged": true,
+            "patchPassCount": 8,
+            "differences": [
+              {
+                "sunHours": -0.000006,
+                "earthHours": 0.000044,
+                "jointHours": 0.000038,
+                "longestDarkHours": 0.000006,
+                "longestCommGapHours": -0.000044
+              },
+              {
+                "sunHours": -0.000023,
+                "earthHours": 0.000029,
+                "jointHours": 0.000005,
+                "longestDarkHours": 0.000023,
+                "longestCommGapHours": -0.000029
+              },
+              {
+                "sunHours": -0.000016,
+                "earthHours": 0.000042,
+                "jointHours": 0.000027,
+                "longestDarkHours": 0.000016,
+                "longestCommGapHours": -0.000042
+              },
+              {
+                "sunHours": 0.000038,
+                "earthHours": 0.000049,
+                "jointHours": 0,
+                "longestDarkHours": -0.000038,
+                "longestCommGapHours": -0.000049
+              },
+              {
+                "sunHours": -0.000025,
+                "earthHours": 0.000029,
+                "jointHours": 0.000004,
+                "longestDarkHours": 0.000025,
+                "longestCommGapHours": -0.000029
+              },
+              {
+                "sunHours": -0.000006,
+                "earthHours": 0.000044,
+                "jointHours": 0.000038,
+                "longestDarkHours": 0.000006,
+                "longestCommGapHours": -0.000044
+              },
+              {
+                "sunHours": 0.032575,
+                "earthHours": 0.000052,
+                "jointHours": 0.032627,
+                "longestDarkHours": -0.032575,
+                "longestCommGapHours": -0.000052
+              },
+              {
+                "sunHours": -0.000019,
+                "earthHours": 0.00003,
+                "jointHours": 0.000012,
+                "longestDarkHours": 0.000019,
+                "longestCommGapHours": -0.00003
+              },
+              {
+                "sunHours": -0.026381,
+                "earthHours": 0.000045,
+                "jointHours": -0.026336,
+                "longestDarkHours": 0.026381,
+                "longestCommGapHours": -0.000045
+              },
+              {
+                "sunHours": -0.014775,
+                "earthHours": 0.000054,
+                "jointHours": -0.014721,
+                "longestDarkHours": 0.014775,
+                "longestCommGapHours": -0.000054
+              }
+            ]
+          }
+        ],
+        "earliestAllNinePass": [
+          {
+            "siteId": "ridge-1",
+            "name": "Connecting Ridge · ROI 1",
+            "start": "2027-06-21T12:00:00.000Z",
+            "end": "2027-06-28T12:00:00.000Z",
+            "delayHours": 462,
+            "feasible": true,
+            "centerFeasible": true,
+            "metrics": {
+              "sunHours": 160.08493895324708,
+              "earthHours": 149.7670138084581,
+              "jointHours": 141.8519527617052,
+              "longestDarkHours": 7.91506104675293,
+              "longestCommGapHours": 18.232986191541883
+            },
+            "patchCoverage": 1,
+            "worstCase": {
+              "status": "complete",
+              "allKnown": true,
+              "count": 9,
+              "knownCount": 9,
+              "metrics": {
+                "longestDarkHours": 8.01474554389106,
+                "longestCommGapHours": 18.524580070122614,
+                "jointHours": 141.606917880995
+              },
+              "knownMetrics": {
+                "longestDarkHours": 8.01474554389106,
+                "longestCommGapHours": 18.524580070122614,
+                "jointHours": 141.606917880995
+              },
+              "points": {
+                "longestDarkHours": {
+                  "id": "e-25-n+25",
+                  "dxM": -25,
+                  "dyM": 25,
+                  "tiedPointIds": [
+                    "e-25-n+25"
+                  ]
+                },
+                "longestCommGapHours": {
+                  "id": "e+25-n-25",
+                  "dxM": 25,
+                  "dyM": -25,
+                  "tiedPointIds": [
+                    "e+25-n-25"
+                  ]
+                },
+                "jointHours": {
+                  "id": "e+25-n-25",
+                  "dxM": 25,
+                  "dyM": -25,
+                  "tiedPointIds": [
+                    "e+25-n-25"
+                  ]
+                }
+              },
+              "margins": {
+                "darknessHours": 15.98525445610894,
+                "earthGapHours": 5.475419929877386,
+                "jointHours": 117.60691788099501
+              },
+              "minimumMarginHours": 5.475419929877386,
+              "limitingMetrics": [
+                "earthGapHours"
+              ],
+              "interpretation": "Worst values among supplied discrete positions. Positive margins are hours inside each threshold; negative margins miss it. The minimum is the smallest of the three explicitly reported margins, not a weighted score, probability, or calibrated uncertainty."
+            },
+            "reasons": []
+          },
+          {
+            "siteId": "ridge-4",
+            "name": "Connecting Ridge · ROI 4",
+            "start": "2027-06-21T12:00:00.000Z",
+            "end": "2027-06-28T12:00:00.000Z",
+            "delayHours": 462,
+            "feasible": true,
+            "centerFeasible": true,
+            "metrics": {
+              "sunHours": 160.31822226738825,
+              "earthHours": 149.383702027181,
+              "jointHours": 141.70192429456924,
+              "longestDarkHours": 7.681777732611762,
+              "longestCommGapHours": 18.61629797281901
+            },
+            "patchCoverage": 1,
+            "worstCase": {
+              "status": "complete",
+              "allKnown": true,
+              "count": 9,
+              "knownCount": 9,
+              "metrics": {
+                "longestDarkHours": 23.74917733235677,
+                "longestCommGapHours": 18.90558658820258,
+                "jointHours": 116.99174096415203
+              },
+              "knownMetrics": {
+                "longestDarkHours": 23.74917733235677,
+                "longestCommGapHours": 18.90558658820258,
+                "jointHours": 116.99174096415203
+              },
+              "points": {
+                "longestDarkHours": {
+                  "id": "e-25-n-25",
+                  "dxM": -25,
+                  "dyM": -25,
+                  "tiedPointIds": [
+                    "e-25-n-25"
+                  ]
+                },
+                "longestCommGapHours": {
+                  "id": "e+25-n-25",
+                  "dxM": 25,
+                  "dyM": -25,
+                  "tiedPointIds": [
+                    "e+25-n-25"
+                  ]
+                },
+                "jointHours": {
+                  "id": "e-25-n-25",
+                  "dxM": -25,
+                  "dyM": -25,
+                  "tiedPointIds": [
+                    "e-25-n-25"
+                  ]
+                }
+              },
+              "margins": {
+                "darknessHours": 0.2508226676432308,
+                "earthGapHours": 5.094413411797419,
+                "jointHours": 92.99174096415203
+              },
+              "minimumMarginHours": 0.2508226676432308,
+              "limitingMetrics": [
+                "darknessHours"
+              ],
+              "interpretation": "Worst values among supplied discrete positions. Positive margins are hours inside each threshold; negative margins miss it. The minimum is the smallest of the three explicitly reported margins, not a weighted score, probability, or calibrated uncertainty."
+            },
+            "reasons": []
+          }
+        ],
+        "interpretation": "Selected after inspecting the modeled cases. This is a reproducible illustration, not a representative success-rate benchmark."
+      }
+    },
+    {
+      "filename": "lunar-sites-march.json",
+      "sha256": "266011b3d2c20224c75a44a93d414986d9751ac7ae5a0d463ba5744434618aab",
+      "dataGeneratedAt": "2026-11-13T03:54:08.118154+00:00",
+      "start": "2027-03-01T00:00:00Z",
+      "stop": "2027-04-01T00:00:00Z",
+      "sampleIntervalMinutes": 30,
+      "siteCount": 3,
+      "fullInterval": [
+        {
+          "siteId": "ridge-1",
+          "start": "2027-03-01T00:00:00.000Z",
+          "end": "2027-04-01T00:00:00.000Z",
+          "feasible": false,
+          "metrics": {
+            "sunHours": 546.5507,
+            "earthHours": 341.6323,
+            "jointHours": 208.5073,
+            "longestDarkHours": 95.5994,
+            "longestCommGapHours": 294.5949
+          },
+          "patchCoverage": 0,
+          "patches": [
+            {
+              "id": "e-25-n-25",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 594.0042,
+                "earthHours": 341.9985,
+                "jointHours": 263.0211,
+                "longestDarkHours": 95.8039,
+                "longestCommGapHours": 294.4817
+              }
+            },
+            {
+              "id": "e+0-n-25",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 589.0101,
+                "earthHours": 341.5805,
+                "jointHours": 251.5958,
+                "longestDarkHours": 96.6399,
+                "longestCommGapHours": 294.6117
+              }
+            },
+            {
+              "id": "e+25-n-25",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 435.9196,
+                "earthHours": 341.1496,
+                "jointHours": 94.3426,
+                "longestDarkHours": 247.1638,
+                "longestCommGapHours": 294.7486
+              }
+            },
+            {
+              "id": "e-25-n+0",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 591.997,
+                "earthHours": 342.05,
+                "jointHours": 259.8073,
+                "longestDarkHours": 93.3159,
+                "longestCommGapHours": 294.4604
+              }
+            },
+            {
+              "id": "e+0-n+0",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 546.5507,
+                "earthHours": 341.6323,
+                "jointHours": 208.5073,
+                "longestDarkHours": 95.5994,
+                "longestCommGapHours": 294.5949
+              }
+            },
+            {
+              "id": "e+25-n+0",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 482.6284,
+                "earthHours": 341.2032,
+                "jointHours": 139.9618,
+                "longestDarkHours": 227.2308,
+                "longestCommGapHours": 294.73
+              }
+            },
+            {
+              "id": "e-25-n+25",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 488.6768,
+                "earthHours": 342.0883,
+                "jointHours": 169.3542,
+                "longestDarkHours": 220.2154,
+                "longestCommGapHours": 294.4473
+              }
+            },
+            {
+              "id": "e+0-n+25",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 498.4589,
+                "earthHours": 341.6786,
+                "jointHours": 161.4155,
+                "longestDarkHours": 211.2719,
+                "longestCommGapHours": 294.5803
+              }
+            },
+            {
+              "id": "e+25-n+25",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 492.9729,
+                "earthHours": 341.2544,
+                "jointHours": 149.8146,
+                "longestDarkHours": 216.8914,
+                "longestCommGapHours": 294.7116
+              }
+            }
+          ]
+        },
+        {
+          "siteId": "ridge-4",
+          "start": "2027-03-01T00:00:00.000Z",
+          "end": "2027-04-01T00:00:00.000Z",
+          "feasible": false,
+          "metrics": {
+            "sunHours": 595.2765,
+            "earthHours": 341.025,
+            "jointHours": 275.0371,
+            "longestDarkHours": 72.1082,
+            "longestCommGapHours": 294.7582
+          },
+          "patchCoverage": 0,
+          "patches": [
+            {
+              "id": "e-25-n-25",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 463.1039,
+                "earthHours": 341.389,
+                "jointHours": 255.4826,
+                "longestDarkHours": 113.8559,
+                "longestCommGapHours": 294.655
+              }
+            },
+            {
+              "id": "e+0-n-25",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 569.8092,
+                "earthHours": 340.9695,
+                "jointHours": 259.7631,
+                "longestDarkHours": 73.0811,
+                "longestCommGapHours": 294.7784
+              }
+            },
+            {
+              "id": "e+25-n-25",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 528.9867,
+                "earthHours": 340.5356,
+                "jointHours": 214.4422,
+                "longestDarkHours": 100.3408,
+                "longestCommGapHours": 294.9061
+              }
+            },
+            {
+              "id": "e-25-n+0",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 544.1235,
+                "earthHours": 341.4462,
+                "jointHours": 277.3818,
+                "longestDarkHours": 76.4092,
+                "longestCommGapHours": 294.6351
+              }
+            },
+            {
+              "id": "e+0-n+0",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 595.2765,
+                "earthHours": 341.025,
+                "jointHours": 275.0371,
+                "longestDarkHours": 72.1082,
+                "longestCommGapHours": 294.7582
+              }
+            },
+            {
+              "id": "e+25-n+0",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 558.5452,
+                "earthHours": 340.5939,
+                "jointHours": 241.3016,
+                "longestDarkHours": 77.2204,
+                "longestCommGapHours": 294.885
+              }
+            },
+            {
+              "id": "e-25-n+25",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 606.0002,
+                "earthHours": 341.5042,
+                "jointHours": 284.1012,
+                "longestDarkHours": 71.7184,
+                "longestCommGapHours": 294.6146
+              }
+            },
+            {
+              "id": "e+0-n+25",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 616.2391,
+                "earthHours": 341.0814,
+                "jointHours": 280.0184,
+                "longestDarkHours": 71.2737,
+                "longestCommGapHours": 294.7374
+              }
+            },
+            {
+              "id": "e+25-n+25",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 567.6906,
+                "earthHours": 340.6459,
+                "jointHours": 249.5738,
+                "longestDarkHours": 76.812,
+                "longestCommGapHours": 294.865
+              }
+            }
+          ]
+        },
+        {
+          "siteId": "ridge-6",
+          "start": "2027-03-01T00:00:00.000Z",
+          "end": "2027-04-01T00:00:00.000Z",
+          "feasible": false,
+          "metrics": {
+            "sunHours": 575.6233,
+            "earthHours": 339.9709,
+            "jointHours": 318.7982,
+            "longestDarkHours": 70.7183,
+            "longestCommGapHours": 295.0259
+          },
+          "patchCoverage": 0,
+          "patches": [
+            {
+              "id": "e-25-n-25",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 525.3865,
+                "earthHours": 340.3142,
+                "jointHours": 320.3967,
+                "longestDarkHours": 79.0661,
+                "longestCommGapHours": 294.956
+              }
+            },
+            {
+              "id": "e+0-n-25",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 568.3146,
+                "earthHours": 339.9154,
+                "jointHours": 317.4072,
+                "longestDarkHours": 73.8742,
+                "longestCommGapHours": 295.0449
+              }
+            },
+            {
+              "id": "e+25-n-25",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 433.9701,
+                "earthHours": 339.5111,
+                "jointHours": 183.3623,
+                "longestDarkHours": 207.7183,
+                "longestCommGapHours": 295.1392
+              }
+            },
+            {
+              "id": "e-25-n+0",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 550.4249,
+                "earthHours": 340.3676,
+                "jointHours": 320.8533,
+                "longestDarkHours": 78.24,
+                "longestCommGapHours": 294.9381
+              }
+            },
+            {
+              "id": "e+0-n+0",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 575.6233,
+                "earthHours": 339.9709,
+                "jointHours": 318.7982,
+                "longestDarkHours": 70.7183,
+                "longestCommGapHours": 295.0259
+              }
+            },
+            {
+              "id": "e+25-n+0",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 583.5422,
+                "earthHours": 339.5759,
+                "jointHours": 314.6577,
+                "longestDarkHours": 68.9283,
+                "longestCommGapHours": 295.1157
+              }
+            },
+            {
+              "id": "e-25-n+25",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 543.4033,
+                "earthHours": 340.4102,
+                "jointHours": 320.2887,
+                "longestDarkHours": 81.5734,
+                "longestCommGapHours": 294.9258
+              }
+            },
+            {
+              "id": "e+0-n+25",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 572.9288,
+                "earthHours": 340.0195,
+                "jointHours": 318.7646,
+                "longestDarkHours": 72.1333,
+                "longestCommGapHours": 295.0122
+              }
+            },
+            {
+              "id": "e+25-n+25",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 587.6424,
+                "earthHours": 339.6308,
+                "jointHours": 315.424,
+                "longestDarkHours": 67.924,
+                "longestCommGapHours": 295.0961
+              }
+            }
+          ]
+        }
+      ],
+      "clearanceMonotonicity": {
+        "comparisons": 1800,
+        "violations": 0
+      },
+      "samplingSensitivity": [
+        {
+          "siteId": "ridge-1",
+          "clearanceDeg": 0,
+          "fineMinutes": 30,
+          "coarseMinutes": 60,
+          "comparedIntervals": 52,
+          "maximumAbsoluteDifferences": {
+            "sunHours": {
+              "absoluteHours": 0.691822,
+              "start": "2027-03-01T00:00:00.000Z",
+              "durationHours": 744,
+              "phase": 0
+            },
+            "earthHours": {
+              "absoluteHours": 0.000094,
+              "start": "2027-03-01T00:00:00.000Z",
+              "durationHours": 744,
+              "phase": 0
+            },
+            "jointHours": {
+              "absoluteHours": 0.642804,
+              "start": "2027-03-08T00:00:00.000Z",
+              "durationHours": 168,
+              "phase": 0
+            },
+            "longestDarkHours": {
+              "absoluteHours": 0.207067,
+              "start": "2027-03-07T00:00:00.000Z",
+              "durationHours": 168,
+              "phase": 1
+            },
+            "longestCommGapHours": {
+              "absoluteHours": 0.000069,
+              "start": "2027-03-19T00:00:00.000Z",
+              "durationHours": 168,
+              "phase": 0
+            }
+          }
+        },
+        {
+          "siteId": "ridge-1",
+          "clearanceDeg": 0.5,
+          "fineMinutes": 30,
+          "coarseMinutes": 60,
+          "comparedIntervals": 52,
+          "maximumAbsoluteDifferences": {
+            "sunHours": {
+              "absoluteHours": 0.017184,
+              "start": "2027-03-24T00:00:00.000Z",
+              "durationHours": 168,
+              "phase": 1
+            },
+            "earthHours": {
+              "absoluteHours": 0.000038,
+              "start": "2027-03-01T00:00:00.000Z",
+              "durationHours": 168,
+              "phase": 1
+            },
+            "jointHours": {
+              "absoluteHours": 0.000038,
+              "start": "2027-03-01T00:00:00.000Z",
+              "durationHours": 168,
+              "phase": 1
+            },
+            "longestDarkHours": {
+              "absoluteHours": 0.002698,
+              "start": "2027-03-23T00:00:00.000Z",
+              "durationHours": 168,
+              "phase": 0
+            },
+            "longestCommGapHours": {
+              "absoluteHours": 0.000038,
+              "start": "2027-03-01T00:00:00.000Z",
+              "durationHours": 168,
+              "phase": 1
+            }
+          }
+        },
+        {
+          "siteId": "ridge-4",
+          "clearanceDeg": 0,
+          "fineMinutes": 30,
+          "coarseMinutes": 60,
+          "comparedIntervals": 52,
+          "maximumAbsoluteDifferences": {
+            "sunHours": {
+              "absoluteHours": 0.841297,
+              "start": "2027-03-13T00:00:00.000Z",
+              "durationHours": 168,
+              "phase": 1
+            },
+            "earthHours": {
+              "absoluteHours": 0.000069,
+              "start": "2027-03-01T00:00:00.000Z",
+              "durationHours": 744,
+              "phase": 1
+            },
+            "jointHours": {
+              "absoluteHours": 0.841297,
+              "start": "2027-03-14T00:00:00.000Z",
+              "durationHours": 168,
+              "phase": 1
+            },
+            "longestDarkHours": {
+              "absoluteHours": 0.841206,
+              "start": "2027-03-08T00:00:00.000Z",
+              "durationHours": 168,
+              "phase": 1
+            },
+            "longestCommGapHours": {
+              "absoluteHours": 0.000041,
+              "start": "2027-03-19T00:00:00.000Z",
+              "durationHours": 168,
+              "phase": 0
+            }
+          }
+        },
+        {
+          "siteId": "ridge-4",
+          "clearanceDeg": 0.5,
+          "fineMinutes": 30,
+          "coarseMinutes": 60,
+          "comparedIntervals": 52,
+          "maximumAbsoluteDifferences": {
+            "sunHours": {
+              "absoluteHours": 0.105124,
+              "start": "2027-03-08T00:00:00.000Z",
+              "durationHours": 168,
+              "phase": 1
+            },
+            "earthHours": {
+              "absoluteHours": 0.000022,
+              "start": "2027-03-01T00:00:00.000Z",
+              "durationHours": 168,
+              "phase": 1
+            },
+            "jointHours": {
+              "absoluteHours": 0.105124,
+              "start": "2027-03-08T00:00:00.000Z",
+              "durationHours": 168,
+              "phase": 1
+            },
+            "longestDarkHours": {
+              "absoluteHours": 0.104898,
+              "start": "2027-03-08T00:00:00.000Z",
+              "durationHours": 168,
+              "phase": 1
+            },
+            "longestCommGapHours": {
+              "absoluteHours": 0.000022,
+              "start": "2027-03-01T00:00:00.000Z",
+              "durationHours": 168,
+              "phase": 1
+            }
+          }
+        },
+        {
+          "siteId": "ridge-6",
+          "clearanceDeg": 0,
+          "fineMinutes": 30,
+          "coarseMinutes": 60,
+          "comparedIntervals": 52,
+          "maximumAbsoluteDifferences": {
+            "sunHours": {
+              "absoluteHours": 0.261334,
+              "start": "2027-03-20T00:00:00.000Z",
+              "durationHours": 168,
+              "phase": 0
+            },
+            "earthHours": {
+              "absoluteHours": 0.000115,
+              "start": "2027-03-01T00:00:00.000Z",
+              "durationHours": 744,
+              "phase": 1
+            },
+            "jointHours": {
+              "absoluteHours": 0.253299,
+              "start": "2027-03-14T00:00:00.000Z",
+              "durationHours": 168,
+              "phase": 0
+            },
+            "longestDarkHours": {
+              "absoluteHours": 0.254661,
+              "start": "2027-03-23T00:00:00.000Z",
+              "durationHours": 168,
+              "phase": 0
+            },
+            "longestCommGapHours": {
+              "absoluteHours": 0.000074,
+              "start": "2027-03-01T00:00:00.000Z",
+              "durationHours": 744,
+              "phase": 1
+            }
+          }
+        },
+        {
+          "siteId": "ridge-6",
+          "clearanceDeg": 0.5,
+          "fineMinutes": 30,
+          "coarseMinutes": 60,
+          "comparedIntervals": 52,
+          "maximumAbsoluteDifferences": {
+            "sunHours": {
+              "absoluteHours": 0.304173,
+              "start": "2027-03-01T00:00:00.000Z",
+              "durationHours": 744,
+              "phase": 0
+            },
+            "earthHours": {
+              "absoluteHours": 0.000022,
+              "start": "2027-03-01T00:00:00.000Z",
+              "durationHours": 744,
+              "phase": 0
+            },
+            "jointHours": {
+              "absoluteHours": 0.121069,
+              "start": "2027-03-10T00:00:00.000Z",
+              "durationHours": 168,
+              "phase": 0
+            },
+            "longestDarkHours": {
+              "absoluteHours": 0.182488,
+              "start": "2027-03-01T00:00:00.000Z",
+              "durationHours": 168,
+              "phase": 0
+            },
+            "longestCommGapHours": {
+              "absoluteHours": 0.000016,
+              "start": "2027-03-01T00:00:00.000Z",
+              "durationHours": 744,
+              "phase": 0
+            }
+          }
+        }
+      ],
+      "terrainComparison": [
+        {
+          "siteId": "ridge-1",
+          "clearanceDeg": 0,
+          "terrain": {
+            "sunHours": 546.5507,
+            "earthHours": 341.6323,
+            "jointHours": 208.5073,
+            "longestDarkHours": 95.5994,
+            "longestCommGapHours": 294.5949
+          },
+          "flatTangentPlane": {
+            "sunHours": 0,
+            "earthHours": 299.5705,
+            "jointHours": 0,
+            "longestDarkHours": 744,
+            "longestCommGapHours": 309.2707
+          },
+          "terrainMinusFlatHours": {
+            "sunHours": 546.5507,
+            "earthHours": 42.0618,
+            "jointHours": 208.5073,
+            "longestDarkHours": -648.4006,
+            "longestCommGapHours": -14.6758
+          }
+        },
+        {
+          "siteId": "ridge-1",
+          "clearanceDeg": 0.5,
+          "terrain": {
+            "sunHours": 398.4626,
+            "earthHours": 328.1537,
+            "jointHours": 119.4862,
+            "longestDarkHours": 258.6492,
+            "longestCommGapHours": 300.965
+          },
+          "flatTangentPlane": {
+            "sunHours": 0,
+            "earthHours": 284.1477,
+            "jointHours": 0,
+            "longestDarkHours": 744,
+            "longestCommGapHours": 316.3651
+          },
+          "terrainMinusFlatHours": {
+            "sunHours": 398.4626,
+            "earthHours": 44.006,
+            "jointHours": 119.4862,
+            "longestDarkHours": -485.3508,
+            "longestCommGapHours": -15.4001
+          }
+        },
+        {
+          "siteId": "ridge-4",
+          "clearanceDeg": 0,
+          "terrain": {
+            "sunHours": 595.2765,
+            "earthHours": 341.025,
+            "jointHours": 275.0371,
+            "longestDarkHours": 72.1082,
+            "longestCommGapHours": 294.7582
+          },
+          "flatTangentPlane": {
+            "sunHours": 0,
+            "earthHours": 299.8612,
+            "jointHours": 0,
+            "longestDarkHours": 744,
+            "longestCommGapHours": 309.1324
+          },
+          "terrainMinusFlatHours": {
+            "sunHours": 595.2765,
+            "earthHours": 41.1638,
+            "jointHours": 275.0371,
+            "longestDarkHours": -671.8918,
+            "longestCommGapHours": -14.3742
+          }
+        },
+        {
+          "siteId": "ridge-4",
+          "clearanceDeg": 0.5,
+          "terrain": {
+            "sunHours": 411.5821,
+            "earthHours": 327.5207,
+            "jointHours": 186.1173,
+            "longestDarkHours": 112.2701,
+            "longestCommGapHours": 301.2316
+          },
+          "flatTangentPlane": {
+            "sunHours": 0,
+            "earthHours": 284.4387,
+            "jointHours": 0,
+            "longestDarkHours": 744,
+            "longestCommGapHours": 316.2262
+          },
+          "terrainMinusFlatHours": {
+            "sunHours": 411.5821,
+            "earthHours": 43.0821,
+            "jointHours": 186.1173,
+            "longestDarkHours": -631.7299,
+            "longestCommGapHours": -14.9946
+          }
+        },
+        {
+          "siteId": "ridge-6",
+          "clearanceDeg": 0,
+          "terrain": {
+            "sunHours": 575.6233,
+            "earthHours": 339.9709,
+            "jointHours": 318.7982,
+            "longestDarkHours": 70.7183,
+            "longestCommGapHours": 295.0259
+          },
+          "flatTangentPlane": {
+            "sunHours": 0,
+            "earthHours": 300.2834,
+            "jointHours": 0,
+            "longestDarkHours": 744,
+            "longestCommGapHours": 308.9306
+          },
+          "terrainMinusFlatHours": {
+            "sunHours": 575.6233,
+            "earthHours": 39.6875,
+            "jointHours": 318.7982,
+            "longestDarkHours": -673.2817,
+            "longestCommGapHours": -13.9048
+          }
+        },
+        {
+          "siteId": "ridge-6",
+          "clearanceDeg": 0.5,
+          "terrain": {
+            "sunHours": 390.3059,
+            "earthHours": 326.6139,
+            "jointHours": 238.157,
+            "longestDarkHours": 103.5393,
+            "longestCommGapHours": 301.5842
+          },
+          "flatTangentPlane": {
+            "sunHours": 0,
+            "earthHours": 284.8611,
+            "jointHours": 0,
+            "longestDarkHours": 744,
+            "longestCommGapHours": 316.0236
+          },
+          "terrainMinusFlatHours": {
+            "sunHours": 390.3059,
+            "earthHours": 41.7528,
+            "jointHours": 238.157,
+            "longestDarkHours": -640.4607,
+            "longestCommGapHours": -14.4394
+          }
+        }
+      ],
+      "footprintComparison": [
+        {
+          "siteId": "ridge-1",
+          "clearanceDeg": 0,
+          "sampleCount": 9,
+          "spacingM": 25,
+          "maximumAcrossWindowSpreadHours": {
+            "longestDark": 148.0954,
+            "longestCommGap": 0.6373,
+            "joint": 141.3327
+          },
+          "strongestCenterPassFootprintFail": {
+            "bundle": "lunar-sites-march.json",
+            "siteId": "ridge-1",
+            "start": "2027-03-10T18:00:00.000Z",
+            "durationHours": 168,
+            "clearanceDeg": 0,
+            "maxDarkHours": 48,
+            "maxCommGapHours": 0,
+            "minJointHours": 24,
+            "center": {
+              "sunHours": 82.2801,
+              "earthHours": 168,
+              "jointHours": 82.2801,
+              "longestDarkHours": 47.7579,
+              "longestCommGapHours": 0
+            },
+            "patchPassingCount": 4,
+            "patchCount": 9,
+            "patchCoverage": 0.4444444444444444,
+            "worstExtraDarkHours": 120.2421,
+            "worstExtraCommGapHours": 0,
+            "exceedsNativeSampleStep": true,
+            "scope": "Illustrative thresholds; finite scenario coverage, not a success probability."
+          }
+        },
+        {
+          "siteId": "ridge-1",
+          "clearanceDeg": 0.5,
+          "sampleCount": 9,
+          "spacingM": 25,
+          "maximumAcrossWindowSpreadHours": {
+            "longestDark": 116.6518,
+            "longestCommGap": 0.6382,
+            "joint": 86.8895
+          },
+          "strongestCenterPassFootprintFail": {
+            "bundle": "lunar-sites-march.json",
+            "siteId": "ridge-1",
+            "start": "2027-03-05T18:00:00.000Z",
+            "durationHours": 168,
+            "clearanceDeg": 0.5,
+            "maxDarkHours": 48,
+            "maxCommGapHours": 48,
+            "minJointHours": 24,
+            "center": {
+              "sunHours": 120.3675,
+              "earthHours": 167.1187,
+              "jointHours": 119.4862,
+              "longestDarkHours": 47.6325,
+              "longestCommGapHours": 0.8813
+            },
+            "patchPassingCount": 4,
+            "patchCount": 9,
+            "patchCoverage": 0.4444444444444444,
+            "worstExtraDarkHours": 59.6834,
+            "worstExtraCommGapHours": 0.324,
+            "exceedsNativeSampleStep": true,
+            "scope": "Illustrative thresholds; finite scenario coverage, not a success probability."
+          }
+        },
+        {
+          "siteId": "ridge-4",
+          "clearanceDeg": 0,
+          "sampleCount": 9,
+          "spacingM": 25,
+          "maximumAcrossWindowSpreadHours": {
+            "longestDark": 104.8804,
+            "longestCommGap": 0.6771,
+            "joint": 60.2225
+          },
+          "strongestCenterPassFootprintFail": {
+            "bundle": "lunar-sites-march.json",
+            "siteId": "ridge-4",
+            "start": "2027-03-04T00:00:00.000Z",
+            "durationHours": 168,
+            "clearanceDeg": 0,
+            "maxDarkHours": 48,
+            "maxCommGapHours": 48,
+            "minJointHours": 24,
+            "center": {
+              "sunHours": 126.9105,
+              "earthHours": 131.7832,
+              "jointHours": 117.5413,
+              "longestDarkHours": 22.8802,
+              "longestCommGapHours": 36.2168
+            },
+            "patchPassingCount": 4,
+            "patchCount": 9,
+            "patchCoverage": 0.4444444444444444,
+            "worstExtraDarkHours": 77.4606,
+            "worstExtraCommGapHours": 0.3415,
+            "exceedsNativeSampleStep": true,
+            "scope": "Illustrative thresholds; finite scenario coverage, not a success probability."
+          }
+        },
+        {
+          "siteId": "ridge-4",
+          "clearanceDeg": 0.5,
+          "sampleCount": 9,
+          "spacingM": 25,
+          "maximumAcrossWindowSpreadHours": {
+            "longestDark": 82.0841,
+            "longestCommGap": 0.6885,
+            "joint": 81.8053
+          },
+          "strongestCenterPassFootprintFail": {
+            "bundle": "lunar-sites-march.json",
+            "siteId": "ridge-4",
+            "start": "2027-03-07T06:00:00.000Z",
+            "durationHours": 168,
+            "clearanceDeg": 0.5,
+            "maxDarkHours": 48,
+            "maxCommGapHours": 48,
+            "minJointHours": 24,
+            "center": {
+              "sunHours": 141.4065,
+              "earthHours": 168,
+              "jointHours": 141.4065,
+              "longestDarkHours": 18.5607,
+              "longestCommGapHours": 0
+            },
+            "patchPassingCount": 6,
+            "patchCount": 9,
+            "patchCoverage": 0.6666666666666666,
+            "worstExtraDarkHours": 68.4336,
+            "worstExtraCommGapHours": 0,
+            "exceedsNativeSampleStep": true,
+            "scope": "Illustrative thresholds; finite scenario coverage, not a success probability."
+          }
+        },
+        {
+          "siteId": "ridge-6",
+          "clearanceDeg": 0,
+          "sampleCount": 9,
+          "spacingM": 25,
+          "maximumAcrossWindowSpreadHours": {
+            "longestDark": 137.2778,
+            "longestCommGap": 0.6856,
+            "joint": 137.2778
+          },
+          "strongestCenterPassFootprintFail": {
+            "bundle": "lunar-sites-march.json",
+            "siteId": "ridge-6",
+            "start": "2027-03-05T12:00:00.000Z",
+            "durationHours": 168,
+            "clearanceDeg": 0,
+            "maxDarkHours": 48,
+            "maxCommGapHours": 48,
+            "minJointHours": 24,
+            "center": {
+              "sunHours": 164.291,
+              "earthHours": 166.9968,
+              "jointHours": 164.291,
+              "longestDarkHours": 3.709,
+              "longestCommGapHours": 1.0032
+            },
+            "patchPassingCount": 8,
+            "patchCount": 9,
+            "patchCoverage": 0.8888888888888888,
+            "worstExtraDarkHours": 134.8687,
+            "worstExtraCommGapHours": 0.3464,
+            "exceedsNativeSampleStep": true,
+            "scope": "Illustrative thresholds; finite scenario coverage, not a success probability."
+          }
+        },
+        {
+          "siteId": "ridge-6",
+          "clearanceDeg": 0.5,
+          "sampleCount": 9,
+          "spacingM": 25,
+          "maximumAcrossWindowSpreadHours": {
+            "longestDark": 162.1246,
+            "longestCommGap": 0.7236,
+            "joint": 162.1246
+          },
+          "strongestCenterPassFootprintFail": {
+            "bundle": "lunar-sites-march.json",
+            "siteId": "ridge-6",
+            "start": "2027-03-06T00:00:00.000Z",
+            "durationHours": 168,
+            "clearanceDeg": 0.5,
+            "maxDarkHours": 6,
+            "maxCommGapHours": 0,
+            "minJointHours": 24,
+            "center": {
+              "sunHours": 165.0674,
+              "earthHours": 168,
+              "jointHours": 165.0674,
+              "longestDarkHours": 2.9326,
+              "longestCommGapHours": 0
+            },
+            "patchPassingCount": 6,
+            "patchCount": 9,
+            "patchCoverage": 0.6666666666666666,
+            "worstExtraDarkHours": 159.1921,
+            "worstExtraCommGapHours": 0,
+            "exceedsNativeSampleStep": true,
+            "scope": "Illustrative thresholds; finite scenario coverage, not a success probability."
+          }
+        }
+      ],
+      "independentInterpolationComparison": [
+        {
+          "siteId": "ridge-1",
+          "clearanceDeg": 0,
+          "midpointStepMinutes": 5,
+          "mainHours": {
+            "sunHours": 546.5507,
+            "earthHours": 341.6323,
+            "jointHours": 208.5073
+          },
+          "independentlyIntegratedHours": {
+            "sunHours": 546.6667,
+            "earthHours": 341.6667,
+            "jointHours": 208.5833
+          },
+          "mainMinusComparatorHours": {
+            "sunHours": -0.1159,
+            "earthHours": -0.0344,
+            "jointHours": -0.076
+          }
+        },
+        {
+          "siteId": "ridge-1",
+          "clearanceDeg": 0.5,
+          "midpointStepMinutes": 5,
+          "mainHours": {
+            "sunHours": 398.4626,
+            "earthHours": 328.1537,
+            "jointHours": 119.4862
+          },
+          "independentlyIntegratedHours": {
+            "sunHours": 398.4167,
+            "earthHours": 328.0833,
+            "jointHours": 119.4167
+          },
+          "mainMinusComparatorHours": {
+            "sunHours": 0.046,
+            "earthHours": 0.0704,
+            "jointHours": 0.0695
+          }
+        },
+        {
+          "siteId": "ridge-4",
+          "clearanceDeg": 0,
+          "midpointStepMinutes": 5,
+          "mainHours": {
+            "sunHours": 595.2765,
+            "earthHours": 341.025,
+            "jointHours": 275.0371
+          },
+          "independentlyIntegratedHours": {
+            "sunHours": 595.4167,
+            "earthHours": 341,
+            "jointHours": 275
+          },
+          "mainMinusComparatorHours": {
+            "sunHours": -0.1401,
+            "earthHours": 0.025,
+            "jointHours": 0.0371
+          }
+        },
+        {
+          "siteId": "ridge-4",
+          "clearanceDeg": 0.5,
+          "midpointStepMinutes": 5,
+          "mainHours": {
+            "sunHours": 411.5821,
+            "earthHours": 327.5207,
+            "jointHours": 186.1173
+          },
+          "independentlyIntegratedHours": {
+            "sunHours": 411.75,
+            "earthHours": 327.5,
+            "jointHours": 186.1667
+          },
+          "mainMinusComparatorHours": {
+            "sunHours": -0.1679,
+            "earthHours": 0.0207,
+            "jointHours": -0.0493
+          }
+        },
+        {
+          "siteId": "ridge-6",
+          "clearanceDeg": 0,
+          "midpointStepMinutes": 5,
+          "mainHours": {
+            "sunHours": 575.6233,
+            "earthHours": 339.9709,
+            "jointHours": 318.7982
+          },
+          "independentlyIntegratedHours": {
+            "sunHours": 575.5,
+            "earthHours": 340,
+            "jointHours": 318.6667
+          },
+          "mainMinusComparatorHours": {
+            "sunHours": 0.1233,
+            "earthHours": -0.0291,
+            "jointHours": 0.1315
+          }
+        },
+        {
+          "siteId": "ridge-6",
+          "clearanceDeg": 0.5,
+          "midpointStepMinutes": 5,
+          "mainHours": {
+            "sunHours": 390.3059,
+            "earthHours": 326.6139,
+            "jointHours": 238.157
+          },
+          "independentlyIntegratedHours": {
+            "sunHours": 390.3333,
+            "earthHours": 326.5833,
+            "jointHours": 238.1667
+          },
+          "mainMinusComparatorHours": {
+            "sunHours": -0.0274,
+            "earthHours": 0.0306,
+            "jointHours": -0.0097
+          }
+        }
+      ],
+      "missingDataChecks": [
+        {
+          "siteId": "ridge-1",
+          "injected": "missing-epoch",
+          "status": "partial",
+          "missingHours": 1,
+          "passed": true
+        },
+        {
+          "siteId": "ridge-1",
+          "injected": "null-angle",
+          "status": "partial",
+          "missingHours": 1,
+          "passed": true
+        },
+        {
+          "siteId": "ridge-1",
+          "injected": "duplicate-epoch",
+          "status": "partial",
+          "missingHours": 1,
+          "passed": true
+        },
+        {
+          "siteId": "ridge-4",
+          "injected": "missing-epoch",
+          "status": "partial",
+          "missingHours": 1,
+          "passed": true
+        },
+        {
+          "siteId": "ridge-4",
+          "injected": "null-angle",
+          "status": "partial",
+          "missingHours": 1,
+          "passed": true
+        },
+        {
+          "siteId": "ridge-4",
+          "injected": "duplicate-epoch",
+          "status": "partial",
+          "missingHours": 1,
+          "passed": true
+        },
+        {
+          "siteId": "ridge-6",
+          "injected": "missing-epoch",
+          "status": "partial",
+          "missingHours": 1,
+          "passed": true
+        },
+        {
+          "siteId": "ridge-6",
+          "injected": "null-angle",
+          "status": "partial",
+          "missingHours": 1,
+          "passed": true
+        },
+        {
+          "siteId": "ridge-6",
+          "injected": "duplicate-epoch",
+          "status": "partial",
+          "missingHours": 1,
+          "passed": true
+        }
+      ],
+      "demoCandidates": [
+        {
+          "bundle": "lunar-sites-march.json",
+          "siteId": "ridge-6",
+          "start": "2027-03-06T00:00:00.000Z",
+          "durationHours": 168,
+          "clearanceDeg": 0.5,
+          "maxDarkHours": 6,
+          "maxCommGapHours": 0,
+          "minJointHours": 24,
+          "center": {
+            "sunHours": 165.0674,
+            "earthHours": 168,
+            "jointHours": 165.0674,
+            "longestDarkHours": 2.9326,
+            "longestCommGapHours": 0
+          },
+          "patchPassingCount": 6,
+          "patchCount": 9,
+          "patchCoverage": 0.6666666666666666,
+          "worstExtraDarkHours": 159.1921,
+          "worstExtraCommGapHours": 0,
+          "exceedsNativeSampleStep": true,
+          "scope": "Illustrative thresholds; finite scenario coverage, not a success probability."
+        },
+        {
+          "bundle": "lunar-sites-march.json",
+          "siteId": "ridge-6",
+          "start": "2027-03-05T12:00:00.000Z",
+          "durationHours": 168,
+          "clearanceDeg": 0,
+          "maxDarkHours": 48,
+          "maxCommGapHours": 48,
+          "minJointHours": 24,
+          "center": {
+            "sunHours": 164.291,
+            "earthHours": 166.9968,
+            "jointHours": 164.291,
+            "longestDarkHours": 3.709,
+            "longestCommGapHours": 1.0032
+          },
+          "patchPassingCount": 8,
+          "patchCount": 9,
+          "patchCoverage": 0.8888888888888888,
+          "worstExtraDarkHours": 134.8687,
+          "worstExtraCommGapHours": 0.3464,
+          "exceedsNativeSampleStep": true,
+          "scope": "Illustrative thresholds; finite scenario coverage, not a success probability."
+        },
+        {
+          "bundle": "lunar-sites-march.json",
+          "siteId": "ridge-1",
+          "start": "2027-03-10T18:00:00.000Z",
+          "durationHours": 168,
+          "clearanceDeg": 0,
+          "maxDarkHours": 48,
+          "maxCommGapHours": 0,
+          "minJointHours": 24,
+          "center": {
+            "sunHours": 82.2801,
+            "earthHours": 168,
+            "jointHours": 82.2801,
+            "longestDarkHours": 47.7579,
+            "longestCommGapHours": 0
+          },
+          "patchPassingCount": 4,
+          "patchCount": 9,
+          "patchCoverage": 0.4444444444444444,
+          "worstExtraDarkHours": 120.2421,
+          "worstExtraCommGapHours": 0,
+          "exceedsNativeSampleStep": true,
+          "scope": "Illustrative thresholds; finite scenario coverage, not a success probability."
+        },
+        {
+          "bundle": "lunar-sites-march.json",
+          "siteId": "ridge-4",
+          "start": "2027-03-04T00:00:00.000Z",
+          "durationHours": 168,
+          "clearanceDeg": 0,
+          "maxDarkHours": 48,
+          "maxCommGapHours": 48,
+          "minJointHours": 24,
+          "center": {
+            "sunHours": 126.9105,
+            "earthHours": 131.7832,
+            "jointHours": 117.5413,
+            "longestDarkHours": 22.8802,
+            "longestCommGapHours": 36.2168
+          },
+          "patchPassingCount": 4,
+          "patchCount": 9,
+          "patchCoverage": 0.4444444444444444,
+          "worstExtraDarkHours": 77.4606,
+          "worstExtraCommGapHours": 0.3415,
+          "exceedsNativeSampleStep": true,
+          "scope": "Illustrative thresholds; finite scenario coverage, not a success probability."
+        },
+        {
+          "bundle": "lunar-sites-march.json",
+          "siteId": "ridge-4",
+          "start": "2027-03-07T06:00:00.000Z",
+          "durationHours": 168,
+          "clearanceDeg": 0.5,
+          "maxDarkHours": 48,
+          "maxCommGapHours": 48,
+          "minJointHours": 24,
+          "center": {
+            "sunHours": 141.4065,
+            "earthHours": 168,
+            "jointHours": 141.4065,
+            "longestDarkHours": 18.5607,
+            "longestCommGapHours": 0
+          },
+          "patchPassingCount": 6,
+          "patchCount": 9,
+          "patchCoverage": 0.6666666666666666,
+          "worstExtraDarkHours": 68.4336,
+          "worstExtraCommGapHours": 0,
+          "exceedsNativeSampleStep": true,
+          "scope": "Illustrative thresholds; finite scenario coverage, not a success probability."
+        },
+        {
+          "bundle": "lunar-sites-march.json",
+          "siteId": "ridge-1",
+          "start": "2027-03-05T18:00:00.000Z",
+          "durationHours": 168,
+          "clearanceDeg": 0.5,
+          "maxDarkHours": 48,
+          "maxCommGapHours": 48,
+          "minJointHours": 24,
+          "center": {
+            "sunHours": 120.3675,
+            "earthHours": 167.1187,
+            "jointHours": 119.4862,
+            "longestDarkHours": 47.6325,
+            "longestCommGapHours": 0.8813
+          },
+          "patchPassingCount": 4,
+          "patchCount": 9,
+          "patchCoverage": 0.4444444444444444,
+          "worstExtraDarkHours": 59.6834,
+          "worstExtraCommGapHours": 0.324,
+          "exceedsNativeSampleStep": true,
+          "scope": "Illustrative thresholds; finite scenario coverage, not a success probability."
+        }
+      ],
+      "cachedSearch": {
+        "settings": {
+          "durationHours": 168,
+          "maxDarkHours": 24,
+          "maxCommGapHours": 24,
+          "minJointHours": 24,
+          "clearanceDeg": 0.5,
+          "observerHeightM": 2,
+          "start": "2027-03-01T00:00:00Z"
+        },
+        "elapsedMilliseconds": 286.16,
+        "evaluatedCandidates": 291,
+        "excludedCandidates": 0,
+        "earliestDelayHours": 102,
+        "earliestFeasible": [
+          {
+            "siteId": "ridge-6",
+            "name": "Connecting Ridge · ROI 6",
+            "start": "2027-03-05T06:00:00.000Z",
+            "end": "2027-03-12T06:00:00.000Z",
+            "delayHours": 102,
+            "feasible": true,
+            "centerFeasible": true,
+            "metrics": {
+              "sunHours": 147.06741672186956,
+              "earthHours": 154.19813590555827,
+              "jointHours": 147.06741672186956,
+              "longestDarkHours": 20.932583278130426,
+              "longestCommGapHours": 13.801864094441731
+            },
+            "patchCoverage": 0.6666666666666666,
+            "worstCase": {
+              "status": "complete",
+              "allKnown": true,
+              "count": 9,
+              "knownCount": 9,
+              "metrics": {
+                "longestDarkHours": 168,
+                "longestCommGapHours": 14.174751503634983,
+                "jointHours": 0
+              },
+              "knownMetrics": {
+                "longestDarkHours": 168,
+                "longestCommGapHours": 14.174751503634983,
+                "jointHours": 0
+              },
+              "points": {
+                "longestDarkHours": {
+                  "id": "e+25-n-25",
+                  "dxM": 25,
+                  "dyM": -25,
+                  "tiedPointIds": [
+                    "e+25-n-25"
+                  ]
+                },
+                "longestCommGapHours": {
+                  "id": "e+25-n-25",
+                  "dxM": 25,
+                  "dyM": -25,
+                  "tiedPointIds": [
+                    "e+25-n-25"
+                  ]
+                },
+                "jointHours": {
+                  "id": "e+25-n-25",
+                  "dxM": 25,
+                  "dyM": -25,
+                  "tiedPointIds": [
+                    "e+25-n-25"
+                  ]
+                }
+              },
+              "margins": {
+                "darknessHours": -144,
+                "earthGapHours": 9.825248496365017,
+                "jointHours": -24
+              },
+              "minimumMarginHours": -144,
+              "limitingMetrics": [
+                "darknessHours"
+              ],
+              "interpretation": "Worst values among supplied discrete positions. Positive margins are hours inside each threshold; negative margins miss it. The minimum is the smallest of the three explicitly reported margins, not a weighted score, probability, or calibrated uncertainty."
+            },
+            "reasons": []
+          }
+        ],
+        "paretoCount": 68
+      },
+      "defaultScenario": {
+        "settings": {
+          "durationHours": 168,
+          "maxDarkHours": 24,
+          "maxCommGapHours": 24,
+          "minJointHours": 24,
+          "clearanceDeg": 0.5,
+          "observerHeightM": 2,
+          "start": "2027-03-01T00:00:00Z"
+        },
+        "baseline": [
+          {
+            "siteId": "ridge-1",
+            "start": "2027-03-01T00:00:00.000Z",
+            "end": "2027-03-08T00:00:00.000Z",
+            "feasible": false,
+            "metrics": {
+              "sunHours": 168,
+              "earthHours": 53.1187,
+              "jointHours": 53.1187,
+              "longestDarkHours": 0,
+              "longestCommGapHours": 114.8813
+            },
+            "patchCoverage": 0,
+            "patches": [
+              {
+                "id": "e-25-n-25",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 168,
+                  "earthHours": 53.3748,
+                  "jointHours": 53.3748,
+                  "longestDarkHours": 0,
+                  "longestCommGapHours": 114.6252
+                }
+              },
+              {
+                "id": "e+0-n-25",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 168,
+                  "earthHours": 53.0835,
+                  "jointHours": 53.0835,
+                  "longestDarkHours": 0,
+                  "longestCommGapHours": 114.9165
+                }
+              },
+              {
+                "id": "e+25-n-25",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 168,
+                  "earthHours": 52.7947,
+                  "jointHours": 52.7947,
+                  "longestDarkHours": 0,
+                  "longestCommGapHours": 115.2053
+                }
+              },
+              {
+                "id": "e-25-n+0",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 168,
+                  "earthHours": 53.4066,
+                  "jointHours": 53.4066,
+                  "longestDarkHours": 0,
+                  "longestCommGapHours": 114.5934
+                }
+              },
+              {
+                "id": "e+0-n+0",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 168,
+                  "earthHours": 53.1187,
+                  "jointHours": 53.1187,
+                  "longestDarkHours": 0,
+                  "longestCommGapHours": 114.8813
+                }
+              },
+              {
+                "id": "e+25-n+0",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 168,
+                  "earthHours": 52.8294,
+                  "jointHours": 52.8294,
+                  "longestDarkHours": 0,
+                  "longestCommGapHours": 115.1706
+                }
+              },
+              {
+                "id": "e-25-n+25",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 168,
+                  "earthHours": 53.4329,
+                  "jointHours": 53.4329,
+                  "longestDarkHours": 0,
+                  "longestCommGapHours": 114.5671
+                }
+              },
+              {
+                "id": "e+0-n+25",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 168,
+                  "earthHours": 53.15,
+                  "jointHours": 53.15,
+                  "longestDarkHours": 0,
+                  "longestCommGapHours": 114.85
+                }
+              },
+              {
+                "id": "e+25-n+25",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 168,
+                  "earthHours": 52.8618,
+                  "jointHours": 52.8618,
+                  "longestDarkHours": 0,
+                  "longestCommGapHours": 115.1382
+                }
+              }
+            ]
+          },
+          {
+            "siteId": "ridge-4",
+            "start": "2027-03-01T00:00:00.000Z",
+            "end": "2027-03-08T00:00:00.000Z",
+            "feasible": false,
+            "metrics": {
+              "sunHours": 56.2905,
+              "earthHours": 52.7524,
+              "jointHours": 0,
+              "longestDarkHours": 111.7095,
+              "longestCommGapHours": 115.2476
+            },
+            "patchCoverage": 0,
+            "patches": [
+              {
+                "id": "e-25-n-25",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 9.6874,
+                  "earthHours": 53.0174,
+                  "jointHours": 9.6874,
+                  "longestDarkHours": 158.3126,
+                  "longestCommGapHours": 114.9826
+                }
+              },
+              {
+                "id": "e+0-n-25",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 55.5863,
+                  "earthHours": 52.7163,
+                  "jointHours": 3.1145,
+                  "longestDarkHours": 110.3833,
+                  "longestCommGapHours": 115.2837
+                }
+              },
+              {
+                "id": "e+25-n-25",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 58.2925,
+                  "earthHours": 52.4065,
+                  "jointHours": 0,
+                  "longestDarkHours": 109.7075,
+                  "longestCommGapHours": 115.5935
+                }
+              },
+              {
+                "id": "e-25-n+0",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 21.4416,
+                  "earthHours": 53.0565,
+                  "jointHours": 6.4737,
+                  "longestDarkHours": 146.5584,
+                  "longestCommGapHours": 114.9435
+                }
+              },
+              {
+                "id": "e+0-n+0",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 56.2905,
+                  "earthHours": 52.7524,
+                  "jointHours": 0,
+                  "longestDarkHours": 111.7095,
+                  "longestCommGapHours": 115.2476
+                }
+              },
+              {
+                "id": "e+25-n+0",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 61.6311,
+                  "earthHours": 52.4451,
+                  "jointHours": 0,
+                  "longestDarkHours": 106.3689,
+                  "longestCommGapHours": 115.5549
+                }
+              },
+              {
+                "id": "e-25-n+25",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 54.7598,
+                  "earthHours": 53.095,
+                  "jointHours": 4.9935,
+                  "longestDarkHours": 113.2402,
+                  "longestCommGapHours": 114.905
+                }
+              },
+              {
+                "id": "e+0-n+25",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 57.2175,
+                  "earthHours": 52.7895,
+                  "jointHours": 0,
+                  "longestDarkHours": 110.7825,
+                  "longestCommGapHours": 115.2105
+                }
+              },
+              {
+                "id": "e+25-n+25",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 61.8282,
+                  "earthHours": 52.4777,
+                  "jointHours": 0,
+                  "longestDarkHours": 106.1718,
+                  "longestCommGapHours": 115.5223
+                }
+              }
+            ]
+          },
+          {
+            "siteId": "ridge-6",
+            "start": "2027-03-01T00:00:00.000Z",
+            "end": "2027-03-08T00:00:00.000Z",
+            "feasible": false,
+            "metrics": {
+              "sunHours": 64.4607,
+              "earthHours": 52.1981,
+              "jointHours": 45.0674,
+              "longestDarkHours": 103.5393,
+              "longestCommGapHours": 115.8019
+            },
+            "patchCoverage": 0,
+            "patches": [
+              {
+                "id": "e-25-n-25",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 48.0304,
+                  "earthHours": 52.4814,
+                  "jointHours": 48.0304,
+                  "longestDarkHours": 119.9696,
+                  "longestCommGapHours": 115.5186
+                }
+              },
+              {
+                "id": "e+0-n-25",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 59.7967,
+                  "earthHours": 52.1595,
+                  "jointHours": 45.2038,
+                  "longestDarkHours": 108.2033,
+                  "longestCommGapHours": 115.8405
+                }
+              },
+              {
+                "id": "e+25-n-25",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 13.937,
+                  "earthHours": 51.8252,
+                  "jointHours": 0,
+                  "longestDarkHours": 154.063,
+                  "longestCommGapHours": 116.1748
+                }
+              },
+              {
+                "id": "e-25-n+0",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 53.2145,
+                  "earthHours": 52.5177,
+                  "jointHours": 47.7892,
+                  "longestDarkHours": 114.7855,
+                  "longestCommGapHours": 115.4823
+                }
+              },
+              {
+                "id": "e+0-n+0",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 64.4607,
+                  "earthHours": 52.1981,
+                  "jointHours": 45.0674,
+                  "longestDarkHours": 103.5393,
+                  "longestCommGapHours": 115.8019
+                }
+              },
+              {
+                "id": "e+25-n+0",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 66.9542,
+                  "earthHours": 51.8694,
+                  "jointHours": 41.4442,
+                  "longestDarkHours": 101.0458,
+                  "longestCommGapHours": 116.1306
+                }
+              },
+              {
+                "id": "e-25-n+25",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 51.6427,
+                  "earthHours": 52.5489,
+                  "jointHours": 47.1779,
+                  "longestDarkHours": 116.3573,
+                  "longestCommGapHours": 115.4511
+                }
+              },
+              {
+                "id": "e+0-n+25",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 63.423,
+                  "earthHours": 52.234,
+                  "jointHours": 44.3762,
+                  "longestDarkHours": 104.577,
+                  "longestCommGapHours": 115.766
+                }
+              },
+              {
+                "id": "e+25-n+25",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 70.1256,
+                  "earthHours": 51.9073,
+                  "jointHours": 41.0609,
+                  "longestDarkHours": 97.8744,
+                  "longestCommGapHours": 116.0927
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "filename": "lunar-sites.json",
+      "sha256": "8a1126508f01911c562a2fa20d7721773028dc4f5fd437c869ba8bc567113f2b",
+      "dataGeneratedAt": "2026-11-13T03:54:07.994559+00:00",
+      "start": "2026-12-01T00:00:00Z",
+      "stop": "2027-01-01T00:00:00Z",
+      "sampleIntervalMinutes": 30,
+      "siteCount": 3,
+      "fullInterval": [
+        {
+          "siteId": "ridge-1",
+          "start": "2026-12-01T00:00:00.000Z",
+          "end": "2027-01-01T00:00:00.000Z",
+          "feasible": false,
+          "metrics": {
+            "sunHours": 744,
+            "earthHours": 331.8311,
+            "jointHours": 331.8311,
+            "longestDarkHours": 0,
+            "longestCommGapHours": 303.8513
+          },
+          "patchCoverage": 0,
+          "patches": [
+            {
+              "id": "e-25-n-25",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 744,
+                "earthHours": 332.0038,
+                "jointHours": 332.0038,
+                "longestDarkHours": 0,
+                "longestCommGapHours": 303.772
+              }
+            },
+            {
+              "id": "e+0-n-25",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 744,
+                "earthHours": 331.804,
+                "jointHours": 331.804,
+                "longestDarkHours": 0,
+                "longestCommGapHours": 303.8603
+              }
+            },
+            {
+              "id": "e+25-n-25",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 744,
+                "earthHours": 331.6088,
+                "jointHours": 331.6088,
+                "longestDarkHours": 0,
+                "longestCommGapHours": 303.9568
+              }
+            },
+            {
+              "id": "e-25-n+0",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 744,
+                "earthHours": 332.0408,
+                "jointHours": 332.0408,
+                "longestDarkHours": 0,
+                "longestCommGapHours": 303.7541
+              }
+            },
+            {
+              "id": "e+0-n+0",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 744,
+                "earthHours": 331.8311,
+                "jointHours": 331.8311,
+                "longestDarkHours": 0,
+                "longestCommGapHours": 303.8513
+              }
+            },
+            {
+              "id": "e+25-n+0",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 744,
+                "earthHours": 331.6432,
+                "jointHours": 331.6432,
+                "longestDarkHours": 0,
+                "longestCommGapHours": 303.9411
+              }
+            },
+            {
+              "id": "e-25-n+25",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 744,
+                "earthHours": 332.0647,
+                "jointHours": 332.0647,
+                "longestDarkHours": 0,
+                "longestCommGapHours": 303.7444
+              }
+            },
+            {
+              "id": "e+0-n+25",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 744,
+                "earthHours": 331.8578,
+                "jointHours": 331.8578,
+                "longestDarkHours": 0,
+                "longestCommGapHours": 303.8384
+              }
+            },
+            {
+              "id": "e+25-n+25",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 744,
+                "earthHours": 331.6731,
+                "jointHours": 331.6731,
+                "longestDarkHours": 0,
+                "longestCommGapHours": 303.9267
+              }
+            }
+          ]
+        },
+        {
+          "siteId": "ridge-4",
+          "start": "2026-12-01T00:00:00.000Z",
+          "end": "2027-01-01T00:00:00.000Z",
+          "feasible": false,
+          "metrics": {
+            "sunHours": 744,
+            "earthHours": 331.6398,
+            "jointHours": 331.6398,
+            "longestDarkHours": 0,
+            "longestCommGapHours": 303.951
+          },
+          "patchCoverage": 0,
+          "patches": [
+            {
+              "id": "e-25-n-25",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 744,
+                "earthHours": 331.8013,
+                "jointHours": 331.8013,
+                "longestDarkHours": 0,
+                "longestCommGapHours": 303.8773
+              }
+            },
+            {
+              "id": "e+0-n-25",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 744,
+                "earthHours": 331.6078,
+                "jointHours": 331.6078,
+                "longestDarkHours": 0,
+                "longestCommGapHours": 303.9667
+              }
+            },
+            {
+              "id": "e+25-n-25",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 744,
+                "earthHours": 331.3802,
+                "jointHours": 331.3802,
+                "longestDarkHours": 0,
+                "longestCommGapHours": 304.1071
+              }
+            },
+            {
+              "id": "e-25-n+0",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 744,
+                "earthHours": 331.8392,
+                "jointHours": 331.8392,
+                "longestDarkHours": 0,
+                "longestCommGapHours": 303.8573
+              }
+            },
+            {
+              "id": "e+0-n+0",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 744,
+                "earthHours": 331.6398,
+                "jointHours": 331.6398,
+                "longestDarkHours": 0,
+                "longestCommGapHours": 303.951
+              }
+            },
+            {
+              "id": "e+25-n+0",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 744,
+                "earthHours": 331.4197,
+                "jointHours": 331.4197,
+                "longestDarkHours": 0,
+                "longestCommGapHours": 304.0853
+              }
+            },
+            {
+              "id": "e-25-n+25",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 744,
+                "earthHours": 331.874,
+                "jointHours": 331.874,
+                "longestDarkHours": 0,
+                "longestCommGapHours": 303.843
+              }
+            },
+            {
+              "id": "e+0-n+25",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 744,
+                "earthHours": 331.6745,
+                "jointHours": 331.6745,
+                "longestDarkHours": 0,
+                "longestCommGapHours": 303.9322
+              }
+            },
+            {
+              "id": "e+25-n+25",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 744,
+                "earthHours": 331.4554,
+                "jointHours": 331.4554,
+                "longestDarkHours": 0,
+                "longestCommGapHours": 304.0631
+              }
+            }
+          ]
+        },
+        {
+          "siteId": "ridge-6",
+          "start": "2026-12-01T00:00:00.000Z",
+          "end": "2027-01-01T00:00:00.000Z",
+          "feasible": false,
+          "metrics": {
+            "sunHours": 744,
+            "earthHours": 331.2018,
+            "jointHours": 331.2018,
+            "longestDarkHours": 0,
+            "longestCommGapHours": 304.195
+          },
+          "patchCoverage": 0,
+          "patches": [
+            {
+              "id": "e-25-n-25",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 744,
+                "earthHours": 331.3795,
+                "jointHours": 331.3795,
+                "longestDarkHours": 0,
+                "longestCommGapHours": 304.1002
+              }
+            },
+            {
+              "id": "e+0-n-25",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 744,
+                "earthHours": 331.1608,
+                "jointHours": 331.1608,
+                "longestDarkHours": 0,
+                "longestCommGapHours": 304.2131
+              }
+            },
+            {
+              "id": "e+25-n-25",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 744,
+                "earthHours": 330.9468,
+                "jointHours": 330.9468,
+                "longestDarkHours": 0,
+                "longestCommGapHours": 304.3578
+              }
+            },
+            {
+              "id": "e-25-n+0",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 744,
+                "earthHours": 331.4168,
+                "jointHours": 331.4168,
+                "longestDarkHours": 0,
+                "longestCommGapHours": 304.0828
+              }
+            },
+            {
+              "id": "e+0-n+0",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 744,
+                "earthHours": 331.2018,
+                "jointHours": 331.2018,
+                "longestDarkHours": 0,
+                "longestCommGapHours": 304.195
+              }
+            },
+            {
+              "id": "e+25-n+0",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 744,
+                "earthHours": 330.9999,
+                "jointHours": 330.9999,
+                "longestDarkHours": 0,
+                "longestCommGapHours": 304.3261
+              }
+            },
+            {
+              "id": "e-25-n+25",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 744,
+                "earthHours": 331.4464,
+                "jointHours": 331.4464,
+                "longestDarkHours": 0,
+                "longestCommGapHours": 304.0665
+              }
+            },
+            {
+              "id": "e+0-n+25",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 744,
+                "earthHours": 331.2399,
+                "jointHours": 331.2399,
+                "longestDarkHours": 0,
+                "longestCommGapHours": 304.1756
+              }
+            },
+            {
+              "id": "e+25-n+25",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 744,
+                "earthHours": 331.0364,
+                "jointHours": 331.0364,
+                "longestDarkHours": 0,
+                "longestCommGapHours": 304.3038
+              }
+            }
+          ]
+        }
+      ],
+      "clearanceMonotonicity": {
+        "comparisons": 1800,
+        "violations": 0
+      },
+      "samplingSensitivity": [
+        {
+          "siteId": "ridge-1",
+          "clearanceDeg": 0,
+          "fineMinutes": 30,
+          "coarseMinutes": 60,
+          "comparedIntervals": 52,
+          "maximumAbsoluteDifferences": {
+            "sunHours": {
+              "absoluteHours": 0,
+              "start": null,
+              "phase": null
+            },
+            "earthHours": {
+              "absoluteHours": 0.000246,
+              "start": "2026-12-01T00:00:00.000Z",
+              "durationHours": 744,
+              "phase": 1
+            },
+            "jointHours": {
+              "absoluteHours": 0.000246,
+              "start": "2026-12-01T00:00:00.000Z",
+              "durationHours": 744,
+              "phase": 1
+            },
+            "longestDarkHours": {
+              "absoluteHours": 0,
+              "start": null,
+              "phase": null
+            },
+            "longestCommGapHours": {
+              "absoluteHours": 0.000162,
+              "start": "2026-12-21T00:00:00.000Z",
+              "durationHours": 168,
+              "phase": 0
+            }
+          }
+        },
+        {
+          "siteId": "ridge-1",
+          "clearanceDeg": 0.5,
+          "fineMinutes": 30,
+          "coarseMinutes": 60,
+          "comparedIntervals": 52,
+          "maximumAbsoluteDifferences": {
+            "sunHours": {
+              "absoluteHours": 0,
+              "start": null,
+              "phase": null
+            },
+            "earthHours": {
+              "absoluteHours": 0.000253,
+              "start": "2026-12-01T00:00:00.000Z",
+              "durationHours": 744,
+              "phase": 1
+            },
+            "jointHours": {
+              "absoluteHours": 0.000253,
+              "start": "2026-12-01T00:00:00.000Z",
+              "durationHours": 744,
+              "phase": 1
+            },
+            "longestDarkHours": {
+              "absoluteHours": 0,
+              "start": null,
+              "phase": null
+            },
+            "longestCommGapHours": {
+              "absoluteHours": 0.000126,
+              "start": "2026-12-25T00:00:00.000Z",
+              "durationHours": 168,
+              "phase": 1
+            }
+          }
+        },
+        {
+          "siteId": "ridge-4",
+          "clearanceDeg": 0,
+          "fineMinutes": 30,
+          "coarseMinutes": 60,
+          "comparedIntervals": 52,
+          "maximumAbsoluteDifferences": {
+            "sunHours": {
+              "absoluteHours": 0,
+              "start": null,
+              "phase": null
+            },
+            "earthHours": {
+              "absoluteHours": 0.000238,
+              "start": "2026-12-01T00:00:00.000Z",
+              "durationHours": 744,
+              "phase": 1
+            },
+            "jointHours": {
+              "absoluteHours": 0.000238,
+              "start": "2026-12-01T00:00:00.000Z",
+              "durationHours": 744,
+              "phase": 1
+            },
+            "longestDarkHours": {
+              "absoluteHours": 0,
+              "start": null,
+              "phase": null
+            },
+            "longestCommGapHours": {
+              "absoluteHours": 0.00021,
+              "start": "2026-12-21T00:00:00.000Z",
+              "durationHours": 168,
+              "phase": 0
+            }
+          }
+        },
+        {
+          "siteId": "ridge-4",
+          "clearanceDeg": 0.5,
+          "fineMinutes": 30,
+          "coarseMinutes": 60,
+          "comparedIntervals": 52,
+          "maximumAbsoluteDifferences": {
+            "sunHours": {
+              "absoluteHours": 0,
+              "start": null,
+              "phase": null
+            },
+            "earthHours": {
+              "absoluteHours": 0.000232,
+              "start": "2026-12-01T00:00:00.000Z",
+              "durationHours": 744,
+              "phase": 1
+            },
+            "jointHours": {
+              "absoluteHours": 0.000232,
+              "start": "2026-12-01T00:00:00.000Z",
+              "durationHours": 744,
+              "phase": 1
+            },
+            "longestDarkHours": {
+              "absoluteHours": 0,
+              "start": null,
+              "phase": null
+            },
+            "longestCommGapHours": {
+              "absoluteHours": 0.00013,
+              "start": "2026-12-01T00:00:00.000Z",
+              "durationHours": 744,
+              "phase": 1
+            }
+          }
+        },
+        {
+          "siteId": "ridge-6",
+          "clearanceDeg": 0,
+          "fineMinutes": 30,
+          "coarseMinutes": 60,
+          "comparedIntervals": 52,
+          "maximumAbsoluteDifferences": {
+            "sunHours": {
+              "absoluteHours": 0,
+              "start": null,
+              "phase": null
+            },
+            "earthHours": {
+              "absoluteHours": 0.000315,
+              "start": "2026-12-01T00:00:00.000Z",
+              "durationHours": 744,
+              "phase": 0
+            },
+            "jointHours": {
+              "absoluteHours": 0.000315,
+              "start": "2026-12-01T00:00:00.000Z",
+              "durationHours": 744,
+              "phase": 0
+            },
+            "longestDarkHours": {
+              "absoluteHours": 0,
+              "start": null,
+              "phase": null
+            },
+            "longestCommGapHours": {
+              "absoluteHours": 0.000234,
+              "start": "2026-12-21T00:00:00.000Z",
+              "durationHours": 168,
+              "phase": 0
+            }
+          }
+        },
+        {
+          "siteId": "ridge-6",
+          "clearanceDeg": 0.5,
+          "fineMinutes": 30,
+          "coarseMinutes": 60,
+          "comparedIntervals": 52,
+          "maximumAbsoluteDifferences": {
+            "sunHours": {
+              "absoluteHours": 0,
+              "start": null,
+              "phase": null
+            },
+            "earthHours": {
+              "absoluteHours": 0.000172,
+              "start": "2026-12-01T00:00:00.000Z",
+              "durationHours": 744,
+              "phase": 0
+            },
+            "jointHours": {
+              "absoluteHours": 0.000172,
+              "start": "2026-12-01T00:00:00.000Z",
+              "durationHours": 744,
+              "phase": 0
+            },
+            "longestDarkHours": {
+              "absoluteHours": 0,
+              "start": null,
+              "phase": null
+            },
+            "longestCommGapHours": {
+              "absoluteHours": 0.00009,
+              "start": "2026-12-25T00:00:00.000Z",
+              "durationHours": 168,
+              "phase": 0
+            }
+          }
+        }
+      ],
+      "terrainComparison": [
+        {
+          "siteId": "ridge-1",
+          "clearanceDeg": 0,
+          "terrain": {
+            "sunHours": 744,
+            "earthHours": 331.8311,
+            "jointHours": 331.8311,
+            "longestDarkHours": 0,
+            "longestCommGapHours": 303.8513
+          },
+          "flatTangentPlane": {
+            "sunHours": 744,
+            "earthHours": 285.3114,
+            "jointHours": 285.3114,
+            "longestDarkHours": 0,
+            "longestCommGapHours": 336.9189
+          },
+          "terrainMinusFlatHours": {
+            "sunHours": 0,
+            "earthHours": 46.5197,
+            "jointHours": 46.5197,
+            "longestDarkHours": 0,
+            "longestCommGapHours": -33.0676
+          }
+        },
+        {
+          "siteId": "ridge-1",
+          "clearanceDeg": 0.5,
+          "terrain": {
+            "sunHours": 744,
+            "earthHours": 316.9469,
+            "jointHours": 316.9469,
+            "longestDarkHours": 0,
+            "longestCommGapHours": 311.9542
+          },
+          "flatTangentPlane": {
+            "sunHours": 744,
+            "earthHours": 269.7457,
+            "jointHours": 269.7457,
+            "longestDarkHours": 0,
+            "longestCommGapHours": 345.4852
+          },
+          "terrainMinusFlatHours": {
+            "sunHours": 0,
+            "earthHours": 47.2012,
+            "jointHours": 47.2012,
+            "longestDarkHours": 0,
+            "longestCommGapHours": -33.531
+          }
+        },
+        {
+          "siteId": "ridge-4",
+          "clearanceDeg": 0,
+          "terrain": {
+            "sunHours": 744,
+            "earthHours": 331.6398,
+            "jointHours": 331.6398,
+            "longestDarkHours": 0,
+            "longestCommGapHours": 303.951
+          },
+          "flatTangentPlane": {
+            "sunHours": 744,
+            "earthHours": 285.6079,
+            "jointHours": 285.6079,
+            "longestDarkHours": 0,
+            "longestCommGapHours": 336.7699
+          },
+          "terrainMinusFlatHours": {
+            "sunHours": 0,
+            "earthHours": 46.0319,
+            "jointHours": 46.0319,
+            "longestDarkHours": 0,
+            "longestCommGapHours": -32.8189
+          }
+        },
+        {
+          "siteId": "ridge-4",
+          "clearanceDeg": 0.5,
+          "terrain": {
+            "sunHours": 744,
+            "earthHours": 316.7944,
+            "jointHours": 316.7944,
+            "longestDarkHours": 0,
+            "longestCommGapHours": 312.0248
+          },
+          "flatTangentPlane": {
+            "sunHours": 744,
+            "earthHours": 270.041,
+            "jointHours": 270.041,
+            "longestDarkHours": 0,
+            "longestCommGapHours": 345.3369
+          },
+          "terrainMinusFlatHours": {
+            "sunHours": 0,
+            "earthHours": 46.7533,
+            "jointHours": 46.7533,
+            "longestDarkHours": 0,
+            "longestCommGapHours": -33.3121
+          }
+        },
+        {
+          "siteId": "ridge-6",
+          "clearanceDeg": 0,
+          "terrain": {
+            "sunHours": 744,
+            "earthHours": 331.2018,
+            "jointHours": 331.2018,
+            "longestDarkHours": 0,
+            "longestCommGapHours": 304.195
+          },
+          "flatTangentPlane": {
+            "sunHours": 744,
+            "earthHours": 286.0393,
+            "jointHours": 286.0393,
+            "longestDarkHours": 0,
+            "longestCommGapHours": 336.5558
+          },
+          "terrainMinusFlatHours": {
+            "sunHours": 0,
+            "earthHours": 45.1625,
+            "jointHours": 45.1625,
+            "longestDarkHours": 0,
+            "longestCommGapHours": -32.3607
+          }
+        },
+        {
+          "siteId": "ridge-6",
+          "clearanceDeg": 0.5,
+          "terrain": {
+            "sunHours": 744,
+            "earthHours": 316.3939,
+            "jointHours": 316.3939,
+            "longestDarkHours": 0,
+            "longestCommGapHours": 312.3073
+          },
+          "flatTangentPlane": {
+            "sunHours": 744,
+            "earthHours": 270.4703,
+            "jointHours": 270.4703,
+            "longestDarkHours": 0,
+            "longestCommGapHours": 345.124
+          },
+          "terrainMinusFlatHours": {
+            "sunHours": 0,
+            "earthHours": 45.9235,
+            "jointHours": 45.9235,
+            "longestDarkHours": 0,
+            "longestCommGapHours": -32.8166
+          }
+        }
+      ],
+      "footprintComparison": [
+        {
+          "siteId": "ridge-1",
+          "clearanceDeg": 0,
+          "sampleCount": 9,
+          "spacingM": 25,
+          "maximumAcrossWindowSpreadHours": {
+            "longestDark": 0,
+            "longestCommGap": 0.2436,
+            "joint": 0.2436
+          },
+          "strongestCenterPassFootprintFail": null
+        },
+        {
+          "siteId": "ridge-1",
+          "clearanceDeg": 0.5,
+          "sampleCount": 9,
+          "spacingM": 25,
+          "maximumAcrossWindowSpreadHours": {
+            "longestDark": 0,
+            "longestCommGap": 0.2135,
+            "joint": 0.2135
+          },
+          "strongestCenterPassFootprintFail": {
+            "bundle": "lunar-sites.json",
+            "siteId": "ridge-1",
+            "start": "2026-12-13T18:00:00.000Z",
+            "durationHours": 168,
+            "clearanceDeg": 0.5,
+            "maxDarkHours": 48,
+            "maxCommGapHours": 6,
+            "minJointHours": 24,
+            "center": {
+              "sunHours": 168,
+              "earthHours": 162.0458,
+              "jointHours": 162.0458,
+              "longestDarkHours": 0,
+              "longestCommGapHours": 5.9542
+            },
+            "patchPassingCount": 7,
+            "patchCount": 9,
+            "patchCoverage": 0.7777777777777778,
+            "worstExtraDarkHours": 0,
+            "worstExtraCommGapHours": 0.064,
+            "exceedsNativeSampleStep": false,
+            "scope": "Illustrative thresholds; finite scenario coverage, not a success probability."
+          }
+        },
+        {
+          "siteId": "ridge-4",
+          "clearanceDeg": 0,
+          "sampleCount": 9,
+          "spacingM": 25,
+          "maximumAcrossWindowSpreadHours": {
+            "longestDark": 0,
+            "longestCommGap": 0.2642,
+            "joint": 0.2642
+          },
+          "strongestCenterPassFootprintFail": null
+        },
+        {
+          "siteId": "ridge-4",
+          "clearanceDeg": 0.5,
+          "sampleCount": 9,
+          "spacingM": 25,
+          "maximumAcrossWindowSpreadHours": {
+            "longestDark": 0,
+            "longestCommGap": 0.2134,
+            "joint": 0.2134
+          },
+          "strongestCenterPassFootprintFail": null
+        },
+        {
+          "siteId": "ridge-6",
+          "clearanceDeg": 0,
+          "sampleCount": 9,
+          "spacingM": 25,
+          "maximumAcrossWindowSpreadHours": {
+            "longestDark": 0,
+            "longestCommGap": 0.2913,
+            "joint": 0.2913
+          },
+          "strongestCenterPassFootprintFail": null
+        },
+        {
+          "siteId": "ridge-6",
+          "clearanceDeg": 0.5,
+          "sampleCount": 9,
+          "spacingM": 25,
+          "maximumAcrossWindowSpreadHours": {
+            "longestDark": 0,
+            "longestCommGap": 0.2427,
+            "joint": 0.2427
+          },
+          "strongestCenterPassFootprintFail": null
+        }
+      ],
+      "independentInterpolationComparison": [
+        {
+          "siteId": "ridge-1",
+          "clearanceDeg": 0,
+          "midpointStepMinutes": 5,
+          "mainHours": {
+            "sunHours": 744,
+            "earthHours": 331.8311,
+            "jointHours": 331.8311
+          },
+          "independentlyIntegratedHours": {
+            "sunHours": 744,
+            "earthHours": 331.8333,
+            "jointHours": 331.8333
+          },
+          "mainMinusComparatorHours": {
+            "sunHours": 0,
+            "earthHours": -0.0022,
+            "jointHours": -0.0022
+          }
+        },
+        {
+          "siteId": "ridge-1",
+          "clearanceDeg": 0.5,
+          "midpointStepMinutes": 5,
+          "mainHours": {
+            "sunHours": 744,
+            "earthHours": 316.9469,
+            "jointHours": 316.9469
+          },
+          "independentlyIntegratedHours": {
+            "sunHours": 744,
+            "earthHours": 317,
+            "jointHours": 317
+          },
+          "mainMinusComparatorHours": {
+            "sunHours": 0,
+            "earthHours": -0.0531,
+            "jointHours": -0.0531
+          }
+        },
+        {
+          "siteId": "ridge-4",
+          "clearanceDeg": 0,
+          "midpointStepMinutes": 5,
+          "mainHours": {
+            "sunHours": 744,
+            "earthHours": 331.6398,
+            "jointHours": 331.6398
+          },
+          "independentlyIntegratedHours": {
+            "sunHours": 744,
+            "earthHours": 331.6667,
+            "jointHours": 331.6667
+          },
+          "mainMinusComparatorHours": {
+            "sunHours": 0,
+            "earthHours": -0.0269,
+            "jointHours": -0.0269
+          }
+        },
+        {
+          "siteId": "ridge-4",
+          "clearanceDeg": 0.5,
+          "midpointStepMinutes": 5,
+          "mainHours": {
+            "sunHours": 744,
+            "earthHours": 316.7944,
+            "jointHours": 316.7944
+          },
+          "independentlyIntegratedHours": {
+            "sunHours": 744,
+            "earthHours": 316.8333,
+            "jointHours": 316.8333
+          },
+          "mainMinusComparatorHours": {
+            "sunHours": 0,
+            "earthHours": -0.039,
+            "jointHours": -0.039
+          }
+        },
+        {
+          "siteId": "ridge-6",
+          "clearanceDeg": 0,
+          "midpointStepMinutes": 5,
+          "mainHours": {
+            "sunHours": 744,
+            "earthHours": 331.2018,
+            "jointHours": 331.2018
+          },
+          "independentlyIntegratedHours": {
+            "sunHours": 744,
+            "earthHours": 331.25,
+            "jointHours": 331.25
+          },
+          "mainMinusComparatorHours": {
+            "sunHours": 0,
+            "earthHours": -0.0482,
+            "jointHours": -0.0482
+          }
+        },
+        {
+          "siteId": "ridge-6",
+          "clearanceDeg": 0.5,
+          "midpointStepMinutes": 5,
+          "mainHours": {
+            "sunHours": 744,
+            "earthHours": 316.3939,
+            "jointHours": 316.3939
+          },
+          "independentlyIntegratedHours": {
+            "sunHours": 744,
+            "earthHours": 316.3333,
+            "jointHours": 316.3333
+          },
+          "mainMinusComparatorHours": {
+            "sunHours": 0,
+            "earthHours": 0.0605,
+            "jointHours": 0.0605
+          }
+        }
+      ],
+      "missingDataChecks": [
+        {
+          "siteId": "ridge-1",
+          "injected": "missing-epoch",
+          "status": "partial",
+          "missingHours": 1,
+          "passed": true
+        },
+        {
+          "siteId": "ridge-1",
+          "injected": "null-angle",
+          "status": "partial",
+          "missingHours": 1,
+          "passed": true
+        },
+        {
+          "siteId": "ridge-1",
+          "injected": "duplicate-epoch",
+          "status": "partial",
+          "missingHours": 1,
+          "passed": true
+        },
+        {
+          "siteId": "ridge-4",
+          "injected": "missing-epoch",
+          "status": "partial",
+          "missingHours": 1,
+          "passed": true
+        },
+        {
+          "siteId": "ridge-4",
+          "injected": "null-angle",
+          "status": "partial",
+          "missingHours": 1,
+          "passed": true
+        },
+        {
+          "siteId": "ridge-4",
+          "injected": "duplicate-epoch",
+          "status": "partial",
+          "missingHours": 1,
+          "passed": true
+        },
+        {
+          "siteId": "ridge-6",
+          "injected": "missing-epoch",
+          "status": "partial",
+          "missingHours": 1,
+          "passed": true
+        },
+        {
+          "siteId": "ridge-6",
+          "injected": "null-angle",
+          "status": "partial",
+          "missingHours": 1,
+          "passed": true
+        },
+        {
+          "siteId": "ridge-6",
+          "injected": "duplicate-epoch",
+          "status": "partial",
+          "missingHours": 1,
+          "passed": true
+        }
+      ],
+      "demoCandidates": [
+        {
+          "bundle": "lunar-sites.json",
+          "siteId": "ridge-1",
+          "start": "2026-12-13T18:00:00.000Z",
+          "durationHours": 168,
+          "clearanceDeg": 0.5,
+          "maxDarkHours": 48,
+          "maxCommGapHours": 6,
+          "minJointHours": 24,
+          "center": {
+            "sunHours": 168,
+            "earthHours": 162.0458,
+            "jointHours": 162.0458,
+            "longestDarkHours": 0,
+            "longestCommGapHours": 5.9542
+          },
+          "patchPassingCount": 7,
+          "patchCount": 9,
+          "patchCoverage": 0.7777777777777778,
+          "worstExtraDarkHours": 0,
+          "worstExtraCommGapHours": 0.064,
+          "exceedsNativeSampleStep": false,
+          "scope": "Illustrative thresholds; finite scenario coverage, not a success probability."
+        }
+      ],
+      "cachedSearch": {
+        "settings": {
+          "durationHours": 168,
+          "maxDarkHours": 24,
+          "maxCommGapHours": 24,
+          "minJointHours": 24,
+          "clearanceDeg": 0.5,
+          "observerHeightM": 2,
+          "start": "2026-12-01T00:00:00Z"
+        },
+        "elapsedMilliseconds": 266.32,
+        "evaluatedCandidates": 291,
+        "excludedCandidates": 0,
+        "earliestDelayHours": 288,
+        "earliestFeasible": [
+          {
+            "siteId": "ridge-1",
+            "name": "Connecting Ridge · ROI 1",
+            "start": "2026-12-13T00:00:00.000Z",
+            "end": "2026-12-20T00:00:00.000Z",
+            "delayHours": 288,
+            "feasible": true,
+            "centerFeasible": true,
+            "metrics": {
+              "sunHours": 168,
+              "earthHours": 144.04576328870985,
+              "jointHours": 144.04576328870985,
+              "longestDarkHours": 0,
+              "longestCommGapHours": 23.954236711290147
+            },
+            "patchCoverage": 0.7777777777777778,
+            "worstCase": {
+              "status": "complete",
+              "allKnown": true,
+              "count": 9,
+              "knownCount": 9,
+              "metrics": {
+                "longestDarkHours": 0,
+                "longestCommGapHours": 24.018270492011176,
+                "jointHours": 143.98172950798883
+              },
+              "knownMetrics": {
+                "longestDarkHours": 0,
+                "longestCommGapHours": 24.018270492011176,
+                "jointHours": 143.98172950798883
+              },
+              "points": {
+                "longestDarkHours": {
+                  "id": "e+0-n+0",
+                  "dxM": 0,
+                  "dyM": 0,
+                  "tiedPointIds": [
+                    "e+0-n+0",
+                    "e+0-n+25",
+                    "e+0-n-25",
+                    "e+25-n+0",
+                    "e+25-n+25",
+                    "e+25-n-25",
+                    "e-25-n+0",
+                    "e-25-n+25",
+                    "e-25-n-25"
+                  ]
+                },
+                "longestCommGapHours": {
+                  "id": "e+25-n-25",
+                  "dxM": 25,
+                  "dyM": -25,
+                  "tiedPointIds": [
+                    "e+25-n-25"
+                  ]
+                },
+                "jointHours": {
+                  "id": "e+25-n-25",
+                  "dxM": 25,
+                  "dyM": -25,
+                  "tiedPointIds": [
+                    "e+25-n-25"
+                  ]
+                }
+              },
+              "margins": {
+                "darknessHours": 24,
+                "earthGapHours": -0.01827049201117603,
+                "jointHours": 119.98172950798883
+              },
+              "minimumMarginHours": -0.01827049201117603,
+              "limitingMetrics": [
+                "earthGapHours"
+              ],
+              "interpretation": "Worst values among supplied discrete positions. Positive margins are hours inside each threshold; negative margins miss it. The minimum is the smallest of the three explicitly reported margins, not a weighted score, probability, or calibrated uncertainty."
+            },
+            "reasons": []
+          }
+        ],
+        "paretoCount": 35
+      },
+      "defaultScenario": {
+        "settings": {
+          "durationHours": 168,
+          "maxDarkHours": 24,
+          "maxCommGapHours": 24,
+          "minJointHours": 24,
+          "clearanceDeg": 0.5,
+          "observerHeightM": 2,
+          "start": "2026-12-01T00:00:00Z"
+        },
+        "baseline": [
+          {
+            "siteId": "ridge-1",
+            "start": "2026-12-01T00:00:00.000Z",
+            "end": "2026-12-08T00:00:00.000Z",
+            "feasible": false,
+            "metrics": {
+              "sunHours": 168,
+              "earthHours": 0,
+              "jointHours": 0,
+              "longestDarkHours": 0,
+              "longestCommGapHours": 168
+            },
+            "patchCoverage": 0,
+            "patches": [
+              {
+                "id": "e-25-n-25",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 168,
+                  "earthHours": 0,
+                  "jointHours": 0,
+                  "longestDarkHours": 0,
+                  "longestCommGapHours": 168
+                }
+              },
+              {
+                "id": "e+0-n-25",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 168,
+                  "earthHours": 0,
+                  "jointHours": 0,
+                  "longestDarkHours": 0,
+                  "longestCommGapHours": 168
+                }
+              },
+              {
+                "id": "e+25-n-25",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 168,
+                  "earthHours": 0,
+                  "jointHours": 0,
+                  "longestDarkHours": 0,
+                  "longestCommGapHours": 168
+                }
+              },
+              {
+                "id": "e-25-n+0",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 168,
+                  "earthHours": 0,
+                  "jointHours": 0,
+                  "longestDarkHours": 0,
+                  "longestCommGapHours": 168
+                }
+              },
+              {
+                "id": "e+0-n+0",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 168,
+                  "earthHours": 0,
+                  "jointHours": 0,
+                  "longestDarkHours": 0,
+                  "longestCommGapHours": 168
+                }
+              },
+              {
+                "id": "e+25-n+0",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 168,
+                  "earthHours": 0,
+                  "jointHours": 0,
+                  "longestDarkHours": 0,
+                  "longestCommGapHours": 168
+                }
+              },
+              {
+                "id": "e-25-n+25",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 168,
+                  "earthHours": 0,
+                  "jointHours": 0,
+                  "longestDarkHours": 0,
+                  "longestCommGapHours": 168
+                }
+              },
+              {
+                "id": "e+0-n+25",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 168,
+                  "earthHours": 0,
+                  "jointHours": 0,
+                  "longestDarkHours": 0,
+                  "longestCommGapHours": 168
+                }
+              },
+              {
+                "id": "e+25-n+25",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 168,
+                  "earthHours": 0,
+                  "jointHours": 0,
+                  "longestDarkHours": 0,
+                  "longestCommGapHours": 168
+                }
+              }
+            ]
+          },
+          {
+            "siteId": "ridge-4",
+            "start": "2026-12-01T00:00:00.000Z",
+            "end": "2026-12-08T00:00:00.000Z",
+            "feasible": false,
+            "metrics": {
+              "sunHours": 168,
+              "earthHours": 0,
+              "jointHours": 0,
+              "longestDarkHours": 0,
+              "longestCommGapHours": 168
+            },
+            "patchCoverage": 0,
+            "patches": [
+              {
+                "id": "e-25-n-25",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 168,
+                  "earthHours": 0,
+                  "jointHours": 0,
+                  "longestDarkHours": 0,
+                  "longestCommGapHours": 168
+                }
+              },
+              {
+                "id": "e+0-n-25",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 168,
+                  "earthHours": 0,
+                  "jointHours": 0,
+                  "longestDarkHours": 0,
+                  "longestCommGapHours": 168
+                }
+              },
+              {
+                "id": "e+25-n-25",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 168,
+                  "earthHours": 0,
+                  "jointHours": 0,
+                  "longestDarkHours": 0,
+                  "longestCommGapHours": 168
+                }
+              },
+              {
+                "id": "e-25-n+0",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 168,
+                  "earthHours": 0,
+                  "jointHours": 0,
+                  "longestDarkHours": 0,
+                  "longestCommGapHours": 168
+                }
+              },
+              {
+                "id": "e+0-n+0",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 168,
+                  "earthHours": 0,
+                  "jointHours": 0,
+                  "longestDarkHours": 0,
+                  "longestCommGapHours": 168
+                }
+              },
+              {
+                "id": "e+25-n+0",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 168,
+                  "earthHours": 0,
+                  "jointHours": 0,
+                  "longestDarkHours": 0,
+                  "longestCommGapHours": 168
+                }
+              },
+              {
+                "id": "e-25-n+25",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 168,
+                  "earthHours": 0,
+                  "jointHours": 0,
+                  "longestDarkHours": 0,
+                  "longestCommGapHours": 168
+                }
+              },
+              {
+                "id": "e+0-n+25",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 168,
+                  "earthHours": 0,
+                  "jointHours": 0,
+                  "longestDarkHours": 0,
+                  "longestCommGapHours": 168
+                }
+              },
+              {
+                "id": "e+25-n+25",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 168,
+                  "earthHours": 0,
+                  "jointHours": 0,
+                  "longestDarkHours": 0,
+                  "longestCommGapHours": 168
+                }
+              }
+            ]
+          },
+          {
+            "siteId": "ridge-6",
+            "start": "2026-12-01T00:00:00.000Z",
+            "end": "2026-12-08T00:00:00.000Z",
+            "feasible": false,
+            "metrics": {
+              "sunHours": 168,
+              "earthHours": 0,
+              "jointHours": 0,
+              "longestDarkHours": 0,
+              "longestCommGapHours": 168
+            },
+            "patchCoverage": 0,
+            "patches": [
+              {
+                "id": "e-25-n-25",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 168,
+                  "earthHours": 0,
+                  "jointHours": 0,
+                  "longestDarkHours": 0,
+                  "longestCommGapHours": 168
+                }
+              },
+              {
+                "id": "e+0-n-25",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 168,
+                  "earthHours": 0,
+                  "jointHours": 0,
+                  "longestDarkHours": 0,
+                  "longestCommGapHours": 168
+                }
+              },
+              {
+                "id": "e+25-n-25",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 168,
+                  "earthHours": 0,
+                  "jointHours": 0,
+                  "longestDarkHours": 0,
+                  "longestCommGapHours": 168
+                }
+              },
+              {
+                "id": "e-25-n+0",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 168,
+                  "earthHours": 0,
+                  "jointHours": 0,
+                  "longestDarkHours": 0,
+                  "longestCommGapHours": 168
+                }
+              },
+              {
+                "id": "e+0-n+0",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 168,
+                  "earthHours": 0,
+                  "jointHours": 0,
+                  "longestDarkHours": 0,
+                  "longestCommGapHours": 168
+                }
+              },
+              {
+                "id": "e+25-n+0",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 168,
+                  "earthHours": 0,
+                  "jointHours": 0,
+                  "longestDarkHours": 0,
+                  "longestCommGapHours": 168
+                }
+              },
+              {
+                "id": "e-25-n+25",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 168,
+                  "earthHours": 0,
+                  "jointHours": 0,
+                  "longestDarkHours": 0,
+                  "longestCommGapHours": 168
+                }
+              },
+              {
+                "id": "e+0-n+25",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 168,
+                  "earthHours": 0,
+                  "jointHours": 0,
+                  "longestDarkHours": 0,
+                  "longestCommGapHours": 168
+                }
+              },
+              {
+                "id": "e+25-n+25",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 168,
+                  "earthHours": 0,
+                  "jointHours": 0,
+                  "longestDarkHours": 0,
+                  "longestCommGapHours": 168
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

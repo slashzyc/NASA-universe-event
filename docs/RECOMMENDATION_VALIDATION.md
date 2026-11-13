@@ -1,5 +1,8 @@
 # Recommendation-window fine audit / 推荐窗口精算
 
+> 历史验收与科学证据：以下结论仅对应文中记录的版本、参数和时间。当前完整入口为 [云端 LunaMargin](https://lunamargin-slashzyc.laceysquirrel4.chatgpt.site/?lang=zh)；当前能力与本轮状态见 [工程判断验收](ENGINEERING_ACCEPTANCE.md)。本页不代表当前所有查询都已复核。
+
+
 Generated: 2026-11-13T06:52:39.205002+00:00. Calculation method: `recommendation-audit-v1: independent-linear-crossings; horizon-0.5deg-radial0.25`. Narrative schema: `1`.
 
 Retained source responses / 保留的原始响应：**36**. Expected positions / 预期位置：**18**. Expected epochs per position / 每位置预期时刻：**2017**. Cadence / 采样间隔：**5 min**. Window / 时间：**2027-06-21T12:00:00Z → 2027-06-28T12:00:00Z**. Observer height / 设备高度：**2 m**.

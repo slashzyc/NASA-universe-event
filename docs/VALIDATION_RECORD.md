@@ -1,5 +1,8 @@
 # LunaMargin — validation and evidence record
 
+> 历史验收与科学证据：以下结论仅对应文中记录的版本、参数和时间。当前完整入口为 [云端 LunaMargin](https://lunamargin-slashzyc.laceysquirrel4.chatgpt.site/?lang=zh)；当前能力与本轮状态见 [工程判断验收](ENGINEERING_ACCEPTANCE.md)。本页不代表当前所有查询都已复核。
+
+
 Updated 13 November 2026, America/New_York. Exact run timestamps, environment information and hashes are preserved in the linked machine-readable reports. The validation establishes the checks described below, not flight qualification or an external observational benchmark.
 
 ## Scientific and numerical evidence

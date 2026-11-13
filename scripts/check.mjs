@@ -13,10 +13,18 @@ for(const [file,asset]of Object.entries(release.identity.application)){
   if(createHash('sha256').update(source).digest('hex')!==asset.sha256)throw new Error(`Build identity is stale for ${file}; build again.`);
 }
 for(const asset of Object.values(release.identity.datasets))if(await sha256(asset.path)!==asset.sha256)throw new Error(`Build dataset is stale for ${asset.path}.`);
+for(const [file,asset]of Object.entries(release.identity.resources||{})){
+  const raw=await readFile(path.join(root,file)),bytes=!file.startsWith('data/')&&/\.(?:js|css|html|json|md|txt|svg|vtt)$/.test(file)?Buffer.from(raw.toString('utf8').replaceAll('\r\n','\n')):raw;
+  if(createHash('sha256').update(bytes).digest('hex')!==asset.sha256)throw new Error(`Build resource is stale for ${file}; build again.`);
+}
+for(const [file,asset]of Object.entries(release.identity.service||{})){
+  const source=(await readFile(path.join(root,file),'utf8')).replaceAll('\r\n','\n');
+  if(createHash('sha256').update(source).digest('hex')!==asset.sha256)throw new Error(`Build service is stale for ${file}; build again.`);
+}
 for(const file of await readdir(path.join(root,'evidence-assets'))){
   if(file.startsWith('build-')){
     const archived=await verifyManifest(JSON.parse(await readFile(path.join(root,'evidence-assets',file),'utf8')),file.slice(6,-5));
-    for(const asset of [...Object.values(archived.identity.application),...Object.values(archived.identity.datasets)]){
+    for(const asset of [...Object.values(archived.identity.application),...Object.values(archived.identity.datasets),...Object.values(archived.identity.resources||{}),...Object.values(archived.identity.service||{})]){
       if(await sha256(asset.snapshot)!==asset.sha256)throw new Error(`Archived snapshot changed: ${asset.snapshot}`);
     }
   }else if(await sha256('evidence-assets/'+file)!==file.split('.')[0])throw new Error(`Content-addressed bytes changed: ${file}`);

@@ -1,0 +1,32 @@
+[
+  {
+    "file": "moon-gibbous.jpg",
+    "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005000/a005048/phase_waxing_gibbous.2158_print.jpg",
+    "sourcePage": "https://svs.gsfc.nasa.gov/5587/",
+    "credit": "NASA Scientific Visualization Studio",
+    "kind": "NASA LRO data-driven scientific visualization, not a single camera exposure",
+    "dimensions": [
+      1024,
+      1024
+    ],
+    "format": "JPEG",
+    "bytes": 167518,
+    "sha256": "23c0a1d8dfddc2bd67db6d8c9a8df977c2ba7b021c765313ffd5563938c01951",
+    "alterations": "None; original published JPEG bytes"
+  },
+  {
+    "file": "moon-full.jpg",
+    "sourceUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005000/a005048/phase_full.1571_print.jpg",
+    "sourcePage": "https://svs.gsfc.nasa.gov/5587/",
+    "credit": "NASA Scientific Visualization Studio",
+    "kind": "NASA LRO data-driven scientific visualization, not a single camera exposure",
+    "dimensions": [
+      1024,
+      1024
+    ],
+    "format": "JPEG",
+    "bytes": 189098,
+    "sha256": "f6766945087efb8f0f91ac0ec8e74a194ff9b7b65414f2d0859669367992a172",
+    "alterations": "None; original published JPEG bytes"
+  }
+]

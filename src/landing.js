@@ -1,5 +1,6 @@
 import {readManifest,verifiedText,importVerifiedAlgorithm} from './provenance.js';
 import {createLandingInteractions} from './landing-interactions.js';
+import {defaultMissionConstraints,appendMissionConstraints} from './mission-constraints.js';
 let analyzeSite,interpolateHorizon,homeTools,homeRelease,homeBundle;
 import {createMoonExplorer} from './moon-globe.js';
 import {installPageTransition} from './page-transition.js';
@@ -10,7 +11,7 @@ const english={};
 document.querySelectorAll('[data-i18n]').forEach(element=>english[element.dataset.i18n]=element.innerHTML);
 const chinese={
   navMission:'项目理念',navExperience:'交互体验',navScience:'科学依据',navLaunch:'进入导航仪',
-  heroEyebrow:'从开放数据出发，探索月球南极',heroTitle:'留一点余量。<br>看见另一种<br><em>可能。</em>',
+  heroEyebrow:'早期月球任务概念设计 · 地点与日期比较',heroTitle:'留一点余量。<br>看见另一种<br><em>可能。</em>',
   heroDescription:'在月球上，几米之差，就能改变眼前的风景。<br>读懂光照、地形与时间，<br>从一个理想的点，走向一个更周全的计划。',
   heroLaunch:'探索月面导航仪',watchFilm:'观看短片',scroll:'向下探索',
   ribbonLabel:'立足开放科学',ribbonSub:'为 NASA Space Apps 2026 而作',ribbonNote:'真实数据 · 开源探索',
@@ -31,7 +32,7 @@ const chinese={
   source1:'从脚下的山脊到远方的地平线，还原月球表面的真实形状。',source2:'计算太阳与地球的位置，为每个研究地点找到对应的天空。',source3Title:'依据，随结果交付。',source3:'原始响应、来源校验、敏感性分析，以及更密的五分钟案例复核。',
   closingEyebrow:'走向下一片疆域，从提出一个更好的问题开始。',closingTitle:'找到你的<em>余量。</em>',closingLaunch:'继续这一方案',
   footerDescription:'一个月面着陆窗口实验室。<br>由好奇心驱动，以 NASA 数据为依据。',guide:'开始使用 ↗',footerFilm:'观看演示 ↗',
-  footerNote:'独立教育项目。比较几何可见性，不提供飞行指引；无 NASA 背书。',disclosure:'项目与 AI 使用披露 ↗',
+  footerNote:'独立任务概念设计工具，附教育案例。比较几何可见性；无 NASA 背书。',disclosure:'项目与 AI 使用披露 ↗',
   filmLength:'操作实录',filmCaption:'公开网站的真实自动浏览器操作；中英文字幕，无音轨。所有者与只读访客片段按操作顺序衔接，不是真人可用性研究。'
 };
 
@@ -44,13 +45,19 @@ const tr=(en,zh)=>language==='zh'?zh:en;
 let explorerChoice=null,lastMissionState=null;
 window.addEventListener('lunamargin:state',()=>{if(!document.getElementById('mission-form'))return;const current=window.lunaMargin?.getState?.();if(!current)return;lastMissionState=current;if(current.ready&&current.siteId){moon.setSelection?.({siteId:current.siteId,patchId:current.patchId});explorerChoice={...moon.getSelection(),siteId:current.siteId,patchId:current.patchId,unsupported:false};updateExplorerLinks();}});
 const moon=createMoonExplorer($('moon-explorer'),{language:()=>language,onSelect:choice=>{explorerChoice=choice;updateExplorerLinks();homeTools?.refreshMission();}});
+async function loadHomeCapabilities(){
+  try{const response=await fetch(new URL('service-config.json',location.href),{cache:'no-store'});if(!response.ok)throw new Error('Capability query failed');const config=await response.json();moon.setCapabilities(config.capabilities||{newDates:false});}
+  catch{moon.setCapabilities(null);}
+}
+loadHomeCapabilities();
 function updateExplorerLinks(){
   const choice=explorerChoice||moon.getSelection();
   if(choice.unsupported){for(const link of landingRoot.querySelectorAll('a[href*="navigator.html"]'))if(link.id!=='inspect-case'){link.dataset.explorerEntry='true';link.href='#moon-research';}homeTools?.updateEntryHints(null);return;}
   if(!choice.siteId)return;
   const url=new URL(choice.url||'navigator.html',location.href);url.searchParams.set('lang',language);url.searchParams.set('site',choice.siteId);url.searchParams.set('patch',choice.patchId||'e+0-n+0');
-  const previous=lastMissionState;
+  const previous=lastMissionState||{settings:{...settings,maxDarkHours:24},missionConstraints:defaultMissionConstraints(settings.start)};
   if(previous?.settings){for(const[k,v]of Object.entries(previous.settings))if(k!=='nominalStepHours')url.searchParams.set(k,String(v));if(previous.campaign)url.searchParams.set('campaign',previous.campaign);if(previous.buildId)url.searchParams.set('build',previous.buildId);}
+  appendMissionConstraints(url.searchParams,previous.missionConstraints);
   for(const link of landingRoot.querySelectorAll('a[href*="navigator.html"],a[data-explorer-entry]'))if(link.id!=='inspect-case'){link.dataset.explorerEntry='true';link.href=url.href;}
   homeTools?.updateEntryHints(url);
 }
@@ -64,6 +71,7 @@ function restoreSelectedPatch(){
 function updateCaseLink(){
   const parameters=new URLSearchParams({campaign:'jun',site:caseSite.id,patch:selectedPatch.id,lang:language});
   for(const[key,value]of Object.entries(settings))if(key!=='nominalStepHours')parameters.set(key,String(value));
+  appendMissionConstraints(parameters,defaultMissionConstraints(settings.start));
   $('inspect-case').href=`navigator.html?${parameters}`;
   // Keep the editorial URL intact: scenario query parameters intentionally
   // redirect legacy homepage links into the navigator. History state also
@@ -132,7 +140,7 @@ async function loadCase(){
     homeTools=createLandingInteractions({root:()=>landingRoot,language:()=>language,bundle:homeBundle,release:homeRelease,analyzeSite,interpolateHorizon,
       getCase:()=>({site:caseSite,point:selectedPatch,settings,results:patchResults}),
       updateCaseLimit(value){settings.maxDarkHours=value;for(const p of caseSite.patches)patchResults.set(p.id,analyzeSite({...caseSite,...p,samples:caseSite.samples,patches:[]},settings));renderSampling();renderReading();},
-      getMission:()=>{const choice=explorerChoice||moon.getSelection();return{campaign:'jun',settings:{...settings,maxDarkHours:24},...lastMissionState,siteId:choice.siteId||'ridge-6',patchId:choice.patchId||'e+0-n+0',unsupported:Boolean(choice.unsupported),language};},
+      getMission:()=>{const choice=explorerChoice||moon.getSelection();return{campaign:'jun',settings:{...settings,maxDarkHours:24},missionConstraints:defaultMissionConstraints(settings.start),...lastMissionState,siteId:choice.siteId||'ridge-6',patchId:choice.patchId||'e+0-n+0',unsupported:Boolean(choice.unsupported),language};},
       setMission(next){lastMissionState={...next,language};moon.setSelection?.({siteId:next.siteId,patchId:next.patchId});explorerChoice={...moon.getSelection(),siteId:next.siteId,patchId:next.patchId};updateExplorerLinks();},
       getURL:()=>new URL(landingRoot.querySelector('.hero-actions a').href,location.href)});
     homeTools.setLanguage();updateExplorerLinks();$('home-build').textContent=tr('Build ','版本 ')+homeRelease.buildId.slice(0,10);

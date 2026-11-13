@@ -1,0 +1,133 @@
+{
+  "schema_version": "1.0",
+  "frozenAt": "2026-11-13T17:17:44.227Z",
+  "assurance": "exploratory",
+  "claim": "Measure, without assuming agreement, how recorded geometric visibility decisions change under real denser ephemerides, individual observer coordinates, and controlled terrain-ray refinement.",
+  "antiClaims": [
+    "No claim of flight safety, operational power/radio availability or calibrated success probability.",
+    "Refining the same DEM is not independent terrain truth.",
+    "Uniform angular stress is not measured terrain error.",
+    "Nominal outcome-stratified case selection is exploratory, not an unbiased validation sample."
+  ],
+  "priorEvidence": {
+    "path": "data/recommendation-fine-validation.json",
+    "sha256": "370b4ab273a40b6c548f8d70b5f7b9f855e82bac4be3cfe2e8f2b99e38c79609",
+    "selectionHistory": "June 21 ROI 1/4 cases were previously selected from a recommendation search. Existing audit is retained as prior exploratory evidence, never retrospectively preregistered."
+  },
+  "algorithmSha256": "981e49c08ae6457450c5e0fbb8d9c743521dbb91ed6eeb2cbb01b3e132ea5fcd",
+  "settings": {
+    "durationHours": 168,
+    "maxDarkHours": 24,
+    "maxCommGapHours": 24,
+    "minJointHours": 24,
+    "observerHeightM": 2,
+    "clearanceDeg": 0,
+    "nominalStepHours": 0.5
+  },
+  "months": [
+    [
+      "dec",
+      "2026-12",
+      "data/lunar-sites.json"
+    ],
+    [
+      "mar",
+      "2027-03",
+      "data/lunar-sites-march.json"
+    ],
+    [
+      "jun",
+      "2027-06",
+      "data/lunar-sites-june.json"
+    ]
+  ],
+  "candidateRule": "Every existing site, all nine actual positions, at each 00:00 UTC daily start whose full 168 h lies in that month. No fabricated coordinates or changed constraints.",
+  "selectionRules": {
+    "normal": "Complete pass with minimum of three threshold margins >= 2 h; choose largest minimum margin, then chronological/site/point ID.",
+    "critical": "Complete candidate with absolute smallest threshold margin <= 0.5 h; choose closest to zero, then chronological/site/point ID. If none exists, retain explicit unavailable category.",
+    "failure": "Complete fail with smallest threshold margin <= -2 h; choose most negative margin, then chronological/site/point ID.",
+    "shortWindow": "Complete candidate with an interior joint-visible interval > 0 and <= 0.5 h, neither boundary clipped by mission edge; choose shortest interval, then chronological/site/point ID."
+  },
+  "outcomeAccounting": "Retain all candidate values, selections, empty strata, duplicate identities, fetch failures/retries, nonfinite/missing epochs, mismatched metadata, decision flips and adverse deltas. Unknown is never a pass or unchanged conclusion.",
+  "decisionRules": {
+    "feasibility": "Unchanged original <=24 h dark, <=24 h Earth gap, >=24 h joint; no tolerance relaxes these limits.",
+    "numericReproductionHours": 0.000001,
+    "numericReproductionMeaning": "Floating implementation agreement tolerance only, not physical uncertainty.",
+    "discrepancyFlagHours": 0.5,
+    "discrepancyMeaning": "Predeclared screening flag equal to the nominal 30-minute sampling interval; not an error bound. Report every delta, including those below the flag.",
+    "shortWindowFlagHours": 0.5,
+    "criticalBandHours": 0.5,
+    "categoryNormalMarginHours": 2,
+    "categoryFailureMarginHours": -2,
+    "eventComparison": "Report event counts and directed nearest-boundary distances. Do not invent one-to-one matches when events appear/disappear.",
+    "scientificGate": "Changes in decisions or event topology narrow support to measured cases. Technical completion never implies numerical stability. Missing physical terrain semantics leaves terrain uncertainty unknown."
+  },
+  "interventions": [
+    {
+      "id": "nominal",
+      "variable": "none",
+      "samples": "published 30 min center-reused",
+      "horizon": "1 degree / radial scale .5"
+    },
+    {
+      "id": "own30",
+      "variable": "observer location",
+      "samples": "every sixth real 5 min sample, same individual observer",
+      "horizon": "published"
+    },
+    {
+      "id": "dense5",
+      "variable": "time cadence only relative to own30",
+      "samples": "actual JPL 5 min individual observer",
+      "horizon": "published"
+    },
+    {
+      "id": "radial",
+      "variable": "radial sampling only relative to dense5",
+      "samples": "same dense5",
+      "horizon": "1 degree / radial scale .25"
+    },
+    {
+      "id": "azimuth",
+      "variable": "azimuth sampling only relative to dense5",
+      "samples": "same dense5",
+      "horizon": "0.5 degree / radial scale .5"
+    },
+    {
+      "id": "combined",
+      "variable": "joint geometric refinement",
+      "samples": "same dense5",
+      "horizon": "0.5 degree / radial scale .25"
+    },
+    {
+      "id": "stress",
+      "variable": "deterministic added clearance",
+      "incrementsDeg": [
+        0,
+        0.02,
+        0.1,
+        0.25
+      ],
+      "interpretation": "not terrain uncertainty"
+    }
+  ],
+  "terrainProtocol": {
+    "status": "pending_semantic_verification",
+    "source": "https://pgda.gsfc.nasa.gov/products/78",
+    "required": [
+      "Official clone meaning and sign (error field vs absolute elevation)",
+      "Metres, MOON_ME DE421 spherical 1737400m reference, exact geotransform",
+      "Spatial correlation retained by full official clone raster; no independently sampled pixel noise",
+      "Observer ground and occluding terrain both adjusted consistently",
+      "Regional fallback uncertainty remains unmodelled and disclosed"
+    ],
+    "cloneSelectionBeforeAcquisition": [
+      "0001",
+      "0025",
+      "0050",
+      "0075",
+      "0100"
+    ],
+    "ensembleMeaning": "Fixed sparse diagnostic subset, not a probability estimate or complete 100-member ensemble."
+  }
+}

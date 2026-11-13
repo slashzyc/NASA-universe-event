@@ -1,89 +1,56 @@
-# LunaMargin — project submission narrative / 项目提交文案
+# LunaMargin · 月面余量 · 项目提交文案
 
-Updated against the application and saved evidence on 13 November 2026, America/New_York. This narrative is not an official submission. The named NASA resource match is confirmed. Team registration, current submission-format requirements and an organizer decision on advance-development eligibility remain unconfirmed.
+评委统一入口：[完整云端网站](https://lunamargin-slashzyc.laceysquirrel4.chatgpt.site/?lang=zh)。支持真实服务计算、云端保存、只读分享和原版证据恢复。[GitHub Pages](https://slashzyc.github.io/NASA-universe-event/?lang=zh) 是备用入口，支持浏览器计算、比较、保存完整任务文件与文件恢复；不提供云任务数据库或新日期获取队列。
 
-**Development timeline:** the owner requested full implementation before the official event after receiving the published warning that advance work can lead to disqualification. Preserve this disclosure. See [AI_DISCLOSURE.md](AI_DISCLOSURE.md).
+当前发布身份、实际验证与录像见 [工程判断验收](ENGINEERING_ACCEPTANCE.md)。历史验收以其记录的时间和版本为准。正式提交必须采用已冻结的完整云端版本。
 
 ## English
 
-### Project and challenge
+### Purpose and users
 
-**LunaMargin — Every landing needs a little margin.**  
-Challenge: [Lunar Landing Site Navigator](https://www.spaceappschallenge.org/2026/challenges/lunar-landing-site-navigator/)  
-Repository: [NASA-universe-event](https://github.com/slashzyc/NASA-universe-event)  
-Live application: [Open LunaMargin](https://slashzyc.github.io/NASA-universe-event/) — public deployment verified, including data loading, worker search, source links and all three exports; [production check record](production-validation.json).
+LunaMargin compares locations and arrival dates during early lunar mission-concept design. A concept team can ask whether the same duration, interruption limits and arrival deadline hold at a selected point and its eight neighbors. Education is a secondary use. The default seven-day duration, 24/24/24-hour limits and 72-hour maximum delay are practice assumptions; they are not NASA mission requirements. Each input is classified as a public source, a user assumption or a computed result in the [requirements table](MISSION_REQUIREMENTS.md).
 
-### High-level summary
+### Decision and evidence
 
-A promising lunar landing point can hide a difficult neighboring location. LunaMargin makes that difference visible. It combines NASA LOLA terrain and NASA/JPL Horizons ephemerides to compare continuous darkness, Earth-visibility gaps and joint Sun/Earth windows at three published Connecting Ridge research points and nine nearby positions per point.
+The demonstration starts at Connecting Ridge ROI 6 on 2 June 2027 at 06:00 UTC. The nominal center meets the practice limits, while the southeast sample fails. A later all-nine passing window does not help a mission that cannot wait for it. The 72-hour default excludes the 21 June 12:00 window, which is 462 hours later. Only an explicitly permitted arrival range can make it a candidate. Search keeps the original duration, thresholds and 2 m observer height and evaluates only full intervals inside data coverage. Users choose earliest feasibility or the widest weakest margin within the inspected six-hour grid.
 
-Users choose dates, a mission duration and tolerable interruptions. They inspect the local horizon, move through time, compare neighboring samples and search cached dates for a window meeting their conditions across all nine positions. English and Chinese interfaces, a guided tour and downloadable HTML, CSV and JSON evidence make the reasoning accessible and portable.
+At the 21 June window, ROI 1 and ROI 4 both nominally pass at all nine samples. Their remaining margins differ. The [structured comparison](../data/science-validation-summary.json) separates published values, real five-minute ephemerides, numerical terrain refinement and added-angle stress. ROI 4's fine southwest darkness margin is about 9.96 minutes; +0.02° changes its footprint to 8/9. These are recorded sensitivity results, not a calibrated uncertainty interval. The [expanded matrix](ENGINEERING_VALIDATION.md) retains adverse results, absent cases and the scope of official correlated terrain-clone diagnostics. A sampled point passing those checks does not establish terrain robustness across the footprint.
 
-### Working demonstration
+A user can inspect the limiting point and interval, compare alternatives without mixing their constraints, save a named mission, and reopen or share its original evidence. Recalculation creates a new result. Inputs, original data, algorithm identity and verification evidence remain traceable. The full public release fixes the frontend, service, release manifest and data together; incompatible combinations are blocked.
 
-At ROI 6 from **2 June 2027 06:00 UTC for seven days**, set a **24-hour darkness limit, 24-hour Earth-gap limit, at least 24 hours of joint visibility and zero extra angular clearance**. The published 30-minute series gives the center **155.55 hours of Sun visibility**, a **12.45-hour longest dark interval**, a **6.32-hour longest Earth gap** and **149.23 hours of joint visibility**. The center and **8 of 9 sampled positions** meet the criteria.
+### NASA data and scope
 
-Select the point **25 m east and 25 m south**: its longest dark interval is **167.50 hours**, with **zero joint visibility**. This is a spatial sensitivity result in the supplied terrain model. The fraction describes nine declared positions; it is not a landing-success probability.
+The challenge's named resource **Horizons System** supplies airless Sun/Earth center directions; NASA LOLA terrain supplies the horizons. The current data cover three Connecting Ridge regions, nine samples per region, the three published monthly campaigns and a matched 2 m observer model. The [source mapping](RESEARCH.md#hard-requirement-official-resource-mapping), [methods](METHODOLOGY.md) and [case evidence index](ENGINEERING_VALIDATION.md) retain original requests and checksums. Cached ephemerides are not real-time observations. The public cloud does not offer arbitrary new dates; its capabilities state the available ranges.
 
-Searching **264 site/date combinations** at six-hour arrival steps finds the earliest all-nine passing alternatives on **21 June 2027 at 12:00 UTC**, a **462-hour delay**, at ROI 1 and ROI 4. **ROI 1 appears first because its weakest threshold margin across the nine positions is wider.** In the published model, ROI 1's worst darkness is **8.015 h**, worst Earth gap **18.525 h** and least joint visibility **141.607 h**. Its smallest threshold margin is **5.475 h**, limited by the Earth gap. ROI 4's worst darkness is **23.749 h**, leaving its southwest sample only **0.251 h, about 15 minutes**, before the darkness limit.
+The output is geometric visibility screening. Electrical yield, ground-station link budgets and landing safety require other models. Dense numerical sampling is not observational truth; local terrain-clone samples do not validate unperturbed regional terrain. No sample fraction is presented as a landing-success probability.
 
-The public ordering retains earliest arrival first, then constraint satisfaction and complete coverage, then the largest smallest threshold margin, individual margin components, center metrics and a stable site-ID tie-break. Each margin is a visible difference in hours from a user threshold. This is an explicit preference within the cached grid, not a global optimum or a hidden weighted score. All failed samples and their reasons are retained. See [default-case evidence](demo-evidence.json) and [footprint margins and stress tests](ROBUSTNESS_VALIDATION.md).
+### Users and contribution
 
-### NASA data and method
-
-Reference locations come from NASA's original Connecting Ridge ROI attributes. Terrain combines the **5 m/pixel Site01 LOLA DEM** in [PGDA 78](https://pgda.gsfc.nasa.gov/products/78) and an **80 m/pixel regional DEM** from [PGDA 90](https://pgda.gsfc.nasa.gov/products/90). Spherical rays trace terrain to 250 km from an observer 2 m above the surface. [JPL Horizons](https://ssd.jpl.nasa.gov/horizons/) supplies airless Sun/Earth center directions every 30 minutes for December 2026, March 2027 and June 2027.
-
-**Official resource mapping confirmed 2026-11-13:** the challenge's [NASA DATA & RESOURCES list](https://www.spaceappschallenge.org/2026/challenges/lunar-landing-site-navigator/?tab=resources) includes **Horizons System**. LunaMargin calls its observer API for Sun (`10`) and Earth (`399`) azimuth/elevation at declared lunar coordinates and times; those fields become terrain-relative visibility windows and nine-point comparisons. [RESEARCH.md](RESEARCH.md#hard-requirement-official-resource-mapping) maps the exact request fields, original responses and derived results. This confirms the named-resource match, not overall competition eligibility.
-
-A separate numerical check requested real **five-minute Horizons tables for the center and displaced point**, recomputed 0.5° horizons with finer radial spacing, and integrated intervals in Python. The center-pass / southeast-fail result remained: longest darkness **12.437 h versus 167.348 h**. This checks cadence, ray sampling and nearby-point ephemeris reuse. It uses the same terrain sources and is not independent observational validation. See [fine-ephemeris-validation.json](../data/fine-ephemeris-validation.json).
-
-The recommendation-window audit adds **18 positions, 36 original Sun/Earth responses and 2,017 five-minute epochs per position**, with no missing epochs. Every position uses its own coordinates. At added clearances **0°, 0.02°, 0.10°, 0.25°**, finer calculations preserve all **72** point/condition pass-or-fail conclusions: ROI 1 remains **9/9** at every level; ROI 4 gives **9/9, 8/9, 8/9, 7/9**. At zero extra angle, fine worst darkness is **7.997 h** for ROI 1 and **23.834 h** for ROI 4; ROI 4's southwest margin reduces to **about 9.96 minutes**. This supports the same comparative recommendation. Extra angles are deterministic stress conditions, not measured error probabilities. Full intervals, differences and provenance are in [RECOMMENDATION_VALIDATION.md](RECOMMENDATION_VALIDATION.md).
-
-### Contribution and scope
-
-LunaMargin links horizon geometry, contiguous interruptions, user constraints and neighboring points in one inspectable decision. Existing lunar maps and ephemeris tools provide its foundation. The demonstrated contribution is a reproducible comparison with an explicit tradeoff and evidence trail.
-
-The tool supports education and early mission-concept exploration. Body-center visibility does not calculate solar electrical yield, radio-link budgets, landing dynamics or terrain hazards. DEM interpolation, product seams, finite bearing/time steps and unmodeled eclipses affect interpretation. A [five-person comparison protocol](USABILITY_TEST_KIT.md) and [static tables/timelines with the same decision information](study/static-condition.html) are ready; **0/5 people have been tested**. The planned teacher/researcher needs interview is **0/1**, with no approval or feedback recorded. External expert review has not been conducted. A different terrain region is a documented follow-up, not part of the current dataset.
-
-### Development and attribution
-
-OpenAI Codex assisted research, implementation, tests and documentation, including parallel agents. Original NASA inputs remain distinct from computed outputs and synthetic test fixtures. Development predates the official hackathon; eligibility is unconfirmed. Registered members should provide their actual contribution details.
+The contribution is a constrained comparison with an inspectable reason for choosing or rejecting a plan. The [five-person comparison materials](USABILITY_TEST_KIT.md) give static and interactive conditions the same nine-point information, intervals, limits and validation boundaries. Cases and order are crossed, answers are fixed before observation, and failures and prompts must be retained. **0/5 people have been tested and 0/1 interviews completed.** The owner cannot currently arrange participants. Automated browser recordings are separate engineering checks; no user benefit or expert endorsement is claimed from them.
 
 ## 中文
 
-在线体验：[LunaMargin 月面余量](https://slashzyc.github.io/NASA-universe-event/)。公开版本的资料加载、窗口搜索、来源链接及导出检查见 [production-validation.json](production-validation.json)；记录中的时间和版本标明该次检查覆盖的发布版本。
+### 用途
 
-### 项目简介
+LunaMargin 用于早期月球任务概念设计中的地点与日期比较，教育演示为辅助。团队在相同任务时长、中断门槛和最迟抵达限制下，检查中心及八个邻点。默认 7 天、24/24/24 小时门槛与最多推迟 72 小时都是练习假设，不是 NASA 航天任务要求。[需求—输入—指标—决策表](MISSION_REQUIREMENTS.md) 标明每项来源类别和决策作用。
 
-**LunaMargin「月面余量」：每一次着陆，都需要一点余量。**
+### 演示主线
 
-一个看起来理想的月球落点，周边位置可能面临不同的光照。LunaMargin 将 NASA LOLA 地形与 NASA/JPL Horizons 星历结合，比较连接脊三个公开研究点的连续断光、地球不可见时段和日地共同可见窗口，并检查每处九个相邻位置。
+连接脊 ROI 6 的中心满足名义条件，东南邻点暴露问题。搜索必须先遵守抵达限制：6 月 21 日 12:00 UTC 窗口比默认 6 月 2 日 06:00 UTC 晚 462 小时，不能进入 72 小时预算内的推荐。只有使用者明确扩大允许范围，它才成为可比较的候选。搜索不会暗改门槛、缩短任务或改变高度；每个完整任务必须有数据覆盖。
 
-用户设置日期、任务时长和可承受的中断，查看地平线与时间变化，比较周边位置，搜索所有取样点均满足条件的后续窗口。中英界面、操作导览，以及 HTML 简报、CSV 对比表和 JSON 证据导出，让计算可以理解、带走和复查。
+同一核查窗口中，ROI 1 和 ROI 4 都是名义 9/9，但临界性不同。界面从原始审计生成名义、独立五分钟及几何加密对照：ROI 4 西南点精算断光余量约 9.96 分钟，附加 0.02° 后整组成为 8/9。扩展验证将时间、数值几何和官方空间相关地形样本分开，保留不利结果和缺测。名义满足与验证状态分别显示，未执行的复核保持“未验证”。
 
-### 实际演示
+最后在允许抵达范围内选择方案，保存并重新打开，导出输入、结果、版本和对应依据。不同条件展示取舍，不混排统一“最佳”。历史原结果保留，使用当前版本重新计算会另建记录。
 
-选择 **ROI 6，2027 年 6 月 2 日 06:00 UTC 起的七天**；设定**最长断光 24 小时、最长地球不可见 24 小时、日地共同可见至少 24 小时、额外角度余量 0°**。30 分钟星历序列给出：中心太阳可见 **155.55 小时**，最长断光 **12.45 小时**，最长地球不可见 **6.32 小时**，共同可见 **149.23 小时**。中心通过，九个取样点中有 **8 个**符合全部条件。
+### 证据范围
 
-点击**东 25 米、南 25 米**的位置，最长断光变为 **167.50 小时**，共同可见为 **0 小时**。这是给定地形模型中的位置敏感性结果；九点通过比例不能理解为着陆成功概率。
+NASA/JPL Horizons 提供天体方向，LOLA 提供地形；来源、原始响应、字段与校验值见 [原始证据索引](ENGINEERING_VALIDATION.md)。当前只有已匹配的 2 米模型和已发布覆盖；云端未开放新日期队列。几何可见不能直接代表供电、地面站通信链路或着陆安全，局部地形样本也不能替代整组与远场的不确定性验证。
 
-搜索按六小时抵达步长检查 **264 种地点/日期组合**，最早全部九点通过的方案是 **6 月 21 日 12:00 UTC，ROI 1 或 ROI 4，推迟 462 小时**。现在同一日期优先显示 **ROI 1**：其九点最坏断光 **8.015 小时**、最长地球不可见 **18.525 小时**、最少共同可见 **141.607 小时**；最薄弱的门槛余量为 **5.475 小时**，由地球不可见时长决定。ROI 4 的最坏断光为 **23.749 小时**，西南点距断光上限只剩 **0.251 小时，约 15 分钟**。
+真人对照和需求访谈均为待开展，实际人数为 **0/5、0/1**。材料包含等量信息的静态九点表和时间线、交错案例分配、预先答案、五项任务、原话和提示记录、障碍复测表。[原始记录模板](USABILITY_TEST_RECORDS.md) 没有预填观察；自动化检查不计作真人测试。
 
-排序先保留最早日期，再比较满足条件、资料完整、最薄弱门槛余量及各分项，最后用中心指标和地点 ID 确定并列顺序。这是公开的选择偏好，最早仅指缓存范围和搜索网格。各项余量与失败点均保留，没有隐含权重或全球最优承诺。详见 [周边余量与压力测试](ROBUSTNESS_VALIDATION.md)。
+## Development and disclosure / 开发与披露
 
-### 数据与复核
-
-参考位置来自 NASA 原始 Connecting Ridge ROI 属性，地形结合 [PGDA 78](https://pgda.gsfc.nasa.gov/products/78) 的 5 米像素 DEM 与 [PGDA 90](https://pgda.gsfc.nasa.gov/products/90) 的 80 米区域 DEM。球面射线计算地表上方两米观察者至 250 公里内的地形遮挡。Horizons 提供 2026 年 12 月、2027 年 3 月和 6 月的真实太阳、地球中心方向。
-
-**2026-11-13 已确认官方资源匹配：**题目 [Resources](https://www.spaceappschallenge.org/2026/challenges/lunar-landing-site-navigator/?tab=resources) 的 NASA DATA & RESOURCES 列出 **Horizons System**。项目实际调用其 API，以月面坐标和时间查询太阳、地球方位角与高度角，再结合地形得到窗口和九点比较。[资源对应记录](RESEARCH.md#hard-requirement-official-resource-mapping) 保存字段、原始响应和派生结果证据。该项确认不代表整体评奖资格确认。
-
-额外复核针对中心与东南点分别请求真实五分钟星历，把地平线方位步长加密至 0.5°、缩短径向步长，并使用 Python 积分。结论仍为中心通过、东南点不通过；最长断光分别是 **12.437 与 167.348 小时**。这检查了数值采样与近邻星历近似，沿用相同地形来源，不能代替独立观测验证。
-
-新增推荐窗口精算覆盖 **18 个位置、36 份真实原始响应、每点 2017 个五分钟时刻**，无缺测，各点使用自身坐标。额外角度 **0°、0.02°、0.10°、0.25°** 下，共 **72** 组点与条件的通过结论均未改变：ROI 1 均为 **9/9**，ROI 4 依次为 **9/9、8/9、8/9、7/9**。基准最坏断光精算为 **7.997 与 23.834 小时**，ROI 4 西南点余量缩至约 **9.96 分钟**，仍支持优先显示 ROI 1。附加角度属于确定性压力条件，并非实测误差概率。详见 [完整精算报告](RECOMMENDATION_VALIDATION.md)。
-
-项目将地平线、窗口、约束与周边取样连接为一个可检查的决策流程，服务科学教育和早期任务概念探索。发电、通信链路、着陆动力学和地表危险需要其他模型；地形插值、数据拼接、有限采样及未建模食现象影响解释。[五人对照测试协议](USABILITY_TEST_KIT.md) 与[相同决策信息的静态表及时间线](study/static-condition.html) 已准备，实际 **0/5 已测试，尚无参与者**，没有真人完成率、耗时或引语。教师/研究者需求访谈 **0/1，尚无认可或反馈**。外部专家评审尚未开展；不同地形区域留待后续扩展。
-
-OpenAI Codex 协助研究、实现、测试与文档。开发早于正式比赛，用户知悉规则后仍明确要求继续。提交应保留真实时间线与 AI 披露，填写真实成员贡献。
+OpenAI Codex assisted research, implementation, tests and documentation. Scientific inputs remain distinct from generated code, computed outputs and test fixtures. The owner explicitly requested development before the official event after receiving the advance-work warning. Preserve the actual timeline and [AI disclosure](AI_DISCLOSURE.md); registration, formal submission requirements and advance-development eligibility need confirmation. Publishing this repository does not submit a project to Space Apps.
 
 ## Submission status / 提交状态
 

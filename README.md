@@ -2,13 +2,13 @@
 
 **Every landing needs a little margin.**
 
-**[Open the online workspace / 打开在线工作台](https://lunamargin-slashzyc.laceysquirrel4.chatgpt.site/?lang=zh)** · **[GitHub Pages / 浏览器与设备文件模式](https://slashzyc.github.io/NASA-universe-event/?lang=zh)** · **[36-second public walkthrough / 36秒公网操作实录](https://slashzyc.github.io/NASA-universe-event/docs/media/public-flow.webm)**
+**[Open the online workspace / 打开在线工作台](https://lunamargin-slashzyc.laceysquirrel4.chatgpt.site/?lang=zh)** · **[GitHub Pages / 浏览器与设备文件模式](https://slashzyc.github.io/NASA-universe-event/?lang=zh)** · **[Previous public walkthrough / 上轮公网操作实录](https://lunamargin-slashzyc.laceysquirrel4.chatgpt.site/docs/media/public-flow.webm)**
 
-Rotate the Moon, choose a verified research point, adjust a real mission, understand the cause of a failed limit, compare alternatives and retain the exact evidence. The online workspace uses **Cloudflare D1 + R2** for saved missions and read-only shares. GitHub Pages independently supports genuine browser calculation, comparison, full evidence-file saving and reopening. The local **Node.js + SQLite** service retains the controlled new-date pipeline; cloud new-date acquisition is not yet deployed. [This round’s verification and recordings](docs/INTERACTION_ACCEPTANCE.md) · [Cloud architecture](docs/CLOUD_SERVICE.md).
+Rotate the Moon, choose a verified research point, adjust a real mission, understand the cause of a failed limit, compare alternatives and retain the exact evidence. The online workspace uses **Cloudflare D1 + R2** for saved missions and read-only shares. GitHub Pages independently supports genuine browser calculation, comparison, full evidence-file saving and reopening. The local **Node.js + SQLite** service retains the controlled new-date pipeline; cloud new-date acquisition is not yet deployed. [Current engineering evidence](docs/ENGINEERING_ACCEPTANCE.md) · [Previous interaction verification](docs/INTERACTION_ACCEPTANCE.md) · [Cloud architecture](docs/CLOUD_SERVICE.md).
 
-A terrain-aware lunar landing-window lab for the **2026 NASA Space Apps — Lunar Landing Site Navigator** challenge. Compare a promising center point with the terrain around it, then find a different arrival date where more of the sampled footprint meets your mission limits.
+A tool for **location and date comparisons during early lunar mission-concept design**, with education as a secondary use. Built for the **2026 NASA Space Apps — Lunar Landing Site Navigator** challenge. Compare a promising center point with the terrain around it, then find a different arrival date where more of the sampled footprint meets your mission limits.
 
-> This is an independent educational prototype built with NASA open data. Development began before the official event at the project owner's explicit request. This affects potential award eligibility; see [the disclosure](docs/AI_DISCLOSURE.md). Publishing this repository is not a Space Apps submission.
+> This is an independent concept-comparison prototype built with NASA open data. The default 168 h mission, 24/24/24 h limits and 72 h maximum delay are practice assumptions, not sourced flight requirements. Development began before the official event at the project owner's explicit request. This affects potential award eligibility; see [the disclosure](docs/AI_DISCLOSURE.md). Publishing this repository is not a Space Apps submission.
 
 ## Start here / 从这里开始
 
@@ -39,9 +39,9 @@ The published 30-minute model gives approximately **155.55 h of Sun-center visib
 
 A separate query using **real 5-minute Horizons tables**, each position's own coordinates, and a finer terrain calculation preserves the conclusion: center darkness **12.44 h**, offset darkness **167.35 h**. This is a numerical sensitivity check, not external flight validation. Near-field DEM interpolation and measurement uncertainty remain relevant. [Inspect the numerical audit](data/fine-ephemeris-validation.json).
 
-Search all nine sampled positions with the same limits: the first available six-hour-grid arrival is **2027-06-21 12:00 UTC** at ROI 1 or ROI 4. **ROI 1 now appears first at this tied arrival** because its weakest nine-point threshold margin is **5.475 h**, versus **0.251 h** for ROI 4. ROI 4's southwest point is close to its darkness limit even though both groups pass 9/9. The ordering is explicit and deterministic; “earliest” is bounded by the cached month and six-hour grid. [Compare all components and stress tests](docs/ROBUSTNESS_VALIDATION.md).
+The new task defaults to a **72 h maximum delay**, which excludes the following late alternative. If the user explicitly allows at least **462 h** of delay, the same-limit search finds its first all-nine passing six-hour-grid arrival at **2027-06-21 12:00 UTC** at ROI 1 or ROI 4. **ROI 1 now appears first at this tied arrival** because its weakest nine-point threshold margin is **5.475 h**, versus **0.251 h** for ROI 4. ROI 4's southwest point is close to its darkness limit even though both groups pass 9/9. The ordering is explicit and deterministic; “earliest” is bounded by the cached month and six-hour grid. [Compare all components and stress tests](docs/ROBUSTNESS_VALIDATION.md).
 
-The expanded audit independently queries **all 18 positions** in that recommendation window: **36 original responses, 2,017 five-minute epochs per position, no missing epochs**. Fine calculations preserve all 72 point/angle pass-or-fail conclusions. ROI 1 stays 9/9 at the four tested angle settings; ROI 4 falls to 8/9 at +0.02° and 7/9 at +0.25°. Its baseline southwest darkness margin becomes **9.96 minutes** in the fine calculation. These are deterministic sensitivity results, not measured probabilities. [Inspect the complete fine audit](docs/RECOMMENDATION_VALIDATION.md).
+The previously published June recommendation audit independently queries **all 18 positions** in that recommendation window: **36 original responses, 2,017 five-minute epochs per position, no missing epochs**. Fine calculations preserve all 72 point/angle pass-or-fail conclusions. ROI 1 stays 9/9 at the four tested angle settings; ROI 4 falls to 8/9 at +0.02° and 7/9 at +0.25°. Its baseline southwest darkness margin becomes **9.96 minutes** in the fine calculation. These are deterministic sensitivity results, not measured probabilities. [Inspect the complete fine audit](docs/RECOMMENDATION_VALIDATION.md).
 
 ## What works
 
@@ -63,7 +63,7 @@ The expanded audit independently queries **all 18 positions** in that recommenda
 - Terrain horizon from local 5 m/pixel and regional 80 m/pixel LOLA data, spherical geometry and 250 km rays.
 - Interactive 360° horizon with Sun/Earth positions, time animation, and individual footprint inspection.
 - Mission limits, longest continuous gaps, simultaneous visibility, and complete interval timelines.
-- Background-worker search for the first later date where the center and all nine locations meet the limits.
+- Constrained six-hour-grid search: preserve the full mission and thresholds, enforce the latest permitted arrival and data coverage, and choose earliest feasibility or widest weakest margin. [Requirement/input/metric/decision table](docs/MISSION_REQUIREMENTS.md).
 - Same-date recommendations explain worst-position margins and four deterministic angular stress conditions.
 - Shareable scenario URLs, English/Chinese interface, keyboard navigation and mobile layout.
 - Downloadable HTML mission brief, CSV comparison and JSON evidence with provenance.
@@ -124,7 +124,7 @@ The browser has no third-party JavaScript dependencies. Scientific computation r
 - [中文操作指南](docs/QUICKSTART_ZH.md)
 - [Submission narrative / 中英提交说明](docs/SUBMISSION.md)
 - [Demonstration script / 中英演示脚本](docs/DEMO_SCRIPT.md)
-- [Captioned application walkthrough](docs/media/lunamargin-walkthrough.webm) — a real, silent browser teaching demonstration with AI-assistance disclosure; current-year formal demo compliance is unconfirmed.
+- [Historical captioned application walkthrough](docs/media/lunamargin-walkthrough.webm) — a real, silent browser teaching demonstration with AI-assistance disclosure; current-year formal demo compliance is unconfirmed.
 - [Judging strategy and prior winners](docs/JUDGING_STRATEGY.md)
 - [Rules and sources](docs/RESEARCH.md)
 - [AI and development disclosure](docs/AI_DISCLOSURE.md)

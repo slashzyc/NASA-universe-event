@@ -1,5 +1,8 @@
 # LunaMargin 第二轮修改与验收记录
 
+> 历史验收与科学证据：以下结论仅对应文中记录的版本、参数和时间。当前完整入口为 [云端 LunaMargin](https://lunamargin-slashzyc.laceysquirrel4.chatgpt.site/?lang=zh)；当前能力与本轮状态见 [工程判断验收](ENGINEERING_ACCEPTANCE.md)。本页不代表当前所有查询都已复核。
+
+
 评审基线：`6e4610a`。依据第二轮清单按依赖推进。**本次先行范围为 R01–R03，并准备 R06；R07 做一手资料与叙事准备。** 第一轮已完成的选点、方向键、九点余量、18 点精算、中英简报和发布门禁保持为既有能力，不重新标记未实现。月球封面与已有视觉体系保留。
 
 本轮计算版本：`6426717dc7489e974391a4094cd12160bee92e1e51d2082b2ceefeefe205ebcf`。这是实际应用/数据内容摘要，不是 Git 提交号；完整清单见 [build-info.json](../build-info.json)。R01–R03 已实现并通过下面的实际检查。

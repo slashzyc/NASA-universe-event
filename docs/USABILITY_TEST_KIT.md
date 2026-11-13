@@ -1,10 +1,10 @@
 # LunaMargin 真人对照测试包 / Human comparison protocol
 
-R06 材料版：2026-11-13。**材料准备完成，真人观察待开展：0/5 已测试，尚未招募。** 没有实际耗时、正确率、求助次数或引语。自动检查和 AI 操作单独记录，不计人类参与者。第一轮 M06 [原协议](USABILITY_TEST_KIT_ROUND1.md)与[原空白表](USABILITY_TEST_RECORDS_ROUND1.md)继续保留。
+R06 材料版：2026-11-13。**材料准备完成，真人观察待开展：0/5 已测试。用户已确认暂不能安排参与者，保留待开展；没有对外招募。** 没有实际耗时、正确率、求助次数或引语。自动检查和 AI 操作单独记录，不计人类参与者。第一轮 M06 [原协议](USABILITY_TEST_KIT_ROUND1.md)与[原空白表](USABILITY_TEST_RECORDS_ROUND1.md)继续保留。
 
 ## 目的与比较范围
 
-目标使用者是假设中的科学教育初学者和学生任务概念团队；实际需求由下方教师/研究者访谈核查。问题是：**面对相同的九点决策信息，交互式呈现是否帮助这五位参与者找出失败点、选择给定替代方案、解释余量并保存依据？** 不能预设应用更快或更正确。
+主要使用场景是早期月球任务概念设计的地点与日期比较；教育为辅助场景。目标使用者是假设中的任务概念团队与相关初学者；实际需求由下方教师/研究者访谈核查。问题是：**面对相同的九点决策信息，交互式呈现是否帮助这五位参与者找出失败点、选择给定替代方案、解释余量并保存依据？** 不能预设应用更快或更正确。
 
 比较两种呈现：S 为可打印的静态九点表与三条可见性时间线；I 为当前 LunaMargin。两种条件使用同一计算程序、相同案例条件和同一固定方案清单。每人完成两个不同案例，各使用一种呈现。主要比较给定信息的阅读与保存流程，**不比较自由搜索速度**，也不是与 Moon Trek 的实测对照。
 
@@ -18,6 +18,8 @@ R06 材料版：2026-11-13。**材料准备完成，真人观察待开展：0/5 
 | 九点坐标偏移、三个指标、通过判定、失败原因 | 九行并列，包含中心 | 九点选择及其结果；可查看简报 |
 | 日地与共同可见时间线、完整时间区间 | 每行三条图，附区间 CSV/JSON | 当前点时间线及导出区间 |
 | 整组最薄弱余量、对应点、四档附加角度 | 每页列出 | 九点检查及压力表 |
+| 最大等待与最迟抵达 | A 最多 12 h、B 最多 78 h，截止由初始抵达时间计算；均为对照实验假设 | 同一约束随预设链接载入，采用候选保留原起点 |
+| 验证状态与未验证事项 | 每页列出同份准确日期/九点审计缺项、角压力语义和供电/通信/着陆限制 | 结果与验证面板显示同样边界；未匹配准确任务时不借用 June21 12:00 结果 |
 | 三个固定替代方案 | 按编号顺序排列 | 相同编号、顺序的预设链接 |
 | 保存与重新打开 | 保存 HTML/打印 PDF，保留计划编号和点名锚点；用同一行复查 | 分享或导出当前点，再重新打开 |
 
@@ -30,7 +32,7 @@ R06 材料版：2026-11-13。**材料准备完成，真人观察待开展：0/5 
 | A | ROI 4，2027-06-21 18:00 UTC | 中心通过；8/9；一个点仅断光超限 | 西南点失败；存在同一日期换地点方案 |
 | B | ROI 1，2027-03-04 18:00 UTC | 中心通过；8/9；一个点仅断光超限 | 东南点失败；需更晚抵达 |
 
-生成命令：`node scripts/build-study-materials.mjs`。输出含数据包与计算模块 SHA-256、生成时间、完整窗口和选择规则，共 2 个案例、8 个方案、72 行取样数据。任何算法/数据变化后重新生成材料并核对字段一致；首位参与者开始后冻结材料与应用版本，不能在组间改版。若必须修复，停止本轮并另记版本。
+生成命令：`node scripts/build-study-materials.mjs`，随后 `node scripts/build-study-answer-key.mjs`。数值答案由计算记录生成于 [主持人答案](study/moderator-answer-key.json)，材料 SHA 在 [冻结核对清单](study/protocol-manifest.json)，[空白机器记录](study/observations.blank.json) 的 participants 数组为空。输出含数据包与计算模块 SHA-256、生成时间、完整窗口和选择规则，共 2 个案例、8 个方案、72 行取样数据。任何算法/数据变化后重新生成材料并核对字段一致；首位参与者开始前登记已通过公开验收的 `/releases/<buildId>/` 固定网址、发布清单及材料 SHA；两种条件都从此固定发布打开。当前未开始观察，不把准备日期当作测试日期。首位参与者开始后冻结材料与应用版本，不能在组间改版。若必须修复，停止本轮并另记版本。
 
 ## 分配与准备
 
@@ -55,7 +57,7 @@ R06 材料版：2026-11-13。**材料准备完成，真人观察待开展：0/5 
 English: “We are testing these two ways of presenting the information, not testing you. Either may have problems. Please work through the cards yourself; you may talk through your thoughts or stop. We record actions and time anonymously. Permission to publish a quotation is separate. Compare only the supplied plans; you do not need to find additional sites or dates.”
 
 - 每题从读完卡片、参与者表示理解任务后开始，到明确提交判断并完成操作、放弃或限时停止。保存复查必须完成重新打开，不能在点下载时停表。
-- 任务 1、2、4 各最多 5 分钟，任务 3 最多 3 分钟。记录实际秒数，超时/放弃/设备故障分开；没有结果留“未观察”，不写 0 秒。
+- 任务 1、2、4、5 各最多 5 分钟，任务 3（选替代方案）最多 3 分钟。任务顺序统一为：失败点、余量、限时替代、保存复查、验证边界。记录实际秒数，超时/放弃/设备故障分开；没有结果留“未观察”，不写 0 秒。
 - 重读原卡不算提示。指出按钮、解释指标、提供步骤或纠正答案均算提示；逐条记时间、原文和触发原因。中性回应统一为“你现在想完成什么？”，也保留记录。
 - 首次回答原样保留，再按下表评分。正确性、独立完成、耗时和求助次数分别报告，不能把快速但错误的操作计为成功。
 - 第一段结束不透露答案。全部结束后可开放访谈和讲解；这些回答不得替换首次评分。
@@ -65,9 +67,10 @@ English: “We are testing these two ways of presenting the information, not tes
 | 任务 | 中文 | English |
 | --- | --- | --- |
 | 1 找出失败点 | 检查初始方案，指出哪一个取样点未满足条件、哪项条件未满足。说明中心点是否也有同样问题。 | Inspect the initial plan. Identify the sampled point that misses a limit and which limit it misses. Does the center have the same problem? |
-| 2 选择替代方案 | 在给出的三个候选中，先要求九点都通过，再优先选择最早抵达方案。说出你选的编号、地点、日期及其代价。 | Among the three supplied alternatives, require all nine points to pass, then prefer the earliest arrival. State the plan ID, place, date and tradeoff. |
-| 3 解释余量 | 解释你所选方案的最薄弱余量由哪个条件、哪个位置决定。更晚的候选余量不同，代表什么？9/9 是否表示安全着陆概率？ | Explain which condition and point set your chosen plan's smallest margin. What does a different margin for a later plan mean? Does 9/9 describe a safe-landing probability? |
+| 2 解释余量 | 在任务卡指定的候选 A1 或 B1 中，解释最薄弱余量由哪个条件、哪个位置决定。更晚的候选余量不同，代表什么？9/9 是否表示安全着陆概率？ | For the assigned candidate A1 or B1, explain which condition and point set its smallest margin. What does a different margin for a later plan mean? Does 9/9 describe a safe-landing probability? |
+| 3 选择替代方案 | 在给出的三个候选中，先要求九点都通过、抵达不晚于任务卡截止，再优先选择最早抵达方案。说出你选的编号、地点、日期及其代价。 | Among the three supplied alternatives, require all nine points to pass and arrival within the declared deadline, then prefer the earliest arrival. State the plan ID, place, date and tradeoff. |
 | 4 保存并复查 | 保存你选中的替代方案及其最薄弱点；在新页面或保存文件中打开，核对地点、点位、日期、三个门槛、指标和版本信息。保留你的选择理由。 | Save your selected alternative and its weakest point. Reopen it in a new page or saved file, then check place, point, date, three limits, metrics and version information. Keep your selection reason. |
+| 5 说明验证边界 | 指出本方案哪些检查已经执行、哪些尚未执行。角度压力测试是否等于地形误差验证？几何可见能否直接代表发电、可用通信或安全着陆？ | State which checks apply to this exact mission and which remain untested. Is angle stress a terrain-error validation? Does geometric visibility establish power, communication or landing safety? |
 
 任务 4 继续保存新方案，不要求无解释地回到旧失败案例。版本不一致或旧格式未知时，能识别并说明提示也算有效观察，不强行要求“同版成功”。
 
@@ -76,11 +79,13 @@ English: “We are testing these two ways of presenting the information, not tes
 | 任务 | A | B |
 | --- | --- | --- |
 | 1 | A0 / ROI 4；西南 `e-25-n-25`；断光 29.749 h > 24 h；中心通过；另两项不过界 | B0 / ROI 1；东南 `e+25-n-25`；断光 28.792 h > 24 h；中心通过；另两项不过界 |
-| 2 | A1 / ROI 1 / 2027-06-21 18:00 UTC，0 h 延迟，9/9 | B1 / ROI 4 / 2027-03-07 12:00 UTC，66 h 延迟，9/9 |
-| 3 | A1 最薄弱余量约 11.475 h，由东南 `e+25-n-25` 的地球不可见门槛决定；与冻结 JSON 的 `worstCase.points.longestCommGapHours` 核对 | B1 最薄弱余量约 4.163 h，由东南 `e+25-n-25` 的断光门槛决定；与 `worstCase.points.longestDarkHours` 核对 |
-| 4 | 保存 A1 与任务 3 指认的点，核对导出/锚点、场景、数值及版本状态 | 保存 B1 与任务 3 指认的点，同样核对 |
+| 2 | A1 最薄弱余量约 11.475 h，由东南 `e+25-n-25` 的地球不可见门槛决定；与冻结 JSON 的 `worstCase.points.longestCommGapHours` 核对 | B1 最薄弱余量约 4.163 h，由东南 `e+25-n-25` 的断光门槛决定；与 `worstCase.points.longestDarkHours` 核对 |
+| 3 | A1 / ROI 1 / 2027-06-21 18:00 UTC，0 h 延迟，9/9 | B1 / ROI 4 / 2027-03-07 12:00 UTC，66 h 延迟，9/9 |
+| 4 | 保存 A1 与任务 2 指认的点，核对导出/锚点、场景、数值及版本状态 | 保存 B1 与任务 2 指认的点，同样核对 |
 
-任务 1 的“点”和“超限条件”分别记对错。任务 2 的“全九点可行”“最早日期规则”“代价”分项记录。任务 3 记条件、点、正负意义与概率解释；并记录是否误把几何可见当实际供电/通信。任务 4 核对字段数逐项记录，不用一个主观“完成”代替。出现边界舍入差异时以完整数值和阈值比较，页面三位小数仅供读数。
+任务 1 的“点”和“超限条件”分别记对错。任务 3 的“全九点可行”“截止内抵达”“最早日期规则”“代价”分项记录。任务 2 记条件、点、正负意义与概率解释；并记录是否误把几何可见当实际供电/通信。任务 4 核对字段数逐项记录，不用一个主观“完成”代替。出现边界舍入差异时以完整数值和阈值比较，页面三位小数仅供读数。
+
+任务 5 的判定要求：准确指出该任务全部九点与准确时段的独立加密验证尚未完成；角度扰动不等于官方地形误差；几何可见性不能证明供电、地面站链路或着陆安全。允许同义表达。每项单独评分，原话保留。
 
 ## 汇总与复测
 
@@ -97,7 +102,7 @@ English: “We are testing these two ways of presenting the information, not tes
 1. 你认为谁会使用它，处于哪类学习或任务阶段？哪些用户不适合？
 2. 24 h 的三项示例阈值能帮助教学吗？实际任务还需哪些依据，哪些阈值应改变？
 3. 九个离散点、25 m 间距能支持什么判断？最容易造成什么误解？
-4. “最早可行日期优先，再比较最薄弱余量”的规则适合哪些任务？何时需要不同偏好？
+4. 最迟抵达或最大允许推迟时间是否符合你的使用场景？“最早可行”和“允许范围内优先最弱余量”各适合什么任务？
 5. 默认中心与邻点差异、同为 9/9 的不同余量是否改变了你的解释？哪些结果仍不可信或不够用？
 6. 保存的来源、版本和条件能否支持复查？需要补充哪些信息？
 

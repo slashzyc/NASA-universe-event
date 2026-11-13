@@ -11,6 +11,7 @@ async function immutable(file,bytes){
   if(previous){if(!previous.equals(Buffer.from(bytes)))throw new Error(`Immutable release asset changed: ${file}`);return;}
   await writeFile(target,bytes);
 }
+async function filesBelow(relative){const result=[];for(const entry of await readdir(path.join(root,relative),{withFileTypes:true})){const file=relative+'/'+entry.name;if(entry.isDirectory())result.push(...await filesBelow(file));else if(entry.isFile())result.push(file);}return result;}
 export async function prepareRelease(){
   await mkdir(path.join(root,'evidence-assets'),{recursive:true});
   const sourceFiles=['index.html','navigator.html',...(await readdir(path.join(root,'src'))).filter(f=>/\.(js|css)$/.test(f)).map(f=>'src/'+f)].sort();
@@ -29,10 +30,30 @@ export async function prepareRelease(){
     datasets[campaign]={path:`data/${file}`,sha256,snapshot,observerHeightM:bundle.observerHeightM,
       generatedAt:bundle.generatedAt,start:bundle.start,stop:bundle.stop};
   }
+  // Runtime documents/media are versioned too. Automatically generated acceptance
+  // reports are intentionally excluded: their own build IDs must not self-reference.
+  const resourceFiles=[...await filesBelow('assets'),...await filesBelow('data'),
+    ...(await readdir(path.join(root,'docs'))).filter(name=>name.endsWith('.md')).map(name=>'docs/'+name),
+    'docs/validation-results.json','docs/demo-evidence.json',...await filesBelow('docs/media'),
+    ...await filesBelow('docs/study'),...await filesBelow('docs/science-validation'),
+    ...await filesBelow('docs/screenshots'),'data-pipeline/README.md'];
+  const datasetPaths=new Set(Object.values(datasets).map(item=>item.path)),resources={};
+  for(const file of [...new Set(resourceFiles)].filter(file=>!datasetPaths.has(file)).sort()){
+    const raw=await readFile(path.join(root,file));
+    // Mirror Git's LF text policy without changing any archived scientific bytes.
+    const bytes=!file.startsWith('data/')&&/\.(?:js|css|html|json|md|txt|svg|vtt)$/.test(file)?Buffer.from(raw.toString('utf8').replaceAll('\r\n','\n')):raw;
+    const sha256=hash(bytes),snapshot=`evidence-assets/${sha256}${path.extname(file)}`;
+    await immutable(snapshot,bytes);resources[file]={sha256,snapshot,bytes:bytes.length};
+  }
+  const service={};
+  for(const file of ['worker/index.js','server/index.mjs','server/calculation.mjs','server/release-policy.mjs','scripts/build-worker.mjs']){
+    const bytes=Buffer.from((await readFile(path.join(root,file),'utf8')).replaceAll('\r\n','\n')),sha256=hash(bytes),snapshot=`evidence-assets/${sha256}${path.extname(file)}`;
+    await immutable(snapshot,bytes);service[file]={sha256,snapshot,bytes:bytes.length};
+  }
   const identity={schemaVersion:1,methodVersion:'terrain-center-clearance-linear-v1',
     sourceRepository:'https://github.com/slashzyc/NASA-universe-event',
     sourceIdentity:'SHA-256 of canonical LF application sources, exact dataset bytes and model identity; not a Git commit.',
-    application,algorithm:application['src/analysis.js'],datasets};
+    application,algorithm:application['src/analysis.js'],datasets,resources,service};
   const buildId=hash(JSON.stringify(identity)),manifest={schemaVersion:1,buildId,identity};
   const bytes=JSON.stringify(manifest,null,2)+'\n';
   await immutable(`evidence-assets/build-${buildId}.json`,Buffer.from(bytes));

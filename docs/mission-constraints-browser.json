@@ -1,0 +1,48 @@
+{
+  "checkedAt": "2026-11-13T17:32:03.323Z",
+  "artifact": "dist",
+  "checks": [
+    {
+      "name": "A new browser mission uses an explicit 72h practice budget and reports its genuine no-feasible result",
+      "status": "PASS"
+    },
+    {
+      "name": "Only explicitly allowing 462h reveals the later case, and adopting it preserves the original budget anchor",
+      "status": "PASS"
+    },
+    {
+      "name": "Sharing and reloading preserve the selected arrival, original reference, deadline and declared preference",
+      "status": "PASS"
+    },
+    {
+      "name": "Device save, reopen, CSV and readable evidence retain the exact same task constraints",
+      "status": "PASS"
+    },
+    {
+      "name": "An adopted arrival beyond a newly tightened UTC deadline is rejected without replacing its prior result",
+      "status": "PASS"
+    },
+    {
+      "name": "Zero waiting evaluates only the requested arrival",
+      "status": "PASS"
+    },
+    {
+      "name": "A cross-month request exposes missing July coverage instead of claiming a fabricated whole-range result",
+      "status": "PASS"
+    },
+    {
+      "name": "Old links retain the documented no-extra-deadline semantics rather than acquiring a new 72h rule",
+      "status": "PASS"
+    },
+    {
+      "name": "Invalid calendar dates in a shared deadline show an explicit error, not a rolled-over date",
+      "status": "PASS"
+    },
+    {
+      "name": "failure",
+      "status": "FAIL",
+      "message": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\nfalse !== true\n\n    at file:///C:/Users/slash/OneDrive/%E6%96%87%E6%A1%A3/ChatGPT/NASA%E9%BB%91%E5%AE%A2%E6%9D%BE/lunar-margin/tests/mission-constraints-browser.mjs:30:167"
+    }
+  ],
+  "errors": []
+}

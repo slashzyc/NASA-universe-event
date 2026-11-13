@@ -89,7 +89,7 @@ try{
   assert.equal(archived.identity.algorithm.sha256,current.identity.algorithm.sha256,'Use an actually supported historical algorithm, not a fabricated version.');
   const historicalURL=new URL('navigator.html',base);for(const [key,value]of Object.entries({campaign:'jun',site:'ridge-6',patch:'e+0-n+0',lang:'zh',...settings,build:archiveId,algo:archived.identity.algorithm.sha256,data:archived.identity.datasets.jun.sha256}))historicalURL.searchParams.set(key,String(value));
   await page.goto(historicalURL.href);await ready(page);await connected(page);await page.waitForFunction(id=>window.lunaMargin.getState().buildId===id,archiveId);
-  const analysisRequest=page.waitForRequest(r=>r.method()==='POST'&&new URL(r.url()).pathname==='/api/analyses');
+  const analysisRequest=page.waitForRequest(r=>r.method()==='POST'&&new URL(r.url()).pathname.endsWith('/api/analyses'));
   await page.locator('#server-calculate').click();const sent=(await analysisRequest).postDataJSON();assert.equal(sent.buildId,archiveId);
   await page.waitForFunction(()=>window.lunaMarginService.getRecord()?.server?.analysisId&&!document.querySelector('#server-calculate').disabled);
   const original=await page.evaluate(()=>window.lunaMarginService.getRecord());

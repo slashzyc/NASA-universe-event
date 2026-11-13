@@ -1,0 +1,29 @@
+{
+  "frozenAt": "2026-11-13T17:28:27.384114+00:00",
+  "priorPlanSha256": "09dcc47ab316a916fc786ff57b96cbf7f73f5b1efc60b52b06df83e0a1a7c076",
+  "priorRejectedRun": "data/terrain-clone-validation-rejected.json",
+  "scopeChange": "No point, clone ID, threshold or interval changes. Correct official file representation and compare numeric CRS parameters rather than display names before any clone horizon or altered-observer query.",
+  "officialEvidence": [
+    {
+      "url": "https://pgda.gsfc.nasa.gov/products/78",
+      "location": "Site01 Clones links to the exact files used",
+      "meaning": "Files are presented as LDEM clones, not a separate generic noise raster."
+    },
+    {
+      "url": "https://pgda.gsfc.nasa.gov/data/LOLA_5mpp/README",
+      "quote": "Clones/ : Directory containing 100 clones of LDEM"
+    },
+    {
+      "url": "https://ntrs.nasa.gov/api/citations/20205009660/downloads/Mike%20Barker_%20Paper_%20Improved%20Lola.pdf",
+      "location": "Section 3, Figure 11 G",
+      "meaning": "A clone is the original LDEM plus its spatially structured signed error; the error map and clone surface are distinct."
+    }
+  ],
+  "observedSupportingCheck": "GeoTIFF Z ranges match original surface; clone-minus-base spans about -5 to +6 metres and RMS about 0.44m. This is corroboration, not sole semantic evidence. File suffix _err.tif does not mean the stored numbers are errors.",
+  "representation": "absolute clone surface height in metres, used directly; signed diagnostic error = clone surface minus nominal surface",
+  "operation": "Local occluder heights and observer ground sampled from the SAME full clone. Keep 2m equipment above that ground; request exact changed observer-height ephemerides. Do not add clone heights to base.",
+  "crs": "Equivalent numeric south-polar stereographic parameters/R=1737400m/units metre and exact 5m transform/dimensions required. WKT labels unnamed vs unknown differ but not projection. MOON_ME DE421 per official product metadata.",
+  "missingData": "Nonfinite or nodata anywhere nominal local surface is valid rejects that clone; missing query/source records remain unknown, never zero.",
+  "farField": "Outside local tile: unchanged regional80m DEM. Regional uncertainties and tile seam effects remain unverified.",
+  "noProbability": "Five fixed official clone IDs at two selected points; no frequency-to-probability or nine-point/full-horizon certification."
+}

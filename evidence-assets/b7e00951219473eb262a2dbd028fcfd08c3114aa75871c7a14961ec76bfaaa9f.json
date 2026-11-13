@@ -1,0 +1,26 @@
+{
+  "recordedAt": "2026-11-13T09:20:19.035Z",
+  "video": "public-mobile-flow.webm",
+  "durationMs": 8920,
+  "timingMethod": "Actual automated browser operations at the public addresses. Captions use observed wall-clock event times aligned to recorded clip durations. Separate owner and recipient browser clips are joined in operation order; no UI is simulated.",
+  "chapters": [
+    {
+      "startMs": 80,
+      "endMs": 1456,
+      "en": "Open the public cloud workspace in a fresh 390-pixel mobile browser.",
+      "zh": "在全新390像素手机浏览器中打开公开云端工作台。"
+    },
+    {
+      "startMs": 1456,
+      "endMs": 3780,
+      "en": "Compute and save a real cloud mission on the mobile layout.",
+      "zh": "通过手机界面完成真实云端计算与任务保存。"
+    },
+    {
+      "startMs": 3780,
+      "endMs": 8920,
+      "en": "Refresh and reopen the original mobile mission.",
+      "zh": "刷新手机页面，重新打开原始任务。"
+    }
+  ]
+}

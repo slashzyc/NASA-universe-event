@@ -8,7 +8,7 @@ import { resolve, join } from 'node:path';
 import { chromium } from 'playwright';
 import { createService } from '../server/index.mjs';
 
-const root=resolve(import.meta.dirname,'..'), output=join(root,'test-results','explorer-new-date');
+const root=resolve(import.meta.dirname,'..'), output=resolve(root,process.env.LUNAMARGIN_QA_OUTPUT||'test-results/explorer-new-date');
 const seed=resolve(process.env.LUNAMARGIN_REAL_CACHE||join(root,'..','tmp','explorer-real-pipeline','horizons'));
 await mkdir(output,{recursive:true});
 assert.ok(existsSync(seed),'Run the documented real NASA new-date validation first or provide LUNAMARGIN_REAL_CACHE.');
@@ -86,7 +86,7 @@ try{
     await shared.screenshot({path:join(output,'new-date-shared-mobile.png'),fullPage:true});await receiver.close();
   });
   await test('Uncovered date cannot create a formal result; controlled upstream failure is visible',async()=>{
-    const invalid=await context.request.post(origin+'api/analyses',{data:{campaign:formal.campaign,siteId:'ridge-6',patchId:'e+0-n+0',settings:{...formal.settings,start:'2027-08-01T00:00:00Z'}}});
+    const invalid=await context.request.post(origin+'api/analyses',{data:{clientRelease:{apiVersion:2,buildId:formal.provenance.interfaceBuildId},buildId:formal.provenance.calculationBuildId,algorithmSha256:formal.provenance.algorithmSha256,datasetSha256:formal.provenance.datasetSha256,campaign:formal.campaign,siteId:'ridge-6',patchId:'e+0-n+0',settings:{...formal.settings,start:'2027-08-01T00:00:00Z'}}});
     assert.equal(invalid.status(),422);assert.ok(!(await invalid.json()).record);
     await page.goto(origin+'navigator.html?lang=zh');await connected();
     await requestDate('2027-07-04',2);
@@ -100,6 +100,6 @@ try{
 }catch(error){records.push({name:'failure',status:'FAIL',message:error.stack});process.exitCode=1;console.error(error);}
 finally{
   const report={startedAt,finishedAt:new Date().toISOString(),artifact:'dist',seed:'actual NASA raw responses from docs/new-date-validation.json',failureInjection:'Only the final uncached request receives test HTTP 400; no synthetic scientific results are accepted.',records,pageErrors,actualRecord:formal?{datasetId:formal.campaign,datasetSha256:formal.provenance.datasetSha256,algorithmSha256:formal.provenance.algorithmSha256,settings:formal.settings,sourceDataTime:formal.sourceDataTime,calculatedAt:formal.calculatedAt,selectedMetrics:formal.selectedPoint.result.metrics}:null};
-  await writeFile(join(root,'docs','new-date-browser-validation.json'),JSON.stringify(report,null,2)+'\n');
+  await writeFile(join(process.env.CI||process.env.LUNAMARGIN_QA_OUTPUT?output:join(root,'docs'),'new-date-browser-validation.json'),JSON.stringify(report,null,2)+'\n');
   await browser?.close();await service?.close();globalThis.fetch=realFetch;
 }

@@ -1,5 +1,8 @@
 # LunaMargin 全站交互验收
 
+> 历史验收与科学证据：以下结论仅对应文中记录的版本、参数和时间。当前完整入口为 [云端 LunaMargin](https://lunamargin-slashzyc.laceysquirrel4.chatgpt.site/?lang=zh)；当前能力与本轮状态见 [工程判断验收](ENGINEERING_ACCEPTANCE.md)。本页不代表当前所有查询都已复核。
+
+
 本轮依据 `LunaMargin_全站交互与高标准改进提示词.txt`，保留科学算法、历史版本恢复及原有任务服务。以下分别记录实际执行的公开 HTTPS 检查、本地浏览器检查和外部条件尚不具备的事项。自动浏览器操作不是新手使用研究；真人测试仍为 **0/5**，需求访谈仍为 **0/1**。
 
 ## 能力与部署状态

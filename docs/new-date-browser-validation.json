@@ -1,6 +1,6 @@
 {
-  "startedAt": "2026-11-13T09:17:08.492Z",
-  "finishedAt": "2026-11-13T09:17:15.376Z",
+  "startedAt": "2026-11-13T17:31:57.376Z",
+  "finishedAt": "2026-11-13T17:32:01.738Z",
   "artifact": "dist",
   "seed": "actual NASA raw responses from docs/new-date-validation.json",
   "failureInjection": "Only the final uncached request receives test HTTP 400; no synthetic scientific results are accepted.",
@@ -8,27 +8,22 @@
     {
       "name": "Built workbench queries real cached new-date job and calculates 48 hours without changing thresholds",
       "status": "PASS",
-      "durationMs": 1232
+      "durationMs": 1632
     },
     {
       "name": "Formal export equals SQLite result and input hashes",
       "status": "PASS",
-      "durationMs": 231
+      "durationMs": 249
     },
     {
       "name": "Custom campaign reload and saved task survive server restart",
       "status": "PASS",
-      "durationMs": 893
+      "durationMs": 1267
     },
     {
-      "name": "A separate visitor reads the same dynamic result with no editing permission",
-      "status": "PASS",
-      "durationMs": 1113
-    },
-    {
-      "name": "Uncovered date cannot create a formal result; controlled upstream failure is visible",
-      "status": "PASS",
-      "durationMs": 3035
+      "name": "failure",
+      "status": "FAIL",
+      "message": "AssertionError [ERR_ASSERTION]: The input did not match the regular expression /只读分享记录/. Input:\n\n''\n\n    at file:///C:/Users/slash/OneDrive/%E6%96%87%E6%A1%A3/ChatGPT/NASA%E9%BB%91%E5%AE%A2%E6%9D%BE/lunar-margin/tests/explorer-new-date-browser.mjs:82:12\n    at async test (file:///C:/Users/slash/OneDrive/%E6%96%87%E6%A1%A3/ChatGPT/NASA%E9%BB%91%E5%AE%A2%E6%9D%BE/lunar-margin/tests/explorer-new-date-browser.mjs:30:54)\n    at async file:///C:/Users/slash/OneDrive/%E6%96%87%E6%A1%A3/ChatGPT/NASA%E9%BB%91%E5%AE%A2%E6%9D%BE/lunar-margin/tests/explorer-new-date-browser.mjs:78:3"
     }
   ],
   "pageErrors": [],
@@ -47,7 +42,7 @@
       "nominalStepHours": 0.5
     },
     "sourceDataTime": "2026-11-13T07:46:24.404Z",
-    "calculatedAt": "2026-11-13T09:17:09.602Z",
+    "calculatedAt": "2026-11-13T17:31:58.818Z",
     "selectedMetrics": {
       "sunHours": 26.328959226277668,
       "earthHours": 48,

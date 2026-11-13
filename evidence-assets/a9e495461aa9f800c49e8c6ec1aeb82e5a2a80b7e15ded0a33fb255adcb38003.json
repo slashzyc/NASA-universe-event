@@ -1,0 +1,388 @@
+{
+  "schema_version": "1.0",
+  "paper_id": "lunamargin-sensitivity-v1",
+  "identity_version": 1,
+  "status": "complete",
+  "audits": [
+    {
+      "scope": "Exact listed three-season cases and June21 two-point sparse local official clone diagnostic, 168h/2m/24-24-24h. No full-region or operational claim.",
+      "source_mode": "standalone",
+      "requested_assurance_class": "exploratory",
+      "attained_assurance_class": "exploratory",
+      "source_runs": [],
+      "run_selection": {
+        "selection_rule": "Include all frozen case strata and every clone; retain prior rejected technical run. No adverse outcome exclusion.",
+        "excluded_runs": []
+      },
+      "evidence_artifacts": [
+        {
+          "path": "data/science-validation-cases.json",
+          "kind": "machine-readable scientific audit",
+          "source": "experiment",
+          "digest": "e372553f0d3774b45c769e6ab02fd21c33c5b5b9068c54c5c50e76ea6d8d4a9c"
+        },
+        {
+          "path": "data/science-validation-audit.json",
+          "kind": "machine-readable scientific audit",
+          "source": "experiment",
+          "digest": "ea52230492a0dfce7740ca48acf9d65ba2aa88b414f3ed8687670c7860dd2841"
+        },
+        {
+          "path": "data/terrain-clone-validation.json",
+          "kind": "machine-readable scientific audit",
+          "source": "experiment",
+          "digest": "b6e3347381f45b708294afe8eeea85de127256cc9610ad3a34482d27314cd90e"
+        },
+        {
+          "path": "data/terrain-clone-outlier-recheck.json",
+          "kind": "machine-readable scientific audit",
+          "source": "experiment",
+          "digest": "ab4c7a876682bca04a1b76e6eda9be97dc5a7a0fe36a3289b6bb2240d8af14cf"
+        },
+        {
+          "path": "data/terrain-clone-validation-rejected.json",
+          "kind": "machine-readable scientific audit",
+          "source": "experiment",
+          "digest": "c98bb0350e7ac7b4be876457126db3709e3ee1650e71035645c49992202f5b31"
+        }
+      ],
+      "check_results": [
+        {
+          "check_id": "protocol_integrity",
+          "status": "pass",
+          "rationale": "Rules and strata frozen before new queries; clone representation correction frozen before clone calculations, adverse outcomes retained.",
+          "evidence_paths": [
+            "data/science-validation-cases.json",
+            "data/science-validation-audit.json",
+            "data/terrain-clone-validation.json",
+            "data/terrain-clone-outlier-recheck.json",
+            "data/terrain-clone-validation-rejected.json"
+          ]
+        },
+        {
+          "check_id": "metric_validity",
+          "status": "pass",
+          "rationale": "Continuous geometry metrics use unchanged constraints; Python/JS agree within floating tolerance, source times and complete epochs verified.",
+          "evidence_paths": [
+            "data/science-validation-cases.json",
+            "data/science-validation-audit.json",
+            "data/terrain-clone-validation.json",
+            "data/terrain-clone-outlier-recheck.json",
+            "data/terrain-clone-validation-rejected.json"
+          ]
+        },
+        {
+          "check_id": "baseline_fairness",
+          "status": "pass",
+          "rationale": "Identical duration, height and thresholds; location/time/ray changes separately isolated for new cases.",
+          "evidence_paths": [
+            "data/science-validation-cases.json",
+            "data/science-validation-audit.json",
+            "data/terrain-clone-validation.json",
+            "data/terrain-clone-outlier-recheck.json",
+            "data/terrain-clone-validation-rejected.json"
+          ]
+        },
+        {
+          "check_id": "outcome_accounting",
+          "status": "pass",
+          "rationale": "All eight selected, four unavailable strata, first rejected clone run, all ten clone outcomes and negative flips retained.",
+          "evidence_paths": [
+            "data/science-validation-cases.json",
+            "data/science-validation-audit.json",
+            "data/terrain-clone-validation.json",
+            "data/terrain-clone-outlier-recheck.json",
+            "data/terrain-clone-validation-rejected.json"
+          ]
+        },
+        {
+          "check_id": "inferential_support",
+          "status": "inconclusive",
+          "rationale": "Outcome-stratified cases and five fixed clones cannot establish population or probability coverage.",
+          "evidence_paths": [
+            "data/science-validation-cases.json",
+            "data/science-validation-audit.json",
+            "data/terrain-clone-validation.json",
+            "data/terrain-clone-outlier-recheck.json",
+            "data/terrain-clone-validation-rejected.json"
+          ]
+        },
+        {
+          "check_id": "confound_control",
+          "status": "pass",
+          "rationale": "Actual individual-observer ephemerides and isolated geometry layers; clone ground and occluders treated jointly, regional omission explicit.",
+          "evidence_paths": [
+            "data/science-validation-cases.json",
+            "data/science-validation-audit.json",
+            "data/terrain-clone-validation.json",
+            "data/terrain-clone-outlier-recheck.json",
+            "data/terrain-clone-validation-rejected.json"
+          ]
+        },
+        {
+          "check_id": "provenance",
+          "status": "pass",
+          "rationale": "Exact upstream queries, timestamps, versions and hashes retained; original terrain hashes match prior audit.",
+          "evidence_paths": [
+            "data/science-validation-cases.json",
+            "data/science-validation-audit.json",
+            "data/terrain-clone-validation.json",
+            "data/terrain-clone-outlier-recheck.json",
+            "data/terrain-clone-validation-rejected.json"
+          ]
+        },
+        {
+          "check_id": "snapshot_continuity",
+          "status": "pass",
+          "rationale": "Published input/algorithm hashes preserved; frozen case hash tied to runner; this is repository continuity, not external immutability.",
+          "evidence_paths": [
+            "data/science-validation-cases.json",
+            "data/science-validation-audit.json",
+            "data/terrain-clone-validation.json",
+            "data/terrain-clone-outlier-recheck.json",
+            "data/terrain-clone-validation-rejected.json"
+          ]
+        },
+        {
+          "check_id": "independence",
+          "status": "fail",
+          "rationale": "Same development team performs evaluation; shared terrain and physical model, no independent truth or advancement authority.",
+          "evidence_paths": [
+            "data/science-validation-cases.json",
+            "data/science-validation-audit.json",
+            "data/terrain-clone-validation.json",
+            "data/terrain-clone-outlier-recheck.json",
+            "data/terrain-clone-validation-rejected.json"
+          ]
+        }
+      ],
+      "independence": {
+        "self_review": true,
+        "dimensions": [
+          "implementation"
+        ],
+        "evidence": "A separate Python integrator and production JS agree; same team/model/data, no external or operational independence."
+      },
+      "limitations": [
+        "Actual predicted ephemerides, not live observations.",
+        "Five-minute and denser rays remain approximate and use the same measured DEM.",
+        "Added angle is deterministic stress, not official terrain uncertainty.",
+        "Unmatched dates/parameters/hashes and missing strata remain unaudited.",
+        "New matrix dense checks cover selected points, not all nine surrounding positions.",
+        "5 of 100 official realizations, selected by fixed ID: no probabilities, quantiles or confidence coverage.",
+        "2 of 18 prior audited locations only: no claim about nine-point whole-footprint worst case.",
+        "Same source model and own runner; not independent external validation.",
+        "0.5 degree azimuth, refined radial sampling; finite ray/DEM and 5-minute cadence limitations remain."
+      ],
+      "predecessor_failures": [
+        {
+          "failure_id": "initial-clone-representation",
+          "status": "resolved",
+          "rationale": "Initial error-field assumption and WKT-name mismatch rejected before scientific calculation; official semantics and numeric-grid checks corrected with dated appendix."
+        },
+        {
+          "failure_id": "missing-strata",
+          "status": "accepted_with_narrowing",
+          "rationale": "Dec critical and all short-window strata empty under frozen criteria; no replacement outcomes invented."
+        }
+      ],
+      "minimum_corrective_action": "Audit short-event cases with predeclared additional sampling, full official ensemble and regional covariance; obtain independent domain review before stronger claims.",
+      "audit_id": "A1",
+      "claim_id": "measured-sensitivity",
+      "claim_text": "Measure, without assuming agreement, how recorded geometric visibility decisions change under real denser ephemerides, individual observer coordinates, and controlled terrain-ray refinement.",
+      "verdict": "supports_exploratory_follow_up",
+      "audited_claim_effect": "strengthen",
+      "narrative_anchor": "A1"
+    },
+    {
+      "scope": "Exact listed three-season cases and June21 two-point sparse local official clone diagnostic, 168h/2m/24-24-24h. No full-region or operational claim.",
+      "source_mode": "standalone",
+      "requested_assurance_class": "exploratory",
+      "attained_assurance_class": "exploratory",
+      "source_runs": [],
+      "run_selection": {
+        "selection_rule": "Include all frozen case strata and every clone; retain prior rejected technical run. No adverse outcome exclusion.",
+        "excluded_runs": []
+      },
+      "evidence_artifacts": [
+        {
+          "path": "data/science-validation-cases.json",
+          "kind": "machine-readable scientific audit",
+          "source": "experiment",
+          "digest": "e372553f0d3774b45c769e6ab02fd21c33c5b5b9068c54c5c50e76ea6d8d4a9c"
+        },
+        {
+          "path": "data/science-validation-audit.json",
+          "kind": "machine-readable scientific audit",
+          "source": "experiment",
+          "digest": "ea52230492a0dfce7740ca48acf9d65ba2aa88b414f3ed8687670c7860dd2841"
+        },
+        {
+          "path": "data/terrain-clone-validation.json",
+          "kind": "machine-readable scientific audit",
+          "source": "experiment",
+          "digest": "b6e3347381f45b708294afe8eeea85de127256cc9610ad3a34482d27314cd90e"
+        },
+        {
+          "path": "data/terrain-clone-outlier-recheck.json",
+          "kind": "machine-readable scientific audit",
+          "source": "experiment",
+          "digest": "ab4c7a876682bca04a1b76e6eda9be97dc5a7a0fe36a3289b6bb2240d8af14cf"
+        },
+        {
+          "path": "data/terrain-clone-validation-rejected.json",
+          "kind": "machine-readable scientific audit",
+          "source": "experiment",
+          "digest": "c98bb0350e7ac7b4be876457126db3709e3ee1650e71035645c49992202f5b31"
+        }
+      ],
+      "check_results": [
+        {
+          "check_id": "protocol_integrity",
+          "status": "pass",
+          "rationale": "Rules and strata frozen before new queries; clone representation correction frozen before clone calculations, adverse outcomes retained.",
+          "evidence_paths": [
+            "data/science-validation-cases.json",
+            "data/science-validation-audit.json",
+            "data/terrain-clone-validation.json",
+            "data/terrain-clone-outlier-recheck.json",
+            "data/terrain-clone-validation-rejected.json"
+          ]
+        },
+        {
+          "check_id": "metric_validity",
+          "status": "pass",
+          "rationale": "Continuous geometry metrics use unchanged constraints; Python/JS agree within floating tolerance, source times and complete epochs verified.",
+          "evidence_paths": [
+            "data/science-validation-cases.json",
+            "data/science-validation-audit.json",
+            "data/terrain-clone-validation.json",
+            "data/terrain-clone-outlier-recheck.json",
+            "data/terrain-clone-validation-rejected.json"
+          ]
+        },
+        {
+          "check_id": "baseline_fairness",
+          "status": "pass",
+          "rationale": "Identical duration, height and thresholds; location/time/ray changes separately isolated for new cases.",
+          "evidence_paths": [
+            "data/science-validation-cases.json",
+            "data/science-validation-audit.json",
+            "data/terrain-clone-validation.json",
+            "data/terrain-clone-outlier-recheck.json",
+            "data/terrain-clone-validation-rejected.json"
+          ]
+        },
+        {
+          "check_id": "outcome_accounting",
+          "status": "pass",
+          "rationale": "All eight selected, four unavailable strata, first rejected clone run, all ten clone outcomes and negative flips retained.",
+          "evidence_paths": [
+            "data/science-validation-cases.json",
+            "data/science-validation-audit.json",
+            "data/terrain-clone-validation.json",
+            "data/terrain-clone-outlier-recheck.json",
+            "data/terrain-clone-validation-rejected.json"
+          ]
+        },
+        {
+          "check_id": "inferential_support",
+          "status": "inconclusive",
+          "rationale": "Outcome-stratified cases and five fixed clones cannot establish population or probability coverage.",
+          "evidence_paths": [
+            "data/science-validation-cases.json",
+            "data/science-validation-audit.json",
+            "data/terrain-clone-validation.json",
+            "data/terrain-clone-outlier-recheck.json",
+            "data/terrain-clone-validation-rejected.json"
+          ]
+        },
+        {
+          "check_id": "confound_control",
+          "status": "pass",
+          "rationale": "Actual individual-observer ephemerides and isolated geometry layers; clone ground and occluders treated jointly, regional omission explicit.",
+          "evidence_paths": [
+            "data/science-validation-cases.json",
+            "data/science-validation-audit.json",
+            "data/terrain-clone-validation.json",
+            "data/terrain-clone-outlier-recheck.json",
+            "data/terrain-clone-validation-rejected.json"
+          ]
+        },
+        {
+          "check_id": "provenance",
+          "status": "pass",
+          "rationale": "Exact upstream queries, timestamps, versions and hashes retained; original terrain hashes match prior audit.",
+          "evidence_paths": [
+            "data/science-validation-cases.json",
+            "data/science-validation-audit.json",
+            "data/terrain-clone-validation.json",
+            "data/terrain-clone-outlier-recheck.json",
+            "data/terrain-clone-validation-rejected.json"
+          ]
+        },
+        {
+          "check_id": "snapshot_continuity",
+          "status": "pass",
+          "rationale": "Published input/algorithm hashes preserved; frozen case hash tied to runner; this is repository continuity, not external immutability.",
+          "evidence_paths": [
+            "data/science-validation-cases.json",
+            "data/science-validation-audit.json",
+            "data/terrain-clone-validation.json",
+            "data/terrain-clone-outlier-recheck.json",
+            "data/terrain-clone-validation-rejected.json"
+          ]
+        },
+        {
+          "check_id": "independence",
+          "status": "fail",
+          "rationale": "Same development team performs evaluation; shared terrain and physical model, no independent truth or advancement authority.",
+          "evidence_paths": [
+            "data/science-validation-cases.json",
+            "data/science-validation-audit.json",
+            "data/terrain-clone-validation.json",
+            "data/terrain-clone-outlier-recheck.json",
+            "data/terrain-clone-validation-rejected.json"
+          ]
+        }
+      ],
+      "independence": {
+        "self_review": true,
+        "dimensions": [
+          "implementation"
+        ],
+        "evidence": "A separate Python integrator and production JS agree; same team/model/data, no external or operational independence."
+      },
+      "limitations": [
+        "Actual predicted ephemerides, not live observations.",
+        "Five-minute and denser rays remain approximate and use the same measured DEM.",
+        "Added angle is deterministic stress, not official terrain uncertainty.",
+        "Unmatched dates/parameters/hashes and missing strata remain unaudited.",
+        "New matrix dense checks cover selected points, not all nine surrounding positions.",
+        "5 of 100 official realizations, selected by fixed ID: no probabilities, quantiles or confidence coverage.",
+        "2 of 18 prior audited locations only: no claim about nine-point whole-footprint worst case.",
+        "Same source model and own runner; not independent external validation.",
+        "0.5 degree azimuth, refined radial sampling; finite ray/DEM and 5-minute cadence limitations remain."
+      ],
+      "predecessor_failures": [
+        {
+          "failure_id": "initial-clone-representation",
+          "status": "resolved",
+          "rationale": "Initial error-field assumption and WKT-name mismatch rejected before scientific calculation; official semantics and numeric-grid checks corrected with dated appendix."
+        },
+        {
+          "failure_id": "missing-strata",
+          "status": "accepted_with_narrowing",
+          "rationale": "Dec critical and all short-window strata empty under frozen criteria; no replacement outcomes invented."
+        }
+      ],
+      "minimum_corrective_action": "Audit short-event cases with predeclared additional sampling, full official ensemble and regional covariance; obtain independent domain review before stronger claims.",
+      "audit_id": "A2",
+      "claim_id": "terrain-robustness-anti-claim",
+      "claim_text": "The near-threshold ROI4 southwest point remains feasible under official local terrain variation.",
+      "verdict": "does_not_support_claim",
+      "audited_claim_effect": "weaken",
+      "narrative_anchor": "A2"
+    }
+  ]
+}

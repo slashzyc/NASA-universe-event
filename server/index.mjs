@@ -6,10 +6,12 @@ import {fileURLToPath} from 'node:url';
 import {openStore} from './store.mjs';
 import {createCalculator,APIError,digest} from './calculation.mjs';
 import {createHorizonsPipeline,validateDataRange} from './horizons.mjs';
+import {releaseDescriptor} from './release-policy.mjs';
 
 const checkout=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const MIME={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.mjs':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.json':'application/json; charset=utf-8','.svg':'image/svg+xml','.png':'image/png','.jpg':'image/jpeg','.webp':'image/webp','.webm':'video/webm','.md':'text/plain; charset=utf-8','.txt':'text/plain; charset=utf-8'};
 const now=()=>new Date().toISOString();
+const CAPABILITIES={serverSave:true,browserFiles:true,compare:true,readOnlySharing:true,newDates:true};
 function json(res,status,value){const text=JSON.stringify(value);res.writeHead(status,{'Content-Type':'application/json; charset=utf-8','Content-Length':Buffer.byteLength(text),'Cache-Control':'no-store','X-Content-Type-Options':'nosniff'}).end(text);}
 function fail(status,code,message){throw new APIError(status,code,message);}
 async function body(req){
@@ -30,6 +32,13 @@ export async function createService(options={}){
   const root=path.resolve(options.root||checkout),staticRoot=path.resolve(options.staticRoot||path.join(root,'dist'));
   const dataDir=path.resolve(options.dataDir||process.env.LUNAMARGIN_DATA_DIR||path.join(root,'var'));
   await stat(path.join(staticRoot,'build-info.json')).catch(()=>{throw new Error('Build the frontend first: npm run build');});
+  const startupRelease=JSON.parse(await readFile(path.join(staticRoot,'build-info.json'),'utf8'));
+  for(const file of ['server/index.mjs','server/calculation.mjs','server/release-policy.mjs','src/mission-constraints.js','src/record-validation.js','src/validation-evidence.js']){
+    const descriptor=startupRelease.identity.service?.[file]||startupRelease.identity.application?.[file];
+    if(!descriptor)throw new Error('Build the complete current service before starting: npm run build');
+    const source=(await readFile(path.join(checkout,file),'utf8')).replaceAll('\r\n','\n');
+    if(digest(source)!==descriptor.sha256)throw new Error(`Service source differs from its interface release (${file}); build and restart before use.`);
+  }
   const db=openStore(dataDir);
   // A process interruption cannot turn a partially written analysis into a success.
   db.prepare("UPDATE analyses SET status='failed',completed_at=?,error_json=? WHERE status='processing'").run(now(),JSON.stringify({code:'server-restarted',message:'Server restarted before this calculation completed. Please retry.'}));
@@ -65,7 +74,7 @@ export async function createService(options={}){
       if(closing)fail(503,'service-stopping','The service is restarting. Please retry / 服务正在重启，请稍后重试。');
       const host=req.headers.host||'127.0.0.1',origin=options.publicURL||process.env.LUNAMARGIN_PUBLIC_URL||`http://${host}`;
       const url=new URL(req.url,origin),pathname=decodeURIComponent(url.pathname);
-      if(pathname==='/service-config.json'&&req.method==='GET'){json(res,200,{service:true,serviceType:'node-sqlite'});return;}
+      if(pathname==='/service-config.json'&&req.method==='GET'){json(res,200,{service:true,serviceType:'node-sqlite',capabilities:CAPABILITIES,release:releaseDescriptor(await calculator.manifest())});return;}
       if(pathname.startsWith('/api/')){
         const method=req.method;
         if(!['GET','POST','PATCH','DELETE'].includes(method))fail(405,'method-not-allowed','Method not allowed.');
@@ -74,7 +83,7 @@ export async function createService(options={}){
           if(req.headers['sec-fetch-site']==='cross-site')fail(403,'cross-origin','Cross-site changes are not permitted.');
         }
         const owner=visitor(req,res);if(method!=='GET')checkRate(owner);
-        if(pathname==='/api/health'&&method==='GET'){json(res,200,{ok:true,service:'LunaMargin',database:'SQLite',persistent:true,time:now(),schemaVersion:1});return;}
+        if(pathname==='/api/health'&&method==='GET'){json(res,200,{ok:true,service:'LunaMargin',database:'SQLite',persistent:true,time:now(),schemaVersion:1,capabilities:CAPABILITIES,release:releaseDescriptor(await calculator.manifest())});return;}
         if(pathname==='/api/coverage'&&method==='GET'){json(res,200,await calculator.coverage());return;}
         if(pathname==='/api/analyses'&&method==='POST'){
           if(db.prepare('SELECT count(*) AS n FROM analyses WHERE owner_hash=?').get(owner).n>=1000)fail(409,'analysis-limit','Visitor storage limit reached (1,000 calculations).');

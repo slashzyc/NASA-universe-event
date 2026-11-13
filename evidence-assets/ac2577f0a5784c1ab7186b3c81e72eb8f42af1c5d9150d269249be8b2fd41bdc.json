@@ -1,0 +1,1946 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-11-13T05:51:39.233Z",
+  "task": "M03",
+  "input": {
+    "path": "data/lunar-sites-june.json",
+    "sha256": "c2258b262f2ee22599195090a9e652d8f6fd53c48bfb48139896be02a86f3d8f",
+    "generatedAt": "2026-11-13T03:54:13.285309+00:00",
+    "sampleIntervalMinutes": 30,
+    "sourceManifestSha256": "6f50c83713fa5f2ff0fba1709dafb1953bfa38b480400c48e4e269accde9caaf",
+    "sources": [
+      {
+        "title": "NASA PGDA high-resolution south polar LOLA DEMs",
+        "url": "https://pgda.gsfc.nasa.gov/products/78",
+        "paper": "https://doi.org/10.1016/j.pss.2020.105119"
+      },
+      {
+        "title": "NASA PGDA orbit-adjusted south-pole products",
+        "url": "https://pgda.gsfc.nasa.gov/products/90",
+        "paper": "https://doi.org/10.3847/PSJ/acf3e1"
+      },
+      {
+        "title": "NASA JPL Horizons",
+        "url": "https://ssd.jpl.nasa.gov/horizons/manual.html"
+      }
+    ]
+  },
+  "computation": {
+    "analysisPath": "src/analysis.js",
+    "analysisSha256": "981e49c08ae6457450c5e0fbb8d9c743521dbb91ed6eeb2cbb01b3e132ea5fcd",
+    "scriptPath": "scripts/validate-robustness.mjs",
+    "scriptSha256": "6034be320b83f1eb6c54286bc1fc894a6cd743aca73e86bcac8d8ee01ef512b0",
+    "node": "v24.22.1"
+  },
+  "settings": {
+    "start": "2027-06-21T12:00:00Z",
+    "durationHours": 168,
+    "maxDarkHours": 24,
+    "maxCommGapHours": 24,
+    "minJointHours": 24,
+    "clearanceDeg": 0,
+    "observerHeightM": 2,
+    "nominalStepHours": 0.5
+  },
+  "incrementsDeg": [
+    0,
+    0.02,
+    0.1,
+    0.25
+  ],
+  "ranking": {
+    "id": "earliest-then-footprint-margin-v1",
+    "criteria": [
+      "delayHours:asc",
+      "feasible:true-first",
+      "worstCase.allKnown:true-first",
+      "worstCase.minimumMarginHours:desc",
+      "worstCase.margins.darknessHours:desc",
+      "worstCase.margins.earthGapHours:desc",
+      "worstCase.margins.jointHours:desc",
+      "center.longestDarkHours:asc",
+      "center.longestCommGapHours:asc",
+      "center.jointHours:desc",
+      "siteId:codepoint-asc"
+    ],
+    "explanation": "Keep the earliest feasible arrival. At the same arrival, prefer complete footprints with the largest smallest threshold margin (hours). Break ties by darkness, Earth-gap, and joint-time margins, then center metrics and site ID. All components remain visible; this is a declared preference, not a universal optimum."
+  },
+  "checks": [
+    {
+      "id": "ridge-1/increment-0",
+      "status": "PASS",
+      "count": 9,
+      "worstDarkHours": 8.01474554389106
+    },
+    {
+      "id": "ridge-1/increment-0.02",
+      "status": "PASS",
+      "count": 9,
+      "worstDarkHours": 8.402988593885633
+    },
+    {
+      "id": "ridge-1/increment-0.1",
+      "status": "PASS",
+      "count": 9,
+      "worstDarkHours": 9.859769450141059
+    },
+    {
+      "id": "ridge-1/increment-0.25",
+      "status": "PASS",
+      "count": 9,
+      "worstDarkHours": 14.953914698418512
+    },
+    {
+      "id": "ridge-4/increment-0",
+      "status": "PASS",
+      "count": 9,
+      "worstDarkHours": 23.74917733235677
+    },
+    {
+      "id": "ridge-4/increment-0.02",
+      "status": "PASS",
+      "count": 8,
+      "worstDarkHours": 24.724782095133463
+    },
+    {
+      "id": "ridge-4/increment-0.1",
+      "status": "PASS",
+      "count": 8,
+      "worstDarkHours": 46.208940471259226
+    },
+    {
+      "id": "ridge-4/increment-0.25",
+      "status": "PASS",
+      "count": 7,
+      "worstDarkHours": 52.0995160623508
+    },
+    {
+      "id": "earliest-arrival-and-explicit-order",
+      "status": "PASS",
+      "start": "2027-06-21T12:00:00.000Z",
+      "order": [
+        "ridge-1",
+        "ridge-4"
+      ]
+    }
+  ],
+  "results": [
+    {
+      "siteId": "ridge-1",
+      "sourceRoiNumber": 1,
+      "lat": -89.438926465,
+      "lon": 222.904021926,
+      "centerMetrics": {
+        "sunHours": 160.08493895324708,
+        "earthHours": 149.7670138084581,
+        "jointHours": 141.8519527617052,
+        "longestDarkHours": 7.91506104675293,
+        "longestCommGapHours": 18.232986191541883
+      },
+      "centerFeasible": true,
+      "stress": {
+        "siteId": "ridge-1",
+        "baselineClearanceDeg": 0,
+        "start": "2027-06-21T12:00:00.000Z",
+        "end": "2027-06-28T12:00:00.000Z",
+        "durationHours": 168,
+        "thresholds": {
+          "maxDarkHours": 24,
+          "maxCommGapHours": 24,
+          "minJointHours": 24
+        },
+        "levels": [
+          {
+            "incrementDeg": 0,
+            "clearanceDeg": 0,
+            "centerFeasible": true,
+            "count": 9,
+            "feasibleCount": 9,
+            "allKnown": true,
+            "worstCase": {
+              "status": "complete",
+              "allKnown": true,
+              "count": 9,
+              "knownCount": 9,
+              "metrics": {
+                "longestDarkHours": 8.01474554389106,
+                "longestCommGapHours": 18.524580070122614,
+                "jointHours": 141.606917880995
+              },
+              "knownMetrics": {
+                "longestDarkHours": 8.01474554389106,
+                "longestCommGapHours": 18.524580070122614,
+                "jointHours": 141.606917880995
+              },
+              "points": {
+                "longestDarkHours": {
+                  "id": "e-25-n+25",
+                  "dxM": -25,
+                  "dyM": 25,
+                  "tiedPointIds": [
+                    "e-25-n+25"
+                  ]
+                },
+                "longestCommGapHours": {
+                  "id": "e+25-n-25",
+                  "dxM": 25,
+                  "dyM": -25,
+                  "tiedPointIds": [
+                    "e+25-n-25"
+                  ]
+                },
+                "jointHours": {
+                  "id": "e+25-n-25",
+                  "dxM": 25,
+                  "dyM": -25,
+                  "tiedPointIds": [
+                    "e+25-n-25"
+                  ]
+                }
+              },
+              "margins": {
+                "darknessHours": 15.98525445610894,
+                "earthGapHours": 5.475419929877386,
+                "jointHours": 117.60691788099501
+              },
+              "minimumMarginHours": 5.475419929877386,
+              "limitingMetrics": [
+                "earthGapHours"
+              ],
+              "interpretation": "Worst values among supplied discrete positions. Positive margins are hours inside each threshold; negative margins miss it. The minimum is the smallest of the three explicitly reported margins, not a weighted score, probability, or calibrated uncertainty."
+            },
+            "scenarios": [
+              {
+                "id": "e-25-n-25",
+                "dxM": -25,
+                "dyM": -25,
+                "status": "complete",
+                "feasible": true,
+                "metrics": {
+                  "sunHours": 160.05834288153756,
+                  "earthHours": 149.97010174479166,
+                  "jointHours": 142.02844462632922,
+                  "longestDarkHours": 7.941657118462457,
+                  "longestCommGapHours": 18.029898255208334
+                },
+                "reasons": []
+              },
+              {
+                "id": "e+0-n-25",
+                "dxM": 0,
+                "dyM": -25,
+                "status": "complete",
+                "feasible": true,
+                "metrics": {
+                  "sunHours": 160.13053523410372,
+                  "earthHours": 149.73827785325793,
+                  "jointHours": 141.86881308736164,
+                  "longestDarkHours": 7.869464765896267,
+                  "longestCommGapHours": 18.26172214674208
+                },
+                "reasons": []
+              },
+              {
+                "id": "e+25-n-25",
+                "dxM": 25,
+                "dyM": -25,
+                "status": "complete",
+                "feasible": true,
+                "metrics": {
+                  "sunHours": 160.13149795111764,
+                  "earthHours": 149.47541992987738,
+                  "jointHours": 141.606917880995,
+                  "longestDarkHours": 7.8685020488823785,
+                  "longestCommGapHours": 18.524580070122614
+                },
+                "reasons": []
+              },
+              {
+                "id": "e-25-n+0",
+                "dxM": -25,
+                "dyM": 0,
+                "status": "complete",
+                "feasible": true,
+                "metrics": {
+                  "sunHours": 160.04262787597656,
+                  "earthHours": 149.99355864739312,
+                  "jointHours": 142.03618652336968,
+                  "longestDarkHours": 7.957372124023437,
+                  "longestCommGapHours": 18.006441352606878
+                },
+                "reasons": []
+              },
+              {
+                "id": "e+0-n+0",
+                "dxM": 0,
+                "dyM": 0,
+                "status": "complete",
+                "feasible": true,
+                "metrics": {
+                  "sunHours": 160.08493895324708,
+                  "earthHours": 149.7670138084581,
+                  "jointHours": 141.8519527617052,
+                  "longestDarkHours": 7.91506104675293,
+                  "longestCommGapHours": 18.232986191541883
+                },
+                "reasons": []
+              },
+              {
+                "id": "e+25-n+0",
+                "dxM": 25,
+                "dyM": 0,
+                "status": "complete",
+                "feasible": true,
+                "metrics": {
+                  "sunHours": 160.11741333611383,
+                  "earthHours": 149.5050751030816,
+                  "jointHours": 141.62248843919542,
+                  "longestDarkHours": 7.882586663886176,
+                  "longestCommGapHours": 18.494924896918402
+                },
+                "reasons": []
+              },
+              {
+                "id": "e-25-n+25",
+                "dxM": -25,
+                "dyM": 25,
+                "status": "complete",
+                "feasible": true,
+                "metrics": {
+                  "sunHours": 159.98525445610895,
+                  "earthHours": 150.0121196851264,
+                  "jointHours": 141.99737414123535,
+                  "longestDarkHours": 8.01474554389106,
+                  "longestCommGapHours": 17.98788031487359
+                },
+                "reasons": []
+              },
+              {
+                "id": "e+0-n+25",
+                "dxM": 0,
+                "dyM": 25,
+                "status": "complete",
+                "feasible": true,
+                "metrics": {
+                  "sunHours": 160.03293217563206,
+                  "earthHours": 149.79631041252983,
+                  "jointHours": 141.8292425881619,
+                  "longestDarkHours": 7.967067824367947,
+                  "longestCommGapHours": 18.203689587470162
+                },
+                "reasons": []
+              },
+              {
+                "id": "e+25-n+25",
+                "dxM": 25,
+                "dyM": 25,
+                "status": "complete",
+                "feasible": true,
+                "metrics": {
+                  "sunHours": 160.09745019951714,
+                  "earthHours": 149.53206048875597,
+                  "jointHours": 141.6295106882731,
+                  "longestDarkHours": 7.902549800482856,
+                  "longestCommGapHours": 18.467939511244033
+                },
+                "reasons": []
+              }
+            ]
+          },
+          {
+            "incrementDeg": 0.02,
+            "clearanceDeg": 0.02,
+            "centerFeasible": true,
+            "count": 9,
+            "feasibleCount": 9,
+            "allKnown": true,
+            "worstCase": {
+              "status": "complete",
+              "allKnown": true,
+              "count": 9,
+              "knownCount": 9,
+              "metrics": {
+                "longestDarkHours": 8.402988593885633,
+                "longestCommGapHours": 18.793438994411893,
+                "jointHours": 140.99524332980684
+              },
+              "knownMetrics": {
+                "longestDarkHours": 8.402988593885633,
+                "longestCommGapHours": 18.793438994411893,
+                "jointHours": 140.99524332980684
+              },
+              "points": {
+                "longestDarkHours": {
+                  "id": "e-25-n+25",
+                  "dxM": -25,
+                  "dyM": 25,
+                  "tiedPointIds": [
+                    "e-25-n+25"
+                  ]
+                },
+                "longestCommGapHours": {
+                  "id": "e+25-n-25",
+                  "dxM": 25,
+                  "dyM": -25,
+                  "tiedPointIds": [
+                    "e+25-n-25"
+                  ]
+                },
+                "jointHours": {
+                  "id": "e+25-n-25",
+                  "dxM": 25,
+                  "dyM": -25,
+                  "tiedPointIds": [
+                    "e+25-n-25"
+                  ]
+                }
+              },
+              "margins": {
+                "darknessHours": 15.597011406114367,
+                "earthGapHours": 5.206561005588107,
+                "jointHours": 116.99524332980684
+              },
+              "minimumMarginHours": 5.206561005588107,
+              "limitingMetrics": [
+                "earthGapHours"
+              ],
+              "interpretation": "Worst values among supplied discrete positions. Positive margins are hours inside each threshold; negative margins miss it. The minimum is the smallest of the three explicitly reported margins, not a weighted score, probability, or calibrated uncertainty."
+            },
+            "scenarios": [
+              {
+                "id": "e-25-n-25",
+                "dxM": -25,
+                "dyM": -25,
+                "status": "complete",
+                "feasible": true,
+                "metrics": {
+                  "sunHours": 159.69179271837024,
+                  "earthHours": 149.70267263075087,
+                  "jointHours": 141.3944653491211,
+                  "longestDarkHours": 8.308207281629775,
+                  "longestCommGapHours": 18.297327369249132
+                },
+                "reasons": []
+              },
+              {
+                "id": "e+0-n-25",
+                "dxM": 0,
+                "dyM": -25,
+                "status": "complete",
+                "feasible": true,
+                "metrics": {
+                  "sunHours": 159.78701448750815,
+                  "earthHours": 149.4698430956353,
+                  "jointHours": 141.25685758314344,
+                  "longestDarkHours": 8.212985512491862,
+                  "longestCommGapHours": 18.53015690436469
+                },
+                "reasons": []
+              },
+              {
+                "id": "e+25-n-25",
+                "dxM": 25,
+                "dyM": -25,
+                "status": "complete",
+                "feasible": true,
+                "metrics": {
+                  "sunHours": 159.78868232421874,
+                  "earthHours": 149.2065610055881,
+                  "jointHours": 140.99524332980684,
+                  "longestDarkHours": 8.21131767578125,
+                  "longestCommGapHours": 18.793438994411893
+                },
+                "reasons": []
+              },
+              {
+                "id": "e-25-n+0",
+                "dxM": -25,
+                "dyM": 0,
+                "status": "complete",
+                "feasible": true,
+                "metrics": {
+                  "sunHours": 159.66350220221625,
+                  "earthHours": 149.72625376193577,
+                  "jointHours": 141.38975596415202,
+                  "longestDarkHours": 8.336497797783746,
+                  "longestCommGapHours": 18.273746238064238
+                },
+                "reasons": []
+              },
+              {
+                "id": "e+0-n+0",
+                "dxM": 0,
+                "dyM": 0,
+                "status": "complete",
+                "feasible": true,
+                "metrics": {
+                  "sunHours": 159.73318080329048,
+                  "earthHours": 149.49867851589627,
+                  "jointHours": 141.23185931918675,
+                  "longestDarkHours": 8.266819196709527,
+                  "longestCommGapHours": 18.501321484103734
+                },
+                "reasons": []
+              },
+              {
+                "id": "e+25-n+0",
+                "dxM": 25,
+                "dyM": 0,
+                "status": "complete",
+                "feasible": true,
+                "metrics": {
+                  "sunHours": 159.7733811476644,
+                  "earthHours": 149.23630757927788,
+                  "jointHours": 141.00968872694227,
+                  "longestDarkHours": 8.226618852335612,
+                  "longestCommGapHours": 18.763692420722112
+                },
+                "reasons": []
+              },
+              {
+                "id": "e-25-n+25",
+                "dxM": -25,
+                "dyM": 25,
+                "status": "complete",
+                "feasible": true,
+                "metrics": {
+                  "sunHours": 159.59701140611435,
+                  "earthHours": 149.7436971282281,
+                  "jointHours": 141.34070853434244,
+                  "longestDarkHours": 8.402988593885633,
+                  "longestCommGapHours": 18.25630287177192
+                },
+                "reasons": []
+              },
+              {
+                "id": "e+0-n+25",
+                "dxM": 0,
+                "dyM": 25,
+                "status": "complete",
+                "feasible": true,
+                "metrics": {
+                  "sunHours": 159.67030816982694,
+                  "earthHours": 149.52801481506347,
+                  "jointHours": 141.1983229848904,
+                  "longestDarkHours": 8.329691830173068,
+                  "longestCommGapHours": 18.471985184936525
+                },
+                "reasons": []
+              },
+              {
+                "id": "e+25-n+25",
+                "dxM": 25,
+                "dyM": 25,
+                "status": "complete",
+                "feasible": true,
+                "metrics": {
+                  "sunHours": 159.75345087253146,
+                  "earthHours": 149.26338719611275,
+                  "jointHours": 141.0168380686442,
+                  "longestDarkHours": 8.246549127468533,
+                  "longestCommGapHours": 18.73661280388726
+                },
+                "reasons": []
+              }
+            ]
+          },
+          {
+            "incrementDeg": 0.1,
+            "clearanceDeg": 0.1,
+            "centerFeasible": true,
+            "count": 9,
+            "feasibleCount": 9,
+            "allKnown": true,
+            "worstCase": {
+              "status": "complete",
+              "allKnown": true,
+              "count": 9,
+              "knownCount": 9,
+              "metrics": {
+                "longestDarkHours": 9.859769450141059,
+                "longestCommGapHours": 19.868345395846898,
+                "jointHours": 138.56820930833604
+              },
+              "knownMetrics": {
+                "longestDarkHours": 9.859769450141059,
+                "longestCommGapHours": 19.868345395846898,
+                "jointHours": 138.56820930833604
+              },
+              "points": {
+                "longestDarkHours": {
+                  "id": "e-25-n+25",
+                  "dxM": -25,
+                  "dyM": 25,
+                  "tiedPointIds": [
+                    "e-25-n+25"
+                  ]
+                },
+                "longestCommGapHours": {
+                  "id": "e+25-n-25",
+                  "dxM": 25,
+                  "dyM": -25,
+                  "tiedPointIds": [
+                    "e+25-n-25"
+                  ]
+                },
+                "jointHours": {
+                  "id": "e+25-n-25",
+                  "dxM": 25,
+                  "dyM": -25,
+                  "tiedPointIds": [
+                    "e+25-n-25"
+                  ]
+                }
+              },
+              "margins": {
+                "darknessHours": 14.140230549858941,
+                "earthGapHours": 4.131654604153102,
+                "jointHours": 114.56820930833604
+              },
+              "minimumMarginHours": 4.131654604153102,
+              "limitingMetrics": [
+                "earthGapHours"
+              ],
+              "interpretation": "Worst values among supplied discrete positions. Positive margins are hours inside each threshold; negative margins miss it. The minimum is the smallest of the three explicitly reported margins, not a weighted score, probability, or calibrated uncertainty."
+            },
+            "scenarios": [
+              {
+                "id": "e-25-n-25",
+                "dxM": -25,
+                "dyM": -25,
+                "status": "complete",
+                "feasible": true,
+                "metrics": {
+                  "sunHours": 158.29812899441188,
+                  "earthHours": 148.63350491644965,
+                  "jointHours": 138.93163391086154,
+                  "longestDarkHours": 9.701871005588108,
+                  "longestCommGapHours": 19.366495083550348
+                },
+                "reasons": []
+              },
+              {
+                "id": "e+0-n-25",
+                "dxM": 0,
+                "dyM": -25,
+                "status": "complete",
+                "feasible": true,
+                "metrics": {
+                  "sunHours": 158.45472923909503,
+                  "earthHours": 148.3968372104221,
+                  "jointHours": 138.85156644951712,
+                  "longestDarkHours": 9.545270760904948,
+                  "longestCommGapHours": 19.603162789577908
+                },
+                "reasons": []
+              },
+              {
+                "id": "e+25-n-25",
+                "dxM": 25,
+                "dyM": -25,
+                "status": "complete",
+                "feasible": true,
+                "metrics": {
+                  "sunHours": 158.43655470418295,
+                  "earthHours": 148.1316546041531,
+                  "jointHours": 138.56820930833604,
+                  "longestDarkHours": 9.563445295817058,
+                  "longestCommGapHours": 19.868345395846898
+                },
+                "reasons": []
+              },
+              {
+                "id": "e-25-n+0",
+                "dxM": -25,
+                "dyM": 0,
+                "status": "complete",
+                "feasible": true,
+                "metrics": {
+                  "sunHours": 158.2390247483317,
+                  "earthHours": 148.6575616836887,
+                  "jointHours": 138.8965864320204,
+                  "longestDarkHours": 9.760975251668293,
+                  "longestCommGapHours": 19.342438316311306
+                },
+                "reasons": []
+              },
+              {
+                "id": "e+0-n+0",
+                "dxM": 0,
+                "dyM": 0,
+                "status": "complete",
+                "feasible": true,
+                "metrics": {
+                  "sunHours": 158.3803325632731,
+                  "earthHours": 148.4260973586697,
+                  "jointHours": 138.8064299219428,
+                  "longestDarkHours": 9.619667436726887,
+                  "longestCommGapHours": 19.573902641330296
+                },
+                "reasons": []
+              },
+              {
+                "id": "e+25-n+0",
+                "dxM": 25,
+                "dyM": 0,
+                "status": "complete",
+                "feasible": true,
+                "metrics": {
+                  "sunHours": 158.42808090393066,
+                  "earthHours": 148.16175034261067,
+                  "jointHours": 138.58983124654134,
+                  "longestDarkHours": 9.571919096069337,
+                  "longestCommGapHours": 19.838249657389323
+                },
+                "reasons": []
+              },
+              {
+                "id": "e-25-n+25",
+                "dxM": -25,
+                "dyM": 25,
+                "status": "complete",
+                "feasible": true,
+                "metrics": {
+                  "sunHours": 158.14023054985896,
+                  "earthHours": 148.67556966186524,
+                  "jointHours": 138.8158002117242,
+                  "longestDarkHours": 9.859769450141059,
+                  "longestCommGapHours": 19.324430338134764
+                },
+                "reasons": []
+              },
+              {
+                "id": "e+0-n+25",
+                "dxM": 0,
+                "dyM": 25,
+                "status": "complete",
+                "feasible": true,
+                "metrics": {
+                  "sunHours": 158.29199932006836,
+                  "earthHours": 148.45555711636013,
+                  "jointHours": 138.74755643642848,
+                  "longestDarkHours": 9.70800067993164,
+                  "longestCommGapHours": 19.544442883639867
+                },
+                "reasons": []
+              },
+              {
+                "id": "e+25-n+25",
+                "dxM": 25,
+                "dyM": 25,
+                "status": "complete",
+                "feasible": true,
+                "metrics": {
+                  "sunHours": 158.41794879252114,
+                  "earthHours": 148.18923212714301,
+                  "jointHours": 138.60718091966416,
+                  "longestDarkHours": 9.582051207478841,
+                  "longestCommGapHours": 19.81076787285699
+                },
+                "reasons": []
+              }
+            ]
+          },
+          {
+            "incrementDeg": 0.25,
+            "clearanceDeg": 0.25,
+            "centerFeasible": true,
+            "count": 9,
+            "feasibleCount": 9,
+            "allKnown": true,
+            "worstCase": {
+              "status": "complete",
+              "allKnown": true,
+              "count": 9,
+              "knownCount": 9,
+              "metrics": {
+                "longestDarkHours": 14.953914698418512,
+                "longestCommGapHours": 21.88134787753635,
+                "jointHours": 131.28059878913032
+              },
+              "knownMetrics": {
+                "longestDarkHours": 14.953914698418512,
+                "longestCommGapHours": 21.88134787753635,
+                "jointHours": 131.28059878913032
+              },
+              "points": {
+                "longestDarkHours": {
+                  "id": "e-25-n+25",
+                  "dxM": -25,
+                  "dyM": 25,
+                  "tiedPointIds": [
+                    "e-25-n+25"
+                  ]
+                },
+                "longestCommGapHours": {
+                  "id": "e+25-n-25",
+                  "dxM": 25,
+                  "dyM": -25,
+                  "tiedPointIds": [
+                    "e+25-n-25"
+                  ]
+                },
+                "jointHours": {
+                  "id": "e+25-n+25",
+                  "dxM": 25,
+                  "dyM": 25,
+                  "tiedPointIds": [
+                    "e+25-n+25"
+                  ]
+                }
+              },
+              "margins": {
+                "darknessHours": 9.046085301581488,
+                "earthGapHours": 2.1186521224636508,
+                "jointHours": 107.28059878913032
+              },
+              "minimumMarginHours": 2.1186521224636508,
+              "limitingMetrics": [
+                "earthGapHours"
+              ],
+              "interpretation": "Worst values among supplied discrete positions. Positive margins are hours inside each threshold; negative margins miss it. The minimum is the smallest of the three explicitly reported margins, not a weighted score, probability, or calibrated uncertainty."
+            },
+            "scenarios": [
+              {
+                "id": "e-25-n-25",
+                "dxM": -25,
+                "dyM": -25,
+                "status": "complete",
+                "feasible": true,
+                "metrics": {
+                  "sunHours": 153.10895865790474,
+                  "earthHours": 146.63134233798556,
+                  "jointHours": 131.7403009958903,
+                  "longestDarkHours": 14.891041342095269,
+                  "longestCommGapHours": 21.36865766201443
+                },
+                "reasons": []
+              },
+              {
+                "id": "e+0-n-25",
+                "dxM": 0,
+                "dyM": -25,
+                "status": "complete",
+                "feasible": true,
+                "metrics": {
+                  "sunHours": 153.1497073884413,
+                  "earthHours": 146.38741569695367,
+                  "jointHours": 131.53712308539497,
+                  "longestDarkHours": 14.850292611558702,
+                  "longestCommGapHours": 21.612584303046333
+                },
+                "reasons": []
+              },
+              {
+                "id": "e+25-n-25",
+                "dxM": 25,
+                "dyM": -25,
+                "status": "complete",
+                "feasible": true,
+                "metrics": {
+                  "sunHours": 153.2143179243978,
+                  "earthHours": 146.11865212246366,
+                  "jointHours": 131.33297004686145,
+                  "longestDarkHours": 14.785682075602214,
+                  "longestCommGapHours": 21.88134787753635
+                },
+                "reasons": []
+              },
+              {
+                "id": "e-25-n+0",
+                "dxM": -25,
+                "dyM": 0,
+                "status": "complete",
+                "feasible": true,
+                "metrics": {
+                  "sunHours": 153.10206724887425,
+                  "earthHours": 146.656290878635,
+                  "jointHours": 131.75835812750924,
+                  "longestDarkHours": 14.89793275112576,
+                  "longestCommGapHours": 21.343709121365016
+                },
+                "reasons": []
+              },
+              {
+                "id": "e+0-n+0",
+                "dxM": 0,
+                "dyM": 0,
+                "status": "complete",
+                "feasible": true,
+                "metrics": {
+                  "sunHours": 153.10673614095052,
+                  "earthHours": 146.4174731225586,
+                  "jointHours": 131.52420926350914,
+                  "longestDarkHours": 14.89326385904948,
+                  "longestCommGapHours": 21.582526877441406
+                },
+                "reasons": []
+              },
+              {
+                "id": "e+25-n+0",
+                "dxM": 25,
+                "dyM": 0,
+                "status": "complete",
+                "feasible": true,
+                "metrics": {
+                  "sunHours": 153.1611973421902,
+                  "earthHours": 146.14940389309353,
+                  "jointHours": 131.31060123528374,
+                  "longestDarkHours": 14.838802657809786,
+                  "longestCommGapHours": 21.850596106906465
+                },
+                "reasons": []
+              },
+              {
+                "id": "e-25-n+25",
+                "dxM": -25,
+                "dyM": 25,
+                "status": "complete",
+                "feasible": true,
+                "metrics": {
+                  "sunHours": 153.04608530158148,
+                  "earthHours": 146.67535644185384,
+                  "jointHours": 131.72144174343532,
+                  "longestDarkHours": 14.953914698418512,
+                  "longestCommGapHours": 21.32464355814616
+                },
+                "reasons": []
+              },
+              {
+                "id": "e+0-n+25",
+                "dxM": 0,
+                "dyM": 25,
+                "status": "complete",
+                "feasible": true,
+                "metrics": {
+                  "sunHours": 153.0496524479845,
+                  "earthHours": 146.44719031514487,
+                  "jointHours": 131.49684276312934,
+                  "longestDarkHours": 14.950347552015517,
+                  "longestCommGapHours": 21.552809684855145
+                },
+                "reasons": []
+              },
+              {
+                "id": "e+25-n+25",
+                "dxM": 25,
+                "dyM": 25,
+                "status": "complete",
+                "feasible": true,
+                "metrics": {
+                  "sunHours": 153.1029582119412,
+                  "earthHours": 146.17764057718912,
+                  "jointHours": 131.28059878913032,
+                  "longestDarkHours": 14.89704178805881,
+                  "longestCommGapHours": 21.822359422810873
+                },
+                "reasons": []
+              }
+            ]
+          }
+        ],
+        "interpretation": "Deterministic geometric sensitivity: each nonnegative increment is added to the baseline clearance. These levels are not a calibrated terrain-error range or a success probability."
+      }
+    },
+    {
+      "siteId": "ridge-4",
+      "sourceRoiNumber": 4,
+      "lat": -89.452674851,
+      "lon": 222.85134735,
+      "centerMetrics": {
+        "sunHours": 160.31822226738825,
+        "earthHours": 149.383702027181,
+        "jointHours": 141.70192429456924,
+        "longestDarkHours": 7.681777732611762,
+        "longestCommGapHours": 18.61629797281901
+      },
+      "centerFeasible": true,
+      "stress": {
+        "siteId": "ridge-4",
+        "baselineClearanceDeg": 0,
+        "start": "2027-06-21T12:00:00.000Z",
+        "end": "2027-06-28T12:00:00.000Z",
+        "durationHours": 168,
+        "thresholds": {
+          "maxDarkHours": 24,
+          "maxCommGapHours": 24,
+          "minJointHours": 24
+        },
+        "levels": [
+          {
+            "incrementDeg": 0,
+            "clearanceDeg": 0,
+            "centerFeasible": true,
+            "count": 9,
+            "feasibleCount": 9,
+            "allKnown": true,
+            "worstCase": {
+              "status": "complete",
+              "allKnown": true,
+              "count": 9,
+              "knownCount": 9,
+              "metrics": {
+                "longestDarkHours": 23.74917733235677,
+                "longestCommGapHours": 18.90558658820258,
+                "jointHours": 116.99174096415203
+              },
+              "knownMetrics": {
+                "longestDarkHours": 23.74917733235677,
+                "longestCommGapHours": 18.90558658820258,
+                "jointHours": 116.99174096415203
+              },
+              "points": {
+                "longestDarkHours": {
+                  "id": "e-25-n-25",
+                  "dxM": -25,
+                  "dyM": -25,
+                  "tiedPointIds": [
+                    "e-25-n-25"
+                  ]
+                },
+                "longestCommGapHours": {
+                  "id": "e+25-n-25",
+                  "dxM": 25,
+                  "dyM": -25,
+                  "tiedPointIds": [
+                    "e+25-n-25"
+                  ]
+                },
+                "jointHours": {
+                  "id": "e-25-n-25",
+                  "dxM": -25,
+                  "dyM": -25,
+                  "tiedPointIds": [
+                    "e-25-n-25"
+                  ]
+                }
+              },
+              "margins": {
+                "darknessHours": 0.2508226676432308,
+                "earthGapHours": 5.094413411797419,
+                "jointHours": 92.99174096415203
+              },
+              "minimumMarginHours": 0.2508226676432308,
+              "limitingMetrics": [
+                "darknessHours"
+              ],
+              "interpretation": "Worst values among supplied discrete positions. Positive margins are hours inside each threshold; negative margins miss it. The minimum is the smallest of the three explicitly reported margins, not a weighted score, probability, or calibrated uncertainty."
+            },
+            "scenarios": [
+              {
+                "id": "e-25-n-25",
+                "dxM": -25,
+                "dyM": -25,
+                "status": "complete",
+                "feasible": true,
+                "metrics": {
+                  "sunHours": 135.34890659057618,
+                  "earthHours": 149.64283437357585,
+                  "jointHours": 116.99174096415203,
+                  "longestDarkHours": 23.74917733235677,
+                  "longestCommGapHours": 18.357165626424155
+                },
+                "reasons": []
+              },
+              {
+                "id": "e+0-n-25",
+                "dxM": 0,
+                "dyM": -25,
+                "status": "complete",
+                "feasible": true,
+                "metrics": {
+                  "sunHours": 160.3097029787191,
+                  "earthHours": 149.3513318162028,
+                  "jointHours": 141.66103479492187,
+                  "longestDarkHours": 7.690297021280925,
+                  "longestCommGapHours": 18.648668183797202
+                },
+                "reasons": []
+              },
+              {
+                "id": "e+25-n-25",
+                "dxM": 25,
+                "dyM": -25,
+                "status": "complete",
+                "feasible": true,
+                "metrics": {
+                  "sunHours": 160.3109736151123,
+                  "earthHours": 149.0944134117974,
+                  "jointHours": 141.40538702690972,
+                  "longestDarkHours": 7.689026384887695,
+                  "longestCommGapHours": 18.90558658820258
+                },
+                "reasons": []
+              },
+              {
+                "id": "e-25-n+0",
+                "dxM": -25,
+                "dyM": 0,
+                "status": "complete",
+                "feasible": true,
+                "metrics": {
+                  "sunHours": 145.77991704257542,
+                  "earthHours": 149.679820955268,
+                  "jointHours": 127.45973799784342,
+                  "longestDarkHours": 14.523587262505425,
+                  "longestCommGapHours": 18.320179044731987
+                },
+                "reasons": []
+              },
+              {
+                "id": "e+0-n+0",
+                "dxM": 0,
+                "dyM": 0,
+                "status": "complete",
+                "feasible": true,
+                "metrics": {
+                  "sunHours": 160.31822226738825,
+                  "earthHours": 149.383702027181,
+                  "jointHours": 141.70192429456924,
+                  "longestDarkHours": 7.681777732611762,
+                  "longestCommGapHours": 18.61629797281901
+                },
+                "reasons": []
+              },
+              {
+                "id": "e+25-n+0",
+                "dxM": 25,
+                "dyM": 0,
+                "status": "complete",
+                "feasible": true,
+                "metrics": {
+                  "sunHours": 160.31491860351562,
+                  "earthHours": 149.12434722290038,
+                  "jointHours": 141.439265826416,
+                  "longestDarkHours": 7.685081396484375,
+                  "longestCommGapHours": 18.87565277709961
+                },
+                "reasons": []
+              },
+              {
+                "id": "e-25-n+25",
+                "dxM": -25,
+                "dyM": 25,
+                "status": "complete",
+                "feasible": true,
+                "metrics": {
+                  "sunHours": 160.31887859551324,
+                  "earthHours": 149.72084931240505,
+                  "jointHours": 142.0397279079183,
+                  "longestDarkHours": 7.681121404486762,
+                  "longestCommGapHours": 18.279150687594942
+                },
+                "reasons": []
+              },
+              {
+                "id": "e+0-n+25",
+                "dxM": 0,
+                "dyM": 25,
+                "status": "complete",
+                "feasible": true,
+                "metrics": {
+                  "sunHours": 160.3326373771159,
+                  "earthHours": 149.41548677334256,
+                  "jointHours": 141.74812415045847,
+                  "longestDarkHours": 7.667362622884115,
+                  "longestCommGapHours": 18.584513226657442
+                },
+                "reasons": []
+              },
+              {
+                "id": "e+25-n+25",
+                "dxM": 25,
+                "dyM": 25,
+                "status": "complete",
+                "feasible": true,
+                "metrics": {
+                  "sunHours": 160.3068834725613,
+                  "earthHours": 149.15277010986327,
+                  "jointHours": 141.45965358242458,
+                  "longestDarkHours": 7.6931165274386935,
+                  "longestCommGapHours": 18.84722989013672
+                },
+                "reasons": []
+              }
+            ]
+          },
+          {
+            "incrementDeg": 0.02,
+            "clearanceDeg": 0.02,
+            "centerFeasible": true,
+            "count": 9,
+            "feasibleCount": 8,
+            "allKnown": true,
+            "worstCase": {
+              "status": "complete",
+              "allKnown": true,
+              "count": 9,
+              "knownCount": 9,
+              "metrics": {
+                "longestDarkHours": 24.724782095133463,
+                "longestCommGapHours": 19.182256723971896,
+                "jointHours": 111.48910426737467
+              },
+              "knownMetrics": {
+                "longestDarkHours": 24.724782095133463,
+                "longestCommGapHours": 19.182256723971896,
+                "jointHours": 111.48910426737467
+              },
+              "points": {
+                "longestDarkHours": {
+                  "id": "e-25-n-25",
+                  "dxM": -25,
+                  "dyM": -25,
+                  "tiedPointIds": [
+                    "e-25-n-25"
+                  ]
+                },
+                "longestCommGapHours": {
+                  "id": "e+25-n-25",
+                  "dxM": 25,
+                  "dyM": -25,
+                  "tiedPointIds": [
+                    "e+25-n-25"
+                  ]
+                },
+                "jointHours": {
+                  "id": "e-25-n-25",
+                  "dxM": -25,
+                  "dyM": -25,
+                  "tiedPointIds": [
+                    "e-25-n-25"
+                  ]
+                }
+              },
+              "margins": {
+                "darknessHours": -0.7247820951334631,
+                "earthGapHours": 4.817743276028104,
+                "jointHours": 87.48910426737467
+              },
+              "minimumMarginHours": -0.7247820951334631,
+              "limitingMetrics": [
+                "darknessHours"
+              ],
+              "interpretation": "Worst values among supplied discrete positions. Positive margins are hours inside each threshold; negative margins miss it. The minimum is the smallest of the three explicitly reported margins, not a weighted score, probability, or calibrated uncertainty."
+            },
+            "scenarios": [
+              {
+                "id": "e-25-n-25",
+                "dxM": -25,
+                "dyM": -25,
+                "status": "complete",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 130.1447720740424,
+                  "earthHours": 149.34433219333224,
+                  "jointHours": 111.48910426737467,
+                  "longestDarkHours": 24.724782095133463,
+                  "longestCommGapHours": 18.65566780666775
+                },
+                "reasons": [
+                  {
+                    "code": "dark-gap",
+                    "message": "The longest modeled darkness exceeds the mission limit.",
+                    "actual": 24.724782095133463,
+                    "limit": 24
+                  }
+                ]
+              },
+              {
+                "id": "e+0-n-25",
+                "dxM": 0,
+                "dyM": -25,
+                "status": "complete",
+                "feasible": true,
+                "metrics": {
+                  "sunHours": 159.91307664008247,
+                  "earthHours": 149.06114179782443,
+                  "jointHours": 140.9742184379069,
+                  "longestDarkHours": 8.086923359917535,
+                  "longestCommGapHours": 18.938858202175563
+                },
+                "reasons": []
+              },
+              {
+                "id": "e+25-n-25",
+                "dxM": 25,
+                "dyM": -25,
+                "status": "complete",
+                "feasible": true,
+                "metrics": {
+                  "sunHours": 159.8922450837538,
+                  "earthHours": 148.8177432760281,
+                  "jointHours": 140.7099883597819,
+                  "longestDarkHours": 8.107754916246202,
+                  "longestCommGapHours": 19.182256723971896
+                },
+                "reasons": []
+              },
+              {
+                "id": "e-25-n+0",
+                "dxM": -25,
+                "dyM": 0,
+                "status": "complete",
+                "feasible": true,
+                "metrics": {
+                  "sunHours": 144.37617460069444,
+                  "earthHours": 149.3790710630968,
+                  "jointHours": 125.75524566379124,
+                  "longestDarkHours": 15.560656784803603,
+                  "longestCommGapHours": 18.620928936903212
+                },
+                "reasons": []
+              },
+              {
+                "id": "e+0-n+0",
+                "dxM": 0,
+                "dyM": 0,
+                "status": "complete",
+                "feasible": true,
+                "metrics": {
+                  "sunHours": 159.93331245347764,
+                  "earthHours": 149.09356500895183,
+                  "jointHours": 141.02687746242947,
+                  "longestDarkHours": 8.066687546522353,
+                  "longestCommGapHours": 18.906434991048176
+                },
+                "reasons": []
+              },
+              {
+                "id": "e+25-n+0",
+                "dxM": 25,
+                "dyM": 0,
+                "status": "complete",
+                "feasible": true,
+                "metrics": {
+                  "sunHours": 159.9043183880615,
+                  "earthHours": 148.84565780008953,
+                  "jointHours": 140.74997618815104,
+                  "longestDarkHours": 8.095681611938476,
+                  "longestCommGapHours": 19.15434219991048
+                },
+                "reasons": []
+              },
+              {
+                "id": "e-25-n+25",
+                "dxM": -25,
+                "dyM": 25,
+                "status": "complete",
+                "feasible": true,
+                "metrics": {
+                  "sunHours": 159.95688994940866,
+                  "earthHours": 149.4176398795573,
+                  "jointHours": 141.37452982896593,
+                  "longestDarkHours": 8.043110050591363,
+                  "longestCommGapHours": 18.582360120442708
+                },
+                "reasons": []
+              },
+              {
+                "id": "e+0-n+25",
+                "dxM": 0,
+                "dyM": 25,
+                "status": "complete",
+                "feasible": true,
+                "metrics": {
+                  "sunHours": 159.95925795471192,
+                  "earthHours": 149.1254086166721,
+                  "jointHours": 141.084666571384,
+                  "longestDarkHours": 8.040742045288086,
+                  "longestCommGapHours": 18.874591383327907
+                },
+                "reasons": []
+              },
+              {
+                "id": "e+25-n+25",
+                "dxM": 25,
+                "dyM": 25,
+                "status": "complete",
+                "feasible": true,
+                "metrics": {
+                  "sunHours": 159.9062902018229,
+                  "earthHours": 148.87209701992458,
+                  "jointHours": 140.7783872217475,
+                  "longestDarkHours": 8.093709798177084,
+                  "longestCommGapHours": 19.12790298007541
+                },
+                "reasons": []
+              }
+            ]
+          },
+          {
+            "incrementDeg": 0.1,
+            "clearanceDeg": 0.1,
+            "centerFeasible": true,
+            "count": 9,
+            "feasibleCount": 8,
+            "allKnown": true,
+            "worstCase": {
+              "status": "complete",
+              "allKnown": true,
+              "count": 9,
+              "knownCount": 9,
+              "metrics": {
+                "longestDarkHours": 46.208940471259226,
+                "longestCommGapHours": 20.261687213812934,
+                "jointHours": 92.13023910529242
+              },
+              "knownMetrics": {
+                "longestDarkHours": 46.208940471259226,
+                "longestCommGapHours": 20.261687213812934,
+                "jointHours": 92.13023910529242
+              },
+              "points": {
+                "longestDarkHours": {
+                  "id": "e-25-n-25",
+                  "dxM": -25,
+                  "dyM": -25,
+                  "tiedPointIds": [
+                    "e-25-n-25"
+                  ]
+                },
+                "longestCommGapHours": {
+                  "id": "e+25-n-25",
+                  "dxM": 25,
+                  "dyM": -25,
+                  "tiedPointIds": [
+                    "e+25-n-25"
+                  ]
+                },
+                "jointHours": {
+                  "id": "e-25-n-25",
+                  "dxM": -25,
+                  "dyM": -25,
+                  "tiedPointIds": [
+                    "e-25-n-25"
+                  ]
+                }
+              },
+              "margins": {
+                "darknessHours": -22.208940471259226,
+                "earthGapHours": 3.738312786187066,
+                "jointHours": 68.13023910529242
+              },
+              "minimumMarginHours": -22.208940471259226,
+              "limitingMetrics": [
+                "darknessHours"
+              ],
+              "interpretation": "Worst values among supplied discrete positions. Positive margins are hours inside each threshold; negative margins miss it. The minimum is the smallest of the three explicitly reported margins, not a weighted score, probability, or calibrated uncertainty."
+            },
+            "scenarios": [
+              {
+                "id": "e-25-n-25",
+                "dxM": -25,
+                "dyM": -25,
+                "status": "complete",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 111.88376927157931,
+                  "earthHours": 148.24646983371312,
+                  "jointHours": 92.13023910529242,
+                  "longestDarkHours": 46.208940471259226,
+                  "longestCommGapHours": 19.753530166286893
+                },
+                "reasons": [
+                  {
+                    "code": "dark-gap",
+                    "message": "The longest modeled darkness exceeds the mission limit.",
+                    "actual": 46.208940471259226,
+                    "limit": 24
+                  }
+                ]
+              },
+              {
+                "id": "e+0-n-25",
+                "dxM": 0,
+                "dyM": -25,
+                "status": "complete",
+                "feasible": true,
+                "metrics": {
+                  "sunHours": 158.0888945328776,
+                  "earthHours": 147.9820481786431,
+                  "jointHours": 138.07094271152073,
+                  "longestDarkHours": 9.911105467122395,
+                  "longestCommGapHours": 20.017951821356878
+                },
+                "reasons": []
+              },
+              {
+                "id": "e+25-n-25",
+                "dxM": 25,
+                "dyM": -25,
+                "status": "complete",
+                "feasible": true,
+                "metrics": {
+                  "sunHours": 158.11901712280275,
+                  "earthHours": 147.73831278618707,
+                  "jointHours": 137.8573299089898,
+                  "longestDarkHours": 9.880982877197265,
+                  "longestCommGapHours": 20.261687213812934
+                },
+                "reasons": []
+              },
+              {
+                "id": "e-25-n+0",
+                "dxM": -25,
+                "dyM": 0,
+                "status": "complete",
+                "feasible": true,
+                "metrics": {
+                  "sunHours": 138.80222778896757,
+                  "earthHours": 148.27895538208008,
+                  "jointHours": 119.08118317104764,
+                  "longestDarkHours": 19.328459486762153,
+                  "longestCommGapHours": 19.721044617919922
+                },
+                "reasons": []
+              },
+              {
+                "id": "e+0-n+0",
+                "dxM": 0,
+                "dyM": 0,
+                "status": "complete",
+                "feasible": true,
+                "metrics": {
+                  "sunHours": 158.1046524504259,
+                  "earthHours": 148.0124181016032,
+                  "jointHours": 138.1170705520291,
+                  "longestDarkHours": 9.89534754957411,
+                  "longestCommGapHours": 19.98758189839681
+                },
+                "reasons": []
+              },
+              {
+                "id": "e+25-n+0",
+                "dxM": 25,
+                "dyM": 0,
+                "status": "complete",
+                "feasible": true,
+                "metrics": {
+                  "sunHours": 158.1038683620877,
+                  "earthHours": 147.7669082666694,
+                  "jointHours": 137.87077662875706,
+                  "longestDarkHours": 9.896131637912326,
+                  "longestCommGapHours": 20.23309173333062
+                },
+                "reasons": []
+              },
+              {
+                "id": "e-25-n+25",
+                "dxM": -25,
+                "dyM": 25,
+                "status": "complete",
+                "feasible": true,
+                "metrics": {
+                  "sunHours": 158.22020569369846,
+                  "earthHours": 148.3147982417806,
+                  "jointHours": 138.53500393547904,
+                  "longestDarkHours": 9.779794306301541,
+                  "longestCommGapHours": 19.6852017582194
+                },
+                "reasons": []
+              },
+              {
+                "id": "e+0-n+25",
+                "dxM": 0,
+                "dyM": 25,
+                "status": "complete",
+                "feasible": true,
+                "metrics": {
+                  "sunHours": 158.13159481736926,
+                  "earthHours": 148.0423112113444,
+                  "jointHours": 138.17390602871365,
+                  "longestDarkHours": 9.86840518263075,
+                  "longestCommGapHours": 19.9576887886556
+                },
+                "reasons": []
+              },
+              {
+                "id": "e+25-n+25",
+                "dxM": 25,
+                "dyM": 25,
+                "status": "complete",
+                "feasible": true,
+                "metrics": {
+                  "sunHours": 158.08932433322482,
+                  "earthHours": 147.79374602057564,
+                  "jointHours": 137.88307035380046,
+                  "longestDarkHours": 9.910675666775173,
+                  "longestCommGapHours": 20.20625397942437
+                },
+                "reasons": []
+              }
+            ]
+          },
+          {
+            "incrementDeg": 0.25,
+            "clearanceDeg": 0.25,
+            "centerFeasible": true,
+            "count": 9,
+            "feasibleCount": 7,
+            "allKnown": true,
+            "worstCase": {
+              "status": "complete",
+              "allKnown": true,
+              "count": 9,
+              "knownCount": 9,
+              "metrics": {
+                "longestDarkHours": 52.0995160623508,
+                "longestCommGapHours": 22.283248688897025,
+                "jointHours": 80.28957806416828
+              },
+              "knownMetrics": {
+                "longestDarkHours": 52.0995160623508,
+                "longestCommGapHours": 22.283248688897025,
+                "jointHours": 80.28957806416828
+              },
+              "points": {
+                "longestDarkHours": {
+                  "id": "e-25-n-25",
+                  "dxM": -25,
+                  "dyM": -25,
+                  "tiedPointIds": [
+                    "e-25-n-25"
+                  ]
+                },
+                "longestCommGapHours": {
+                  "id": "e+25-n-25",
+                  "dxM": 25,
+                  "dyM": -25,
+                  "tiedPointIds": [
+                    "e+25-n-25"
+                  ]
+                },
+                "jointHours": {
+                  "id": "e-25-n-25",
+                  "dxM": -25,
+                  "dyM": -25,
+                  "tiedPointIds": [
+                    "e-25-n-25"
+                  ]
+                }
+              },
+              "margins": {
+                "darknessHours": -28.0995160623508,
+                "earthGapHours": 1.7167513111029749,
+                "jointHours": 56.28957806416828
+              },
+              "minimumMarginHours": -28.0995160623508,
+              "limitingMetrics": [
+                "darknessHours"
+              ],
+              "interpretation": "Worst values among supplied discrete positions. Positive margins are hours inside each threshold; negative margins miss it. The minimum is the smallest of the three explicitly reported margins, not a weighted score, probability, or calibrated uncertainty."
+            },
+            "scenarios": [
+              {
+                "id": "e-25-n-25",
+                "dxM": -25,
+                "dyM": -25,
+                "status": "complete",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 102.05148950710719,
+                  "earthHours": 146.23808855706108,
+                  "jointHours": 80.28957806416828,
+                  "longestDarkHours": 52.0995160623508,
+                  "longestCommGapHours": 21.76191144293891
+                },
+                "reasons": [
+                  {
+                    "code": "dark-gap",
+                    "message": "The longest modeled darkness exceeds the mission limit.",
+                    "actual": 52.0995160623508,
+                    "limit": 24
+                  }
+                ]
+              },
+              {
+                "id": "e+0-n-25",
+                "dxM": 0,
+                "dyM": -25,
+                "status": "complete",
+                "feasible": true,
+                "metrics": {
+                  "sunHours": 154.43670031392415,
+                  "earthHours": 145.96961247389052,
+                  "jointHours": 132.40631278781467,
+                  "longestDarkHours": 13.563299686075846,
+                  "longestCommGapHours": 22.030387526109482
+                },
+                "reasons": []
+              },
+              {
+                "id": "e+25-n-25",
+                "dxM": 25,
+                "dyM": -25,
+                "status": "complete",
+                "feasible": true,
+                "metrics": {
+                  "sunHours": 154.5251684210205,
+                  "earthHours": 145.71675131110297,
+                  "jointHours": 132.24191973212348,
+                  "longestDarkHours": 13.474831578979492,
+                  "longestCommGapHours": 22.283248688897025
+                },
+                "reasons": []
+              },
+              {
+                "id": "e-25-n+0",
+                "dxM": -25,
+                "dyM": 0,
+                "status": "complete",
+                "feasible": false,
+                "metrics": {
+                  "sunHours": 126.98998351196289,
+                  "earthHours": 146.27122339959038,
+                  "jointHours": 105.26120691155327,
+                  "longestDarkHours": 27.07376101555718,
+                  "longestCommGapHours": 21.728776600409613
+                },
+                "reasons": [
+                  {
+                    "code": "dark-gap",
+                    "message": "The longest modeled darkness exceeds the mission limit.",
+                    "actual": 27.07376101555718,
+                    "limit": 24
+                  }
+                ]
+              },
+              {
+                "id": "e+0-n+0",
+                "dxM": 0,
+                "dyM": 0,
+                "status": "complete",
+                "feasible": true,
+                "metrics": {
+                  "sunHours": 154.33719927008735,
+                  "earthHours": 146.00065095499676,
+                  "jointHours": 132.3378502250841,
+                  "longestDarkHours": 13.662800729912652,
+                  "longestCommGapHours": 21.999349045003257
+                },
+                "reasons": []
+              },
+              {
+                "id": "e+25-n+0",
+                "dxM": 25,
+                "dyM": 0,
+                "status": "complete",
+                "feasible": true,
+                "metrics": {
+                  "sunHours": 154.51834282647027,
+                  "earthHours": 145.74662344746906,
+                  "jointHours": 132.26496627393936,
+                  "longestDarkHours": 13.481657173529731,
+                  "longestCommGapHours": 22.253376552530924
+                },
+                "reasons": []
+              },
+              {
+                "id": "e-25-n+25",
+                "dxM": -25,
+                "dyM": 25,
+                "status": "complete",
+                "feasible": true,
+                "metrics": {
+                  "sunHours": 153.99202958570692,
+                  "earthHours": 146.30718728590224,
+                  "jointHours": 132.29921687160916,
+                  "longestDarkHours": 14.007970414293077,
+                  "longestCommGapHours": 21.692812714097766
+                },
+                "reasons": []
+              },
+              {
+                "id": "e+0-n+25",
+                "dxM": 0,
+                "dyM": 25,
+                "status": "complete",
+                "feasible": true,
+                "metrics": {
+                  "sunHours": 154.24445677476672,
+                  "earthHours": 146.03134293233236,
+                  "jointHours": 132.27579970709905,
+                  "longestDarkHours": 13.75554322523329,
+                  "longestCommGapHours": 21.968657067667642
+                },
+                "reasons": []
+              },
+              {
+                "id": "e+25-n+25",
+                "dxM": 25,
+                "dyM": 25,
+                "status": "complete",
+                "feasible": true,
+                "metrics": {
+                  "sunHours": 154.4855088018799,
+                  "earthHours": 145.77420942667644,
+                  "jointHours": 132.25971822855632,
+                  "longestDarkHours": 13.514491198120117,
+                  "longestCommGapHours": 22.225790573323568
+                },
+                "reasons": []
+              }
+            ]
+          }
+        ],
+        "interpretation": "Deterministic geometric sensitivity: each nonnegative increment is added to the baseline clearance. These levels are not a calibrated terrain-error range or a success probability."
+      }
+    }
+  ],
+  "earliestSearch": {
+    "baselineStart": "2027-06-02T06:00:00.000Z",
+    "stepHours": 6,
+    "evaluatedCount": 264,
+    "excludedCount": 0,
+    "earliestFeasible": [
+      {
+        "siteId": "ridge-1",
+        "name": "Connecting Ridge · ROI 1",
+        "start": "2027-06-21T12:00:00.000Z",
+        "end": "2027-06-28T12:00:00.000Z",
+        "delayHours": 462,
+        "feasible": true,
+        "centerFeasible": true,
+        "metrics": {
+          "sunHours": 160.08493895324708,
+          "earthHours": 149.7670138084581,
+          "jointHours": 141.8519527617052,
+          "longestDarkHours": 7.91506104675293,
+          "longestCommGapHours": 18.232986191541883
+        },
+        "patchCoverage": 1,
+        "worstCase": {
+          "status": "complete",
+          "allKnown": true,
+          "count": 9,
+          "knownCount": 9,
+          "metrics": {
+            "longestDarkHours": 8.01474554389106,
+            "longestCommGapHours": 18.524580070122614,
+            "jointHours": 141.606917880995
+          },
+          "knownMetrics": {
+            "longestDarkHours": 8.01474554389106,
+            "longestCommGapHours": 18.524580070122614,
+            "jointHours": 141.606917880995
+          },
+          "points": {
+            "longestDarkHours": {
+              "id": "e-25-n+25",
+              "dxM": -25,
+              "dyM": 25,
+              "tiedPointIds": [
+                "e-25-n+25"
+              ]
+            },
+            "longestCommGapHours": {
+              "id": "e+25-n-25",
+              "dxM": 25,
+              "dyM": -25,
+              "tiedPointIds": [
+                "e+25-n-25"
+              ]
+            },
+            "jointHours": {
+              "id": "e+25-n-25",
+              "dxM": 25,
+              "dyM": -25,
+              "tiedPointIds": [
+                "e+25-n-25"
+              ]
+            }
+          },
+          "margins": {
+            "darknessHours": 15.98525445610894,
+            "earthGapHours": 5.475419929877386,
+            "jointHours": 117.60691788099501
+          },
+          "minimumMarginHours": 5.475419929877386,
+          "limitingMetrics": [
+            "earthGapHours"
+          ],
+          "interpretation": "Worst values among supplied discrete positions. Positive margins are hours inside each threshold; negative margins miss it. The minimum is the smallest of the three explicitly reported margins, not a weighted score, probability, or calibrated uncertainty."
+        },
+        "reasons": []
+      },
+      {
+        "siteId": "ridge-4",
+        "name": "Connecting Ridge · ROI 4",
+        "start": "2027-06-21T12:00:00.000Z",
+        "end": "2027-06-28T12:00:00.000Z",
+        "delayHours": 462,
+        "feasible": true,
+        "centerFeasible": true,
+        "metrics": {
+          "sunHours": 160.31822226738825,
+          "earthHours": 149.383702027181,
+          "jointHours": 141.70192429456924,
+          "longestDarkHours": 7.681777732611762,
+          "longestCommGapHours": 18.61629797281901
+        },
+        "patchCoverage": 1,
+        "worstCase": {
+          "status": "complete",
+          "allKnown": true,
+          "count": 9,
+          "knownCount": 9,
+          "metrics": {
+            "longestDarkHours": 23.74917733235677,
+            "longestCommGapHours": 18.90558658820258,
+            "jointHours": 116.99174096415203
+          },
+          "knownMetrics": {
+            "longestDarkHours": 23.74917733235677,
+            "longestCommGapHours": 18.90558658820258,
+            "jointHours": 116.99174096415203
+          },
+          "points": {
+            "longestDarkHours": {
+              "id": "e-25-n-25",
+              "dxM": -25,
+              "dyM": -25,
+              "tiedPointIds": [
+                "e-25-n-25"
+              ]
+            },
+            "longestCommGapHours": {
+              "id": "e+25-n-25",
+              "dxM": 25,
+              "dyM": -25,
+              "tiedPointIds": [
+                "e+25-n-25"
+              ]
+            },
+            "jointHours": {
+              "id": "e-25-n-25",
+              "dxM": -25,
+              "dyM": -25,
+              "tiedPointIds": [
+                "e-25-n-25"
+              ]
+            }
+          },
+          "margins": {
+            "darknessHours": 0.2508226676432308,
+            "earthGapHours": 5.094413411797419,
+            "jointHours": 92.99174096415203
+          },
+          "minimumMarginHours": 0.2508226676432308,
+          "limitingMetrics": [
+            "darknessHours"
+          ],
+          "interpretation": "Worst values among supplied discrete positions. Positive margins are hours inside each threshold; negative margins miss it. The minimum is the smallest of the three explicitly reported margins, not a weighted score, probability, or calibrated uncertainty."
+        },
+        "reasons": []
+      }
+    ]
+  },
+  "interpretation": [
+    "This reproduces the released 30-minute model. Five-minute independent-position queries are a separate M04 audit.",
+    "The nine positions include the center. Their passing count is not an area fraction or landing-success probability.",
+    "Angular increments are deterministic stress conditions, not calibrated terrain-error estimates.",
+    "All three margins are reported in hours. Minimum margin is the smallest reported slack, not a weighted score. The preference order is explicit and preserves earliest feasible arrival.",
+    "Unknown samples do not acquire a whole-footprint worst-case claim; partial known-subset extrema remain separately labeled."
+  ]
+}

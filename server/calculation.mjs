@@ -1,6 +1,9 @@
 import {readFile,writeFile,mkdir} from 'node:fs/promises';
 import {createHash,randomUUID} from 'node:crypto';
 import path from 'node:path';
+import {assertClientRelease,assertCalculationRelease,releaseDescriptor} from './release-policy.mjs';
+import {assertMissionArrival,appendMissionConstraints,missionSearchRule} from '../src/mission-constraints.js';
+import {buildRecordValidation} from '../src/record-validation.js';
 
 export const digest=bytes=>createHash('sha256').update(bytes).digest('hex');
 export class APIError extends Error{constructor(status,code,message){super(message);this.status=status;this.code=code;}}
@@ -24,7 +27,10 @@ export function validateSettings(settings){
 }
 export async function createCalculator({staticRoot,dataDir,db,pipeline}){
   const archiveRoot=path.join(dataDir,'evidence-assets');await mkdir(archiveRoot,{recursive:true});
-  const moduleCache=new Map(),datasetCache=new Map();
+  const moduleCache=new Map(),datasetCache=new Map(),catalogCache=new Map();
+  // A running service retains its startup release. Replacing dist requires a
+  // restart; new interface requests are rejected rather than relabeling old code.
+  const startupManifestText=await readFile(path.join(staticRoot,'build-info.json'),'utf8');
   async function asset(relative){
     if(!/^evidence-assets\/(?:build-)?[a-f0-9]{64}\.(?:js|json)$/.test(relative))throw new APIError(500,'invalid-release','Invalid trusted release asset.');
     try{return await readFile(path.join(staticRoot,relative),'utf8');}catch(error){if(error.code!=='ENOENT')throw error;return readFile(path.join(dataDir,relative),'utf8');}
@@ -37,7 +43,7 @@ export async function createCalculator({staticRoot,dataDir,db,pipeline}){
   async function manifest(buildId){
     if(buildId!==undefined&&!validHash(buildId))reject('invalid-version','Invalid calculation version.');
     let result;
-    try{result=JSON.parse(buildId?await asset(`evidence-assets/build-${buildId}.json`):await readFile(path.join(staticRoot,'build-info.json'),'utf8'));}
+    try{result=JSON.parse(buildId?await asset(`evidence-assets/build-${buildId}.json`):startupManifestText);}
     catch{throw new APIError(404,'version-unavailable','The requested calculation version is unavailable / 所需计算版本不存在。');}
     if(result.schemaVersion!==1||digest(JSON.stringify(result.identity))!==result.buildId||buildId&&result.buildId!==buildId)throw new APIError(500,'release-checksum','Calculation manifest checksum mismatch.');
     const algo=result.identity.algorithm;
@@ -85,7 +91,7 @@ export async function createCalculator({staticRoot,dataDir,db,pipeline}){
     const release=await manifest(),campaigns=[],regions=new Map();
     for(const[id,descriptor]of Object.entries(release.identity.datasets)){
       const {data}=await dataFor(id);
-      campaigns.push({id,name:({dec:'December 2026 / 2026 年 12 月',mar:'March 2027 / 2027 年 3 月',jun:'June 2027 / 2027 年 6 月'})[id]||id,...descriptor,sampleIntervalMinutes:data.sampleIntervalMinutes,sourceDataTime:data.generatedAt,origin:'bundled'});
+      campaigns.push({id,name:({dec:'December 2026 / 2026 年 12 月',mar:'March 2027 / 2027 年 3 月',jun:'June 2027 / 2027 年 6 月'})[id]||id,...descriptor,buildId:release.buildId,algorithmSha256:release.identity.algorithm.sha256,sampleIntervalMinutes:data.sampleIntervalMinutes,sourceDataTime:data.generatedAt,origin:'bundled'});
       db.prepare('INSERT OR REPLACE INTO datasets VALUES(?,?,?)').run(id,descriptor.sha256,JSON.stringify(campaigns.at(-1)));
       for(const site of data.sites)if(!regions.has(site.id)){
         const points=site.patches.map(({id,dxM,dyM,lat,lon,elevationM})=>({id,dxM,dyM,lat,lon,elevationM}));
@@ -94,14 +100,19 @@ export async function createCalculator({staticRoot,dataDir,db,pipeline}){
       }
     }
     for(const entry of await pipeline?.listDatasets()||[]){
-      const {data,descriptor}=await dataFor(entry.id);
-      const meta={id:entry.id,name:`${data.start.slice(0,10)} → ${data.stop.slice(0,10)}`,...descriptor,sampleIntervalMinutes:data.sampleIntervalMinutes,sourceDataTime:data.sourceDataTime||data.generatedAt,origin:'jpl-cached'};
+      const {data,descriptor,release:generatedRelease}=await dataFor(entry.id);
+      const meta={id:entry.id,name:`${data.start.slice(0,10)} → ${data.stop.slice(0,10)}`,...descriptor,buildId:generatedRelease.buildId,algorithmSha256:generatedRelease.identity.algorithm.sha256,sampleIntervalMinutes:data.sampleIntervalMinutes,sourceDataTime:data.sourceDataTime||data.generatedAt,origin:'jpl-cached'};
       campaigns.push(meta);db.prepare('INSERT OR REPLACE INTO datasets VALUES(?,?,?)').run(entry.id,descriptor.sha256,JSON.stringify(meta));
     }
-    return {regions:[...regions.values()],campaigns,heights:[2],version:release.buildId,algorithmSha256:release.identity.algorithm.sha256,sourceTimeMeaning:'Acquisition/cache time; not live observation',newDateLimits:{min:'2026-01-01',max:'2029-01-01',maxDays:31,observerHeightM:2},storage:'SQLite',serverTime:new Date().toISOString()};
+    return {regions:[...regions.values()],campaigns,heights:[2],version:release.buildId,release:releaseDescriptor(release),algorithmSha256:release.identity.algorithm.sha256,sourceTimeMeaning:'Acquisition/cache time; not live observation',newDateLimits:{min:'2026-01-01',max:'2029-01-01',maxDays:31,observerHeightM:2},storage:'SQLite',serverTime:new Date().toISOString()};
   }
   async function calculate(input,{owner,origin}){
+    const current=await manifest();assertClientRelease(input,current);
+    const catalogDescriptor=current.identity.resources?.['data/science-validation-summary.json'];if(!catalogDescriptor)throw new APIError(503,'validation-unavailable','The current release has no verified validation catalog.');
+    let catalog=catalogCache.get(catalogDescriptor.sha256);if(!catalog){const source=await asset(catalogDescriptor.snapshot);if(digest(source)!==catalogDescriptor.sha256)throw new APIError(503,'validation-checksum','Validation catalog checksum mismatch.');catalog=JSON.parse(source);catalogCache.set(catalogDescriptor.sha256,catalog);}
     const settings=validateSettings(input.settings),{text,data,release,descriptor}=await dataFor(input.campaign,input.buildId);
+    assertCalculationRelease(input,release,descriptor);
+    let missionConstraints;try{missionConstraints=assertMissionArrival(settings,input.missionConstraints);}catch(error){reject('invalid-mission-constraints',error.message);}
     const site=data.sites.find(item=>item.id===input.siteId);
     if(!site)reject('uncovered-location','This location has no validated terrain and sky data / 该位置暂无可计算数据。');
     const point=site.patches.find(item=>item.id===(input.patchId||'e+0-n+0'));
@@ -111,7 +122,7 @@ export async function createCalculator({staticRoot,dataDir,db,pipeline}){
     if(data.observerHeightM!==settings.observerHeightM)reject('unsupported-height','Terrain and ephemerides do not match this height.');
     if(input.lat!==undefined||input.lon!==undefined)reject('arbitrary-coordinates','Select a supported research point; arbitrary coordinates cannot reuse a nearby result / 仅支持明确列出的取样点，不能套用邻近结果。');
     const id=randomUUID(),createdAt=new Date().toISOString();
-    const parameters={campaign:input.campaign,siteId:site.id,patchId:point.id,settings,buildId:release.buildId,language:input.language==='zh'?'zh':'en'};
+    const parameters={campaign:input.campaign,siteId:site.id,patchId:point.id,settings,missionConstraints,buildId:release.buildId,language:input.language==='zh'?'zh':'en'};
     db.prepare('INSERT INTO analyses(id,owner_hash,status,created_at,parameters_json) VALUES(?,?,?,?,?)').run(id,owner,'processing',createdAt,JSON.stringify(parameters));
     try{
       const{source,module}=await sourceAndModule(release);
@@ -119,17 +130,19 @@ export async function createCalculator({staticRoot,dataDir,db,pipeline}){
       if(results.some(item=>item.status!=='complete'))throw new APIError(422,'incomplete-data','The data do not completely cover this request; no official result was saved / 数据覆盖不完整，未生成正式结果。');
       const selectedPointResult=module.analyzeSite({...site,...point,samples:point.samples||site.samples,patches:[]},settings);
       if(selectedPointResult.status!=='complete')throw new APIError(422,'incomplete-data','Selected point has incomplete input coverage.');
-      const now=new Date().toISOString(),current=await manifest(),url=new URL('navigator.html',origin);
+      const now=new Date().toISOString(),url=new URL('navigator.html',origin);
       for(const[key,value]of Object.entries({campaign:input.campaign,site:site.id,patch:point.id,lang:parameters.language,...settings,build:release.buildId,algo:release.identity.algorithm.sha256,data:descriptor.sha256}))url.searchParams.set(key,String(value));
+      appendMissionConstraints(url.searchParams,missionConstraints);
       const absolute=value=>new URL(value,origin).href;
-      const record={project:'LunaMargin',schemaVersion:3,language:parameters.language,exportedAt:now,calculatedAt:now,sourceDataTime:data.sourceDataTime||data.generatedAt,campaign:input.campaign,settings,selectedSiteId:site.id,
+      const record={project:'LunaMargin',schemaVersion:3,language:parameters.language,exportedAt:now,calculatedAt:now,sourceDataTime:data.sourceDataTime||data.generatedAt,campaign:input.campaign,settings,missionConstraints,selectedSiteId:site.id,
         selectedPoint:{id:point.id,siteId:site.id,dxM:point.dxM,dyM:point.dyM,lat:point.lat,lon:point.lon,elevationM:point.elevationM,isCenter:!point.dxM&&!point.dyM,result:selectedPointResult},
         provenance:{buildId:release.buildId,calculationBuildId:release.buildId,interfaceBuildId:current.buildId,algorithmSha256:release.identity.algorithm.sha256,datasetSha256:descriptor.sha256,modelMethodVersion:release.identity.methodVersion,observerHeightM:2,verification:'sha256-verified',manifestURL:absolute(`evidence-assets/build-${release.buildId}.json`),interfaceManifestURL:absolute(`evidence-assets/build-${current.buildId}.json`),algorithmSnapshotURL:absolute(release.identity.algorithm.snapshot),datasetSnapshotURL:absolute(descriptor.snapshot),sourceIdentity:release.identity.sourceIdentity},
         inputSnapshot:{format:'utf8-json',sha256:descriptor.sha256,text},algorithmSnapshot:{format:'javascript-source',sha256:release.identity.algorithm.sha256,text:source},
-        shareURL:url.href,stressTest:module.stressTestSite(site,settings),searchRule:'Earliest date first; then greatest minimum nine-point time margin; then darkness, Earth-gap and shared-view margins; center metrics; stable site ID.',
+        shareURL:url.href,stressTest:module.stressTestSite(site,settings),searchRule:missionSearchRule(missionConstraints),
         data:{generatedAt:data.generatedAt,referenceFrame:data.referenceFrame,start:data.start,stop:data.stop,sampleIntervalMinutes:data.sampleIntervalMinutes,horizonMethod:data.horizonMethod,sources:data.sources,limitations:data.limitations},
         sites:data.sites.map(item=>({id:item.id,name:item.name,lat:item.lat,lon:item.lon,elevationM:item.elevationM,slopeDeg:item.slopeDeg,heightRmsErrorM:item.heightRmsErrorM,ephemerisSources:item.ephemerisSources,patches:item.patches.map(({id,dxM,dyM,lat,lon,elevationM})=>({id,dxM,dyM,lat,lon,elevationM}))})),results,
         server:{analysisId:id,calculatedAt:now,sourceDataTime:data.sourceDataTime||data.generatedAt,execution:'verified-server-algorithm',storage:'SQLite'},interpretation:'Geometric screening, not flight safety, power or radio-link assurance. Footprint fractions are discrete scenario counts, not probabilities.'};
+      record.validationEvidence=buildRecordValidation(record,current,catalog);
       const recordJSON=JSON.stringify(record),recordSha256=digest(recordJSON);
       db.prepare('UPDATE analyses SET status=?,completed_at=?,record_json=?,record_sha256=? WHERE id=?').run('completed',now,recordJSON,recordSha256,id);
       return {id,status:'completed',record,recordSha256};

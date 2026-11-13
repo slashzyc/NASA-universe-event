@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "status": "materials-prepared-study-not-started",
+  "participantsTested": 0,
+  "interviewsCompleted": 0,
+  "files": {
+    "case-a-static.html": "67084f2dfa277d7827b5c89463480424e4a5a648ff1529142b78abd5e8782d25",
+    "case-b-static.html": "4aac1ae7ef2a5a239b1aafbb195a4e848c5eb967eabdcb000896d1d4efb5628a",
+    "app-condition.html": "7496103bc67225577f693a74b7a902fe9f3be37398d2a80ae8d3e479643c88c0",
+    "static-condition.html": "638ceb8ee79038fb3411ca7494e6a5f8ca065f9f370eebe175a514ffdf3e056a",
+    "study-cases.json": "24c664f3f74bc9a4453436a121104cf3c5d9d35148fdcc77218a08d1ef61d659",
+    "study-values.csv": "ed4df5bf622648208da392d284eb436354e8612088a73431940b53b2bf69beb6",
+    "study-windows.csv": "00f460ee7632be200e5f011a520f79633b2a5849c02e871940993c05221069f9",
+    "moderator-answer-key.json": "332e689a2a47aa556c883f8de2607d4dfa43096b178c955b9dfee78d65f70ac3",
+    "observations.blank.json": "fcd8cd24b6d71383c7fd197e032dd625db659eddd655031fddd1eaee10d08575"
+  },
+  "analysisSha256": "981e49c08ae6457450c5e0fbb8d9c743521dbb91ed6eeb2cbb01b3e132ea5fcd",
+  "datasets": [
+    {
+      "caseId": "A",
+      "campaign": "jun",
+      "sha256": "c2258b262f2ee22599195090a9e652d8f6fd53c48bfb48139896be02a86f3d8f"
+    },
+    {
+      "caseId": "B",
+      "campaign": "mar",
+      "sha256": "266011b3d2c20224c75a44a93d414986d9751ac7ae5a0d463ba5744434618aab"
+    }
+  ],
+  "freezeRule": "Before P01, record the immutable public /releases/<buildId>/ URL and release identity, verify these material hashes and unchanged algorithm/data. Use that version for both conditions and all participants. If a repair is needed, stop and open a new versioned round."
+}

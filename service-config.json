@@ -1,1 +1,1 @@
-{"service":false,"mode":"static-preview","description":"Run the Node service for persistent missions. GitHub Pages hosts the browser preview only."}
+{"service":false,"serviceType":"browser-files","mode":"device","capabilities":{"serverSave":false,"browserFiles":true,"compare":true,"readOnlySharing":false,"newDates":false},"description":{"en":"Real browser calculation, comparison and complete device-file saving/reopening. Cloud missions use the online workspace.","zh":"可真实计算、比较，并把完整任务保存到设备文件后重新打开。云端任务请使用在线工作台。"}}

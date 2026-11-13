@@ -1,5 +1,8 @@
 # LunaMargin 可操作探索工具验收
 
+> 历史验收与科学证据：以下结论仅对应文中记录的版本、参数和时间。当前完整入口为 [云端 LunaMargin](https://lunamargin-slashzyc.laceysquirrel4.chatgpt.site/?lang=zh)；当前能力与本轮状态见 [工程判断验收](ENGINEERING_ACCEPTANCE.md)。本页不代表当前所有查询都已复核。
+
+
 本轮在第二轮 R01–R03 基础上增加真实服务与完整探索流程。原 `src/analysis.js` 保持字节不变：SHA-256 `981e49c08ae6457450c5e0fbb8d9c743521dbb91ed6eeb2cbb01b3e132ea5fcd`。原有九点、窗口搜索、版本校验、旧分享链接和导出继续保留。
 
 ## 运行和部署状态

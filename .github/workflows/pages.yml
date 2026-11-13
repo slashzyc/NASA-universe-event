@@ -30,6 +30,7 @@ jobs:
         run: |
           node scripts/build-worker.mjs
           node tests/cloud-service.mjs
+          node tests/cloud-release-isolation.mjs
       - name: Verify browser behavior before publication
         run: npm run test:browser
         env:
@@ -63,6 +64,21 @@ jobs:
         env:
           CI: 'true'
           LUNAMARGIN_QA_OUTPUT: test-results/interaction-media
+      - name: Verify arrival limits, old links and identical saved constraints
+        run: node tests/mission-constraints-browser.mjs
+        env:
+          CI: 'true'
+          LUNAMARGIN_QA_OUTPUT: test-results/mission-constraints
+      - name: Verify saved engineering evidence and database restoration
+        run: node tests/mission-evidence-browser.mjs
+        env:
+          CI: 'true'
+          LUNAMARGIN_QA_OUTPUT: test-results/mission-evidence
+      - name: Verify paired engineering audit and equal-information study pages
+        run: node tests/engineering-home-browser.mjs
+        env:
+          CI: 'true'
+          LUNAMARGIN_QA_OUTPUT: test-results/engineering-home
       - name: Retain browser verification report
         if: always()
         uses: actions/upload-artifact@v5

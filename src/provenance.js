@@ -1,3 +1,4 @@
+import {assertMissionArrival,appendMissionConstraints} from './mission-constraints.js';
 /** Verifies bytes before using a calculation release. Uploaded code is never executed. */
 export const validDigest=value=>typeof value==='string'&&/^[a-f0-9]{64}$/.test(value);
 export async function sha256(value){
@@ -50,6 +51,7 @@ export async function inspectRecord(record,current){
   if(!record.settings||!Number.isFinite(Date.parse(record.settings.start))||!record.selectedSiteId)throw new Error('The saved scenario is incomplete.');
   if(record.schemaVersion===3&&!['buildId','algorithmSha256','datasetSha256'].every(key=>validDigest(record.provenance?.[key])))
     throw new Error('The saved version provenance is incomplete.');
+  assertMissionArrival(record.settings,record.missionConstraints);
   const campaign=record.campaign||({'12':'dec','03':'mar','06':'jun'}[record.settings.start.slice(5,7)]);
   if(!current.identity.datasets[campaign])throw new Error('The saved campaign is unavailable.');
   const differences=versionDifferences(record.provenance,current,campaign);
@@ -71,6 +73,7 @@ export async function inspectRecord(record,current){
 export function scenarioURL(record,base,{current=false}={}){
   const url=new URL('navigator.html',base),p=url.searchParams,s=record.settings;
   const campaign=record.campaign||({'12':'dec','03':'mar','06':'jun'}[s.start.slice(5,7)]);
+  appendMissionConstraints(p,record.missionConstraints);
   p.set('campaign',campaign);p.set('site',record.selectedSiteId);p.set('patch',record.selectedPoint?.id||'e+0-n+0');
   p.set('lang',record.language==='zh'?'zh':'en');
   for(const key of ['start','durationHours','maxDarkHours','maxCommGapHours','minJointHours','clearanceDeg','observerHeightM'])if(s[key]!==undefined)p.set(key,String(s[key]));

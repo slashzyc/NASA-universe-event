@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-13T06:58:06.631Z",
+  "generatedAt": "2026-11-13T17:22:35.897Z",
   "analysisSha256": "981e49c08ae6457450c5e0fbb8d9c743521dbb91ed6eeb2cbb01b3e132ea5fcd",
   "rule": "Retain center-pass, 8/9 scenarios before the fixed A/B structural choice. No human outcomes were available.",
   "evaluatedCount": 861,

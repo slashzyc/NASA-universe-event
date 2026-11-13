@@ -1,5 +1,8 @@
 # Footprint margins and deterministic sensitivity / 周边余量与确定性压力测试
 
+> 历史验收与科学证据：以下结论仅对应文中记录的版本、参数和时间。当前完整入口为 [云端 LunaMargin](https://lunamargin-slashzyc.laceysquirrel4.chatgpt.site/?lang=zh)；当前能力与本轮状态见 [工程判断验收](ENGINEERING_ACCEPTANCE.md)。本页不代表当前所有查询都已复核。
+
+
 Reproduced 2026-11-13T05:51:39.233Z. This report addresses M03 using the unchanged published June 2027 bundle; it is separate from the real five-minute M04 audit.
 
 ## Conditions / 复现条件

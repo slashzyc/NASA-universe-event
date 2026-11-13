@@ -6,15 +6,18 @@ import {fileURLToPath} from 'node:url';
 import {createService} from '../server/index.mjs';
 import {digest} from '../server/calculation.mjs';
 import {analyzeSite} from '../src/analysis.js';
+import {buildRecordValidation} from '../src/record-validation.js';
 
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const staticRoot=path.join(root,'dist');
+const release=JSON.parse(await readFile(path.join(staticRoot,'build-info.json'),'utf8'));
 const request={campaign:'jun',siteId:'ridge-6',patchId:'e+0-n+0',language:'zh',settings:{start:'2027-06-02T06:00:00Z',durationHours:168,maxDarkHours:24,maxCommGapHours:24,minJointHours:24,clearanceDeg:0,observerHeightM:2}};
 test('persistent service: real computation, complete evidence, isolated visitors, restart and readonly shares',async t=>{
   await mkdir(path.join(root,'tmp'),{recursive:true});const dataDir=await mkdtemp(path.join(root,'tmp','server-test-'));
   let service=await createService({root,staticRoot,dataDir}),address=await service.listen(0),base=`http://127.0.0.1:${address.port}`;
   let cookie='',otherCookie='',analysis,task,share;
   async function api(route,method='GET',payload,other=false,extra={}){
+    if(route==='/api/analyses'&&payload)payload={clientRelease:{apiVersion:2,buildId:release.buildId},buildId:release.buildId,algorithmSha256:release.identity.algorithm.sha256,datasetSha256:release.identity.datasets[payload.campaign]?.sha256,...payload};
     const headers={'Content-Type':'application/json',...extra};const jar=other?otherCookie:cookie;if(jar)headers.Cookie=jar;
     const response=await fetch(base+route,{method,headers,body:payload===undefined?undefined:JSON.stringify(payload)});
     const incoming=response.headers.get('set-cookie');if(incoming){if(other)otherCookie=incoming.split(';')[0];else cookie=incoming.split(';')[0];}
@@ -32,11 +35,28 @@ test('persistent service: real computation, complete evidence, isolated visitors
       assert.equal(digest(analysis.record.inputSnapshot.text),analysis.record.provenance.datasetSha256);assert.equal(digest(analysis.record.algorithmSnapshot.text),analysis.record.provenance.algorithmSha256);assert.equal(digest(JSON.stringify(analysis.record)),analysis.recordSha256);
       assert.equal(service.db.prepare('SELECT record_sha256 FROM analyses WHERE id=?').get(analysis.id).record_sha256,analysis.recordSha256);
       assert.equal(analysis.record.server.storage,'SQLite');assert.notEqual(analysis.record.sourceDataTime,analysis.record.calculatedAt);
+      const catalog=JSON.parse(await readFile(path.join(staticRoot,release.identity.resources['data/science-validation-summary.json'].snapshot),'utf8'));
+      assert.deepEqual(analysis.record.validationEvidence,buildRecordValidation(analysis.record,release,catalog));
       const shareURL=new URL(analysis.record.shareURL);assert.equal(shareURL.searchParams.get('maxDarkHours'),'24');assert.equal(shareURL.searchParams.get('observerHeightM'),'2');
     });
     await t.test('real changed threshold yields changed decision without changing stored evidence',async()=>{
       const response=await api('/api/analyses','POST',{...request,settings:{...request.settings,maxDarkHours:1}});assert.equal(response.status,201);assert.equal(response.value.record.selectedPoint.result.centerFeasible,false);assert.equal(analysis.record.selectedPoint.result.centerFeasible,true);
       const original=await api(`/api/analyses/${analysis.id}`);assert.equal(original.value.recordSha256,analysis.recordSha256);
+    });
+    await t.test('interface and calculation fingerprints must match before any record is written',async()=>{
+      const count=()=>service.db.prepare('SELECT count(*) AS n FROM analyses').get().n,before=count();
+      for(const [changes,code]of [[{clientRelease:{apiVersion:2,buildId:'0'.repeat(64)}},'client-release-mismatch'],[{algorithmSha256:'0'.repeat(64)},'calculation-release-mismatch'],[{datasetSha256:'0'.repeat(64)},'calculation-release-mismatch'],[{buildId:undefined},'calculation-version-required']]){
+        const rejected=await api('/api/analyses','POST',{...request,...changes},true);assert.equal(rejected.status,409);assert.equal(rejected.value.error.code,code);
+      }
+      assert.equal(count(),before);
+    });
+    await t.test('mission arrival bounds and preference persist in record, database and share conditions',async()=>{
+      const missionConstraints={schemaVersion:1,referenceStart:'2027-06-01T06:00:00Z',maxDelayHours:24,rankingPreference:'margin'};
+      const response=await api('/api/analyses','POST',{...request,missionConstraints},true);assert.equal(response.status,201);
+      const record=response.value.record;assert.equal(record.missionConstraints.latestArrival,'2027-06-02T06:00:00.000Z');assert.equal(record.missionConstraints.rankingPreference,'margin');assert.match(record.searchRule,/not proof of an executed search/);assert.match(record.searchRule,/prefer the greatest/);
+      assert.deepEqual(JSON.parse(service.db.prepare('SELECT parameters_json FROM analyses WHERE id=?').get(response.value.id).parameters_json).missionConstraints,record.missionConstraints);
+      assert.equal(new URL(record.shareURL).searchParams.get('maxDelayHours'),'24');
+      const rejected=await api('/api/analyses','POST',{...request,missionConstraints:{...missionConstraints,maxDelayHours:23}},true);assert.equal(rejected.status,422);assert.equal(rejected.value.error.code,'invalid-mission-constraints');
     });
     await t.test('unsupported dates, locations, heights and points never return neighboring results',async()=>{
       for(const input of [{...request,siteId:'tranquility'},{...request,patchId:'e+50-n+50'},{...request,lat:0,lon:0},{...request,settings:{...request.settings,observerHeightM:5}},{...request,settings:{...request.settings,start:'2027-08-01T00:00:00Z'}},{...request,settings:{...request.settings,durationHours:100000}},{...request,campaign:'unknown'}]){
@@ -53,7 +73,7 @@ test('persistent service: real computation, complete evidence, isolated visitors
     await t.test('submitted source code cannot replace the trusted release',async()=>{
       const response=await api('/api/analyses','POST',{...request,algorithmSnapshot:{text:'throw new Error("UNTRUSTED")'},algorithm:'untrusted'});
       assert.equal(response.status,201);assert.equal(response.value.record.provenance.algorithmSha256,analysis.record.provenance.algorithmSha256);
-      assert.equal((await api('/api/analyses','POST',{...request,buildId:'../../malicious'})).status,422);
+      assert.equal((await api('/api/analyses','POST',{...request,buildId:'../../malicious'})).status,409);
     });
     await t.test('save, list, rename and duplicate keep immutable calculation intact',async()=>{
       const saved=await api('/api/tasks','POST',{analysisId:analysis.id,name:'南极任务 A'});assert.equal(saved.status,201);task=saved.value.task;

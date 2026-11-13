@@ -1,5 +1,8 @@
 # LunaMargin 修改清单逐项核对
 
+> 历史验收与科学证据：以下结论仅对应文中记录的版本、参数和时间。当前完整入口为 [云端 LunaMargin](https://lunamargin-slashzyc.laceysquirrel4.chatgpt.site/?lang=zh)；当前能力与本轮状态见 [工程判断验收](ENGINEERING_ACCEPTANCE.md)。本页不代表当前所有查询都已复核。
+
+
 核对日期：2026-11-13（America/New_York）。依据用户提供的《LunaMargin_修改清单与验收标准.pdf》（同日评审版）。本记录逐项对照该文件的验收要求、当前代码及保存的运行证据；不将自动测试、材料准备或发布应用等同于全部验收完成。
 
 **本轮已完成可执行的核心修复和科学复核；M06 真人测试仍为 0/5，M07 新区域属于后续范围。2026 正式提交格式仍为 UNCONFIRMED。** 月球封面和已有视觉体系继续保留。

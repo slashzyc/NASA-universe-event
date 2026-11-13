@@ -9,7 +9,7 @@ function inverse(v,yaw,pitch){const a=Math.cos(pitch),b=Math.sin(pitch),y=a*v[1]
 export function createMoonExplorer(host,{language=()=> 'en',onSelect=()=>{}}={}){
   const $=s=>host.querySelector(s),tr=(en,zh)=>language()==='zh'?zh:en;
   let sites=[],selected=null,patchId='e+0-n+0',level='global',browsingUnsupported=false,yaw=-.3,pitch=-.37,zoom=1,auto=!matchMedia('(prefers-reduced-motion:reduce)').matches,active=false,gl=null,textureReady=false,last=0,visible=true,drawCount=0,slowFrames=0;
-  let messagePair=null,sceneActive=true;
+  let messagePair=null,sceneActive=true,capabilities=null;
   const canvas=$('canvas'),marker=$('#moon-region-marker'),points=new Map();
   host.dataset.renderMode='loading';
   const observer=new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;});observer.observe(host);
@@ -31,7 +31,7 @@ export function createMoonExplorer(host,{language=()=> 'en',onSelect=()=>{}}={})
     $('#moon-art-note').textContent=tr('Visual light only · not the mission Sun','美术光照 · 与任务日期计算光照分开');
     $('#moon-gesture').textContent=active?tr('Drag · scroll to zoom · Esc releases scroll','拖动旋转 · 滚轮缩放 · Esc 释放滚动'):tr('Drag to explore · click to activate zoom','拖动探索 · 点击后启用缩放');
     $('#moon-map-scale').textContent=tr('Nearby research locations · true relative scale','相邻研究点 · 真实相对比例');
-    $('#moon-coverage').textContent=tr('Supported data: Dec 2026 / Mar & Jun 2027 · 2 m · 5 m terrain pixels · 30 min ephemerides. More dates can be requested in the workspace.','数据覆盖：2026 年 12 月 / 2027 年 3、6 月 · 2 米高度 · 地形像素 5 米 · 星历每 30 分钟。工作台可申请新日期。');
+    $('#moon-coverage').textContent=tr('Available campaigns: Dec 2026 / Mar & Jun 2027 · 2 m · 5 m terrain pixels · 30 min ephemerides. The full mission must fit the selected coverage. ','已有数据：2026 年 12 月 / 2027 年 3、6 月 · 2 米高度 · 地形像素 5 米 · 星历每 30 分钟。整段任务必须位于所选覆盖内。')+(capabilities?.newDates===true?tr('This service accepts new-date requests within its declared limits.','此服务可在声明范围内申请新日期。'):capabilities?tr('This entry does not accept new-date requests.','当前入口未开放新日期申请。'):tr('Service capabilities are not confirmed; existing verified data remain available.','服务能力尚未确认，仍可使用已有验证数据。'));
     $('#moon-region-marker').setAttribute('aria-label',tr('Connecting Ridge: three supported research locations. Open the south-pole map.','连接脊：三个支持计算的研究位置。打开南极区域地图。'));
     $('#moon-region-marker').title=tr('Connecting Ridge · supported data','连接脊 · 有可计算数据');
     $('#moon-back-region').textContent=tr('← Regional map','← 区域地图');
@@ -108,5 +108,5 @@ export function createMoonExplorer(host,{language=()=> 'en',onSelect=()=>{}}={})
   }
   try{initGL();}catch{fallback();}
   labels();
-  return {setData(bundle){sites=bundle.sites;selected=sites.find(s=>s.id===selected?.id)||sites.find(s=>s.id==='ridge-6')||sites[0];labels();renderRegion();},setLanguage:labels,selectSite,setSelection,getSelection:selection};
+  return {setData(bundle){sites=bundle.sites;selected=sites.find(s=>s.id===selected?.id)||sites.find(s=>s.id==='ridge-6')||sites[0];labels();renderRegion();},setCapabilities(value){capabilities=value&&typeof value==='object'?value:null;labels();},setLanguage:labels,selectSite,setSelection,getSelection:selection};
 }

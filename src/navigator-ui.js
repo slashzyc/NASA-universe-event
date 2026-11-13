@@ -85,11 +85,11 @@ export function renderBeginnerView(state) {
   if (focusPatch && restorePatch) $('point-selector').querySelector(`[data-patch="${focusPatch}"]`)?.focus({preventScroll:true});
 }
 
-export function renderDraft({lang,draft,applied,loading}) {
+export function renderDraft({lang,draft,applied,loading,extraDirty=false}) {
   if (!$('preset-buttons')) return;
   const t = (en,zh) => lang==='zh' ? zh : en;
   const fields = ['start','durationHours','maxDarkHours','maxCommGapHours','minJointHours','clearanceDeg'];
-  const dirty = Boolean(applied.start) && fields.some(key => key==='start'?Date.parse(draft[key])!==Date.parse(applied[key]):draft[key] !== applied[key]);
+  const dirty = extraDirty || Boolean(applied.start) && fields.some(key => key==='start'?Date.parse(draft[key])!==Date.parse(applied[key]):draft[key] !== applied[key]);
   const matched = Object.keys(presets).find(key => Object.entries(presets[key]).every(([field,value])=>draft[field]===value));
   const previousFocus = document.activeElement?.dataset.preset;
   $('preset-buttons').innerHTML = [['explorer',t('7-day exploration','7 天探索'),t('24 h limits','24 小时条件')],['short',t('3-day visit','3 天短访'),t('12 h limits','12 小时条件')],['custom',t('Set my own','自己设置'),t('Adjust the limits','调整任务条件')]].map(([id,title,caption])=>`<button type="button" class="preset-button" data-preset="${id}" aria-pressed="${(matched||'custom')===id}" ${loading?'disabled':''}><strong>${title}</strong><span>${caption}</span></button>`).join('');

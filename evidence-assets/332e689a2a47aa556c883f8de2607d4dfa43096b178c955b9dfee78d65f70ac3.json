@@ -1,0 +1,150 @@
+{
+  "schemaVersion": 1,
+  "status": "answers-only-not-observations",
+  "caseFileSha256": "24c664f3f74bc9a4453436a121104cf3c5d9d35148fdcc77218a08d1ef61d659",
+  "analysisSha256": "981e49c08ae6457450c5e0fbb8d9c743521dbb91ed6eeb2cbb01b3e132ea5fcd",
+  "cases": [
+    {
+      "caseId": "A",
+      "conditions": {
+        "schemaVersion": 1,
+        "referenceStart": "2027-06-21T18:00:00.000Z",
+        "latestArrival": "2027-06-22T06:00:00.000Z",
+        "maxDelayHours": 12,
+        "rankingPreference": "earliest"
+      },
+      "correctAnswers": {
+        "task1": {
+          "failedPoints": [
+            {
+              "id": "e-25-n-25",
+              "reasons": [
+                {
+                  "code": "dark-gap",
+                  "message": "The longest modeled darkness exceeds the mission limit.",
+                  "actual": 29.74917733235677,
+                  "limit": 24
+                }
+              ]
+            }
+          ],
+          "centerPasses": true
+        },
+        "task2": {
+          "weakest": {
+            "pointId": "e+25-n-25",
+            "metric": "earthGapHours",
+            "hours": 11.475419929877388
+          },
+          "meaning": "Positive is remaining threshold allowance; negative exceeds a user limit. Nine samples are not a probability."
+        },
+        "task3": {
+          "planId": "A1",
+          "siteId": "ridge-1",
+          "start": "2027-06-21T18:00:00.000Z",
+          "delayHours": 0,
+          "latestArrival": "2027-06-22T06:00:00.000Z",
+          "rankingPreference": "earliest",
+          "acceptableRule": "All nine pass, full data coverage, arrival no later than deadline; earliest arrival, then weakest margin."
+        },
+        "task4": {
+          "planId": "A1",
+          "pointId": "e+25-n-25",
+          "requiredFields": [
+            "siteId",
+            "pointId",
+            "start",
+            "durationHours",
+            "maxDarkHours",
+            "maxCommGapHours",
+            "minJointHours",
+            "observerHeightM",
+            "missionConstraints",
+            "metrics",
+            "input and algorithm versions"
+          ],
+          "mustReopen": true
+        },
+        "task5": {
+          "minimumRequired": [
+            "No independent dense verification for this exact whole footprint and interval",
+            "Angular stress is not a measured terrain error distribution",
+            "Geometric visibility is not electrical power, a working ground-station link or landing safety"
+          ],
+          "acceptEquivalentWords": true
+        }
+      }
+    },
+    {
+      "caseId": "B",
+      "conditions": {
+        "schemaVersion": 1,
+        "referenceStart": "2027-03-04T18:00:00.000Z",
+        "latestArrival": "2027-03-08T00:00:00.000Z",
+        "maxDelayHours": 78,
+        "rankingPreference": "earliest"
+      },
+      "correctAnswers": {
+        "task1": {
+          "failedPoints": [
+            {
+              "id": "e+25-n-25",
+              "reasons": [
+                {
+                  "code": "dark-gap",
+                  "message": "The longest modeled darkness exceeds the mission limit.",
+                  "actual": 28.791771393975154,
+                  "limit": 24
+                }
+              ]
+            }
+          ],
+          "centerPasses": true
+        },
+        "task2": {
+          "weakest": {
+            "pointId": "e+25-n-25",
+            "metric": "darknessHours",
+            "hours": 4.162514870402017
+          },
+          "meaning": "Positive is remaining threshold allowance; negative exceeds a user limit. Nine samples are not a probability."
+        },
+        "task3": {
+          "planId": "B1",
+          "siteId": "ridge-4",
+          "start": "2027-03-07T12:00:00.000Z",
+          "delayHours": 66,
+          "latestArrival": "2027-03-08T00:00:00.000Z",
+          "rankingPreference": "earliest",
+          "acceptableRule": "All nine pass, full data coverage, arrival no later than deadline; earliest arrival, then weakest margin."
+        },
+        "task4": {
+          "planId": "B1",
+          "pointId": "e+25-n-25",
+          "requiredFields": [
+            "siteId",
+            "pointId",
+            "start",
+            "durationHours",
+            "maxDarkHours",
+            "maxCommGapHours",
+            "minJointHours",
+            "observerHeightM",
+            "missionConstraints",
+            "metrics",
+            "input and algorithm versions"
+          ],
+          "mustReopen": true
+        },
+        "task5": {
+          "minimumRequired": [
+            "No independent dense verification for this exact whole footprint and interval",
+            "Angular stress is not a measured terrain error distribution",
+            "Geometric visibility is not electrical power, a working ground-station link or landing safety"
+          ],
+          "acceptEquivalentWords": true
+        }
+      }
+    }
+  ]
+}

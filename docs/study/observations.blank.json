@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "status": "pending-participants",
+  "participantsTested": 0,
+  "interviewsCompleted": 0,
+  "participants": [],
+  "interview": null,
+  "releaseFreeze": null,
+  "retention": "No names or contacts in the public repository. Record consent and quotation permission separately.",
+  "participantTemplate": {
+    "anonymousId": null,
+    "dateUTC": null,
+    "order": null,
+    "device": null,
+    "language": null,
+    "consent": null,
+    "quotationPermission": null,
+    "sessions": [],
+    "events": [],
+    "withdrawal": null
+  },
+  "taskTemplate": {
+    "condition": null,
+    "caseId": null,
+    "taskNumber": null,
+    "startedAtUTC": null,
+    "endedAtUTC": null,
+    "elapsedSeconds": null,
+    "firstAnswer": null,
+    "criterionScores": null,
+    "completed": null,
+    "assistanceCount": null,
+    "prompts": [],
+    "misunderstandings": [],
+    "verbatimQuote": null,
+    "timeout": null,
+    "aborted": null,
+    "technicalFailure": null,
+    "artifacts": []
+  },
+  "interviewQuestions": [
+    "Primary users and concept-design stage",
+    "Are the practice limits meaningful; what source supports actual limits?",
+    "Latest arrival and ranking preference",
+    "Meaning of nine samples and validation status",
+    "Can the exported record support review?"
+  ],
+  "obstacleRetestTemplate": {
+    "observationId": null,
+    "participantId": null,
+    "obstacle": null,
+    "change": null,
+    "retestRelease": null,
+    "retestDate": null,
+    "result": null
+  }
+}

@@ -1,10 +1,12 @@
 import {readManifest,verifiedText,importVerifiedAlgorithm} from './provenance.js';
 import {reasonLabel} from './evidence.js';
+import {createEngineeringCase} from './engineering-case.js';
+import {defaultMissionConstraints,normalizeMissionConstraints,assertMissionArrival} from './mission-constraints.js';
 const HOUR=3600000,esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const n=v=>Number.isFinite(v)?v.toFixed(2):'—';
 export function createLandingInteractions(api){
   const $=id=>api.root().querySelector('#'+id),q=s=>api.root().querySelector(s),t=(en,zh)=>api.language()==='zh'?zh:en;
-  let time=0,step=0,miniContext=null,miniResult=null,revision=0,lastTrigger=null;
+  let time=0,step=0,miniContext=null,miniResult=null,revision=0,lastTrigger=null,engineering=null;
   const cached=new Map([['jun:'+api.release.buildId,Promise.resolve({data:api.bundle,release:api.release,analyze:api.analyzeSite})]]);
   const insert=(tag,id,cls,where,position='after')=>{const x=document.createElement(tag);x.id=id;x.className=cls;where[position](x);return x;};
   insert('p','home-task-summary','home-task-summary',q('.hero-actions'));
@@ -28,7 +30,7 @@ export function createLandingInteractions(api){
   const sections=['moon-explorer','mission','experience','science'];
   if('IntersectionObserver'in window){const observer=new IntersectionObserver(entries=>{const active=entries.filter(e=>e.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];if(!active)return;const index=sections.indexOf(active.target.id);$('section-picker').value=active.target.id;progress.dataset.section=String(index);api.root().querySelectorAll('.desktop-nav a').forEach(a=>a.setAttribute('aria-current',a.hash==='#'+active.target.id?'location':'false'));},{threshold:[.1,.3,.6]});sections.forEach(id=>observer.observe($(id)));}
   caseScope.innerHTML='<div><strong id="case-scope-title"></strong><p id="case-scope-text"></p></div><button id="adopt-case" type="button" class="case-adopt"></button>';
-  $('adopt-case').onclick=()=>{const c=api.getCase();api.setMission({campaign:'jun',siteId:c.site.id,patchId:c.point.id,settings:{...c.settings},buildId:api.release.buildId});refreshMission();$('home-task-summary').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth',block:'center'});};
+  $('adopt-case').onclick=()=>{const c=api.getCase();api.setMission({campaign:'jun',siteId:c.site.id,patchId:c.point.id,settings:{...c.settings},missionConstraints:defaultMissionConstraints(c.settings.start),buildId:api.release.buildId});refreshMission();$('home-task-summary').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth',block:'center'});};
   paired.innerHTML='<div class="case-control"><label for="case-dark-limit" id="case-limit-label"></label><input id="case-dark-limit" type="range" min="0" max="72" value="24"><output id="case-limit-output"></output></div><div class="case-pair" id="case-pair"></div><div class="case-time"><label id="case-time-label" for="case-time"></label><input id="case-time" type="range" min="0" value="0"><time id="case-time-value"></time><p id="case-now" aria-live="polite"></p></div><p id="case-explanation"></p>';
   $('case-dark-limit').oninput=e=>{api.updateCaseLimit(Number(e.target.value));};
   $('case-time').oninput=e=>{time=Number(e.target.value);renderCaseTime();};
@@ -38,12 +40,13 @@ export function createLandingInteractions(api){
   $('mini-next').onclick=()=>setStep(Math.min(2,step+1));$('mini-why').onclick=()=>openEvidence('mini',$('mini-why'));
   $('mini-site').onchange=e=>{api.setMission({...api.getMission(),siteId:e.target.value,patchId:'e+0-n+0',unsupported:false});refreshMission();};
   $('mini-point').onchange=e=>{api.setMission({...api.getMission(),patchId:e.target.value});refreshMission();};
-  $('mini-date').onchange=e=>{if(!e.target.checkValidity()){e.target.reportValidity();return;}const m=api.getMission();api.setMission({...m,settings:{...m.settings,start:e.target.value+'T'+m.settings.start.slice(11)}});refreshMission();};
+  $('mini-date').onchange=e=>{if(!e.target.checkValidity()){e.target.reportValidity();return;}const m=api.getMission(),start=e.target.value+'T'+m.settings.start.slice(11),c=normalizeMissionConstraints(m.missionConstraints,{start:m.settings.start}),shift=Date.parse(start)-Date.parse(c.referenceStart);const missionConstraints={...c,referenceStart:start,latestArrival:c.latestArrival?new Date(Date.parse(c.latestArrival)+shift).toISOString():null};api.setMission({...m,missionConstraints,settings:{...m.settings,start}});refreshMission();};
   $('mini-dark').oninput=e=>{const m=api.getMission();api.setMission({...m,settings:{...m.settings,maxDarkHours:Number(e.target.value)}});refreshMission();};
   footer.innerHTML='<p id="continue-state"></p><button id="continue-evidence" type="button"></button>';$('continue-evidence').onclick=()=>openEvidence('mini',$('continue-evidence'));
   function setStep(next){step=next;for(let i=0;i<3;i++){const b=$('mini-tab-'+i);b.setAttribute('aria-selected',String(i===step));b.tabIndex=i===step?0:-1;b.setAttribute('aria-controls','mini-panel-'+i);$('mini-panel-'+i).hidden=i!==step;}$('mini-next').hidden=step===2;}
   function pointLabel(p){if(!p.dxM&&!p.dyM)return t('Center','中心');return `${p.dxM>0?t('East','东'):p.dxM<0?t('West','西'):''}${p.dyM>0?t('North','北'):p.dyM<0?t('South','南'):''} · ${p.dxM}/${p.dyM} m`;}
   function setLanguage(){
+    engineering?.setLanguage();
     $('close-home-evidence').setAttribute('aria-label',t('Close evidence','关闭依据面板'));$('home-help').textContent=t('Help with this mission ↗','了解如何完成任务 ↗');
     $('section-picker-label').textContent=t('EXPLORE','探索章节');[t('Moon & location','月球与地点'),t('25 m case','25 米案例'),t('Try a mission','试做任务'),t('Science & evidence','科学依据')].forEach((v,i)=>$('section-picker').options[i].textContent=v);$('progress-next').textContent=t('Choose a research point ↓','选择研究点 ↓');
     $('case-scope-title').textContent=t('FIXED TEACHING CASE / ROI 6','固定教学案例 / 连接脊 6');$('case-scope-text').textContent=t('June 2, 2027 · 06:00 UTC · 7 days · 2 m. This experiment stays separate until you adopt it.','2027 年 6 月 2 日 · 06:00 UTC · 7 天 · 2 米。此案例独立演示，点击采用后才成为当前任务。');$('adopt-case').textContent=t('Use this case as my mission ↗','采用此案例作为当前任务 ↗');
@@ -73,10 +76,10 @@ export function createLandingInteractions(api){
       const start=Date.parse(m.settings.start),day=24*HOUR,utcTime=((start%day)+day)%day,coverageStart=Date.parse(ctx.data.start),coverageStop=Date.parse(ctx.data.stop),end=start+m.settings.durationHours*HOUR;
       // The date control preserves UTC time of day; its last day must preserve full mission coverage too.
       $('mini-date').min=new Date(Math.ceil((coverageStart-utcTime)/day)*day).toISOString().slice(0,10);$('mini-date').max=new Date(Math.floor((coverageStop-m.settings.durationHours*HOUR-utcTime)/day)*day).toISOString().slice(0,10);$('mini-date').value=m.settings.start.slice(0,10);$('mini-dark').max=Math.max(72,m.settings.maxDarkHours);$('mini-dark').value=m.settings.maxDarkHours;$('mini-dark-value').textContent=m.settings.maxDarkHours+' h';
-      $('mini-preserved').textContent=t('Other conditions stay fixed: ','其余条件保持不变：')+`${m.settings.durationHours} h · ${m.settings.observerHeightM} m · ${t('Earth gap','对地空窗')} ≤ ${m.settings.maxCommGapHours} h · ${t('joint view','共同可见')} ≥ ${m.settings.minJointHours} h · ${m.settings.start.slice(11,16)} UTC`;
+      $('mini-preserved').textContent=t('Other conditions stay fixed: ','其余条件保持不变：')+`${m.settings.durationHours} h · ${m.settings.observerHeightM} m · ${t('Earth gap','对地空窗')} ≤ ${m.settings.maxCommGapHours} h · ${t('joint view','共同可见')} ≥ ${m.settings.minJointHours} h · ${m.settings.start.slice(11,16)} UTC`+t(' · Practice limits. Changing this date sets a new planned arrival; the waiting budget is preserved.',' · 练习条件。修改此日期会重设计划抵达起点，保留等待预算。')+t(' Maximum delay: ',' 最大允许推迟：')+(m.missionConstraints?.maxDelayHours??t('no additional deadline','无额外截止'))+(m.missionConstraints?.maxDelayHours!==null?' h':'');
       if(!Number.isFinite(start)||!Number.isFinite(end)||start<coverageStart||end>coverageStop)throw new Error(t('The full mission must fit within verified data coverage. Choose an available date.','完整任务必须位于已验证的数据覆盖内，请选择可用日期。'));
       if(m.settings.observerHeightM!==ctx.data.observerHeightM)throw new Error(t('This height has no matched terrain and ephemerides. Only the verified 2 m model is available.','此高度没有匹配的地形与星历，目前只支持已验证的 2 米模型。'));
-      const result=ctx.analyze({...site,...point,samples:point.samples||site.samples,patches:[]},m.settings);if(result.status!=='complete')throw new Error(t('The mission has incomplete data; no complete result can be presented.','任务数据覆盖不完整，无法提供完整计算结果。'));miniResult={result,site,point,mission:structuredClone(m),ctx};
+      assertMissionArrival(m.settings,m.missionConstraints);const result=ctx.analyze({...site,...point,samples:point.samples||site.samples,patches:[]},m.settings);if(result.status!=='complete')throw new Error(t('The mission has incomplete data; no complete result can be presented.','任务数据覆盖不完整，无法提供完整计算结果。'));miniResult={result,site,point,mission:structuredClone(m),ctx};
       $('mini-result').innerHTML=`<p class="mini-verdict">${result.status!=='complete'?t('Coverage is incomplete','数据覆盖不完整'):result.centerFeasible?t('This point meets your limits.','这个点满足所设条件。'):t('This point misses a limit.','这个点有条件未满足。')}</p><div class="mini-metrics"><span>${t('Longest darkness','最长断光')}<strong>${n(result.metrics.longestDarkHours)} h</strong></span><span>${t('Earth gap','对地空窗')}<strong>${n(result.metrics.longestCommGapHours)} h</strong></span><span>${t('Total joint view','累计共同可见')}<strong>${n(result.metrics.jointHours)} h</strong></span></div><p>${result.reasons.length?result.reasons.map(r=>esc(reasonLabel(r,api.language()))).join(' '):t('All three thresholds are satisfied at this sampled point. Check the surrounding nine points in the workspace.','此取样点符合三项门槛；进入工作台后继续核查周边九点。')}</p>`;
       $('mini-status').textContent=t('Calculated using the verified NASA data and original algorithm.','已使用校验后的 NASA 数据与原算法计算。');$('mini-continue').removeAttribute('aria-disabled');$('mini-continue').href=api.getURL();updateEntryHints(api.getURL());
     }catch(e){if(request!==revision)return;$('mini-status').textContent=e.message;$('mini-result').textContent=t('No replacement result was generated. Choose an available position and date.','没有用其他数据替代。请选择有覆盖的位置与日期。');$('mini-continue').setAttribute('aria-disabled','true');miniResult=null;}
@@ -91,6 +94,7 @@ export function createLandingInteractions(api){
     if(fallback){const notice=document.createElement('p');notice.className='evidence-callout';notice.textContent=t('Illustration only: the fixed ROI 6 teaching case, not a result for your current mission. Your current mission has no verified result available.','此处仅以固定的连接脊 6 教学案例说明方法，不是当前任务的计算结果。当前任务尚无可用的已验证结果。');$('home-evidence-content').prepend(notice);}
     if(!evidence.open)evidence.showModal();$('close-home-evidence').focus({preventScroll:true});
   }
+  engineering=createEngineeringCase({...api,refreshMission});
   window.lunaMarginLanding={getMission:api.getMission,getMiniResult:()=>miniResult,getCase:api.getCase};
   return{setLanguage,renderCase,refreshMission,updateEntryHints};
 }

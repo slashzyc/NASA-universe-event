@@ -2,7 +2,7 @@
 
 **Every landing needs a little margin.**
 
-**[Open the online workspace / 打开在线工作台](https://lunamargin-slashzyc.laceysquirrel4.chatgpt.site/?lang=zh)** · **[GitHub Pages / 浏览器与设备文件模式](https://slashzyc.github.io/NASA-universe-event/?lang=zh)**
+**[Open the online workspace / 打开在线工作台](https://lunamargin-slashzyc.laceysquirrel4.chatgpt.site/?lang=zh)** · **[GitHub Pages / 浏览器与设备文件模式](https://slashzyc.github.io/NASA-universe-event/?lang=zh)** · **[36-second public walkthrough / 36秒公网操作实录](https://slashzyc.github.io/NASA-universe-event/docs/media/public-flow.webm)**
 
 Rotate the Moon, choose a verified research point, adjust a real mission, understand the cause of a failed limit, compare alternatives and retain the exact evidence. The online workspace uses **Cloudflare D1 + R2** for saved missions and read-only shares. GitHub Pages independently supports genuine browser calculation, comparison, full evidence-file saving and reopening. The local **Node.js + SQLite** service retains the controlled new-date pipeline; cloud new-date acquisition is not yet deployed. [This round’s verification and recordings](docs/INTERACTION_ACCEPTANCE.md) · [Cloud architecture](docs/CLOUD_SERVICE.md).
 

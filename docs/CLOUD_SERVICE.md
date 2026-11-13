@@ -4,7 +4,7 @@
 
 ## 地址与能力
 
-完整云端入口由本项目既有 Sites 地址提供；实际公开部署结果及公开地址验收另记录于本轮交付文档。这里的源码和本地合同测试本身不表示已经成功上线。
+完整云端入口：[LunaMargin 在线工作台](https://lunamargin-slashzyc.laceysquirrel4.chatgpt.site/?lang=zh)。本轮已完成实际公开接口 9/9、完整浏览器流程 15/15、失败恢复 8/8 和任务界面 12/12；详见 [全站交互验收](INTERACTION_ACCEPTANCE.md)。本地合同测试仍单独列出，不替代公开证据。
 
 - `/service-config.json` 返回 `service:true`、`serviceType:cloud-d1`，以及明确的能力字段。
 - 云版已实现的能力：既有三组 NASA 数据的覆盖查询、真实算法计算、服务端记录、保存任务、重命名、复制、删除、原结果恢复、只读分享。

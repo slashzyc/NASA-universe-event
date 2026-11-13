@@ -1,0 +1,32 @@
+{
+  "recordedAt": "2026-11-13T09:20:09.556Z",
+  "video": "public-device-flow.webm",
+  "durationMs": 9560,
+  "timingMethod": "Actual automated browser operations at the public addresses. Captions use observed wall-clock event times aligned to recorded clip durations. Separate owner and recipient browser clips are joined in operation order; no UI is simulated.",
+  "chapters": [
+    {
+      "startMs": 115,
+      "endMs": 4777,
+      "en": "Open GitHub Pages in a separate fresh browser: real browser calculation and device saving.",
+      "zh": "在另一全新浏览器打开GitHub Pages，使用真实浏览器计算与设备文件保存。"
+    },
+    {
+      "startMs": 4777,
+      "endMs": 5006,
+      "en": "Name the mission and download its complete evidence file.",
+      "zh": "为任务命名并下载完整证据文件。"
+    },
+    {
+      "startMs": 5006,
+      "endMs": 7282,
+      "en": "Reload GitHub Pages and reopen the saved file through My missions.",
+      "zh": "刷新GitHub Pages，通过我的任务重新打开设备文件。"
+    },
+    {
+      "startMs": 7282,
+      "endMs": 9560,
+      "en": "Export the reopened evidence and verify identical JSON and consistent HTML.",
+      "zh": "导出重新打开的证据，核对JSON完全一致且HTML内容一致。"
+    }
+  ]
+}

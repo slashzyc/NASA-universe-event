@@ -1,0 +1,115 @@
+{
+  "checkedAt": "2026-11-13T09:20:20.447Z",
+  "cloud": "https://lunamargin-slashzyc.laceysquirrel4.chatgpt.site/",
+  "githubPages": "https://slashzyc.github.io/NASA-universe-event/",
+  "mode": "Real public HTTPS UI; no mocked scientific/API responses. Cloud persistence checked by refresh and separate HTTP reopening, not by restarting the hosted platform. Browser caches begin empty; CDN/edge caches are uncontrolled.",
+  "participants": "Automated Playwright/Chromium sessions only; no human usability participant is claimed.",
+  "checks": [
+    {
+      "name": "Public real WebGL sphere responds to pointer rotation",
+      "status": "PASS"
+    },
+    {
+      "name": "Supported location and keyboard focus survive public horizontal entry",
+      "status": "PASS"
+    },
+    {
+      "name": "Public UI receives the original scientific baseline from D1/R2 service",
+      "status": "PASS"
+    },
+    {
+      "name": "Public threshold change produces a real failing result",
+      "status": "PASS"
+    },
+    {
+      "name": "Failure explanation locates the same result on the linked timeline",
+      "status": "PASS"
+    },
+    {
+      "name": "Two public comparison cards keep their different conditions without false ranking",
+      "status": "PASS"
+    },
+    {
+      "name": "Saved cloud evidence exactly matches the displayed formal result",
+      "status": "PASS"
+    },
+    {
+      "name": "Public refresh and My missions reopen preserve the identical original result",
+      "status": "PASS"
+    },
+    {
+      "name": "Separate anonymous context reads the share but cannot edit its owner mission",
+      "status": "PASS"
+    },
+    {
+      "name": "Public JSON export equals stored evidence and HTML uses its exact conditions/version",
+      "status": "PASS"
+    },
+    {
+      "name": "Actual GitHub Pages device mode compares genuine scenarios without a backend",
+      "status": "PASS"
+    },
+    {
+      "name": "Actual GitHub Pages reopens a downloaded complete file after refresh",
+      "status": "PASS"
+    },
+    {
+      "name": "Device re-export is the identical complete saved evidence",
+      "status": "PASS"
+    },
+    {
+      "name": "Public 390px mobile calculates, saves and reopens with no horizontal overflow",
+      "status": "PASS"
+    },
+    {
+      "name": "No application JavaScript exceptions in public desktop/device/mobile flows",
+      "status": "PASS"
+    }
+  ],
+  "timings": {
+    "cloudHomeInteractiveColdBrowserMs": 1442,
+    "cloudWorkspaceReadyAfterEntryMs": 1466,
+    "cloudFirstServerCalculationMs": 1476,
+    "githubPagesWorkspaceColdBrowserMs": 594,
+    "mobileCloudWorkspaceColdBrowserMs": 1376,
+    "mobileCloudFirstResultFromNavigationMs": 2776
+  },
+  "evidence": {
+    "algorithmSha256": "981e49c08ae6457450c5e0fbb8d9c743521dbb91ed6eeb2cbb01b3e132ea5fcd",
+    "datasetSha256": "c2258b262f2ee22599195090a9e652d8f6fd53c48bfb48139896be02a86f3d8f",
+    "cloudBuildId": "ea778e1b823c522b00899ac3580e1a01d51e490baef49caaeea366f4de8d043b",
+    "savedRecordSha256": "11583a99edf80944147fa363556b683f59a94aefacab8641f4f4ec4c2bffb183",
+    "exportedRecordSha256": "11583a99edf80944147fa363556b683f59a94aefacab8641f4f4ec4c2bffb183",
+    "cloudVideo": {
+      "video": "media/public-flow.webm",
+      "timestamps": "media/public-flow-timestamps.json",
+      "captions": [
+        "media/public-flow.zh.vtt",
+        "media/public-flow.en.vtt"
+      ],
+      "durationMs": 36320
+    },
+    "deviceOriginalSha256": "ff7efaac7a5e256a965791224d1fc96bd4f4ed3fc5656a219ae58452afea2be7",
+    "deviceReexportSha256": "ff7efaac7a5e256a965791224d1fc96bd4f4ed3fc5656a219ae58452afea2be7",
+    "deviceVideo": {
+      "video": "media/public-device-flow.webm",
+      "timestamps": "media/public-device-flow-timestamps.json",
+      "captions": [
+        "media/public-device-flow.zh.vtt",
+        "media/public-device-flow.en.vtt"
+      ],
+      "durationMs": 9560
+    },
+    "mobileVideo": {
+      "video": "media/public-mobile-flow.webm",
+      "timestamps": "media/public-mobile-flow-timestamps.json",
+      "captions": [
+        "media/public-mobile-flow.zh.vtt",
+        "media/public-mobile-flow.en.vtt"
+      ],
+      "durationMs": 8920
+    }
+  },
+  "errors": [],
+  "artifacts": "tmp\\public-ui-iPBria"
+}

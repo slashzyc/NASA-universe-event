@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "buildId": "ea778e1b823c522b00899ac3580e1a01d51e490baef49caaeea366f4de8d043b",
+  "buildId": "4cb916cef0737e03fdacd18b6326df860685f971e0087d654ceaafeddb96ce88",
   "identity": {
     "schemaVersion": 1,
     "methodVersion": "terrain-center-clearance-linear-v1",
@@ -8,8 +8,8 @@
     "sourceIdentity": "SHA-256 of canonical LF application sources, exact dataset bytes and model identity; not a Git commit.",
     "application": {
       "index.html": {
-        "sha256": "b9071719ba4df6c98df967b662430548ed197fab18d4b02a2fef010d47dac760",
-        "snapshot": "evidence-assets/b9071719ba4df6c98df967b662430548ed197fab18d4b02a2fef010d47dac760.html"
+        "sha256": "dca8e630ab4323af979a88384265568089675ec28d39f2cc7bbd5e562274160e",
+        "snapshot": "evidence-assets/dca8e630ab4323af979a88384265568089675ec28d39f2cc7bbd5e562274160e.html"
       },
       "navigator.html": {
         "sha256": "495a7535dc9782b094c1138ad54d641a1fd063e93e69a819d92eec5812c6dbb0",
@@ -32,8 +32,8 @@
         "snapshot": "evidence-assets/8a9021cbbab92ffa8f1dd9228de3c962ba89894af214594d620e86acfb9046f4.js"
       },
       "src/interaction-design.css": {
-        "sha256": "05db24b48034711ba88b5b5c176aac7e9f334a926c34905d274c71a42ae56ee7",
-        "snapshot": "evidence-assets/05db24b48034711ba88b5b5c176aac7e9f334a926c34905d274c71a42ae56ee7.css"
+        "sha256": "ef6bb847db480d1d78bf698ed4636f412420aede45f43d154e690cbfa3051eae",
+        "snapshot": "evidence-assets/ef6bb847db480d1d78bf698ed4636f412420aede45f43d154e690cbfa3051eae.css"
       },
       "src/landing-interactions.js": {
         "sha256": "0e77566378c4e1b6ed801bfebfa2d7d90613708fa48078c6cf970641f6d19ba2",
@@ -44,16 +44,16 @@
         "snapshot": "evidence-assets/c1e6c9088f20b0fad6f503e6218c2816a0e2a71fe179f57208a84e130fcef294.css"
       },
       "src/landing.js": {
-        "sha256": "610143545ee373860b9d92545875b005e65637cd61d743b3448925e981be9d75",
-        "snapshot": "evidence-assets/610143545ee373860b9d92545875b005e65637cd61d743b3448925e981be9d75.js"
+        "sha256": "1be7ddbd127713329e2239b0c6f8518360f29a711b93569bf9d3947f056b0862",
+        "snapshot": "evidence-assets/1be7ddbd127713329e2239b0c6f8518360f29a711b93569bf9d3947f056b0862.js"
       },
       "src/mission-service.css": {
-        "sha256": "197b3c1d62e257ce2c1adb821da17d1aadc8a53ec87402c32b0a859ce98966d7",
-        "snapshot": "evidence-assets/197b3c1d62e257ce2c1adb821da17d1aadc8a53ec87402c32b0a859ce98966d7.css"
+        "sha256": "dd26f65a300a3201289167ef845f22a21a4129834ca421116014bfe86bf80c8d",
+        "snapshot": "evidence-assets/dd26f65a300a3201289167ef845f22a21a4129834ca421116014bfe86bf80c8d.css"
       },
       "src/mission-service.js": {
-        "sha256": "709bd7f28ea39c343d79df1e4c6182fe59c93ff6c80d45a8994af0455d94f08e",
-        "snapshot": "evidence-assets/709bd7f28ea39c343d79df1e4c6182fe59c93ff6c80d45a8994af0455d94f08e.js"
+        "sha256": "a9c5d769c684d97b9edd9bfc1144ab2e428a6561de76c2af1f941f78badba205",
+        "snapshot": "evidence-assets/a9c5d769c684d97b9edd9bfc1144ab2e428a6561de76c2af1f941f78badba205.js"
       },
       "src/moon-globe.css": {
         "sha256": "d63b76f32ac6a84ed7126c7bd9b6266a8cfffde38314360b64686c7a37217ba5",

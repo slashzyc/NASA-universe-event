@@ -1,0 +1,110 @@
+{
+  "startedAt": "2026-11-13T09:15:30.416Z",
+  "finishedAt": "2026-11-13T09:15:49.362Z",
+  "origin": "https://lunamargin-slashzyc.laceysquirrel4.chatgpt.site",
+  "mode": "Actual public HTTPS UI and API; client-only network/WebGL/texture faults explicitly identified, no fake scientific responses and no cloud shutdown.",
+  "checks": [
+    {
+      "name": "Browser-only API disconnection shows device actions and preserves the unsubmitted draft",
+      "status": "PASS"
+    },
+    {
+      "name": "Removing the client fault and reconnecting restores the public service without changing the draft",
+      "status": "PASS"
+    },
+    {
+      "name": "Actual public API rejects uncovered coordinates, position, date and 5 m height without returning substitute records",
+      "status": "PASS"
+    },
+    {
+      "name": "Unavailable WebGL falls back to a usable 2D map/list and a real mobile workspace",
+      "status": "PASS"
+    },
+    {
+      "name": "A failed texture download falls back to a usable 2D map/list and a real mobile workspace",
+      "status": "PASS"
+    },
+    {
+      "name": "The browser submits a real archived build ID and the public calculation records exactly that historical version",
+      "status": "PASS"
+    },
+    {
+      "name": "Explicit current-version recalculation creates a separate result while the saved historical evidence remains byte-identical",
+      "status": "PASS"
+    },
+    {
+      "name": "No application JavaScript exceptions in the public failure/recovery flows",
+      "status": "PASS"
+    }
+  ],
+  "evidence": {
+    "currentBuildId": "ea778e1b823c522b00899ac3580e1a01d51e490baef49caaeea366f4de8d043b",
+    "disconnection": {
+      "injection": "Browser page.route aborts API requests with internetdisconnected; the real cloud service remains running.",
+      "draftDarkHours": 8,
+      "appliedDarkHours": 24,
+      "deviceFileOpen": true,
+      "localApply": true
+    },
+    "rejectedRequests": [
+      {
+        "input": "arbitrary coordinates",
+        "status": 422,
+        "error": {
+          "code": "uncovered-location",
+          "message": "Arbitrary coordinates cannot reuse a nearby result / 任意坐标不能套用邻近结果。"
+        }
+      },
+      {
+        "input": "unsupported research position",
+        "status": 422,
+        "error": {
+          "code": "uncovered-location",
+          "message": "No verified data for this location / 该位置暂无可计算数据。"
+        }
+      },
+      {
+        "input": "uncovered date",
+        "status": 422,
+        "error": {
+          "code": "uncovered-date",
+          "message": "The mission exceeds verified data coverage. Choose a listed date range / 任务超出可计算日期，请选择已有覆盖范围。"
+        }
+      },
+      {
+        "input": "unsupported 5 m height",
+        "status": 422,
+        "error": {
+          "code": "unsupported-height",
+          "message": "Only the validated 2 m terrain and ephemerides are available / 当前仅支持完成匹配验证的 2 米设备高度。"
+        }
+      }
+    ],
+    "no-webgl": {
+      "clientInjected": true,
+      "renderMode": "2d",
+      "supportedSite": "ridge-4",
+      "workspaceReady": true,
+      "blockedTextureRequests": 0
+    },
+    "texture-failure": {
+      "clientInjected": true,
+      "renderMode": "2d",
+      "supportedSite": "ridge-4",
+      "workspaceReady": true,
+      "blockedTextureRequests": 2
+    },
+    "historicalVersion": {
+      "archiveManifest": "evidence-assets/build-67e6da3ed1cc55f42539862b05ed35e24e74441c6e15f2e11033f00a54da2267.json",
+      "submittedBuildId": "67e6da3ed1cc55f42539862b05ed35e24e74441c6e15f2e11033f00a54da2267",
+      "calculationBuildId": "67e6da3ed1cc55f42539862b05ed35e24e74441c6e15f2e11033f00a54da2267",
+      "interfaceBuildId": "ea778e1b823c522b00899ac3580e1a01d51e490baef49caaeea366f4de8d043b",
+      "currentRecalculationBuildId": "ea778e1b823c522b00899ac3580e1a01d51e490baef49caaeea366f4de8d043b",
+      "originalRecordSha256": "59e661b41602fb3d6e5f03db5f344806a2683f563e780d176377cc703422e849",
+      "reopenedOriginalRecordSha256": "59e661b41602fb3d6e5f03db5f344806a2683f563e780d176377cc703422e849",
+      "originalUnchanged": true
+    },
+    "temporaryTaskDeleted": true
+  },
+  "errors": []
+}

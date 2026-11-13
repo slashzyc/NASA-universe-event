@@ -1,6 +1,6 @@
 {
-  "startedAt": "2026-11-13T08:00:05.893Z",
-  "finishedAt": "2026-11-13T08:00:11.953Z",
+  "startedAt": "2026-11-13T09:17:08.492Z",
+  "finishedAt": "2026-11-13T09:17:15.376Z",
   "artifact": "dist",
   "seed": "actual NASA raw responses from docs/new-date-validation.json",
   "failureInjection": "Only the final uncached request receives test HTTP 400; no synthetic scientific results are accepted.",
@@ -8,27 +8,27 @@
     {
       "name": "Built workbench queries real cached new-date job and calculates 48 hours without changing thresholds",
       "status": "PASS",
-      "durationMs": 1104
+      "durationMs": 1232
     },
     {
       "name": "Formal export equals SQLite result and input hashes",
       "status": "PASS",
-      "durationMs": 214
+      "durationMs": 231
     },
     {
       "name": "Custom campaign reload and saved task survive server restart",
       "status": "PASS",
-      "durationMs": 810
+      "durationMs": 893
     },
     {
       "name": "A separate visitor reads the same dynamic result with no editing permission",
       "status": "PASS",
-      "durationMs": 834
+      "durationMs": 1113
     },
     {
       "name": "Uncovered date cannot create a formal result; controlled upstream failure is visible",
       "status": "PASS",
-      "durationMs": 2660
+      "durationMs": 3035
     }
   ],
   "pageErrors": [],
@@ -47,7 +47,7 @@
       "nominalStepHours": 0.5
     },
     "sourceDataTime": "2026-11-13T07:46:24.404Z",
-    "calculatedAt": "2026-11-13T08:00:06.996Z",
+    "calculatedAt": "2026-11-13T09:17:09.602Z",
     "selectedMetrics": {
       "sunHours": 26.328959226277668,
       "earthHours": 48,

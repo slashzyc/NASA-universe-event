@@ -1,0 +1,62 @@
+{
+  "startedAt": "2026-11-13T09:21:42.650Z",
+  "finishedAt": "2026-11-13T09:21:51.293Z",
+  "url": "https://lunamargin-slashzyc.laceysquirrel4.chatgpt.site/",
+  "buildId": "ea778e1b823c522b00899ac3580e1a01d51e490baef49caaeea366f4de8d043b",
+  "scope": "Real public service; fresh isolated anonymous browser; only this test visitor’s newly created tasks changed",
+  "checks": [
+    {
+      "name": "Fresh anonymous visitor begins with no tasks",
+      "status": "PASS"
+    },
+    {
+      "name": "Real cloud calculation produces a recorded result",
+      "status": "PASS"
+    },
+    {
+      "name": "Named mission is persisted through the real save UI",
+      "status": "PASS"
+    },
+    {
+      "name": "Matching date and location filters retain the saved mission",
+      "status": "PASS"
+    },
+    {
+      "name": "Nonmatching date produces an explicit filtered empty state",
+      "status": "PASS"
+    },
+    {
+      "name": "Nonmatching location excludes the mission",
+      "status": "PASS"
+    },
+    {
+      "name": "Clear filters restores the unchanged saved mission",
+      "status": "PASS"
+    },
+    {
+      "name": "UI rename persists the new name",
+      "status": "PASS"
+    },
+    {
+      "name": "UI copy creates an independent task referencing the same original evidence",
+      "status": "PASS"
+    },
+    {
+      "name": "UI deletion removes only the duplicate",
+      "status": "PASS"
+    },
+    {
+      "name": "Deleting the original returns a clear true empty state",
+      "status": "PASS"
+    },
+    {
+      "name": "No application errors",
+      "status": "PASS"
+    }
+  ],
+  "errors": [],
+  "cleanup": {
+    "remaining": [],
+    "deleted": 0
+  }
+}

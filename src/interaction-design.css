@@ -6,3 +6,8 @@ button,a,input,select,summary{scroll-margin-top:30px}button:focus-visible,a:focu
 @media(prefers-reduced-motion:reduce){.case-track *,.mini-workspace *{transition:none!important;animation:none!important}}
 
 .button,.desktop-nav a{font-size:14px}.ribbon-note,.scroll-cue,.closing-section .eyebrow{font-size:12px}.source-word b{color:#9aac9e}
+
+.reading-line,.story-disclosure,.diagram-note{color:#52644b}.ribbon-label-bottom{color:#9cab9e}
+
+
+#film-chapters{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:16px 0}#film-chapters button{min-height:44px;padding:12px;text-align:left;border:1px solid #596f60;color:#cfdbce;font-size:13px;line-height:1.7}#film-chapters button:hover{background:#26372a}#film-status{font-size:14px;color:#bfceb7}#film-dialog{max-height:94%;width:min(1050px,94%)}@media(max-width:600px){#film-chapters{grid-template-columns:1fr}}

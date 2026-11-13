@@ -1,0 +1,47 @@
+{
+  "checkedOn": "2026-11-13",
+  "method": "Sites read-only live D1 inspection; metadata only, no visitor/session/share secrets.",
+  "binding": "DB",
+  "table": "lm_datasets",
+  "datasets": [
+    {
+      "id": "dec",
+      "path": "data/lunar-sites.json",
+      "sha256": "8a1126508f01911c562a2fa20d7721773028dc4f5fd437c869ba8bc567113f2b",
+      "snapshot": "evidence-assets/8a1126508f01911c562a2fa20d7721773028dc4f5fd437c869ba8bc567113f2b.json",
+      "observerHeightM": 2,
+      "generatedAt": "2026-11-13T03:54:07.994559+00:00",
+      "start": "2026-12-01T00:00:00Z",
+      "stop": "2027-01-01T00:00:00Z",
+      "sampleIntervalMinutes": 30,
+      "sourceDataTime": "2026-11-13T03:54:07.994559+00:00",
+      "origin": "verified-bundled"
+    },
+    {
+      "id": "jun",
+      "path": "data/lunar-sites-june.json",
+      "sha256": "c2258b262f2ee22599195090a9e652d8f6fd53c48bfb48139896be02a86f3d8f",
+      "snapshot": "evidence-assets/c2258b262f2ee22599195090a9e652d8f6fd53c48bfb48139896be02a86f3d8f.json",
+      "observerHeightM": 2,
+      "generatedAt": "2026-11-13T03:54:13.285309+00:00",
+      "start": "2027-06-01T00:00:00Z",
+      "stop": "2027-07-01T00:00:00Z",
+      "sampleIntervalMinutes": 30,
+      "sourceDataTime": "2026-11-13T03:54:13.285309+00:00",
+      "origin": "verified-bundled"
+    },
+    {
+      "id": "mar",
+      "path": "data/lunar-sites-march.json",
+      "sha256": "266011b3d2c20224c75a44a93d414986d9751ac7ae5a0d463ba5744434618aab",
+      "snapshot": "evidence-assets/266011b3d2c20224c75a44a93d414986d9751ac7ae5a0d463ba5744434618aab.json",
+      "observerHeightM": 2,
+      "generatedAt": "2026-11-13T03:54:08.118154+00:00",
+      "start": "2027-03-01T00:00:00Z",
+      "stop": "2027-04-01T00:00:00Z",
+      "sampleIntervalMinutes": 30,
+      "sourceDataTime": "2026-11-13T03:54:08.118154+00:00",
+      "origin": "verified-bundled"
+    }
+  ]
+}

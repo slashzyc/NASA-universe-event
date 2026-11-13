@@ -27,11 +27,12 @@ const chinese={
   step3Title:'带走完整依据。',step3Copy:'寻找另一个时间窗口，导出假设、结果及对应的 NASA 数据来源。',
   scienceOverline:'03 / 每个结论，都有出处',scienceTitle:'从开放数据。<br>到<em>清晰判断。</em>',
   scienceCopy:'每一道地平线，都来自真实地形。<br>每一段时间窗口，都由星历计算。<br>每一个结果，都留下可复查的记录。',readMethod:'了解科学方法',
+  sourceTerrainTitle:'LOLA 月球地形',sourceEphemerisTitle:'日地位置星历',
   source1:'从脚下的山脊到远方的地平线，还原月球表面的真实形状。',source2:'计算太阳与地球的位置，为每个研究地点找到对应的天空。',source3Title:'依据，随结果交付。',source3:'原始响应、来源校验、敏感性分析，以及更密的五分钟案例复核。',
   closingEyebrow:'走向下一片疆域，从提出一个更好的问题开始。',closingTitle:'找到你的<em>余量。</em>',closingLaunch:'继续这一方案',
   footerDescription:'一个月面着陆窗口实验室。<br>由好奇心驱动，以 NASA 数据为依据。',guide:'开始使用 ↗',footerFilm:'观看演示 ↗',
   footerNote:'独立教育项目。比较几何可见性，不提供飞行指引；无 NASA 背书。',disclosure:'项目与 AI 使用披露 ↗',
-  filmCaption:'真实应用操作录像，英文字幕，无音轨。已标注 AI 辅助项目录屏。'
+  filmLength:'操作实录',filmCaption:'公开网站的真实自动浏览器操作；中英文字幕，无音轨。所有者与只读访客片段按操作顺序衔接，不是真人可用性研究。'
 };
 
 let language='en';
@@ -79,6 +80,7 @@ function setLanguage(){
   if(caseSite){renderSampling();renderReading();}
   moon.setLanguage();updateExplorerLinks();
   homeTools?.setLanguage();
+  renderFilmChapters();
   if(homeRelease&&$('home-build'))$('home-build').textContent=tr('Build ','版本 ')+homeRelease.buildId.slice(0,10);
 }
 
@@ -140,7 +142,18 @@ async function loadCase(){
   }
 }
 
-function openFilm(){const dialog=$('film-dialog');dialog.showModal();$('film').play().catch(()=>{});}
+let filmChapters=null;
+function renderFilmChapters(){
+  if(!filmChapters)return;const nav=$('film-chapters');nav.setAttribute('aria-label',tr('Recording chapters','录像阶段'));nav.replaceChildren();
+  for(const chapter of filmChapters){const b=document.createElement('button');b.type='button';b.textContent=(language==='zh'?chapter.zh:chapter.en);b.dataset.start=String(chapter.startMs/1000);b.onclick=()=>{$('film').currentTime=chapter.startMs/1000;$('film').play().catch(()=>{});};nav.append(b);}
+}
+async function openFilm(){
+  const dialog=$('film-dialog'),video=$('film');dialog.showModal();$('close-film').setAttribute('aria-label',tr('Close recording','关闭录像'));$('film-status').textContent=tr('Loading the actual public walkthrough…','正在加载公开网站操作实录…');
+  for(const track of video.textTracks)track.mode=track.language===language?'showing':'disabled';video.play().catch(()=>{});
+  try{if(!filmChapters){const r=await fetch(new URL('docs/media/public-flow-timestamps.json',location.href));if(!r.ok)throw new Error('chapters');filmChapters=(await r.json()).chapters;}renderFilmChapters();$('film-status').textContent=tr('Choose a stage, or use the video controls.','可选择阶段，也可使用视频播放控件。');}catch{$('film-status').textContent=tr('Chapter index unavailable. The video controls remain available.','阶段索引暂不可用，可使用视频播放控件。');}
+}
+$('film').addEventListener('loadedmetadata',()=>{const s=Math.round($('film').duration);if(Number.isFinite(s))$('film-length').textContent=String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');});
+$('film').addEventListener('error',()=>{$('film-status').textContent=tr('The recording could not be loaded. Retry or open the video download link.','录像暂时无法加载，请重试或打开视频下载链接。');});
 for(const id of ['watch-film','footer-film'])$(id).addEventListener('click',openFilm);
 $('close-film').addEventListener('click',()=>$('film-dialog').close());
 $('film-dialog').addEventListener('close',()=>$('film').pause());

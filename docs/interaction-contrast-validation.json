@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-13T09:05:36.182Z",
+  "checkedAt": "2026-11-13T09:16:02.954Z",
   "viewport": "390x844",
   "method": "WCAG sRGB relative luminance. Text against nearest opaque solid background; does not claim full-page gradient/imagery accessibility audit.",
   "rows": [
@@ -50,46 +50,46 @@
     {
       "selector": ".ribbon-label-bottom",
       "fontPx": 12,
-      "foreground": "rgb(111, 122, 114)",
+      "foreground": "rgb(156, 171, 158)",
       "background": [
         12,
         16,
         17
       ],
-      "contrast": 4.28
+      "contrast": 7.95
     },
     {
       "selector": ".reading-line",
       "fontPx": 14,
-      "foreground": "rgb(118, 131, 111)",
+      "foreground": "rgb(82, 100, 75)",
       "background": [
         238,
         238,
         230
       ],
-      "contrast": 3.43
+      "contrast": 5.48
     },
     {
       "selector": ".story-disclosure",
       "fontPx": 15,
-      "foreground": "rgb(132, 145, 124)",
+      "foreground": "rgb(82, 100, 75)",
       "background": [
         238,
         238,
         230
       ],
-      "contrast": 2.85
+      "contrast": 5.48
     },
     {
       "selector": ".diagram-note",
       "fontPx": 12,
-      "foreground": "rgb(140, 151, 139)",
+      "foreground": "rgb(82, 100, 75)",
       "background": [
         238,
         238,
         230
       ],
-      "contrast": 2.6
+      "contrast": 5.48
     },
     {
       "selector": ".science-sources p",

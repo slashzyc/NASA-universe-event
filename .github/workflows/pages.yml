@@ -58,6 +58,11 @@ jobs:
         env:
           CI: 'true'
           LUNAMARGIN_QA_OUTPUT: test-results/interaction-workspace
+      - name: Verify bilingual recording chapters and accessible playback
+        run: node tests/interaction-media-browser.mjs
+        env:
+          CI: 'true'
+          LUNAMARGIN_QA_OUTPUT: test-results/interaction-media
       - name: Retain browser verification report
         if: always()
         uses: actions/upload-artifact@v5

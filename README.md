@@ -2,7 +2,7 @@
 
 **Every landing needs a little margin.**
 
-**[Open the live application / 打开在线应用](https://slashzyc.github.io/NASA-universe-event/)** · **[Watch the 50-second walkthrough / 观看演示](https://slashzyc.github.io/NASA-universe-event/docs/media/lunamargin-walkthrough.webm)**
+**[Open the live application / 打开在线应用](https://slashzyc.github.io/NASA-universe-event/)** · **[Watch the walkthrough / 观看演示](https://slashzyc.github.io/NASA-universe-event/docs/media/lunamargin-walkthrough.webm)**
 
 A terrain-aware lunar landing-window lab for the **2026 NASA Space Apps — Lunar Landing Site Navigator** challenge. Compare a promising center point with the terrain around it, then find a different arrival date where more of the sampled footprint meets your mission limits.
 
@@ -26,7 +26,7 @@ The homepage introduces the project through an interactive case study. Choose **
 
 The complete static site is in `dist/`. Deploy it with any static HTTP host. Relative paths support GitHub Pages repository URLs. Opening `index.html` directly as a file is unsupported because browsers restrict local JSON fetches and module workers.
 
-中文：运行上面的启动命令，在浏览器打开地址即可。右上角“中文”切换界面语言。先保留默认案例，点击地图放大框中**右下角的位置**，观察最长断光；再点“寻找更晚的可行窗口”，检查任务日期改变后的结果。通过“导出证据”保存可打印简报、CSV 或完整 JSON。
+中文：运行上面的启动命令，在浏览器打开地址即可。导航仪支持中英文，点击“从示例开始”即可加载完整案例。先读结果卡的一句结论，再点“查看东南未通过点”比较；“帮我找更晚的日期”可以寻找其他窗口。常用设置有 7 天和 3 天预设，修改后点击“查看任务结果”应用。专业图表与参数可按需展开。通过“保存这份简报”或“下载结果”保留证据。详见 [零基础操作指南](docs/QUICKSTART_ZH.md)。
 
 ## The demonstration: why a good point is not enough
 
@@ -40,6 +40,8 @@ Search all nine sampled positions with the same limits: the first available six-
 
 ## What works
 
+- A guided three-step workspace, plain-language result summaries, example presets, and explicit unapplied-change notices.
+- Accessible nine-point buttons with synchronized map selection, per-point conclusions, and an immediate mobile readout.
 - Three actual research locations from NASA's Connecting Ridge ROI dataset.
 - Three separate campaigns: December 2026, March 2027, June 2027.
 - True terrain height map and a magnified 3×3 footprint, with 25 m spacing.

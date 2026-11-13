@@ -51,9 +51,8 @@ const southeast = center.patchStats.scenarios.find(item => item.id === 'e+25-n-2
 assert.equal(center.centerFeasible, true);
 assert.equal(center.patchStats.feasibleCount, 8);
 assert.equal(southeast.feasible, false);
-const percentage = (100 * center.metrics.sunHours / settings.durationHours).toFixed(1);
 const query = new URLSearchParams({campaign: 'jun', site: site.id, ...settings});
-const url = new URL(`?${query}`, base).href;
+const url = new URL(`navigator.html?${query}`, base).href;
 let browser, context, video, nativeRecorder, captureSession, captureQueue = Promise.resolve();
 let recordingMode = 'Playwright recordVideo';
 const browserErrors = [];
@@ -110,9 +109,9 @@ try {
   await page.evaluate(() => {
     const style = document.createElement('style');
     style.textContent = `html{scroll-behavior:auto!important}body{padding-bottom:116px!important}
-      #recording-disclosure{position:fixed;z-index:2147483647;top:12px;right:14px;padding:8px 13px;border:1px solid #e9c88566;border-radius:4px;background:#07121eef;color:#efcc89;font:600 10px/1.5 system-ui,sans-serif;letter-spacing:1px;pointer-events:none}
-      #recording-caption{position:fixed;z-index:2147483647;bottom:0;left:0;right:0;min-height:86px;box-sizing:border-box;padding:17px 34px 18px;border-top:1px solid #e8bc6766;background:#07111bf5;color:#f5f2eb;font:500 22px/1.4 system-ui,sans-serif;pointer-events:none;text-align:center}
-      #recording-caption small{display:block;color:#b6c7d4;font-size:12px;letter-spacing:1.5px;margin-bottom:5px}
+      #recording-disclosure{position:fixed;z-index:2147483647;top:12px;right:14px;padding:8px 13px;border:1px solid #d3aa7266;border-radius:2px;background:#080b0def;color:#d6bc95;font:600 10px/1.5 system-ui,sans-serif;letter-spacing:1px;pointer-events:none}
+      #recording-caption{position:fixed;z-index:2147483647;bottom:0;left:0;right:0;min-height:86px;box-sizing:border-box;padding:17px 34px 18px;border-top:1px solid #d3aa7266;background:#080b0df5;color:#eeeee6;font:500 22px/1.4 system-ui,sans-serif;pointer-events:none;text-align:center}
+      #recording-caption small{display:block;color:#d6bc95;font-size:12px;letter-spacing:1.5px;margin-bottom:5px}
       dialog{max-height:74vh!important}`;
     document.head.append(style);
     const tag = document.createElement('div'); tag.id = 'recording-disclosure';
@@ -129,29 +128,29 @@ try {
     await hold(150);
   };
 
-  await caption('01 / A POINT IS NOT A FOOTPRINT', 'LunaMargin connects real NASA LOLA terrain with archived JPL Horizons observations.');
-  await hold(5000);
-  await scrollTo('.workspace-heading', 'start');
-  await caption('01 / THE CENTER LOOKS PROMISING', `ROI 6: ${percentage}% Sun-center visibility over seven days. Longest darkness: ${center.metrics.longestDarkHours.toFixed(1)} hours.`);
+  await caption('01 / YOUR FIRST LUNAR MISSION', 'Choose a place. Set your mission. Read the result — no space knowledge needed.');
+  await hold(4500);
+  await scrollTo('#read-result', 'start');
+  await caption('01 / THE CENTER MEETS THE EXAMPLE LIMITS', `ROI 6: ${center.metrics.longestDarkHours.toFixed(1)} hours without Sun visibility. Eight of nine sampled locations pass.`);
   await hold(5000);
 
-  const box = await page.locator('#terrain-canvas').boundingBox();
-  assert.ok(box);
-  const lensSize = box.width < 500 ? 118 : 148;
-  const inner = lensSize - 44;
-  const cx = box.width - lensSize - 24 + lensSize / 2;
-  const cy = 61 + lensSize / 2 + 7;
-  await page.mouse.move(box.x + cx, box.y + cy);
-  await page.mouse.move(box.x + cx + inner / 2, box.y + cy + inner / 2, {steps: 18});
-  await page.mouse.click(box.x + cx + inner / 2, box.y + cy + inner / 2);
-  assert.match(await page.locator('#inspection-context').innerText(), /25 m EAST \/ -25 m NORTH/);
+  await page.locator('#inspect-risk').click();
+  assert.equal(await page.locator('#point-selector [data-patch="e+25-n-25"]').getAttribute('aria-pressed'), 'true');
   assert.match(await page.locator('#metrics').innerText(), /167\.5/);
-  await caption('02 / MOVE 25 m EAST + 25 m SOUTH', `This modeled location has ${southeast.metrics.longestDarkHours.toFixed(1)} hours of darkness. Eight of nine samples pass — this one does not.`);
-  await scrollTo('#metrics');
+  assert.match(await page.locator('#result-summary').innerText(), /2/);
+  await caption('02 / EXPLORE THE POINT OUTSIDE THE LIMITS', `Move 25 m east and 25 m south: ${southeast.metrics.longestDarkHours.toFixed(1)} hours without Sun visibility. Two limits are missed.`);
+  await scrollTo('#read-result', 'start');
   await hold(7000);
 
+  await scrollTo('.point-explorer');
+  await caption('03 / NINE POINTS. ONE CLEAR COMPARISON.', 'Tap a direction to compare nearby terrain. The sample count is not a landing-success probability.');
+  await page.locator('#point-selector [data-patch="e+0-n+0"]').click();
+  await hold(1800);
+  await page.locator('#point-selector [data-patch="e+25-n-25"]').click();
+  await hold(2200);
+  await page.locator('#detail-charts > summary').click();
   await scrollTo('.horizon-panel');
-  await caption('03 / INSPECT THE TERRAIN HORIZON', 'Scrub through time to see the Sun and Earth relative to this location’s horizon.');
+  await caption('03 / OPEN THE SCIENCE WHEN YOU ARE READY', 'Move through time to see the Sun and Earth above — or behind — the local terrain.');
   for (const value of [30, 90, 150, 210, 270]) {
     await page.locator('#time-slider').evaluate((element, next) => {
       element.value = String(next); element.dispatchEvent(new Event('input', {bubbles: true}));
@@ -159,25 +158,32 @@ try {
     await hold(1100);
   }
 
-  await caption('04 / SEARCH FOR A MORE FORGIVING WINDOW', 'Compare cached arrival dates in six-hour steps. Require all nine sampled positions to pass.');
+  await caption('04 / FIND A LATER DATE', 'Search the same month in six-hour steps, keeping all mission limits unchanged.');
   await page.locator('#find-window').click();
   await page.waitForSelector('#search-results:not([hidden])', {timeout: 30000});
   await scrollTo('#search-results', 'center');
   const choice = page.locator('#search-results button[data-site="ridge-4"]').first();
   const nextStart = await choice.getAttribute('data-start');
   assert.equal(nextStart, '2027-06-21T12:00:00.000Z');
-  await hold(6000);
+  await hold(4500);
   await caption('04 / THE EARLIEST ALL-NINE-PASS OPTIONS ON THIS GRID', '21 June 2027, 12:00 UTC. A later arrival changes the modeled trade-off.');
-  await hold(4000);
+  await hold(3000);
   await choice.click();
-  await scrollTo('#metrics');
+  await scrollTo('#read-result', 'start');
   assert.match(await page.locator('#metrics').innerText(), /7\.7/);
-  await caption('04 / APPLY THE WINDOW', 'ROI 4: 7.7 hours of darkness, 18.6 hours without Earth visibility, and 9 / 9 locations within the limits.');
+  await caption('04 / USE THIS WINDOW', 'ROI 4: 7.7 hours without Sun visibility. All nine sampled locations meet the example limits.');
   await hold(5000);
 
-  await caption('05 / TAKE THE EVIDENCE WITH YOU', 'Export the real settings, computed intervals, and source trail as HTML, CSV, or JSON.');
+  await caption('05 / SAVE A READABLE MISSION BRIEF', 'One click saves the settings, comparison, and NASA source trail in a printable document.');
+  const briefDownload = page.waitForEvent('download');
+  await page.locator('#save-brief').click();
+  const brief = await briefDownload;
+  assert.match(await readFile(await brief.path(), 'utf8'), /2027-06-21 12:00 UTC/);
+  await hold(2500);
+
+  await caption('05 / KEEP THE FULL CALCULATION RECORD', 'Export HTML, CSV, or JSON to inspect the assumptions and reproduce the result.');
   await page.locator('#export-btn').click();
-  await hold(3500);
+  await hold(2500);
   const downloaded = page.waitForEvent('download');
   await page.locator('#export-json').click();
   const download = await downloaded;
@@ -190,7 +196,7 @@ try {
   await page.locator('#method-open').click();
   await page.locator('#method-dialog .source-item').first().scrollIntoViewIfNeeded();
   await caption('NASA DATA / EXPLICIT ASSUMPTIONS / REPRODUCIBLE RESULTS', 'Educational geometric screening. Sample counts are not probabilities; visibility is not electrical power or a radio link.');
-  await hold(4500);
+  await hold(3500);
   assert.deepEqual(browserErrors, []);
 
   let nativeDurationSeconds;

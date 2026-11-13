@@ -1,0 +1,138 @@
+{
+  "startedAt": "2026-11-13T05:19:34.932Z",
+  "finishedAt": "2026-11-13T05:19:56.813Z",
+  "base": "http://127.0.0.1:4175/navigator.html",
+  "environment": {
+    "node": "v24.22.1",
+    "browser": "C:/Program Files/Google/Chrome/Application/chrome.exe"
+  },
+  "passed": 18,
+  "failed": 0,
+  "pageErrors": [],
+  "consoleErrors": [],
+  "failedResources": [],
+  "records": [
+    {
+      "name": "first visit presents a working example with optional details closed",
+      "status": "PASS",
+      "durationMs": 759
+    },
+    {
+      "name": "three-day preset stages readable changes and applies only on request",
+      "status": "PASS",
+      "durationMs": 1260
+    },
+    {
+      "name": "seven-day preset restores its documented limits",
+      "status": "PASS",
+      "durationMs": 95
+    },
+    {
+      "name": "custom settings explain pending edits and export the applied scenario",
+      "status": "PASS",
+      "durationMs": 2191
+    },
+    {
+      "name": "one-click example resets the campaign, location, date, and all limits",
+      "status": "PASS",
+      "durationMs": 544
+    },
+    {
+      "name": "ROI selection updates the result immediately without another analyze action",
+      "status": "PASS",
+      "durationMs": 379
+    },
+    {
+      "name": "all nine accessible point buttons match the computed evidence",
+      "status": "PASS",
+      "durationMs": 653
+    },
+    {
+      "name": "canvas point selection stays synchronized with accessible point controls",
+      "status": "PASS",
+      "durationMs": 744
+    },
+    {
+      "name": "risk shortcut explains southeast darkness and center can be restored",
+      "status": "PASS",
+      "durationMs": 889
+    },
+    {
+      "name": "a later window can be found and adopted with complete evidence",
+      "status": "PASS",
+      "durationMs": 1410
+    },
+    {
+      "name": "changing conditions discards old search choices before searching again",
+      "status": "PASS",
+      "durationMs": 3281
+    },
+    {
+      "name": "HTML and CSV exports keep the analyzed mission and source trail",
+      "status": "PASS",
+      "durationMs": 271
+    },
+    {
+      "name": "a fresh Chinese browser receives a Chinese beginner interface",
+      "status": "PASS",
+      "durationMs": 482
+    },
+    {
+      "name": "language changes the new workflow and persists after reload",
+      "status": "PASS",
+      "durationMs": 714
+    },
+    {
+      "name": "opening closed chart details draws the horizon and supports time controls",
+      "status": "PASS",
+      "durationMs": 774
+    },
+    {
+      "name": "preset, point, and chart disclosure work with the keyboard",
+      "status": "PASS",
+      "durationMs": 1148
+    },
+    {
+      "name": "1440, 390, and 330 pixel layouts fit in both languages",
+      "status": "PASS",
+      "durationMs": 5224,
+      "detail": [
+        {
+          "width": 1440,
+          "language": "en",
+          "scrollWidth": 1440
+        },
+        {
+          "width": 1440,
+          "language": "zh-CN",
+          "scrollWidth": 1440
+        },
+        {
+          "width": 390,
+          "language": "en",
+          "scrollWidth": 390
+        },
+        {
+          "width": 390,
+          "language": "zh-CN",
+          "scrollWidth": 390
+        },
+        {
+          "width": 330,
+          "language": "en",
+          "scrollWidth": 330
+        },
+        {
+          "width": 330,
+          "language": "zh-CN",
+          "scrollWidth": 330
+        }
+      ]
+    },
+    {
+      "name": "the complete workflow produces no browser errors or missing assets",
+      "status": "PASS",
+      "durationMs": 1
+    }
+  ]
+}

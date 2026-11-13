@@ -19,7 +19,9 @@ const port=process.env.BROWSER_TEST_PORT||'4184';
 const origin=process.env.LUNAMARGIN_URL||`http://127.0.0.1:${port}/`;
 const base=/\.html(?:[?#]|$)/.test(origin)?origin:new URL('navigator.html',origin.replace(/\/?$/,'/')).href;
 const screenshots=path.join(root,'docs/screenshots');
+const failureScreenshots=path.join(root,'tmp/browser-failures');
 await mkdir(screenshots,{recursive:true});
+await mkdir(failureScreenshots,{recursive:true});
 let server,browser;
 const records=[],pageErrors=[],consoleErrors=[];
 const startedAt=new Date().toISOString();
@@ -28,11 +30,12 @@ const url=(params='')=>{const target=new URL(base);target.search=params;return t
 async function test(name,fn){
   const started=Date.now();
   try{await fn();records.push({name,status:'PASS',durationMs:Date.now()-started});console.log(`PASS ${name}`);}
-  catch(error){records.push({name,status:'FAIL',durationMs:Date.now()-started,error:error.stack||String(error)});console.log(`FAIL ${name}: ${error.message}`);if(globalThis.qaPage)await globalThis.qaPage.screenshot({path:path.join(screenshots,`failure-${records.length}.png`),fullPage:true}).catch(()=>{});}
+  catch(error){records.push({name,status:'FAIL',durationMs:Date.now()-started,error:error.stack||String(error)});console.log(`FAIL ${name}: ${error.message}`);if(globalThis.qaPage)await globalThis.qaPage.screenshot({path:path.join(failureScreenshots,`failure-${records.length}.png`),fullPage:true}).catch(()=>{});}
   finally{if(globalThis.qaPage)await globalThis.qaPage.evaluate(()=>document.querySelectorAll('dialog[open]').forEach(d=>d.close())).catch(()=>{});}
 }
 const ready=async p=>{await p.waitForSelector('#app:not([hidden])');await p.waitForFunction(()=>document.querySelectorAll('#comparison-body tr').length===3);};
-const range=async(p,id,value)=>{await p.locator(id).evaluate((e,v)=>{e.value=String(v);e.dispatchEvent(new Event('input',{bubbles:true}));},value);};
+async function reveal(p,selector){const ids=await p.locator(selector).evaluate(e=>{const ids=[];for(let node=e.parentElement;node;node=node.parentElement)if(node.tagName==='DETAILS'&&!node.open)ids.unshift(node.id);return ids;});for(const id of ids){assert.ok(id,'Disclosures around tested controls require IDs');await p.locator(`#${id} > summary`).click();}if(ids.length)await p.waitForTimeout(150);}
+const range=async(p,id,value)=>{await reveal(p,id);await p.locator(id).evaluate((e,v)=>{e.value=String(v);e.dispatchEvent(new Event('input',{bubbles:true}));},value);};
 async function scenario(p){
   await p.goto(url('campaign=jun&site=ridge-6&start=2027-06-02T06%3A00%3A00Z&durationHours=168&maxDarkHours=24&maxCommGapHours=24&minJointHours=24&clearanceDeg=0'));
   await ready(p);
@@ -47,19 +50,19 @@ try{
     await new Promise((resolve,reject)=>{const timer=setTimeout(()=>reject(new Error('Preview server did not start')),10000);server.stdout.on('data',chunk=>{if(String(chunk).includes('LunaMargin running')){clearTimeout(timer);resolve();}});server.once('error',reject);server.once('exit',code=>reject(new Error(`Preview server exited ${code}`)));});
   }
   browser=await playwright.chromium.launch({headless:true,...(executablePath?{executablePath}:{}),args:['--no-proxy-server']});
-  const context=await browser.newContext({viewport:{width:1440,height:1050},acceptDownloads:true,reducedMotion:'reduce'});
+  const context=await browser.newContext({viewport:{width:1440,height:1050},acceptDownloads:true,reducedMotion:'reduce',locale:'en-US'});
   const p=await context.newPage();globalThis.qaPage=p;
   p.on('pageerror',e=>pageErrors.push(e.message));p.on('console',m=>{if(m.type()==='error')consoleErrors.push(m.text());});
   await test('loads three research sites and real data canvases',async()=>{
     await p.goto(base);await ready(p);assert.equal(await p.locator('#site-tabs button').count(),3);assert.equal(await p.locator('#metrics .metric').count(),4);
-    assert.match(await p.locator('#footprint-label').innerText(),/9/);assert.match(await p.locator('#sample-resolution').innerText(),/30/);
+    await reveal(p,'#sample-resolution');assert.match(await p.locator('#footprint-label').innerText(),/9/);assert.match(await p.locator('#sample-resolution').innerText(),/30/);
     const drawn=await p.locator('#terrain-canvas').evaluate(e=>e.width>0&&e.height>0&&e.getContext('2d').getImageData(30,30,1,1).data[3]===255);assert.ok(drawn);
   });
   await test('all three site tabs update title and URL',async()=>{
     for(const id of ['ridge-1','ridge-4','ridge-6']){await p.locator(`#site-tabs [data-site="${id}"]`).click();assert.equal(new URL(p.url()).searchParams.get('site'),id);assert.equal(await p.locator(`#site-tabs [data-site="${id}"]`).getAttribute('aria-pressed'),'true');assert.match(await p.locator('#selected-title').innerText(),new RegExp(id.slice(-1)));}
   });
   await test('December March and June campaigns load their own time coverage',async()=>{
-    for(const [key,date]of [['dec','2026-12-01'],['mar','2027-03-01'],['jun','2027-06-01']]){await p.locator('#campaign').selectOption(key);await p.waitForFunction(([k,d])=>document.querySelector('#start-date').value===d&&new URL(location).searchParams.get('campaign')===k,[key,date]);assert.match(await p.locator('#time-label').innerText(),new RegExp(date));}
+    await reveal(p,'#time-label');for(const [key,date]of [['dec','2026-12-01'],['mar','2027-03-01'],['jun','2027-06-01']]){await p.locator('#campaign').selectOption(key);await p.waitForFunction(([k,d])=>document.querySelector('#start-date').value===d&&new URL(location).searchParams.get('campaign')===k,[key,date]);assert.match(await p.locator('#time-label').innerText(),new RegExp(date));}
   });
   await test('date duration and ranges produce the requested evidence settings',async()=>{
     await scenario(p);await p.locator('#duration').selectOption('24');await range(p,'#joint-limit',100);assert.equal(await p.locator('#joint-limit').inputValue(),'24');
@@ -67,21 +70,20 @@ try{
     const evidence=await downloadJson(p);assert.equal(evidence.settings.start,'2027-06-04T12:00:00Z');assert.equal(evidence.settings.durationHours,24);assert.equal(evidence.settings.maxDarkHours,15);assert.equal(evidence.settings.maxCommGapHours,20);assert.equal(evidence.settings.minJointHours,10);assert.equal(evidence.results.length,3);
   });
   await test('nine magnified footprint points are clickable and update horizon context',async()=>{
-    await scenario(p);const box=await p.locator('#terrain-canvas').boundingBox();assert.ok(box);
-    const size=box.width<500?118:148,left=box.width-size-24,top=61,span=size-44,cx=left+size/2,cy=top+size/2+7;
-    for(const north of [25,0,-25])for(const east of [-25,0,25]){await p.mouse.click(box.x+cx+east/50*span,box.y+cy-north/50*span);const expected=`${east>=0?'+':''}${east} m E, ${north>=0?'+':''}${north} m N`;assert.ok((await p.locator('#horizon-readout').innerText()).includes(expected),expected);}
+    await scenario(p);await reveal(p,'#horizon-canvas');
+    for(const north of [25,0,-25])for(const east of [-25,0,25]){await p.locator('#terrain-canvas').scrollIntoViewIfNeeded();const box=await p.locator('#terrain-canvas').boundingBox();assert.ok(box);const size=box.width<500?118:148,left=box.width-size-24,top=61,span=size-44,cx=left+size/2,cy=top+size/2+7;await p.mouse.click(box.x+cx+east/50*span,box.y+cy-north/50*span);const expected=`e${east>=0?'+':''}${east}-n${north>=0?'+':''}${north}`;assert.equal(await p.locator('#point-selector [aria-pressed="true"]').getAttribute('data-patch'),expected);assert.match(await p.locator('#horizon-readout').innerText(),/Viewing/);}
     await p.screenshot({path:path.join(screenshots,'desktop-footprint.png'),fullPage:true});
   });
   await test('terrain keyboard and timeline slider change the inspected state',async()=>{
     await p.locator('#terrain-canvas').focus();const before=await p.locator('#horizon-readout').innerText();await p.keyboard.press('ArrowRight');assert.notEqual(await p.locator('#horizon-readout').innerText(),before);
-    const time=await p.locator('#time-label').innerText();await p.locator('#time-slider').focus();await p.keyboard.press('ArrowRight');assert.notEqual(await p.locator('#time-label').innerText(),time);
+    await reveal(p,'#time-slider');const time=await p.locator('#time-label').innerText();await p.locator('#time-slider').focus();await p.keyboard.press('ArrowRight');assert.notEqual(await p.locator('#time-label').innerText(),time);
   });
   await test('worker search completes and a returned window can be applied',async()=>{
-    await scenario(p);await p.locator('#find-window').click();await p.waitForSelector('#search-results:not([hidden])',{timeout:30000});assert.equal(await p.locator('#find-window').isDisabled(),false);assert.ok((await p.locator('#search-results').innerText()).includes('Checked'));
+    await scenario(p);await p.locator('#find-window').click();await p.waitForSelector('#search-results:not([hidden])',{timeout:30000});assert.equal(await p.locator('#find-window').isDisabled(),false);assert.match(await p.locator('#search-results').innerText(),/checked/i);
     const buttons=p.locator('#search-results button');assert.ok(await buttons.count()>0,'known June scenario should have a later all-point window');const nextDate=await buttons.first().getAttribute('data-start');await buttons.first().click();assert.equal(await p.locator('#start-date').inputValue(),nextDate.slice(0,10));
   });
   await test('language switch translates primary content and persists across reload',async()=>{
-    await p.locator('#lang-toggle').click();assert.equal(await p.locator('html').getAttribute('lang'),'zh-CN');assert.ok((await p.locator('#selected-title').innerText()).includes('连接脊'));assert.ok((await p.locator('#metrics').innerText()).includes('最长连续断光'));await p.reload();await ready(p);assert.equal(await p.locator('html').getAttribute('lang'),'zh-CN');await p.locator('#lang-toggle').click();
+    await p.locator('#lang-toggle').click();assert.equal(await p.locator('html').getAttribute('lang'),'zh-CN');assert.ok((await p.locator('#selected-title').innerText()).includes('连接脊'));assert.ok((await p.locator('#metrics').innerText()).includes('看不见太阳'));await p.reload();await ready(p);assert.equal(await p.locator('html').getAttribute('lang'),'zh-CN');await p.locator('#lang-toggle').click();
   });
   await test('science modal opens closes and links to existing local evidence',async()=>{
     await p.locator('#method-open').click();assert.equal(await p.locator('#method-dialog').evaluate(e=>e.open),true);const hrefs=await p.locator('#method-dialog a').evaluateAll(list=>list.map(e=>e.getAttribute('href')).filter(h=>h&&!/^https?:/.test(h)));for(const href of hrefs){const response=await fetch(new URL(href,base));assert.ok(response.ok,`${href}: ${response.status}`);}await p.keyboard.press('Escape');assert.equal(await p.locator('#method-dialog').evaluate(e=>e.open),false);
@@ -108,7 +110,7 @@ try{
     try{await p.locator('#campaign').selectOption('dec');await seenPromise;assert.ok(await p.locator('#analyze-btn').isDisabled());assert.ok(await p.locator('#export-btn').isDisabled());await p.locator('#campaign').selectOption('mar');await p.waitForFunction(()=>new URL(location).searchParams.get('campaign')==='mar');release();await done;await p.waitForTimeout(100);const evidence=await downloadJson(p);assert.equal(evidence.campaign,'mar');assert.ok(evidence.settings.start.startsWith('2027-03-'));assert.ok(evidence.data.start.startsWith('2027-03-'));}finally{release();await p.unroute(pattern);}
   });
   await test('invalid empty arrival cannot overwrite the previously analyzed evidence',async()=>{
-    await scenario(p);const previous=await downloadJson(p);await p.locator('#start-date').fill('');await p.locator('#find-window').click();assert.equal(await p.locator('#search-results').isHidden(),true);const after=await downloadJson(p);assert.deepEqual(after.settings,previous.settings);assert.deepEqual(after.results,previous.results);
+    await scenario(p);const previous=await downloadJson(p),metrics=await p.locator('#metrics').innerText(),saved=p.url();await p.locator('#start-date').fill('');await p.locator('#find-window').click();assert.equal(await p.locator('#search-results').isHidden(),true);assert.ok(await p.locator('#export-btn').isDisabled());assert.equal(await p.locator('#metrics').innerText(),metrics);assert.equal(p.url(),saved);await p.locator('#start-date').fill(previous.settings.start.slice(0,10));await p.locator('#start-date').press('Tab');const after=await downloadJson(p);assert.deepEqual(after.settings,previous.settings);assert.deepEqual(after.results,previous.results);
   });
   await test('unsupported shared duration and clearance values retain valid defaults',async()=>{
     await p.goto(url('campaign=jun&durationHours=999&clearanceDeg=0.3'));await ready(p);const evidence=await downloadJson(p);assert.equal(evidence.settings.durationHours,168);assert.equal(evidence.settings.clearanceDeg,0);assert.equal(await p.locator('#duration').inputValue(),'168');assert.equal(await p.locator('#clearance').inputValue(),'0');
@@ -117,7 +119,7 @@ try{
     await scenario(p);await p.locator('#start-hour').selectOption('18');await p.locator('#start-date').fill('2027-06-24');await p.locator('#start-date').press('Tab');assert.equal(await p.locator('#start-date').getAttribute('max'),'2027-06-24');assert.equal(await p.locator('#start-hour').inputValue(),'0');const enabled=await p.locator('#start-hour option').evaluateAll(options=>options.filter(o=>!o.disabled).map(o=>o.value));assert.deepEqual(enabled,['0']);await p.locator('#analyze-btn').click();const evidence=await downloadJson(p);assert.equal(evidence.settings.start,'2027-06-24T00:00:00Z');assert.ok(evidence.results.every(r=>r.status==='complete'));
   });
   await test('380px phone layout has no page overflow or overlapping mission controls',async()=>{
-    await scenario(p);await p.setViewportSize({width:380,height:844});await p.waitForTimeout(250);await p.screenshot({path:path.join(screenshots,'phone-380.png'),fullPage:true});
+    await scenario(p);await p.setViewportSize({width:380,height:844});await p.waitForTimeout(250);await p.screenshot({path:path.join(screenshots,'phone-380.png'),fullPage:true});await reveal(p,'#dark-limit');
     const layout=await p.evaluate(()=>{const ids=['campaign','start-date','start-hour','duration','dark-limit','comm-limit','joint-limit','analyze-btn','find-window'];const rects=ids.map(id=>{const r=document.getElementById(id).getBoundingClientRect();return{id,x:r.x,y:r.y,right:r.right,bottom:r.bottom,width:r.width,height:r.height};});const overlaps=[];for(let i=0;i<rects.length;i++)for(let j=i+1;j<rects.length;j++){const a=rects[i],b=rects[j];if(Math.min(a.right,b.right)-Math.max(a.x,b.x)>2&&Math.min(a.bottom,b.bottom)-Math.max(a.y,b.y)>2)overlaps.push([a.id,b.id]);}return{pageWidth:document.documentElement.scrollWidth,viewport:innerWidth,overlaps,rects};});assert.ok(layout.pageWidth<=layout.viewport+1,JSON.stringify(layout));assert.deepEqual(layout.overlaps,[],JSON.stringify(layout));
     await p.locator('#campaign').selectOption('mar');await p.waitForFunction(()=>new URL(location).searchParams.get('campaign')==='mar');await p.locator('#sources-open').click();assert.equal(await p.locator('#method-dialog').evaluate(e=>e.open),true);await p.locator('[data-close="method-dialog"]').click();
   });

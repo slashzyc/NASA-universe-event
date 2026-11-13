@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "buildId": "0a03dbcfd13043549533c05a82a9ad63146b1e02d3a4d6941abf319b67b9b242",
+  "buildId": "c96336e14ea125b988b4f0038d6436d336792501c98cf189cda865ecad3dad88",
   "identity": {
     "schemaVersion": 1,
     "methodVersion": "terrain-center-clearance-linear-v1",
@@ -759,9 +759,9 @@
         "bytes": 3976
       },
       "docs/ENGINEERING_ACCEPTANCE.md": {
-        "sha256": "8211a2f732be2d69e146c1a8c0a28939edd003ca62e2694ea0eefb2631ae2f7b",
-        "snapshot": "evidence-assets/8211a2f732be2d69e146c1a8c0a28939edd003ca62e2694ea0eefb2631ae2f7b.md",
-        "bytes": 7316
+        "sha256": "837b87c9f165c36ace793d593cfe7d2e54d2be0a82ddc2911170711b58fa6b59",
+        "snapshot": "evidence-assets/837b87c9f165c36ace793d593cfe7d2e54d2be0a82ddc2911170711b58fa6b59.md",
+        "bytes": 7770
       },
       "docs/ENGINEERING_VALIDATION.md": {
         "sha256": "b460e7282cac1bd254acee9ba0f67d8af8eca8b41ac5253ac179251c9bb2ee2d",
@@ -1261,9 +1261,9 @@
     },
     "service": {
       "worker/index.js": {
-        "sha256": "1c2e370fad59bfaa11ba8cf85eee849577567c09dc30c36c8c5f90d96431b287",
-        "snapshot": "evidence-assets/1c2e370fad59bfaa11ba8cf85eee849577567c09dc30c36c8c5f90d96431b287.js",
-        "bytes": 29428
+        "sha256": "e5c454eedbd7b9e18020e05e2533a4c077525165eb02859c1093db5d196f0839",
+        "snapshot": "evidence-assets/e5c454eedbd7b9e18020e05e2533a4c077525165eb02859c1093db5d196f0839.js",
+        "bytes": 29498
       },
       "server/index.mjs": {
         "sha256": "4819bd62b6baa379f00c63ce59044ff8cb47ab4784b80da45427b7c85ae635bf",

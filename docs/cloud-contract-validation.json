@@ -1,6 +1,6 @@
 {
-  "checkedAt": "2026-11-13T17:49:55.068Z",
-  "buildId": "0a03dbcfd13043549533c05a82a9ad63146b1e02d3a4d6941abf319b67b9b242",
+  "checkedAt": "2026-11-13T18:21:30.257Z",
+  "buildId": "c96336e14ea125b988b4f0038d6436d336792501c98cf189cda865ecad3dad88",
   "mode": "Compiled Worker with real disk SQLite/files behind D1/R2 test adapters; not a claim of cloud deployment",
   "checks": [
     {

@@ -1,8 +1,8 @@
 {
-  "checkedAt": "2026-11-13T17:49:58.009Z",
+  "checkedAt": "2026-11-13T18:21:31.920Z",
   "mode": "Local compiled Worker A/B artifacts; real persistent disk SQLite and R2-compatible file store; not an online deployment or simulated restart of hosted infrastructure",
-  "baselineBuildId": "0a03dbcfd13043549533c05a82a9ad63146b1e02d3a4d6941abf319b67b9b242",
-  "fixtureBuildId": "cbb3836b6c31f13062a893f857242d20dbaf1787ecdb61263c1f0dbb18eaa825",
+  "baselineBuildId": "c96336e14ea125b988b4f0038d6436d336792501c98cf189cda865ecad3dad88",
+  "fixtureBuildId": "ead761902ea6fb08bb930bfa14b976251b387b98eaac0d798b27b4439df30d27",
   "fixtureChange": "B differs only by an HTML comment and synthetic resource descriptor; all NASA inputs and scientific algorithm remain identical.",
   "algorithmSha256": "981e49c08ae6457450c5e0fbb8d9c743521dbb91ed6eeb2cbb01b3e132ea5fcd",
   "checks": [

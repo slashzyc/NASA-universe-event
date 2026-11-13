@@ -1,0 +1,9 @@
+{
+  "name": "luna-margin",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Terrain-aware lunar landing-window exploration with NASA data and landing-footprint sensitivity.",
+  "scripts": { "start": "node scripts/serve.mjs", "build": "node scripts/build.mjs", "test": "node --test tests/*.test.js", "check": "node scripts/check.mjs" },
+  "engines": { "node": ">=20" }
+}

@@ -1,0 +1,105 @@
+{
+  "createdAt": "2026-11-13T03:54:17.063890+00:00",
+  "bundleSha256": "8a1126508f01911c562a2fa20d7721773028dc4f5fd437c869ba8bc567113f2b",
+  "projection": {
+    "library": "PROJ via pyproj",
+    "maximumCoordinateDifferenceDeg": 2.984279490192421e-13
+  },
+  "terrainOrientation": "Geographic north-up; each grid point is placed by a forward spherical geodesic from a local east/north offset. This is not projection grid north.",
+  "patchOffsets": "dxM is geographic east and dyM geographic north. Maximum offset is 35.355 m.",
+  "demSeam": {
+    "samples": 804,
+    "sampling": "804 boundary samples 7.5 m inside the 16 km Site01 tile, ~80 m spacing",
+    "signedMedianM": 0.7292,
+    "rmsDifferenceM": 2.4163,
+    "absoluteP95M": 4.5805,
+    "absoluteMaxM": 10.4718,
+    "interpretation": "Cross-product elevation differences combine adjustment and 5 m versus 80 m resolution effects; they are not error bars."
+  },
+  "sites": [
+    {
+      "id": "ridge-1",
+      "horizonsHeader": [
+        "Center body name: Moon (301)                      {source: DE441}",
+        "Center geodetic : 222.9040219,-89.4389265,1.96032 {E-lon(deg),Lat(deg),Alt(km)}",
+        "Center pole/equ : MEAN_ME (high precision)        {East-longitude positive}",
+        "Center radii    : 1737.4, 1737.4, 1737.4 km       {Equator_a, b, pole_c}",
+        "Atmos refraction: NO (AIRLESS)"
+      ],
+      "northGridEndpoint": {
+        "lon": 222.904021926,
+        "lat": -89.33339722910631
+      },
+      "radialRefinement": {
+        "stepMultiplier": 0.5,
+        "maximumAbsoluteDifferenceDeg": 0.0377,
+        "rmsDifferenceDeg": 0.003908
+      },
+      "halfDegreeMidBearingCheck": {
+        "maximumAbsoluteDifferenceFromLinearInterpolationDeg": 0.067395,
+        "rmsDifferenceDeg": 0.014403
+      },
+      "controllingTerrain": {
+        "insideLocalDemBearings": 211,
+        "regionalDemBearings": 149,
+        "within160MOfTileBoundaryBearings": 2
+      }
+    },
+    {
+      "id": "ridge-4",
+      "horizonsHeader": [
+        "Center body name: Moon (301)                      {source: DE441}",
+        "Center geodetic : 222.8513473,-89.4526749,1.95839 {E-lon(deg),Lat(deg),Alt(km)}",
+        "Center pole/equ : MEAN_ME (high precision)        {East-longitude positive}",
+        "Center radii    : 1737.4, 1737.4, 1737.4 km       {Equator_a, b, pole_c}",
+        "Atmos refraction: NO (AIRLESS)"
+      ],
+      "northGridEndpoint": {
+        "lon": 222.85134735,
+        "lat": -89.34714561510596
+      },
+      "radialRefinement": {
+        "stepMultiplier": 0.5,
+        "maximumAbsoluteDifferenceDeg": 0.01624,
+        "rmsDifferenceDeg": 0.002112
+      },
+      "halfDegreeMidBearingCheck": {
+        "maximumAbsoluteDifferenceFromLinearInterpolationDeg": 0.08325,
+        "rmsDifferenceDeg": 0.016098
+      },
+      "controllingTerrain": {
+        "insideLocalDemBearings": 175,
+        "regionalDemBearings": 185,
+        "within160MOfTileBoundaryBearings": 4
+      }
+    },
+    {
+      "id": "ridge-6",
+      "horizonsHeader": [
+        "Center body name: Moon (301)                      {source: DE441}",
+        "Center geodetic : 222.6246292,-89.473944,1.95035  {E-lon(deg),Lat(deg),Alt(km)}",
+        "Center pole/equ : MEAN_ME (high precision)        {East-longitude positive}",
+        "Center radii    : 1737.4, 1737.4, 1737.4 km       {Equator_a, b, pole_c}",
+        "Atmos refraction: NO (AIRLESS)"
+      ],
+      "northGridEndpoint": {
+        "lon": 222.624629195,
+        "lat": -89.36841472410609
+      },
+      "radialRefinement": {
+        "stepMultiplier": 0.5,
+        "maximumAbsoluteDifferenceDeg": 0.01584,
+        "rmsDifferenceDeg": 0.001698
+      },
+      "halfDegreeMidBearingCheck": {
+        "maximumAbsoluteDifferenceFromLinearInterpolationDeg": 0.070255,
+        "rmsDifferenceDeg": 0.016887
+      },
+      "controllingTerrain": {
+        "insideLocalDemBearings": 125,
+        "regionalDemBearings": 235,
+        "within160MOfTileBoundaryBearings": 12
+      }
+    }
+  ]
+}

@@ -1,0 +1,1775 @@
+{
+  "generatedAt": "2026-11-13T04:01:02.757Z",
+  "dataset": "data/lunar-sites-june.json",
+  "datasetSha256": "c2258b262f2ee22599195090a9e652d8f6fd53c48bfb48139896be02a86f3d8f",
+  "analysisSha256": "9c7e2b3d0b36a495bb9c56cfd48924f616cdb8381a670223b789466df0ce9297",
+  "settings": {
+    "start": "2027-06-02T06:00:00Z",
+    "durationHours": 168,
+    "maxDarkHours": 24,
+    "maxCommGapHours": 24,
+    "minJointHours": 24,
+    "clearanceDeg": 0,
+    "observerHeightM": 2,
+    "nominalStepHours": 0.5
+  },
+  "sites": [
+    {
+      "location": {
+        "id": "ridge-1",
+        "name": "Connecting Ridge · ROI 1",
+        "lat": -89.438926465,
+        "lon": 222.904021926,
+        "elevationM": 1958.321
+      },
+      "result": {
+        "siteId": "ridge-1",
+        "name": "Connecting Ridge · ROI 1",
+        "start": "2027-06-02T06:00:00.000Z",
+        "end": "2027-06-09T06:00:00.000Z",
+        "status": "complete",
+        "feasible": false,
+        "metrics": {
+          "sunHours": 119.53918048529731,
+          "earthHours": 161.47665245395237,
+          "jointHours": 119.53918048529731,
+          "longestDarkHours": 48.46081951470269,
+          "longestCommGapHours": 6.523347546047635
+        },
+        "knownMetrics": {
+          "sunHours": 119.53918048529731,
+          "earthHours": 161.47665245395237,
+          "jointHours": 119.53918048529731,
+          "longestDarkHours": 48.46081951470269,
+          "longestCommGapHours": 6.523347546047635
+        },
+        "windows": {
+          "sun": [
+            {
+              "start": "2027-06-02T06:00:00.000Z",
+              "end": "2027-06-07T05:32:21.049Z",
+              "hours": 119.53918048529731,
+              "startMs": 1811916000000,
+              "endMs": 1812346341049.747
+            }
+          ],
+          "earth": [
+            {
+              "start": "2027-06-02T06:00:00.000Z",
+              "end": "2027-06-08T23:28:35.948Z",
+              "hours": 161.47665245395237,
+              "startMs": 1811916000000,
+              "endMs": 1812497315948.8342
+            }
+          ],
+          "joint": [
+            {
+              "start": "2027-06-02T06:00:00.000Z",
+              "end": "2027-06-07T05:32:21.049Z",
+              "hours": 119.53918048529731,
+              "startMs": 1811916000000,
+              "endMs": 1812346341049.747
+            }
+          ],
+          "dark": [
+            {
+              "start": "2027-06-07T05:32:21.049Z",
+              "end": "2027-06-09T06:00:00.000Z",
+              "hours": 48.46081951470269,
+              "startMs": 1812346341049.747,
+              "endMs": 1812520800000
+            }
+          ],
+          "commGap": [
+            {
+              "start": "2027-06-08T23:28:35.948Z",
+              "end": "2027-06-09T06:00:00.000Z",
+              "hours": 6.523347546047635,
+              "startMs": 1812497315948.8342,
+              "endMs": 1812520800000
+            }
+          ],
+          "unknown": []
+        },
+        "constraints": {
+          "maxDarkHours": 24,
+          "maxCommGapHours": 24,
+          "minJointHours": 24,
+          "clearanceDeg": 0,
+          "observerHeightM": 2
+        },
+        "reasons": [
+          {
+            "code": "dark-gap",
+            "message": "The longest modeled darkness exceeds the mission limit.",
+            "actual": 48.46081951470269,
+            "limit": 24
+          }
+        ],
+        "warnings": [
+          "Sun and Earth centers only; finite disks, eclipses, solar-panel performance and radio links are not modeled.",
+          "Transition times use linear interpolation of clearance margins. Narrow terrain features or short events between samples may be missed.",
+          "Outage lengths are clipped to the requested mission interval; a gap touching an edge may continue beyond it.",
+          "Surrounding patches reuse central-site Sun/Earth angles where patch-specific ephemerides are absent. This approximation is separate from terrain effects."
+        ],
+        "resolutionIndicators": {
+          "subSampleSunWindowCount": 0,
+          "subSampleEarthWindowCount": 0,
+          "shortestInteriorSunWindowHours": null,
+          "shortestInteriorEarthWindowHours": null
+        },
+        "coverage": {
+          "hours": 168,
+          "fraction": 1,
+          "nominalStepHours": 0.5,
+          "maxGapHours": 0.5,
+          "maximumUsedSampleStepHours": 0.5,
+          "rejectedGapCount": 0
+        },
+        "assumptions": {
+          "horizonObserverHeightM": 2,
+          "requestedObserverHeightM": 2,
+          "heightSupported": true,
+          "visibilityDefinition": "body-center",
+          "interpolation": "piecewise-linear-clearance",
+          "atmosphericRefraction": false
+        },
+        "centerFeasible": false,
+        "patchStats": {
+          "count": 9,
+          "completeCount": 9,
+          "knownFeasibilityCount": 9,
+          "feasibleCount": 2,
+          "coverageFraction": 0.2222222222222222,
+          "completeFraction": 1,
+          "allKnown": true,
+          "interpretation": "Fraction of supplied geometric scenarios meeting thresholds; not a landing probability or spatial area estimate unless sampling supports it.",
+          "scenarios": [
+            {
+              "id": "e-25-n-25",
+              "dxM": -25,
+              "dyM": -25,
+              "status": "complete",
+              "feasible": true,
+              "metrics": {
+                "sunHours": 128.33975657803006,
+                "earthHours": 161.43160564948187,
+                "jointHours": 124.67645461161295,
+                "longestDarkHours": 15.22395258863661,
+                "longestCommGapHours": 6.568394350518121
+              },
+              "coverage": {
+                "hours": 168,
+                "fraction": 1,
+                "nominalStepHours": 0.5,
+                "maxGapHours": 0.5,
+                "maximumUsedSampleStepHours": 0.5,
+                "rejectedGapCount": 0
+              },
+              "reasons": [],
+              "ephemerides": "center-reused-approximation"
+            },
+            {
+              "id": "e+0-n-25",
+              "dxM": 0,
+              "dyM": -25,
+              "status": "complete",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 102.61049326978896,
+                "earthHours": 161.47061522894964,
+                "jointHours": 102.61049326978896,
+                "longestDarkHours": 65.38950673021104,
+                "longestCommGapHours": 6.529384771050347
+              },
+              "coverage": {
+                "hours": 168,
+                "fraction": 1,
+                "nominalStepHours": 0.5,
+                "maxGapHours": 0.5,
+                "maximumUsedSampleStepHours": 0.5,
+                "rejectedGapCount": 0
+              },
+              "reasons": [
+                {
+                  "code": "dark-gap",
+                  "message": "The longest modeled darkness exceeds the mission limit.",
+                  "actual": 65.38950673021104,
+                  "limit": 24
+                }
+              ],
+              "ephemerides": "center-reused-approximation"
+            },
+            {
+              "id": "e+25-n-25",
+              "dxM": 25,
+              "dyM": -25,
+              "status": "complete",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 57.91742055670844,
+                "earthHours": 161.4924089916314,
+                "jointHours": 57.91742055670844,
+                "longestDarkHours": 110.08257944329156,
+                "longestCommGapHours": 6.507591008368598
+              },
+              "coverage": {
+                "hours": 168,
+                "fraction": 1,
+                "nominalStepHours": 0.5,
+                "maxGapHours": 0.5,
+                "maximumUsedSampleStepHours": 0.5,
+                "rejectedGapCount": 0
+              },
+              "reasons": [
+                {
+                  "code": "dark-gap",
+                  "message": "The longest modeled darkness exceeds the mission limit.",
+                  "actual": 110.08257944329156,
+                  "limit": 24
+                }
+              ],
+              "ephemerides": "center-reused-approximation"
+            },
+            {
+              "id": "e-25-n+0",
+              "dxM": -25,
+              "dyM": 0,
+              "status": "complete",
+              "feasible": true,
+              "metrics": {
+                "sunHours": 150.06840155782064,
+                "earthHours": 161.43412990410698,
+                "jointHours": 148.3561452464464,
+                "longestDarkHours": 13.07798465766059,
+                "longestCommGapHours": 6.565870095893012
+              },
+              "coverage": {
+                "hours": 168,
+                "fraction": 1,
+                "nominalStepHours": 0.5,
+                "maxGapHours": 0.5,
+                "maximumUsedSampleStepHours": 0.5,
+                "rejectedGapCount": 0
+              },
+              "reasons": [],
+              "ephemerides": "center-reused-approximation"
+            },
+            {
+              "id": "e+0-n+0",
+              "dxM": 0,
+              "dyM": 0,
+              "status": "complete",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 119.53918048529731,
+                "earthHours": 161.47665245395237,
+                "jointHours": 119.53918048529731,
+                "longestDarkHours": 48.46081951470269,
+                "longestCommGapHours": 6.523347546047635
+              },
+              "coverage": {
+                "hours": 168,
+                "fraction": 1,
+                "nominalStepHours": 0.5,
+                "maxGapHours": 0.5,
+                "maximumUsedSampleStepHours": 0.5,
+                "rejectedGapCount": 0
+              },
+              "reasons": [
+                {
+                  "code": "dark-gap",
+                  "message": "The longest modeled darkness exceeds the mission limit.",
+                  "actual": 48.46081951470269,
+                  "limit": 24
+                }
+              ],
+              "ephemerides": "center-reused-approximation"
+            },
+            {
+              "id": "e+25-n+0",
+              "dxM": 25,
+              "dyM": 0,
+              "status": "complete",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 96.55386387790256,
+                "earthHours": 161.49948576639812,
+                "jointHours": 96.55386387790256,
+                "longestDarkHours": 71.44613612209744,
+                "longestCommGapHours": 6.500514233601888
+              },
+              "coverage": {
+                "hours": 168,
+                "fraction": 1,
+                "nominalStepHours": 0.5,
+                "maxGapHours": 0.5,
+                "maximumUsedSampleStepHours": 0.5,
+                "rejectedGapCount": 0
+              },
+              "reasons": [
+                {
+                  "code": "dark-gap",
+                  "message": "The longest modeled darkness exceeds the mission limit.",
+                  "actual": 71.44613612209744,
+                  "limit": 24
+                }
+              ],
+              "ephemerides": "center-reused-approximation"
+            },
+            {
+              "id": "e-25-n+25",
+              "dxM": -25,
+              "dyM": 25,
+              "status": "complete",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 136.68338027459038,
+                "earthHours": 161.43807728386773,
+                "jointHours": 136.68338027459038,
+                "longestDarkHours": 31.316619725409613,
+                "longestCommGapHours": 6.56192271613227
+              },
+              "coverage": {
+                "hours": 168,
+                "fraction": 1,
+                "nominalStepHours": 0.5,
+                "maxGapHours": 0.5,
+                "maximumUsedSampleStepHours": 0.5,
+                "rejectedGapCount": 0
+              },
+              "reasons": [
+                {
+                  "code": "dark-gap",
+                  "message": "The longest modeled darkness exceeds the mission limit.",
+                  "actual": 31.316619725409613,
+                  "limit": 24
+                }
+              ],
+              "ephemerides": "center-reused-approximation"
+            },
+            {
+              "id": "e+0-n+25",
+              "dxM": 0,
+              "dyM": 25,
+              "status": "complete",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 109.65080642184788,
+                "earthHours": 161.47654424784344,
+                "jointHours": 109.65080642184788,
+                "longestDarkHours": 58.349193578152125,
+                "longestCommGapHours": 6.5234557521565755
+              },
+              "coverage": {
+                "hours": 168,
+                "fraction": 1,
+                "nominalStepHours": 0.5,
+                "maxGapHours": 0.5,
+                "maximumUsedSampleStepHours": 0.5,
+                "rejectedGapCount": 0
+              },
+              "reasons": [
+                {
+                  "code": "dark-gap",
+                  "message": "The longest modeled darkness exceeds the mission limit.",
+                  "actual": 58.349193578152125,
+                  "limit": 24
+                }
+              ],
+              "ephemerides": "center-reused-approximation"
+            },
+            {
+              "id": "e+25-n+25",
+              "dxM": 25,
+              "dyM": 25,
+              "status": "complete",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 111.52926066507975,
+                "earthHours": 161.50439139953613,
+                "jointHours": 111.52926066507975,
+                "longestDarkHours": 56.470739334920246,
+                "longestCommGapHours": 6.495608600463867
+              },
+              "coverage": {
+                "hours": 168,
+                "fraction": 1,
+                "nominalStepHours": 0.5,
+                "maxGapHours": 0.5,
+                "maximumUsedSampleStepHours": 0.5,
+                "rejectedGapCount": 0
+              },
+              "reasons": [
+                {
+                  "code": "dark-gap",
+                  "message": "The longest modeled darkness exceeds the mission limit.",
+                  "actual": 56.470739334920246,
+                  "limit": 24
+                }
+              ],
+              "ephemerides": "center-reused-approximation"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "location": {
+        "id": "ridge-4",
+        "name": "Connecting Ridge · ROI 4",
+        "lat": -89.452674851,
+        "lon": 222.85134735,
+        "elevationM": 1956.391
+      },
+      "result": {
+        "siteId": "ridge-4",
+        "name": "Connecting Ridge · ROI 4",
+        "start": "2027-06-02T06:00:00.000Z",
+        "end": "2027-06-09T06:00:00.000Z",
+        "status": "complete",
+        "feasible": false,
+        "metrics": {
+          "sunHours": 109.93547249627008,
+          "earthHours": 161.5588537354872,
+          "jointHours": 103.49432623175727,
+          "longestDarkHours": 58.06452750372993,
+          "longestCommGapHours": 6.4411462645128035
+        },
+        "knownMetrics": {
+          "sunHours": 109.93547249627008,
+          "earthHours": 161.5588537354872,
+          "jointHours": 103.49432623175727,
+          "longestDarkHours": 58.06452750372993,
+          "longestCommGapHours": 6.4411462645128035
+        },
+        "windows": {
+          "sun": [
+            {
+              "start": "2027-06-04T16:03:52.299Z",
+              "end": "2027-06-09T06:00:00.000Z",
+              "hours": 109.93547249627008,
+              "startMs": 1812125032299.0134,
+              "endMs": 1812520800000
+            }
+          ],
+          "earth": [
+            {
+              "start": "2027-06-02T06:00:00.000Z",
+              "end": "2027-06-08T23:33:31.873Z",
+              "hours": 161.5588537354872,
+              "startMs": 1811916000000,
+              "endMs": 1812497611873.4478
+            }
+          ],
+          "joint": [
+            {
+              "start": "2027-06-04T16:03:52.299Z",
+              "end": "2027-06-08T23:33:31.873Z",
+              "hours": 103.49432623175727,
+              "startMs": 1812125032299.0134,
+              "endMs": 1812497611873.4478
+            }
+          ],
+          "dark": [
+            {
+              "start": "2027-06-02T06:00:00.000Z",
+              "end": "2027-06-04T16:03:52.299Z",
+              "hours": 58.06452750372993,
+              "startMs": 1811916000000,
+              "endMs": 1812125032299.0134
+            }
+          ],
+          "commGap": [
+            {
+              "start": "2027-06-08T23:33:31.873Z",
+              "end": "2027-06-09T06:00:00.000Z",
+              "hours": 6.4411462645128035,
+              "startMs": 1812497611873.4478,
+              "endMs": 1812520800000
+            }
+          ],
+          "unknown": []
+        },
+        "constraints": {
+          "maxDarkHours": 24,
+          "maxCommGapHours": 24,
+          "minJointHours": 24,
+          "clearanceDeg": 0,
+          "observerHeightM": 2
+        },
+        "reasons": [
+          {
+            "code": "dark-gap",
+            "message": "The longest modeled darkness exceeds the mission limit.",
+            "actual": 58.06452750372993,
+            "limit": 24
+          }
+        ],
+        "warnings": [
+          "Sun and Earth centers only; finite disks, eclipses, solar-panel performance and radio links are not modeled.",
+          "Transition times use linear interpolation of clearance margins. Narrow terrain features or short events between samples may be missed.",
+          "Outage lengths are clipped to the requested mission interval; a gap touching an edge may continue beyond it.",
+          "Surrounding patches reuse central-site Sun/Earth angles where patch-specific ephemerides are absent. This approximation is separate from terrain effects."
+        ],
+        "resolutionIndicators": {
+          "subSampleSunWindowCount": 0,
+          "subSampleEarthWindowCount": 0,
+          "shortestInteriorSunWindowHours": null,
+          "shortestInteriorEarthWindowHours": null
+        },
+        "coverage": {
+          "hours": 168,
+          "fraction": 1,
+          "nominalStepHours": 0.5,
+          "maxGapHours": 0.5,
+          "maximumUsedSampleStepHours": 0.5,
+          "rejectedGapCount": 0
+        },
+        "assumptions": {
+          "horizonObserverHeightM": 2,
+          "requestedObserverHeightM": 2,
+          "heightSupported": true,
+          "visibilityDefinition": "body-center",
+          "interpolation": "piecewise-linear-clearance",
+          "atmosphericRefraction": false
+        },
+        "centerFeasible": false,
+        "patchStats": {
+          "count": 9,
+          "completeCount": 9,
+          "knownFeasibilityCount": 9,
+          "feasibleCount": 0,
+          "coverageFraction": 0,
+          "completeFraction": 1,
+          "allKnown": true,
+          "interpretation": "Fraction of supplied geometric scenarios meeting thresholds; not a landing probability or spatial area estimate unless sampling supports it.",
+          "scenarios": [
+            {
+              "id": "e-25-n-25",
+              "dxM": -25,
+              "dyM": -25,
+              "status": "complete",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 120.58122668830023,
+                "earthHours": 161.5147363591173,
+                "jointHours": 114.09596304741754,
+                "longestDarkHours": 47.41877331169976,
+                "longestCommGapHours": 6.485263640882704
+              },
+              "coverage": {
+                "hours": 168,
+                "fraction": 1,
+                "nominalStepHours": 0.5,
+                "maxGapHours": 0.5,
+                "maximumUsedSampleStepHours": 0.5,
+                "rejectedGapCount": 0
+              },
+              "reasons": [
+                {
+                  "code": "dark-gap",
+                  "message": "The longest modeled darkness exceeds the mission limit.",
+                  "actual": 47.41877331169976,
+                  "limit": 24
+                }
+              ],
+              "ephemerides": "center-reused-approximation"
+            },
+            {
+              "id": "e+0-n-25",
+              "dxM": 0,
+              "dyM": -25,
+              "status": "complete",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 113.90477195414225,
+                "earthHours": 161.55252857001412,
+                "jointHours": 107.45730052415635,
+                "longestDarkHours": 54.095228045857745,
+                "longestCommGapHours": 6.447471429985894
+              },
+              "coverage": {
+                "hours": 168,
+                "fraction": 1,
+                "nominalStepHours": 0.5,
+                "maxGapHours": 0.5,
+                "maximumUsedSampleStepHours": 0.5,
+                "rejectedGapCount": 0
+              },
+              "reasons": [
+                {
+                  "code": "dark-gap",
+                  "message": "The longest modeled darkness exceeds the mission limit.",
+                  "actual": 54.095228045857745,
+                  "limit": 24
+                }
+              ],
+              "ephemerides": "center-reused-approximation"
+            },
+            {
+              "id": "e+25-n-25",
+              "dxM": 25,
+              "dyM": -25,
+              "status": "complete",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 73.11980526692709,
+                "earthHours": 161.57363073642307,
+                "jointHours": 66.69343600335014,
+                "longestDarkHours": 89.54722758911133,
+                "longestCommGapHours": 6.426369263576931
+              },
+              "coverage": {
+                "hours": 168,
+                "fraction": 1,
+                "nominalStepHours": 0.5,
+                "maxGapHours": 0.5,
+                "maximumUsedSampleStepHours": 0.5,
+                "rejectedGapCount": 0
+              },
+              "reasons": [
+                {
+                  "code": "dark-gap",
+                  "message": "The longest modeled darkness exceeds the mission limit.",
+                  "actual": 89.54722758911133,
+                  "limit": 24
+                }
+              ],
+              "ephemerides": "center-reused-approximation"
+            },
+            {
+              "id": "e-25-n+0",
+              "dxM": -25,
+              "dyM": 0,
+              "status": "complete",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 116.88129108072917,
+                "earthHours": 161.52368523844402,
+                "jointHours": 110.40497631917317,
+                "longestDarkHours": 51.11870891927083,
+                "longestCommGapHours": 6.476314761555989
+              },
+              "coverage": {
+                "hours": 168,
+                "fraction": 1,
+                "nominalStepHours": 0.5,
+                "maxGapHours": 0.5,
+                "maximumUsedSampleStepHours": 0.5,
+                "rejectedGapCount": 0
+              },
+              "reasons": [
+                {
+                  "code": "dark-gap",
+                  "message": "The longest modeled darkness exceeds the mission limit.",
+                  "actual": 51.11870891927083,
+                  "limit": 24
+                }
+              ],
+              "ephemerides": "center-reused-approximation"
+            },
+            {
+              "id": "e+0-n+0",
+              "dxM": 0,
+              "dyM": 0,
+              "status": "complete",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 109.93547249627008,
+                "earthHours": 161.5588537354872,
+                "jointHours": 103.49432623175727,
+                "longestDarkHours": 58.06452750372993,
+                "longestCommGapHours": 6.4411462645128035
+              },
+              "coverage": {
+                "hours": 168,
+                "fraction": 1,
+                "nominalStepHours": 0.5,
+                "maxGapHours": 0.5,
+                "maximumUsedSampleStepHours": 0.5,
+                "rejectedGapCount": 0
+              },
+              "reasons": [
+                {
+                  "code": "dark-gap",
+                  "message": "The longest modeled darkness exceeds the mission limit.",
+                  "actual": 58.06452750372993,
+                  "limit": 24
+                }
+              ],
+              "ephemerides": "center-reused-approximation"
+            },
+            {
+              "id": "e+25-n+0",
+              "dxM": 25,
+              "dyM": 0,
+              "status": "complete",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 61.114628694932726,
+                "earthHours": 161.58022376383462,
+                "jointHours": 54.694852458767365,
+                "longestDarkHours": 99.58158079983181,
+                "longestCommGapHours": 6.419776236165364
+              },
+              "coverage": {
+                "hours": 168,
+                "fraction": 1,
+                "nominalStepHours": 0.5,
+                "maxGapHours": 0.5,
+                "maximumUsedSampleStepHours": 0.5,
+                "rejectedGapCount": 0
+              },
+              "reasons": [
+                {
+                  "code": "dark-gap",
+                  "message": "The longest modeled darkness exceeds the mission limit.",
+                  "actual": 99.58158079983181,
+                  "limit": 24
+                }
+              ],
+              "ephemerides": "center-reused-approximation"
+            },
+            {
+              "id": "e-25-n+25",
+              "dxM": -25,
+              "dyM": 25,
+              "status": "complete",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 114.24925331007216,
+                "earthHours": 161.53146752163357,
+                "jointHours": 107.78072083170574,
+                "longestDarkHours": 53.750746689927844,
+                "longestCommGapHours": 6.468532478366428
+              },
+              "coverage": {
+                "hours": 168,
+                "fraction": 1,
+                "nominalStepHours": 0.5,
+                "maxGapHours": 0.5,
+                "maximumUsedSampleStepHours": 0.5,
+                "rejectedGapCount": 0
+              },
+              "reasons": [
+                {
+                  "code": "dark-gap",
+                  "message": "The longest modeled darkness exceeds the mission limit.",
+                  "actual": 53.750746689927844,
+                  "limit": 24
+                }
+              ],
+              "ephemerides": "center-reused-approximation"
+            },
+            {
+              "id": "e+0-n+25",
+              "dxM": 0,
+              "dyM": 25,
+              "status": "complete",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 106.6124709845649,
+                "earthHours": 161.56915312201605,
+                "jointHours": 100.18162410658094,
+                "longestDarkHours": 61.38752901543511,
+                "longestCommGapHours": 6.430846877983941
+              },
+              "coverage": {
+                "hours": 168,
+                "fraction": 1,
+                "nominalStepHours": 0.5,
+                "maxGapHours": 0.5,
+                "maximumUsedSampleStepHours": 0.5,
+                "rejectedGapCount": 0
+              },
+              "reasons": [
+                {
+                  "code": "dark-gap",
+                  "message": "The longest modeled darkness exceeds the mission limit.",
+                  "actual": 61.38752901543511,
+                  "limit": 24
+                }
+              ],
+              "ephemerides": "center-reused-approximation"
+            },
+            {
+              "id": "e+25-n+25",
+              "dxM": 25,
+              "dyM": 25,
+              "status": "complete",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 38.84786471421984,
+                "earthHours": 161.5846539864095,
+                "jointHours": 32.43251870062934,
+                "longestDarkHours": 125.87806072950575,
+                "longestCommGapHours": 6.4153460135904945
+              },
+              "coverage": {
+                "hours": 168,
+                "fraction": 1,
+                "nominalStepHours": 0.5,
+                "maxGapHours": 0.5,
+                "maximumUsedSampleStepHours": 0.5,
+                "rejectedGapCount": 0
+              },
+              "reasons": [
+                {
+                  "code": "dark-gap",
+                  "message": "The longest modeled darkness exceeds the mission limit.",
+                  "actual": 125.87806072950575,
+                  "limit": 24
+                }
+              ],
+              "ephemerides": "center-reused-approximation"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "location": {
+        "id": "ridge-6",
+        "name": "Connecting Ridge · ROI 6",
+        "lat": -89.47394396,
+        "lon": 222.624629195,
+        "elevationM": 1948.351
+      },
+      "result": {
+        "siteId": "ridge-6",
+        "name": "Connecting Ridge · ROI 6",
+        "start": "2027-06-02T06:00:00.000Z",
+        "end": "2027-06-09T06:00:00.000Z",
+        "status": "complete",
+        "feasible": true,
+        "metrics": {
+          "sunHours": 155.55198630811904,
+          "earthHours": 161.68126468519424,
+          "jointHours": 149.23325099331325,
+          "longestDarkHours": 12.448013691880968,
+          "longestCommGapHours": 6.318735314805773
+        },
+        "knownMetrics": {
+          "sunHours": 155.55198630811904,
+          "earthHours": 161.68126468519424,
+          "jointHours": 149.23325099331325,
+          "longestDarkHours": 12.448013691880968,
+          "longestCommGapHours": 6.318735314805773
+        },
+        "windows": {
+          "sun": [
+            {
+              "start": "2027-06-02T18:26:52.849Z",
+              "end": "2027-06-09T06:00:00.000Z",
+              "hours": 155.55198630811904,
+              "startMs": 1811960812849.2908,
+              "endMs": 1812520800000
+            }
+          ],
+          "earth": [
+            {
+              "start": "2027-06-02T06:00:00.000Z",
+              "end": "2027-06-08T23:40:52.552Z",
+              "hours": 161.68126468519424,
+              "startMs": 1811916000000,
+              "endMs": 1812498052552.8667
+            }
+          ],
+          "joint": [
+            {
+              "start": "2027-06-02T18:26:52.849Z",
+              "end": "2027-06-08T23:40:52.552Z",
+              "hours": 149.23325099331325,
+              "startMs": 1811960812849.2908,
+              "endMs": 1812498052552.8667
+            }
+          ],
+          "dark": [
+            {
+              "start": "2027-06-02T06:00:00.000Z",
+              "end": "2027-06-02T18:26:52.849Z",
+              "hours": 12.448013691880968,
+              "startMs": 1811916000000,
+              "endMs": 1811960812849.2908
+            }
+          ],
+          "commGap": [
+            {
+              "start": "2027-06-08T23:40:52.552Z",
+              "end": "2027-06-09T06:00:00.000Z",
+              "hours": 6.318735314805773,
+              "startMs": 1812498052552.8667,
+              "endMs": 1812520800000
+            }
+          ],
+          "unknown": []
+        },
+        "constraints": {
+          "maxDarkHours": 24,
+          "maxCommGapHours": 24,
+          "minJointHours": 24,
+          "clearanceDeg": 0,
+          "observerHeightM": 2
+        },
+        "reasons": [],
+        "warnings": [
+          "Sun and Earth centers only; finite disks, eclipses, solar-panel performance and radio links are not modeled.",
+          "Transition times use linear interpolation of clearance margins. Narrow terrain features or short events between samples may be missed.",
+          "Outage lengths are clipped to the requested mission interval; a gap touching an edge may continue beyond it.",
+          "Surrounding patches reuse central-site Sun/Earth angles where patch-specific ephemerides are absent. This approximation is separate from terrain effects."
+        ],
+        "resolutionIndicators": {
+          "subSampleSunWindowCount": 0,
+          "subSampleEarthWindowCount": 0,
+          "shortestInteriorSunWindowHours": null,
+          "shortestInteriorEarthWindowHours": null
+        },
+        "coverage": {
+          "hours": 168,
+          "fraction": 1,
+          "nominalStepHours": 0.5,
+          "maxGapHours": 0.5,
+          "maximumUsedSampleStepHours": 0.5,
+          "rejectedGapCount": 0
+        },
+        "assumptions": {
+          "horizonObserverHeightM": 2,
+          "requestedObserverHeightM": 2,
+          "heightSupported": true,
+          "visibilityDefinition": "body-center",
+          "interpolation": "piecewise-linear-clearance",
+          "atmosphericRefraction": false
+        },
+        "centerFeasible": true,
+        "patchStats": {
+          "count": 9,
+          "completeCount": 9,
+          "knownFeasibilityCount": 9,
+          "feasibleCount": 8,
+          "coverageFraction": 0.8888888888888888,
+          "completeFraction": 1,
+          "allKnown": true,
+          "interpretation": "Fraction of supplied geometric scenarios meeting thresholds; not a landing probability or spatial area estimate unless sampling supports it.",
+          "scenarios": [
+            {
+              "id": "e-25-n-25",
+              "dxM": -25,
+              "dyM": -25,
+              "status": "complete",
+              "feasible": true,
+              "metrics": {
+                "sunHours": 158.34702250732423,
+                "earthHours": 161.61459621643067,
+                "jointHours": 151.9616187237549,
+                "longestDarkHours": 9.652977492675781,
+                "longestCommGapHours": 6.385403783569336
+              },
+              "coverage": {
+                "hours": 168,
+                "fraction": 1,
+                "nominalStepHours": 0.5,
+                "maxGapHours": 0.5,
+                "maximumUsedSampleStepHours": 0.5,
+                "rejectedGapCount": 0
+              },
+              "reasons": [],
+              "ephemerides": "center-reused-approximation"
+            },
+            {
+              "id": "e+0-n-25",
+              "dxM": 0,
+              "dyM": -25,
+              "status": "complete",
+              "feasible": true,
+              "metrics": {
+                "sunHours": 155.6114949489339,
+                "earthHours": 161.6745244330512,
+                "jointHours": 149.28601938198514,
+                "longestDarkHours": 12.388505051066081,
+                "longestCommGapHours": 6.325475566948785
+              },
+              "coverage": {
+                "hours": 168,
+                "fraction": 1,
+                "nominalStepHours": 0.5,
+                "maxGapHours": 0.5,
+                "maximumUsedSampleStepHours": 0.5,
+                "rejectedGapCount": 0
+              },
+              "reasons": [],
+              "ephemerides": "center-reused-approximation"
+            },
+            {
+              "id": "e+25-n-25",
+              "dxM": 25,
+              "dyM": -25,
+              "status": "complete",
+              "feasible": false,
+              "metrics": {
+                "sunHours": 0.4990211201985677,
+                "earthHours": 161.70803764539932,
+                "jointHours": 0,
+                "longestDarkHours": 167.50097887980144,
+                "longestCommGapHours": 6.291962354600694
+              },
+              "coverage": {
+                "hours": 168,
+                "fraction": 1,
+                "nominalStepHours": 0.5,
+                "maxGapHours": 0.5,
+                "maximumUsedSampleStepHours": 0.5,
+                "rejectedGapCount": 0
+              },
+              "reasons": [
+                {
+                  "code": "dark-gap",
+                  "message": "The longest modeled darkness exceeds the mission limit.",
+                  "actual": 167.50097887980144,
+                  "limit": 24
+                },
+                {
+                  "code": "joint-shortfall",
+                  "message": "The simultaneous Sun/Earth visibility duration is below the mission requirement.",
+                  "actual": 0,
+                  "limit": 24
+                }
+              ],
+              "ephemerides": "center-reused-approximation"
+            },
+            {
+              "id": "e-25-n+0",
+              "dxM": -25,
+              "dyM": 0,
+              "status": "complete",
+              "feasible": true,
+              "metrics": {
+                "sunHours": 158.3202221492513,
+                "earthHours": 161.61729621914333,
+                "jointHours": 151.93751836839465,
+                "longestDarkHours": 9.679777850748698,
+                "longestCommGapHours": 6.382703780856662
+              },
+              "coverage": {
+                "hours": 168,
+                "fraction": 1,
+                "nominalStepHours": 0.5,
+                "maxGapHours": 0.5,
+                "maximumUsedSampleStepHours": 0.5,
+                "rejectedGapCount": 0
+              },
+              "reasons": [],
+              "ephemerides": "center-reused-approximation"
+            },
+            {
+              "id": "e+0-n+0",
+              "dxM": 0,
+              "dyM": 0,
+              "status": "complete",
+              "feasible": true,
+              "metrics": {
+                "sunHours": 155.55198630811904,
+                "earthHours": 161.68126468519424,
+                "jointHours": 149.23325099331325,
+                "longestDarkHours": 12.448013691880968,
+                "longestCommGapHours": 6.318735314805773
+              },
+              "coverage": {
+                "hours": 168,
+                "fraction": 1,
+                "nominalStepHours": 0.5,
+                "maxGapHours": 0.5,
+                "maximumUsedSampleStepHours": 0.5,
+                "rejectedGapCount": 0
+              },
+              "reasons": [],
+              "ephemerides": "center-reused-approximation"
+            },
+            {
+              "id": "e+25-n+0",
+              "dxM": 25,
+              "dyM": 0,
+              "status": "complete",
+              "feasible": true,
+              "metrics": {
+                "sunHours": 151.1078057796224,
+                "earthHours": 161.72309696757,
+                "jointHours": 144.8309027471924,
+                "longestDarkHours": 16.892194220377604,
+                "longestCommGapHours": 6.276903032430013
+              },
+              "coverage": {
+                "hours": 168,
+                "fraction": 1,
+                "nominalStepHours": 0.5,
+                "maxGapHours": 0.5,
+                "maximumUsedSampleStepHours": 0.5,
+                "rejectedGapCount": 0
+              },
+              "reasons": [],
+              "ephemerides": "center-reused-approximation"
+            },
+            {
+              "id": "e-25-n+25",
+              "dxM": -25,
+              "dyM": 25,
+              "status": "complete",
+              "feasible": true,
+              "metrics": {
+                "sunHours": 157.65894418267143,
+                "earthHours": 161.62172091322157,
+                "jointHours": 151.280665095893,
+                "longestDarkHours": 10.34105581732856,
+                "longestCommGapHours": 6.378279086778429
+              },
+              "coverage": {
+                "hours": 168,
+                "fraction": 1,
+                "nominalStepHours": 0.5,
+                "maxGapHours": 0.5,
+                "maximumUsedSampleStepHours": 0.5,
+                "rejectedGapCount": 0
+              },
+              "reasons": [],
+              "ephemerides": "center-reused-approximation"
+            },
+            {
+              "id": "e+0-n+25",
+              "dxM": 0,
+              "dyM": 25,
+              "status": "complete",
+              "feasible": true,
+              "metrics": {
+                "sunHours": 155.0952331600613,
+                "earthHours": 161.68448652574327,
+                "jointHours": 148.77971968580457,
+                "longestDarkHours": 12.904766839938693,
+                "longestCommGapHours": 6.315513474256727
+              },
+              "coverage": {
+                "hours": 168,
+                "fraction": 1,
+                "nominalStepHours": 0.5,
+                "maxGapHours": 0.5,
+                "maximumUsedSampleStepHours": 0.5,
+                "rejectedGapCount": 0
+              },
+              "reasons": [],
+              "ephemerides": "center-reused-approximation"
+            },
+            {
+              "id": "e+25-n+25",
+              "dxM": 25,
+              "dyM": 25,
+              "status": "complete",
+              "feasible": true,
+              "metrics": {
+                "sunHours": 151.27574775526259,
+                "earthHours": 161.72973264573838,
+                "jointHours": 145.00548040100097,
+                "longestDarkHours": 16.724252244737414,
+                "longestCommGapHours": 6.27026735426161
+              },
+              "coverage": {
+                "hours": 168,
+                "fraction": 1,
+                "nominalStepHours": 0.5,
+                "maxGapHours": 0.5,
+                "maximumUsedSampleStepHours": 0.5,
+                "rejectedGapCount": 0
+              },
+              "reasons": [],
+              "ephemerides": "center-reused-approximation"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "southeast": {
+    "dxM": 25,
+    "dyM": -25,
+    "result": {
+      "siteId": "e+25-n-25",
+      "name": "Connecting Ridge · ROI 6",
+      "start": "2027-06-02T06:00:00.000Z",
+      "end": "2027-06-09T06:00:00.000Z",
+      "status": "complete",
+      "feasible": false,
+      "metrics": {
+        "sunHours": 0.4990211201985677,
+        "earthHours": 161.70803764539932,
+        "jointHours": 0,
+        "longestDarkHours": 167.50097887980144,
+        "longestCommGapHours": 6.291962354600694
+      },
+      "knownMetrics": {
+        "sunHours": 0.4990211201985677,
+        "earthHours": 161.70803764539932,
+        "jointHours": 0,
+        "longestDarkHours": 167.50097887980144,
+        "longestCommGapHours": 6.291962354600694
+      },
+      "windows": {
+        "sun": [
+          {
+            "start": "2027-06-09T05:30:03.523Z",
+            "end": "2027-06-09T06:00:00.000Z",
+            "hours": 0.4990211201985677,
+            "startMs": 1812519003523.9673,
+            "endMs": 1812520800000
+          }
+        ],
+        "earth": [
+          {
+            "start": "2027-06-02T06:00:00.000Z",
+            "end": "2027-06-08T23:42:28.935Z",
+            "hours": 161.70803764539932,
+            "startMs": 1811916000000,
+            "endMs": 1812498148935.5234
+          }
+        ],
+        "joint": [],
+        "dark": [
+          {
+            "start": "2027-06-02T06:00:00.000Z",
+            "end": "2027-06-09T05:30:03.523Z",
+            "hours": 167.50097887980144,
+            "startMs": 1811916000000,
+            "endMs": 1812519003523.9673
+          }
+        ],
+        "commGap": [
+          {
+            "start": "2027-06-08T23:42:28.935Z",
+            "end": "2027-06-09T06:00:00.000Z",
+            "hours": 6.291962354600694,
+            "startMs": 1812498148935.5234,
+            "endMs": 1812520800000
+          }
+        ],
+        "unknown": []
+      },
+      "constraints": {
+        "maxDarkHours": 24,
+        "maxCommGapHours": 24,
+        "minJointHours": 24,
+        "clearanceDeg": 0,
+        "observerHeightM": 2
+      },
+      "reasons": [
+        {
+          "code": "dark-gap",
+          "message": "The longest modeled darkness exceeds the mission limit.",
+          "actual": 167.50097887980144,
+          "limit": 24
+        },
+        {
+          "code": "joint-shortfall",
+          "message": "The simultaneous Sun/Earth visibility duration is below the mission requirement.",
+          "actual": 0,
+          "limit": 24
+        }
+      ],
+      "warnings": [
+        "Sun and Earth centers only; finite disks, eclipses, solar-panel performance and radio links are not modeled.",
+        "Transition times use linear interpolation of clearance margins. Narrow terrain features or short events between samples may be missed.",
+        "Outage lengths are clipped to the requested mission interval; a gap touching an edge may continue beyond it."
+      ],
+      "resolutionIndicators": {
+        "subSampleSunWindowCount": 0,
+        "subSampleEarthWindowCount": 0,
+        "shortestInteriorSunWindowHours": null,
+        "shortestInteriorEarthWindowHours": null
+      },
+      "coverage": {
+        "hours": 168,
+        "fraction": 1,
+        "nominalStepHours": 0.5,
+        "maxGapHours": 0.5,
+        "maximumUsedSampleStepHours": 0.5,
+        "rejectedGapCount": 0
+      },
+      "assumptions": {
+        "horizonObserverHeightM": 2,
+        "requestedObserverHeightM": 2,
+        "heightSupported": true,
+        "visibilityDefinition": "body-center",
+        "interpolation": "piecewise-linear-clearance",
+        "atmosphericRefraction": false
+      },
+      "centerFeasible": false,
+      "patchStats": {
+        "count": 0,
+        "completeCount": 0,
+        "knownFeasibilityCount": 0,
+        "feasibleCount": 0,
+        "coverageFraction": null,
+        "completeFraction": null,
+        "allKnown": false,
+        "interpretation": "Fraction of supplied geometric scenarios meeting thresholds; not a landing probability or spatial area estimate unless sampling supports it.",
+        "scenarios": []
+      }
+    }
+  },
+  "search": {
+    "baselineStart": "2027-06-02T06:00:00.000Z",
+    "stepHours": 6,
+    "evaluatedCount": 264,
+    "excludedCount": 0,
+    "truncated": false,
+    "candidates": [
+      {
+        "siteId": "ridge-4",
+        "name": "Connecting Ridge · ROI 4",
+        "start": "2027-06-21T12:00:00.000Z",
+        "end": "2027-06-28T12:00:00.000Z",
+        "delayHours": 462,
+        "feasible": true,
+        "centerFeasible": true,
+        "metrics": {
+          "sunHours": 160.31822226738825,
+          "earthHours": 149.383702027181,
+          "jointHours": 141.70192429456924,
+          "longestDarkHours": 7.681777732611762,
+          "longestCommGapHours": 18.61629797281901
+        },
+        "patchCoverage": 1,
+        "reasons": []
+      },
+      {
+        "siteId": "ridge-1",
+        "name": "Connecting Ridge · ROI 1",
+        "start": "2027-06-21T12:00:00.000Z",
+        "end": "2027-06-28T12:00:00.000Z",
+        "delayHours": 462,
+        "feasible": true,
+        "centerFeasible": true,
+        "metrics": {
+          "sunHours": 160.08493895324708,
+          "earthHours": 149.7670138084581,
+          "jointHours": 141.8519527617052,
+          "longestDarkHours": 7.91506104675293,
+          "longestCommGapHours": 18.232986191541883
+        },
+        "patchCoverage": 1,
+        "reasons": []
+      },
+      {
+        "siteId": "ridge-1",
+        "name": "Connecting Ridge · ROI 1",
+        "start": "2027-06-21T18:00:00.000Z",
+        "end": "2027-06-28T18:00:00.000Z",
+        "delayHours": 468,
+        "feasible": true,
+        "centerFeasible": true,
+        "metrics": {
+          "sunHours": 160.08493895324708,
+          "earthHours": 155.7670138084581,
+          "jointHours": 147.8519527617052,
+          "longestDarkHours": 7.91506104675293,
+          "longestCommGapHours": 12.232986191541883
+        },
+        "patchCoverage": 1,
+        "reasons": []
+      }
+    ],
+    "earliestFeasible": [
+      {
+        "siteId": "ridge-4",
+        "name": "Connecting Ridge · ROI 4",
+        "start": "2027-06-21T12:00:00.000Z",
+        "end": "2027-06-28T12:00:00.000Z",
+        "delayHours": 462,
+        "feasible": true,
+        "centerFeasible": true,
+        "metrics": {
+          "sunHours": 160.31822226738825,
+          "earthHours": 149.383702027181,
+          "jointHours": 141.70192429456924,
+          "longestDarkHours": 7.681777732611762,
+          "longestCommGapHours": 18.61629797281901
+        },
+        "patchCoverage": 1,
+        "reasons": []
+      },
+      {
+        "siteId": "ridge-1",
+        "name": "Connecting Ridge · ROI 1",
+        "start": "2027-06-21T12:00:00.000Z",
+        "end": "2027-06-28T12:00:00.000Z",
+        "delayHours": 462,
+        "feasible": true,
+        "centerFeasible": true,
+        "metrics": {
+          "sunHours": 160.08493895324708,
+          "earthHours": 149.7670138084581,
+          "jointHours": 141.8519527617052,
+          "longestDarkHours": 7.91506104675293,
+          "longestCommGapHours": 18.232986191541883
+        },
+        "patchCoverage": 1,
+        "reasons": []
+      }
+    ],
+    "earliestDelayHours": 462,
+    "pareto": [
+      {
+        "siteId": "ridge-6",
+        "name": "Connecting Ridge · ROI 6",
+        "start": "2027-06-02T06:00:00.000Z",
+        "end": "2027-06-09T06:00:00.000Z",
+        "delayHours": 0,
+        "feasible": false,
+        "centerFeasible": true,
+        "metrics": {
+          "sunHours": 155.55198630811904,
+          "earthHours": 161.68126468519424,
+          "jointHours": 149.23325099331325,
+          "longestDarkHours": 12.448013691880968,
+          "longestCommGapHours": 6.318735314805773
+        },
+        "patchCoverage": 0.8888888888888888,
+        "reasons": [
+          {
+            "code": "patch-coverage",
+            "message": "Too few surrounding geometric scenarios meet the mission limits.",
+            "actual": 0.8888888888888888,
+            "limit": 1
+          }
+        ]
+      },
+      {
+        "siteId": "ridge-6",
+        "name": "Connecting Ridge · ROI 6",
+        "start": "2027-06-02T12:00:00.000Z",
+        "end": "2027-06-09T12:00:00.000Z",
+        "delayHours": 6,
+        "feasible": false,
+        "centerFeasible": true,
+        "metrics": {
+          "sunHours": 161.55198630811904,
+          "earthHours": 155.68126468519424,
+          "jointHours": 149.23325099331325,
+          "longestDarkHours": 6.448013691880968,
+          "longestCommGapHours": 12.318735314805773
+        },
+        "patchCoverage": 0.8888888888888888,
+        "reasons": [
+          {
+            "code": "patch-coverage",
+            "message": "Too few surrounding geometric scenarios meet the mission limits.",
+            "actual": 0.8888888888888888,
+            "limit": 1
+          }
+        ]
+      },
+      {
+        "siteId": "ridge-6",
+        "name": "Connecting Ridge · ROI 6",
+        "start": "2027-06-02T18:00:00.000Z",
+        "end": "2027-06-09T18:00:00.000Z",
+        "delayHours": 12,
+        "feasible": false,
+        "centerFeasible": true,
+        "metrics": {
+          "sunHours": 167.55198630811904,
+          "earthHours": 149.68126468519424,
+          "jointHours": 149.23325099331325,
+          "longestDarkHours": 0.4480136918809679,
+          "longestCommGapHours": 18.31873531480577
+        },
+        "patchCoverage": 0.8888888888888888,
+        "reasons": [
+          {
+            "code": "patch-coverage",
+            "message": "Too few surrounding geometric scenarios meet the mission limits.",
+            "actual": 0.8888888888888888,
+            "limit": 1
+          }
+        ]
+      },
+      {
+        "siteId": "ridge-6",
+        "name": "Connecting Ridge · ROI 6",
+        "start": "2027-06-03T00:00:00.000Z",
+        "end": "2027-06-10T00:00:00.000Z",
+        "delayHours": 18,
+        "feasible": false,
+        "centerFeasible": false,
+        "metrics": {
+          "sunHours": 168,
+          "earthHours": 143.68126468519424,
+          "jointHours": 143.68126468519424,
+          "longestDarkHours": 0,
+          "longestCommGapHours": 24.31873531480577
+        },
+        "patchCoverage": 0,
+        "reasons": [
+          {
+            "code": "comm-gap",
+            "message": "The longest modeled Earth-center visibility gap exceeds the mission limit.",
+            "actual": 24.31873531480577,
+            "limit": 24
+          },
+          {
+            "code": "patch-coverage",
+            "message": "Too few surrounding geometric scenarios meet the mission limits.",
+            "actual": 0,
+            "limit": 1
+          }
+        ]
+      },
+      {
+        "siteId": "ridge-4",
+        "name": "Connecting Ridge · ROI 4",
+        "start": "2027-06-21T12:00:00.000Z",
+        "end": "2027-06-28T12:00:00.000Z",
+        "delayHours": 462,
+        "feasible": true,
+        "centerFeasible": true,
+        "metrics": {
+          "sunHours": 160.31822226738825,
+          "earthHours": 149.383702027181,
+          "jointHours": 141.70192429456924,
+          "longestDarkHours": 7.681777732611762,
+          "longestCommGapHours": 18.61629797281901
+        },
+        "patchCoverage": 1,
+        "reasons": []
+      },
+      {
+        "siteId": "ridge-1",
+        "name": "Connecting Ridge · ROI 1",
+        "start": "2027-06-21T12:00:00.000Z",
+        "end": "2027-06-28T12:00:00.000Z",
+        "delayHours": 462,
+        "feasible": true,
+        "centerFeasible": true,
+        "metrics": {
+          "sunHours": 160.08493895324708,
+          "earthHours": 149.7670138084581,
+          "jointHours": 141.8519527617052,
+          "longestDarkHours": 7.91506104675293,
+          "longestCommGapHours": 18.232986191541883
+        },
+        "patchCoverage": 1,
+        "reasons": []
+      },
+      {
+        "siteId": "ridge-1",
+        "name": "Connecting Ridge · ROI 1",
+        "start": "2027-06-21T18:00:00.000Z",
+        "end": "2027-06-28T18:00:00.000Z",
+        "delayHours": 468,
+        "feasible": true,
+        "centerFeasible": true,
+        "metrics": {
+          "sunHours": 160.08493895324708,
+          "earthHours": 155.7670138084581,
+          "jointHours": 147.8519527617052,
+          "longestDarkHours": 7.91506104675293,
+          "longestCommGapHours": 12.232986191541883
+        },
+        "patchCoverage": 1,
+        "reasons": []
+      },
+      {
+        "siteId": "ridge-4",
+        "name": "Connecting Ridge · ROI 4",
+        "start": "2027-06-22T00:00:00.000Z",
+        "end": "2027-06-29T00:00:00.000Z",
+        "delayHours": 474,
+        "feasible": false,
+        "centerFeasible": true,
+        "metrics": {
+          "sunHours": 160.31822226738825,
+          "earthHours": 161.383702027181,
+          "jointHours": 153.70192429456924,
+          "longestDarkHours": 7.681777732611762,
+          "longestCommGapHours": 6.6162979728190106
+        },
+        "patchCoverage": 0.8888888888888888,
+        "reasons": [
+          {
+            "code": "patch-coverage",
+            "message": "Too few surrounding geometric scenarios meet the mission limits.",
+            "actual": 0.8888888888888888,
+            "limit": 1
+          }
+        ]
+      },
+      {
+        "siteId": "ridge-1",
+        "name": "Connecting Ridge · ROI 1",
+        "start": "2027-06-22T00:00:00.000Z",
+        "end": "2027-06-29T00:00:00.000Z",
+        "delayHours": 474,
+        "feasible": true,
+        "centerFeasible": true,
+        "metrics": {
+          "sunHours": 160.08493895324708,
+          "earthHours": 161.7670138084581,
+          "jointHours": 153.8519527617052,
+          "longestDarkHours": 7.91506104675293,
+          "longestCommGapHours": 6.232986191541884
+        },
+        "patchCoverage": 1,
+        "reasons": []
+      },
+      {
+        "siteId": "ridge-4",
+        "name": "Connecting Ridge · ROI 4",
+        "start": "2027-06-22T06:00:00.000Z",
+        "end": "2027-06-29T06:00:00.000Z",
+        "delayHours": 480,
+        "feasible": false,
+        "centerFeasible": true,
+        "metrics": {
+          "sunHours": 160.31822226738825,
+          "earthHours": 167.383702027181,
+          "jointHours": 159.70192429456924,
+          "longestDarkHours": 7.681777732611762,
+          "longestCommGapHours": 0.6162979728190104
+        },
+        "patchCoverage": 0.8888888888888888,
+        "reasons": [
+          {
+            "code": "patch-coverage",
+            "message": "Too few surrounding geometric scenarios meet the mission limits.",
+            "actual": 0.8888888888888888,
+            "limit": 1
+          }
+        ]
+      },
+      {
+        "siteId": "ridge-1",
+        "name": "Connecting Ridge · ROI 1",
+        "start": "2027-06-22T06:00:00.000Z",
+        "end": "2027-06-29T06:00:00.000Z",
+        "delayHours": 480,
+        "feasible": true,
+        "centerFeasible": true,
+        "metrics": {
+          "sunHours": 160.08493895324708,
+          "earthHours": 167.7670138084581,
+          "jointHours": 159.8519527617052,
+          "longestDarkHours": 7.91506104675293,
+          "longestCommGapHours": 0.23298619154188369
+        },
+        "patchCoverage": 1,
+        "reasons": []
+      },
+      {
+        "siteId": "ridge-4",
+        "name": "Connecting Ridge · ROI 4",
+        "start": "2027-06-22T12:00:00.000Z",
+        "end": "2027-06-29T12:00:00.000Z",
+        "delayHours": 486,
+        "feasible": false,
+        "centerFeasible": true,
+        "metrics": {
+          "sunHours": 160.31822226738825,
+          "earthHours": 168,
+          "jointHours": 160.31822226738825,
+          "longestDarkHours": 7.681777732611762,
+          "longestCommGapHours": 0
+        },
+        "patchCoverage": 0.8888888888888888,
+        "reasons": [
+          {
+            "code": "patch-coverage",
+            "message": "Too few surrounding geometric scenarios meet the mission limits.",
+            "actual": 0.8888888888888888,
+            "limit": 1
+          }
+        ]
+      },
+      {
+        "siteId": "ridge-1",
+        "name": "Connecting Ridge · ROI 1",
+        "start": "2027-06-22T12:00:00.000Z",
+        "end": "2027-06-29T12:00:00.000Z",
+        "delayHours": 486,
+        "feasible": true,
+        "centerFeasible": true,
+        "metrics": {
+          "sunHours": 160.08493895324708,
+          "earthHours": 168,
+          "jointHours": 160.08493895324708,
+          "longestDarkHours": 7.91506104675293,
+          "longestCommGapHours": 0
+        },
+        "patchCoverage": 1,
+        "reasons": []
+      },
+      {
+        "siteId": "ridge-1",
+        "name": "Connecting Ridge · ROI 1",
+        "start": "2027-06-22T18:00:00.000Z",
+        "end": "2027-06-29T18:00:00.000Z",
+        "delayHours": 492,
+        "feasible": true,
+        "centerFeasible": true,
+        "metrics": {
+          "sunHours": 162.1519669506158,
+          "earthHours": 168,
+          "jointHours": 162.1519669506158,
+          "longestDarkHours": 5.848033049384223,
+          "longestCommGapHours": 0
+        },
+        "patchCoverage": 1,
+        "reasons": []
+      },
+      {
+        "siteId": "ridge-1",
+        "name": "Connecting Ridge · ROI 1",
+        "start": "2027-06-23T00:00:00.000Z",
+        "end": "2027-06-30T00:00:00.000Z",
+        "delayHours": 498,
+        "feasible": true,
+        "centerFeasible": true,
+        "metrics": {
+          "sunHours": 168,
+          "earthHours": 168,
+          "jointHours": 168,
+          "longestDarkHours": 0,
+          "longestCommGapHours": 0
+        },
+        "patchCoverage": 1,
+        "reasons": []
+      }
+    ],
+    "objectives": [
+      "delayHours:min",
+      "longestDarkHours:min",
+      "longestCommGapHours:min",
+      "jointHours:max",
+      "patchCoverage:max"
+    ],
+    "interpretation": "Discrete search over cached samples. Earliest is relative to the chosen grid and data coverage; no missing interval is treated as feasible."
+  },
+  "finerCheck": {
+    "source": "data/fine-ephemeris-validation.json",
+    "center": {
+      "sunHours": 155.56280115261637,
+      "earthHours": 161.6281426225404,
+      "jointHours": 149.19094377515677,
+      "longestDarkHours": 12.43719884738363,
+      "longestCommGapHours": 6.371857377459605,
+      "passesDemoConstraints": true,
+      "minimumSunMarginDeg": -0.6822441804271971,
+      "maximumSunMarginDeg": 1.6781973087211002
+    },
+    "southeast": {
+      "sunHours": 0.6522211260136146,
+      "earthHours": 161.55651398421878,
+      "jointHours": 0,
+      "longestDarkHours": 167.34777887398639,
+      "longestCommGapHours": 6.443486015781218,
+      "passesDemoConstraints": false,
+      "minimumSunMarginDeg": -1.5078537687346203,
+      "maximumSunMarginDeg": 0.022420226689999545
+    }
+  }
+}

@@ -1,0 +1,14 @@
+dist/
+node_modules/
+**/.deps/
+**/__pycache__/
+*.pyc
+*.tif
+*.TIF
+*.zip
+.env
+.env.*
+!\.env.example
+tmp/
+playwright-report/
+test-results/

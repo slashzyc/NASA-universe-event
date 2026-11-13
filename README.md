@@ -87,7 +87,7 @@ python data-pipeline/audit_recommendations.py
 
 This downloads approximately 350 MB of original NASA terrain into a sibling cache. The browser only needs the compact published bundles. [Measured results](docs/validation-results.md) distinguish internal checks from independent external validation.
 
-Regenerate the footprint comparison with `node scripts/validate-robustness.mjs`. Browser regression checks require the development dependency (`npm ci`) and Playwright Chrome/Chromium; run `npm run test:browser`. [The validation record](docs/VALIDATION_RECORD.md) separates numerical audits, browser checks and human testing.
+Regenerate the footprint comparison with `node scripts/validate-robustness.mjs`, then refresh the demonstration snapshot with `node scripts/snapshot-demo.mjs`. Publication checks reject stale demonstration hashes. Browser regression checks require the development dependency (`npm ci`) and Playwright Chrome/Chromium; run `npm run test:browser`. [The validation record](docs/VALIDATION_RECORD.md) separates numerical audits, browser checks and human testing.
 
 ## Project structure
 
@@ -115,6 +115,7 @@ The browser has no third-party JavaScript dependencies. Scientific computation r
 - [Rules and sources](docs/RESEARCH.md)
 - [AI and development disclosure](docs/AI_DISCLOSURE.md)
 - [Validation record](docs/VALIDATION_RECORD.md)
+- [修改清单逐项验收 / Revision acceptance](docs/REVISION_ACCEPTANCE.md)
 - [Five-person novice test kit / 五人新手测试包](docs/USABILITY_TEST_KIT.md) and [blank observation records / 空白记录表](docs/USABILITY_TEST_RECORDS.md) — prepared; **0/5 people tested**.
 
 **Official resource match confirmed on 2026-11-13:** the challenge's Resources list includes **Horizons System**, which this project actually uses. [Exact mapping and retained inputs](docs/RESEARCH.md#hard-requirement-official-resource-mapping). Team registration, current format requirements and advance-development eligibility remain unconfirmed; **the official Project Tab submission has not been performed**. Resource matching and GitHub publication do not establish overall award eligibility.

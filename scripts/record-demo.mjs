@@ -1,20 +1,40 @@
 /**
  * AI-assisted project recording, not an official competition submission.
  * Captures the actual application with explanatory captions; no result pixels
- * or application data are replaced. Uses installed Playwright/Chrome only.
+ * or application data are replaced. Uses installed Playwright/Chrome/FFmpeg.
  * Run: LUNAMARGIN_URL=http://127.0.0.1:4175/ node scripts/record-demo.mjs
- * Optional: PLAYWRIGHT_MODULE and BROWSER_EXECUTABLE for an existing install.
+ * Optional: PLAYWRIGHT_MODULE, BROWSER_EXECUTABLE, FFMPEG_EXECUTABLE.
+ * The official Playwright media helper can be installed separately with
+ * `node node_modules/playwright/cli.js install ffmpeg`; PLAYWRIGHT_BROWSERS_PATH
+ * selects its cache. This script never downloads dependencies.
+ * Use --finalize-existing to losslessly index and validate an existing video.
  */
 import assert from 'node:assert/strict';
 import {createRequire} from 'node:module';
 import {existsSync,readdirSync} from 'node:fs';
-import {readFile,writeFile,mkdir,mkdtemp,rmdir,stat} from 'node:fs/promises';
-import {tmpdir} from 'node:os';
+import {readFile,writeFile,mkdir,mkdtemp,rmdir,stat,unlink} from 'node:fs/promises';
+import {tmpdir,homedir} from 'node:os';
+import {execFile} from 'node:child_process';
+import {promisify} from 'node:util';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {analyzeSite,searchWindows} from '../src/analysis.js';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const execFileAsync=promisify(execFile);
+const finalizeExisting=process.argv.includes('--finalize-existing');
+const mediaCaches=[process.env.PLAYWRIGHT_BROWSERS_PATH,
+  path.resolve(root,'../tmp/playwright-media-cache'),
+  process.env.LOCALAPPDATA&&path.join(process.env.LOCALAPPDATA,'ms-playwright'),
+  path.join(homedir(),'.cache','ms-playwright'),path.join(homedir(),'Library','Caches','ms-playwright')].filter(Boolean);
+const ffmpegCandidates=[process.env.FFMPEG_EXECUTABLE].filter(Boolean);
+for(const cache of mediaCaches){
+  try{for(const entry of readdirSync(cache).filter(name=>/^ffmpeg-\d+$/.test(name)).sort().reverse()){
+    for(const name of ['ffmpeg-win64.exe','ffmpeg-linux','ffmpeg-mac'])ffmpegCandidates.push(path.join(cache,entry,name));
+  }}catch{/* An explicitly configured helper remains available. */}
+}
+const mediaHelper=ffmpegCandidates.find(existsSync);
+if(!mediaHelper)throw new Error('Install the official Playwright ffmpeg helper first, or provide FFMPEG_EXECUTABLE. A seekable WebM is required.');
 const require = createRequire(import.meta.url);
 const moduleCandidates = [process.env.PLAYWRIGHT_MODULE, 'playwright',
   path.resolve(path.dirname(process.execPath), '..', 'node_modules', 'playwright')].filter(Boolean);
@@ -65,6 +85,7 @@ const wallStart = performance.now();
 try {
   browser = await playwright.chromium.launch({headless: true,
     ...(executablePath ? {executablePath} : {}), args: ['--no-proxy-server']});
+  if(!finalizeExisting){
   const contextOptions = {viewport: {width: 1440, height: 960}, reducedMotion: 'reduce', acceptDownloads: true, locale:'en-US', permissions:['clipboard-read','clipboard-write']};
   context = await browser.newContext({...contextOptions, recordVideo: {dir: temporary, size: {width: 1440, height: 960}}});
   let page;
@@ -221,7 +242,6 @@ try {
   await hold(3500);
   assert.deepEqual(browserErrors, []);
 
-  let nativeDurationSeconds;
   if (nativeRecorder) {
     await captureSession.send('Page.stopScreencast');
     await captureQueue;
@@ -229,41 +249,76 @@ try {
       window.recorder.onstop = async () => {
         clearInterval(window.recordingFrameClock);
         const bytes = new Uint8Array(await new Blob(window.recordedChunks, {type: 'video/webm'}).arrayBuffer());
-        resolve({bytes: Array.from(bytes), durationSeconds: (performance.now() - window.recordingStarted) / 1000});
+        resolve({bytes: Array.from(bytes)});
       };
       window.recorder.stop();
     }));
     await writeFile(output, Buffer.from(encoded.bytes));
-    nativeDurationSeconds = encoded.durationSeconds;
     await nativeRecorder.close(); nativeRecorder = null;
   }
   await context.close(); context = null;
   if (video) { await video.saveAs(output); await video.delete(); video = null; }
+  }else recordingMode='Existing recording; lossless container finalization';
+  // Native MediaRecorder emits a streaming WebM without finite duration/cues.
+  // Copy compressed packets unchanged while FFmpeg writes duration and an index.
+  // FFmpeg derives timestamps from the stream; no duration is supplied here.
+  const indexed=path.join(temporary,'indexed.webm');
+  await execFileAsync(mediaHelper,['-hide_banner','-loglevel','error','-nostdin','-y','-i',output,'-map','0:v:0','-c','copy',indexed],{windowsHide:true});
+  await writeFile(output,await readFile(indexed));
+  await unlink(indexed);
   const inspection = await browser.newPage();
-  await inspection.setContent('<video preload="metadata"></video>');
+  // Give the inspection document the video's origin so decoded frame checks
+  // are readable without changing the application or its published files.
+  const inspectionURL=new URL('__lunamargin_video_check__.html',base).href;
+  await inspection.route(inspectionURL,route=>route.fulfill({contentType:'text/html',body:'<video preload="auto" muted></video>'}));
+  await inspection.goto(inspectionURL);
   const metadata = await inspection.evaluate(src => new Promise((resolve, reject) => {
     const player = document.querySelector('video');
     const timer = setTimeout(() => reject(new Error('Video metadata timeout')), 10000);
-    const finish = () => {
-      if (!Number.isFinite(player.duration)) return;
-      clearTimeout(timer); resolve({durationSeconds: player.duration, width: player.videoWidth, height: player.videoHeight});
-    };
     player.addEventListener('loadedmetadata', () => {
-      if (Number.isFinite(player.duration)) finish();
-      else {
-        // Native MediaRecorder creates a streaming WebM. Seeking to its end
-        // makes Chrome read the final timestamps and report encoded duration.
-        player.addEventListener('durationchange', finish);
-        player.addEventListener('seeked', finish, {once: true});
-        player.currentTime = 1e9;
-      }
+      clearTimeout(timer);
+      if(!Number.isFinite(player.duration))return reject(new Error('WebM must report finite duration at loadedmetadata, before playing or seeking.'));
+      resolve({durationSeconds:player.duration,width:player.videoWidth,height:player.videoHeight});
     }, {once: true});
     player.addEventListener('error', () => { clearTimeout(timer); reject(new Error('Recorded video could not be decoded')); }, {once: true});
     player.src = src;
   }), new URL('docs/media/lunamargin-walkthrough.webm', base).href);
-  metadata.durationSeconds ??= nativeDurationSeconds;
   assert.ok(metadata.durationSeconds >= 45 && metadata.durationSeconds <= 65, `Unexpected recording length: ${metadata.durationSeconds}`);
+  // The minimal development server does not implement HTTP byte ranges. Load
+  // these exact bytes into a Blob for seek checks, independent of that server.
+  // The initial finite-duration check above still uses the normal HTTP URL.
+  await inspection.evaluate(async()=>{
+    const player=document.querySelector('video');
+    const response=await fetch(player.src);if(!response.ok)throw new Error('Cannot load recorded video for seek validation');
+    const blob=new Blob([await response.arrayBuffer()],{type:'video/webm'});
+    await new Promise((resolve,reject)=>{player.addEventListener('loadedmetadata',resolve,{once:true});player.addEventListener('error',reject,{once:true});player.src=URL.createObjectURL(blob);});
+  });
+  const seekChecks=await inspection.evaluate(async()=>{
+    const player=document.querySelector('video'),canvas=document.createElement('canvas');
+    canvas.width=player.videoWidth;canvas.height=player.videoHeight;
+    const ctx=canvas.getContext('2d',{willReadFrequently:true}),checks=[];
+    for(const target of [18,32,40]){
+      await new Promise((resolve,reject)=>{const timer=setTimeout(()=>reject(new Error('Video seek timeout')),10000);player.addEventListener('seeked',()=>{clearTimeout(timer);resolve();},{once:true});player.currentTime=target;});
+      ctx.drawImage(player,0,0);const pixels=ctx.getImageData(0,0,canvas.width,canvas.height).data;
+      let min=255,max=0;for(let i=0;i<pixels.length;i+=16){const value=(pixels[i]+pixels[i+1]+pixels[i+2])/3;min=Math.min(min,value);max=Math.max(max,value);}
+      checks.push({target,actual:player.currentTime,pixelRange:max-min,seekableEnd:player.seekable.length?player.seekable.end(player.seekable.length-1):0});
+    }
+    return checks;
+  });
+  for(const check of seekChecks){
+    assert.ok(Math.abs(check.actual-check.target)<.1,'Seek did not reach the requested time');
+    assert.ok(check.pixelRange>25,'Seek decoded an empty frame');
+    assert.ok(check.seekableEnd>=metadata.durationSeconds-.1,'Video timeline is not fully seekable');
+  }
+  const playback=await inspection.evaluate(()=>new Promise((resolve,reject)=>{
+    const player=document.querySelector('video'),timer=setTimeout(()=>reject(new Error('Full video playback timeout')),15000);
+    player.onended=()=>{clearTimeout(timer);resolve({ended:player.ended,error:player.error?.message??null});};
+    player.onerror=()=>{clearTimeout(timer);reject(new Error('Playback decoding error'));};
+    player.currentTime=0;player.playbackRate=8;player.play().catch(reject);
+  }));
+  assert.equal(playback.ended,true);assert.equal(playback.error,null);
   console.log(JSON.stringify({output, bytes: (await stat(output)).size, ...metadata,
+    seekChecks,playback,seekTransport:'Exact file bytes as Blob; independent of development-server Range support',container:'Indexed WebM; compressed video packets copied without re-encoding',
     elapsedSeconds: (performance.now() - wallStart) / 1000, audio: false, recordingMode,
     disclosure: 'AI-assisted project recording; not an official competition submission.'}, null, 2));
 } finally {

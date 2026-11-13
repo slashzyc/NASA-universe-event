@@ -16,13 +16,14 @@ for(const candidate of [process.env.PLAYWRIGHT_MODULE,'playwright','C:/Program F
 if(!playwright)throw new Error('Use an installed Playwright package via PLAYWRIGHT_MODULE. No browser is downloaded by this test.');
 const executablePath=process.env.BROWSER_EXECUTABLE||['C:/Program Files/Google/Chrome/Application/chrome.exe','C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe'].find(existsSync);
 const port=process.env.BROWSER_TEST_PORT||'4184';
-const base=process.env.LUNAMARGIN_URL||`http://127.0.0.1:${port}/`;
+const origin=process.env.LUNAMARGIN_URL||`http://127.0.0.1:${port}/`;
+const base=/\.html(?:[?#]|$)/.test(origin)?origin:new URL('navigator.html',origin.replace(/\/?$/,'/')).href;
 const screenshots=path.join(root,'docs/screenshots');
 await mkdir(screenshots,{recursive:true});
 let server,browser;
 const records=[],pageErrors=[],consoleErrors=[];
 const startedAt=new Date().toISOString();
-const url=(params='')=>`${base.replace(/\/$/,'')}/?${params}`;
+const url=(params='')=>{const target=new URL(base);target.search=params;return target.href;};
 
 async function test(name,fn){
   const started=Date.now();

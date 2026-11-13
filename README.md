@@ -22,6 +22,8 @@ Open **http://127.0.0.1:4173**. To build a standalone deployment:
 node scripts/build.mjs
 ```
 
+The homepage introduces the project through an interactive case study. Choose **Launch navigator** to enter the complete workspace at `navigator.html`. Existing scenario links to the repository root redirect automatically and preserve their settings.
+
 The complete static site is in `dist/`. Deploy it with any static HTTP host. Relative paths support GitHub Pages repository URLs. Opening `index.html` directly as a file is unsupported because browsers restrict local JSON fetches and module workers.
 
 中文：运行上面的启动命令，在浏览器打开地址即可。右上角“中文”切换界面语言。先保留默认案例，点击地图放大框中**右下角的位置**，观察最长断光；再点“寻找更晚的可行窗口”，检查任务日期改变后的结果。通过“导出证据”保存可打印简报、CSV 或完整 JSON。
@@ -82,8 +84,9 @@ This downloads approximately 350 MB of original NASA terrain into a sibling cach
 ## Project structure
 
 ```text
-index.html                 Accessible application shell
-src/                       UI, canvas views, geometry analysis, search worker
+index.html                 Editorial project homepage
+navigator.html             Complete mission workspace
+src/                       Homepage, workspace, canvas views, geometry analysis, search worker
 data/                      Three campaigns, original ephemerides, provenance, audits
 data-pipeline/             Rebuild and audit NASA-derived data
 tests/                     Analysis and browser checks

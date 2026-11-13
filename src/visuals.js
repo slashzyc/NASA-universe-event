@@ -19,25 +19,47 @@ export function drawTerrain(canvas, site, result, activePatch) {
   for(let y=0;y<t.height;y++)for(let x=0;x<t.width;x++){
     const i=y*t.width+x,v=z[i]; if(!Number.isFinite(v))continue;
     const dx=(at(x+1,y)-at(x-1,y))/(2*t.cellSizeM),dy=(at(x,y+1)-at(x,y-1))/(2*t.cellSizeM);
-    // Fixed map illumination is cartographic shading, not modeled solar light.
-    const norm=Math.sqrt(dx*dx+dy*dy+1),shade=Math.max(0,(-dx*.45+dy*.55+.7)/norm),height=(v-min)/range;
-    const brightness=.25+.7*shade,offset=i*4;
-    img.data[offset]=(55+height*95)*brightness;img.data[offset+1]=(75+height*92)*brightness;img.data[offset+2]=(83+height*93)*brightness;img.data[offset+3]=255;
+    // Fixed low-angle cartographic light reveals relief. Elevations and slopes
+    // remain unchanged; this display light is unrelated to the modeled Sun.
+    const norm=Math.sqrt(dx*dx+dy*dy+1);
+    const light=Math.max(0,(-dx*-.664+dy*-.664+.342)/norm);
+    const relief=Math.min(1,light*1.8),height=(v-min)/range;
+    const tone=22+relief*104+height*33,offset=i*4;
+    img.data[offset]=tone*.91;img.data[offset+1]=tone;img.data[offset+2]=tone*1.035;img.data[offset+3]=255;
   }
   gc.putImageData(img,0,0);
   const scale=Math.max(w/t.width,h/t.height)*1.08,gw=t.width*scale,gh=t.height*scale,ox=(w-gw)/2,oy=(h-gh)/2;
   ctx.imageSmoothingEnabled=true;ctx.drawImage(grid,ox,oy,gw,gh);
-  ctx.globalAlpha=.18;
-  for(let y=1;y<t.height;y++)for(let x=1;x<t.width;x++){
-    const a=at(x,y), b=at(x-1,y), c=at(x,y-1);
-    if([a,b,c].every(Number.isFinite) && (Math.floor(a/100)!==Math.floor(b/100)||Math.floor(a/100)!==Math.floor(c/100))){ctx.fillStyle='#abc3c5';ctx.fillRect(ox+x*scale,oy+y*scale,scale*.7,1);}
-  }ctx.globalAlpha=1;
-  const fade=ctx.createLinearGradient(0,0,w,h);fade.addColorStop(0,'#13263120');fade.addColorStop(1,'#06131c55');ctx.fillStyle=fade;ctx.fillRect(0,0,w,h);
+  // Continuous 100 m contours, linearly interpolated from the real display grid.
+  // Four-intersection saddle cells are split using the cell-center level.
+  ctx.save();ctx.lineWidth=.65;ctx.strokeStyle='#a8b8b867';
+  for(let level=Math.ceil(min/100)*100;level<=max;level+=100){
+    ctx.beginPath();
+    for(let gy=0;gy<t.height-1;gy++)for(let gx=0;gx<t.width-1;gx++){
+      const corners=[{x:gx,y:gy,z:at(gx,gy)},{x:gx+1,y:gy,z:at(gx+1,gy)},{x:gx+1,y:gy+1,z:at(gx+1,gy+1)},{x:gx,y:gy+1,z:at(gx,gy+1)}];
+      if(!corners.every(p=>Number.isFinite(p.z)))continue;
+      const crossings=[];
+      for(let edge=0;edge<4;edge++){
+        const a=corners[edge],b=corners[(edge+1)%4];
+        if((a.z<level)===(b.z<level))continue;
+        const f=(level-a.z)/(b.z-a.z);
+        crossings.push({edge,x:ox+(a.x+(b.x-a.x)*f)*scale,y:oy+(a.y+(b.y-a.y)*f)*scale});
+      }
+      const connect=(a,b)=>{ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);};
+      if(crossings.length===2)connect(crossings[0],crossings[1]);
+      else if(crossings.length===4){
+        const center=corners.reduce((sum,p)=>sum+p.z,0)/4;
+        if((corners[0].z<level)===(center<level)){connect(crossings[0],crossings[1]);connect(crossings[2],crossings[3]);}
+        else{connect(crossings[0],crossings[3]);connect(crossings[1],crossings[2]);}
+      }
+    }ctx.stroke();
+  }ctx.restore();
+  const fade=ctx.createLinearGradient(0,0,0,h);fade.addColorStop(0,'#06101555');fade.addColorStop(.28,'#06101500');fade.addColorStop(1,'#06101566');ctx.fillStyle=fade;ctx.fillRect(0,0,w,h);
   // A labeled magnifying lens keeps 25 m sampling visible on a 6.4 km overview.
-  const cx=w*.40,cy=h*.49,lensSize=w<500?118:148,lx=w-lensSize-24,ly=61;
+  const lensSize=w<500?118:148,lx=w-lensSize-24,ly=61;
   const mx=w/2,my=h/2;
   ctx.strokeStyle='#e7b965bb';ctx.setLineDash([4,4]);ctx.strokeRect(mx-8,my-8,16,16);line(ctx,mx+9,my,lx,ly+lensSize/2,'#d4b47670');ctx.setLineDash([]);
-  ctx.fillStyle='#0e1b23ec';ctx.strokeStyle='#63808a90';ctx.lineWidth=1;ctx.fillRect(lx,ly,lensSize,lensSize);ctx.strokeRect(lx,ly,lensSize,lensSize);
+  ctx.fillStyle='#081218ef';ctx.strokeStyle='#6c7c7c80';ctx.lineWidth=1;ctx.fillRect(lx,ly,lensSize,lensSize);ctx.strokeRect(lx,ly,lensSize,lensSize);
   ctx.font='8px "Segoe UI",sans-serif';ctx.fillStyle='#adc0c7';ctx.fillText('FOOTPRINT LENS / 50 × 50 m',lx+10,ly+15);
   const inner=lensSize-44,centerX=lx+lensSize/2,centerY=ly+lensSize/2+7;
   for(let j=-1;j<=1;j++){line(ctx,centerX-inner/2,centerY+j*inner/2,centerX+inner/2,centerY+j*inner/2,'#324b58',.7);line(ctx,centerX+j*inner/2,centerY-inner/2,centerX+j*inner/2,centerY+inner/2,'#324b58',.7);}
@@ -53,7 +75,7 @@ export function drawTerrain(canvas, site, result, activePatch) {
   ctx.font='9px Consolas,monospace';ctx.fillStyle='#afc2ca';ctx.fillText(`${site.elevationM.toFixed(0)} m`,Math.max(20,mx-70),my);
   const scaleBar=Math.min(100,w*.2),physical=scaleBar/(scale)*t.cellSizeM;
   line(ctx,20,h-100,20+scaleBar,h-100,'#c9d4d5');line(ctx,20,h-104,20,h-96,'#c9d4d5');line(ctx,20+scaleBar,h-104,20+scaleBar,h-96,'#c9d4d5');
-  ctx.font='8px Consolas,monospace';ctx.fillStyle='#adc0c7';ctx.fillText(`${(physical/1000).toFixed(1)} km · cartographic shading`,20,h-110);
+  ctx.font='8px Consolas,monospace';ctx.fillStyle='#c0cdcb';ctx.fillText(`${(physical/1000).toFixed(1)} km · cartographic shading · 100 m contours`,20,h-110);
   return hits;
 }
 export function drawHorizon(canvas, horizon, sample, clearance=0) {
@@ -61,7 +83,7 @@ export function drawHorizon(canvas, horizon, sample, clearance=0) {
   const min=Math.floor(Math.min(-3,...horizon,sample?.sunEl??0,sample?.earthEl??0))-1;
   const max=Math.ceil(Math.max(4,...horizon,sample?.sunEl??0,sample?.earthEl??0))+1;
   const x=az=>left+az/360*pw,y=el=>top+(max-el)/(max-min)*ph;
-  const gradient=ctx.createLinearGradient(0,top,0,top+ph);gradient.addColorStop(0,'#12232e');gradient.addColorStop(1,'#1a2d38');ctx.fillStyle=gradient;ctx.fillRect(left,top,pw,ph);
+  const gradient=ctx.createLinearGradient(0,top,0,top+ph);gradient.addColorStop(0,'#101b22');gradient.addColorStop(1,'#172730');ctx.fillStyle=gradient;ctx.fillRect(left,top,pw,ph);
   ctx.font='9px Consolas,monospace';ctx.textAlign='right';
   for(let el=Math.ceil(min/2)*2;el<=max;el+=2){line(ctx,left,y(el),w-right,y(el),'#2a3d48',.6);ctx.fillStyle='#7f97a3';ctx.fillText(`${el}°`,left-8,y(el)+3);}
   ctx.textAlign='center';

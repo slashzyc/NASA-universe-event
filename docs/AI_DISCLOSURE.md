@@ -40,7 +40,7 @@ The repository contains software-rendered scientific visualizations and browser 
 | Model-generated images | None |
 | Video | `docs/media/lunamargin-walkthrough.webm`: a 50-second silent recording of actual browser interactions with explanatory English captions; no generative-video model. Visible AI-assistance notice throughout. This is a demonstration asset, not an official submission. |
 | Generated audio | None |
-| NASA/third-party imagery | Terrain displays are calculated from cited NASA LOLA elevation products; they are not lunar photographs |
+| NASA/third-party imagery | Terrain displays are calculated from cited NASA LOLA elevation products. Homepage Moon images are unmodified NASA SVS data-driven visualizations; exact source URLs and credits are in `assets/imagery/README.md`. They are not single-exposure photographs |
 | Project graphics | AI-assisted SVG favicon and HTML/CSS/canvas interface; terrain, horizons and timelines are programmatic renderings of scientific inputs |
 | Browser screenshots | Actual captures in `docs/screenshots/`, produced by the automated browser check; they depict the implemented application |
 

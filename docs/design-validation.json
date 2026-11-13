@@ -1,0 +1,60 @@
+{
+  "startedAt": "2026-11-13T04:58:13.990Z",
+  "finishedAt": "2026-11-13T04:58:23.171Z",
+  "base": "http://127.0.0.1:4175/",
+  "environment": {
+    "node": "v24.22.1",
+    "browser": "C:/Program Files/Google/Chrome/Application/chrome.exe"
+  },
+  "passed": 11,
+  "failed": 0,
+  "pageErrors": [],
+  "consoleErrors": [],
+  "failedRequests": [],
+  "records": [
+    {
+      "name": "homepage loads real imagery and the nine-location demonstration",
+      "status": "PASS"
+    },
+    {
+      "name": "all footprint positions update measured darkness and selected state",
+      "status": "PASS"
+    },
+    {
+      "name": "primary launch opens the working navigator and home brand returns",
+      "status": "PASS"
+    },
+    {
+      "name": "old scenario links retain all query parameters while redirecting",
+      "status": "PASS"
+    },
+    {
+      "name": "homepage Chinese translation persists and hands off to navigator",
+      "status": "PASS"
+    },
+    {
+      "name": "film opens as playable media and closes accessibly",
+      "status": "PASS"
+    },
+    {
+      "name": "homepage anchor navigation reaches the intended sections",
+      "status": "PASS"
+    },
+    {
+      "name": "same-site image source and evidence links return successful responses",
+      "status": "PASS"
+    },
+    {
+      "name": "desktop homepage screenshot and visible layout have no horizontal overflow",
+      "status": "PASS"
+    },
+    {
+      "name": "phone and narrow phone keep navigation and controls inside the viewport",
+      "status": "PASS"
+    },
+    {
+      "name": "no missing project assets or browser errors",
+      "status": "PASS"
+    }
+  ]
+}

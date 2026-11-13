@@ -9,3 +9,139 @@
 .campaign-field{margin-bottom:18px}.inspection-context{font-size:9px;letter-spacing:1px;color:var(--muted);margin-top:15px;margin-bottom:-5px}.export-choices{display:flex;gap:12px;flex-wrap:wrap}.export-choices .secondary-btn{width:auto;padding:12px 18px}.data-provenance-line{font-size:9px;color:var(--muted);margin-top:9px}
 @media(max-width:900px){.mission-panel form{display:block}.campaign-field{margin-bottom:15px}.mission-panel form>label{margin-bottom:8px}.mission-panel .field-pair{display:grid;grid-template-columns:1fr 1fr;margin-top:15px}.mission-panel form>.range-label{margin-top:18px}.mission-panel form>input[type=range]{margin-top:12px}.mission-panel form>.range-ends{display:flex;margin-top:7px}.mission-panel .assumptions{margin-top:18px}.mission-panel form>.primary-btn{margin-top:18px}.mission-panel form>.secondary-btn{margin-top:10px}.mission-panel .field-pair>div{display:block}.mission-panel .field-pair label{width:auto;margin-bottom:8px}.mission-panel .field-pair select{min-height:40px}}
 @media(max-width:600px){.workspace-heading{height:auto;min-height:55px;gap:10px}.site-tabs{flex-shrink:0}.site-tab{white-space:nowrap}.workspace-heading>div:first-child{min-width:0}.workspace-heading h2{font-size:18px}}
+
+/* Mission workspace: quieter surfaces and a clear instrument hierarchy. */
+:root {
+  --bg:#090f13;
+  --panel:#10191f;
+  --panel2:#152128;
+  --line:#263239;
+  --muted:#93a5ae;
+  --text:#eeeae1;
+  --amber:#edc17a;
+}
+.topbar { height:82px; border-color:#ffffff12; }
+.brand { letter-spacing:.6px; }
+.brand-light { color:#d0d2cb; }
+.topbar nav { gap:34px; }
+.topbar nav a,.topbar nav button { font-size:12px; }
+.lang-btn { border-radius:2px; border-color:#ffffff25; min-height:32px; }
+.intro { padding:40px 0 36px; }
+.intro h1 { font-size:clamp(36px,4vw,52px); line-height:1.08; letter-spacing:-2px; }
+.intro-copy { max-width:540px; line-height:1.8; }
+.mission-stamp { opacity:.72; transform:scale(.88); transform-origin:right center; }
+.app-layout { gap:30px; }
+.panel { border-color:#ffffff14; border-radius:5px; }
+.mission-panel { padding:24px 21px; background:#0e171c; border-top:2px solid #edc17a85; }
+.mission-panel h2 { font-size:22px; letter-spacing:-.65px; }
+.mission-panel form { margin-top:23px; }
+input[type=date],select { background:#142027; border-color:#334047; border-radius:2px; }
+input[type=date]:hover,select:hover { border-color:#66716c; }
+label { letter-spacing:1.05px; }
+.range-label label { letter-spacing:0; }
+.primary-btn { border-radius:2px; min-height:45px; }
+.secondary-btn { border-radius:2px; min-height:42px; border-color:#3b464c; }
+.primary-btn:hover { background:#f6d7a5; }
+.site-tabs { background:transparent; padding:0; border:0; border-bottom:1px solid #344147; border-radius:0; gap:2px; }
+.site-tab { font-family:var(--display); padding:9px 13px; border-radius:0; position:relative; }
+.site-tab[aria-pressed=true] { background:transparent; color:var(--amber); }
+.site-tab[aria-pressed=true]:after { content:''; height:2px; background:var(--amber); position:absolute; bottom:-1px; left:11px; right:11px; }
+.terrain-panel { height:400px; border-color:#ffffff1a; background:#142126; }
+.map-topline { top:19px; }
+.map-bottom { background:linear-gradient(transparent,#071014ed); padding-bottom:22px; }
+.map-bottom strong { font-size:18px; letter-spacing:-.4px; }
+.map-caption { font-size:10px; }
+.inspection-context { margin-top:21px; margin-bottom:0; color:#8b9d9f; }
+.metrics-row { border-top:1px solid #ffffff20; border-bottom:1px solid #ffffff20; margin-top:10px; gap:0; background:#0e171c; }
+.metric { background:transparent; border:0; border-left:1px solid #ffffff13; border-radius:0; padding:19px 20px; }
+.metric:first-child { border-left:0; }
+.metric-value { font-size:34px; letter-spacing:-1.2px; margin-top:9px; }
+.metric-label { letter-spacing:.75px; font-size:8px; }
+.metric-caption { font-size:9px; margin-top:3px; }
+.insight-strip { background:#edc17a08; border-left:1px solid #edc17a; padding:13px 17px; margin-top:18px; margin-bottom:30px; }
+.horizon-panel,.timeline-panel { background:transparent; border:0; border-top:1px solid #ffffff19; border-radius:0; padding:26px 0 0; margin-top:30px; }
+.section-heading { margin-bottom:24px; }
+.section-heading h2 { font-size:23px; letter-spacing:-.7px; }
+.chart-legend { letter-spacing:.2px; }
+.horizon-readout { padding-bottom:6px; }
+#horizon-canvas { height:245px; }
+.timeline-track { height:18px; border-radius:1px; background:#1e2b32; }
+.timeline-panel>p { max-width:660px; }
+.comparison-section { margin-top:50px; }
+.table-wrap { border-left:0; border-right:0; border-radius:0; background:#0e171c; }
+.table-wrap thead { background:#152027; }
+.table-wrap th { padding:17px 18px; }
+.table-wrap td { padding:21px 18px; border-color:#ffffff12; }
+.selected-row { background:#edc17a07; }
+.status-pill { border-radius:2px; }
+.search-section { padding:29px; background:#0e171c; }
+.search-card { border-radius:2px; background:#152229; border-color:#314047; }
+.closing-note { margin-top:58px; padding-top:34px; }
+footer { border-color:#ffffff14; }
+dialog { border-radius:5px; background:#101c23; border-color:#52605f; }
+.dialog-top { padding-bottom:17px; border-bottom:1px solid #ffffff14; }
+.source-item { border-color:#354448; border-radius:2px; }
+
+@media(max-width:1150px) {
+  .app-layout { gap:23px; }
+  .metric { padding:18px 13px; }
+  .metric-value { font-size:30px; }
+  .metric-label { letter-spacing:.2px; }
+}
+@media(max-width:900px) {
+  .intro { padding:32px 0; }
+  .app-layout { gap:25px; }
+  .mission-panel { padding:21px; }
+  .mission-panel form { margin-top:20px; }
+  .mission-panel .campaign-field { margin-bottom:14px; }
+  .mission-panel form>.range-label { margin-top:15px; }
+  .mission-panel form>input[type=range] { margin-top:12px; }
+  .mission-panel .assumptions { margin-top:17px; padding-top:14px; }
+  .terrain-panel { height:390px; }
+  .metric-value { font-size:34px; }
+}
+@media(max-width:600px) {
+  .topbar { height:70px; }
+  .intro { padding:28px 0; }
+  .intro h1 { font-size:37px; line-height:1.08; }
+  .intro-copy { margin-top:15px; font-size:12px; line-height:1.7; }
+  .eyebrow { margin-bottom:14px; }
+  .mission-panel { padding:20px 18px 18px; }
+  .mission-panel .panel-kicker { margin-bottom:13px; }
+  .mission-panel h2 { font-size:21px; }
+  .mission-panel form { margin-top:18px; }
+  .mission-panel .campaign-field { margin-bottom:13px; }
+  .mission-panel form>.range-label { margin-top:14px; }
+  .mission-panel .range-ends { font-size:8px; }
+  .mission-panel .scope-note { padding-top:13px; margin-top:16px!important; line-height:1.65; }
+  .workspace-heading { gap:10px; margin-bottom:14px; }
+  .site-tab { padding:8px 10px; }
+  .site-tab[aria-pressed=true]:after { left:8px; right:8px; }
+  .terrain-panel { height:330px; }
+  .map-bottom { padding:30px 14px 18px; }
+  .map-bottom strong { font-size:15px; }
+  .map-caption { font-size:8px; }
+  .metrics-row { gap:0; }
+  .metric { padding:17px 14px; }
+  .metric:nth-child(odd) { border-left:0; }
+  .metric:nth-child(n+3) { border-top:1px solid #ffffff13; }
+  .metric-value { font-size:32px; }
+  .metric-label { font-size:8px; letter-spacing:.2px; }
+  .insight-strip { margin-bottom:26px; padding:12px 14px; }
+  .horizon-panel,.timeline-panel { margin-top:26px; padding:23px 0 0; }
+  .section-heading h2 { font-size:22px; }
+  .section-heading { margin-bottom:20px; }
+  .chart-legend { font-size:8px; gap:7px; }
+  #horizon-canvas { height:235px; }
+  .horizon-readout { gap:10px; line-height:1.65; }
+  .comparison-section { margin-top:38px; }
+  .table-wrap th { padding:15px 14px; }
+  .table-wrap td { padding:18px 14px; }
+  .search-section { padding:22px 18px; }
+  .closing-note { margin:38px 0 30px; }
+}
+@media print {
+  .metrics-row,.metric,.panel { background:white; border-color:#aaa; }
+  .horizon-panel,.timeline-panel { background:white; }
+  .metric-label,.metric-caption,.inspection-context { color:#333; }
+}

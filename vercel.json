@@ -9,11 +9,13 @@
     "api/lunamargin.js": { "maxDuration": 60 }
   },
   "rewrites": [
-    { "source": "/api/:path*", "destination": "/api/lunamargin?route=:path*" },
-    { "source": "/releases/:release([a-f0-9]{64})/api/:path*", "destination": "/api/lunamargin?route=:path*&release=:release" },
+    { "source": "/api/:route*", "destination": "/api/lunamargin?route=:route*" },
+    { "source": "/releases/:release([a-f0-9]{64})/api/:route*", "destination": "/api/lunamargin?route=:route*&release=:release" },
     { "source": "/service-config.json", "destination": "/api/lunamargin?route=service-config.json" },
     { "source": "/releases/:release([a-f0-9]{64})/service-config.json", "destination": "/api/lunamargin?route=service-config.json&release=:release" },
     { "source": "/releases/:release([a-f0-9]{64})/evidence-assets/:asset", "destination": "/evidence-assets/:asset" },
+    { "source": "/releases/c96336e14ea125b988b4f0038d6436d336792501c98cf189cda865ecad3dad88", "destination": "/index.html" },
+    { "source": "/releases/c96336e14ea125b988b4f0038d6436d336792501c98cf189cda865ecad3dad88/", "destination": "/index.html" },
     { "source": "/releases/c96336e14ea125b988b4f0038d6436d336792501c98cf189cda865ecad3dad88/:path*", "destination": "/:path*" },
     { "source": "/releases/:release([a-f0-9]{64})/:path*", "destination": "https://lunamargin-slashzyc.laceysquirrel4.chatgpt.site/releases/:release/:path*" }
   ],

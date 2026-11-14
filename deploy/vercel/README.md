@@ -1,6 +1,10 @@
 # Vercel frontend with the existing persistent LunaMargin service
 
+Public entry: [LunaMargin on Vercel](https://lunamargin.vercel.app/?lang=zh). Project dashboard: [yichen15 / lunamargin](https://vercel.com/yichen15/lunamargin). The connected public repository is [slashzyc/NASA-universe-event](https://github.com/slashzyc/NASA-universe-event); pushes to `main` trigger production deployment.
+
 This deployment reuses calculation release `c96336e14ea125b988b4f0038d6436d336792501c98cf189cda865ecad3dad88`. It does not generate a new release or move the database. Vercel serves the verified interface and large recordings as static files. The same-origin Node gateway connects only to the existing Cloudflare service; persistent tasks remain in its D1 database and R2 object store.
+
+Anonymous editing sessions are host-specific. Existing tasks remain in the same database, and their original editing session remains usable on [the original cloud site](https://lunamargin-slashzyc.laceysquirrel4.chatgpt.site/?lang=zh). Opening the Vercel domain does not transfer that browser cookie. New Vercel tasks persist through its own secure session; read-only links can be opened without the editor's session.
 
 ## Build and configuration
 

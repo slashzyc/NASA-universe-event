@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {Readable} from 'node:stream';
 import {createHash} from 'node:crypto';
+import {readFileSync} from 'node:fs';
 import handler from '../api/lunamargin.js';
 import {makeGateway,originsFromEnv,BACKEND_ORIGIN,PINNED_RELEASE} from '../deploy/vercel/gateway.mjs';
 
@@ -143,5 +144,22 @@ test('Node adapter preserves duplicate routing parameters, payloads, status and 
     }
     assert.equal(calls.length,count);
     const fallback=await invoke({url:'/api/lunamargin?route=health'});assert.equal(fallback.status,201);assert.equal(calls.length,count+1);
+    // Vercel routing-utils/replaceSegments adds every named source capture
+    // when the destination pathname does not consume it (query usage does not
+    // count). Reproduce the production failure, then exercise the actual config.
+    assert.equal((await invoke({query:{route:'health',path:'health'}})).status,400);
+    const config=JSON.parse(readFileSync(new URL('../vercel.json',import.meta.url),'utf8'));
+    const apiRewrites=config.rewrites.filter(rule=>rule.source.includes('/api/:'));
+    assert.equal(apiRewrites.length,2);
+    for(const rule of apiRewrites){
+      for(const endpoint of ['health','coverage',`tasks/${ID}`]){
+        const captures=Object.fromEntries([...rule.source.matchAll(/:([A-Za-z][A-Za-z0-9_]*)/g)].map(([,name])=>[name,name==='release'?PINNED_RELEASE:endpoint]));
+        const destination=rule.destination.replace(/:([A-Za-z][A-Za-z0-9_]*)\*?/g,(_match,name)=>captures[name]);
+        const query={...captures,...Object.fromEntries(new URL(destination,SITE).searchParams)};
+        const result=await invoke({query});
+        assert.equal(result.status,201,`${rule.source} must not add an unrecognized capture parameter`);
+        assert.equal(calls.at(-1)[0].pathname,`/releases/${PINNED_RELEASE}/api/${endpoint}`);
+      }
+    }
   }finally{globalThis.fetch=savedFetch;for(const key of envKeys)if(saved[key]===undefined)delete process.env[key];else process.env[key]=saved[key];}
 });

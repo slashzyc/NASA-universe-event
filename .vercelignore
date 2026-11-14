@@ -1,0 +1,33 @@
+# Runtime bytes come exclusively from the verified snapshot archive.
+/.git
+/.github
+/.openai
+/.vercel
+/node_modules
+/dist
+/vercel-dist
+/src
+/assets
+/data
+/docs
+/data-pipeline
+/server
+/worker
+/tests
+/test-results
+/playwright-report
+/tmp
+/var
+/output
+**/.deps
+**/__pycache__
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm
+*.tif
+*.TIF
+*.zip
+.env
+.env.*
+# Required: build-info.json, evidence-assets/**, scripts/build-vercel.mjs,
+# package files, api/** and deploy/vercel/** are deliberately included.

@@ -1,0 +1,29 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "buildCommand": "node scripts/build-vercel.mjs",
+  "outputDirectory": "vercel-dist",
+  "installCommand": "npm ci --ignore-scripts",
+  "cleanUrls": false,
+  "functions": {
+    "api/lunamargin.js": { "maxDuration": 60 }
+  },
+  "rewrites": [
+    { "source": "/api/:path*", "destination": "/api/lunamargin?route=:path*" },
+    { "source": "/releases/:release([a-f0-9]{64})/api/:path*", "destination": "/api/lunamargin?route=:path*&release=:release" },
+    { "source": "/service-config.json", "destination": "/api/lunamargin?route=service-config.json" },
+    { "source": "/releases/:release([a-f0-9]{64})/service-config.json", "destination": "/api/lunamargin?route=service-config.json&release=:release" },
+    { "source": "/releases/:release([a-f0-9]{64})/evidence-assets/:asset", "destination": "/evidence-assets/:asset" },
+    { "source": "/releases/c96336e14ea125b988b4f0038d6436d336792501c98cf189cda865ecad3dad88/:path*", "destination": "/:path*" },
+    { "source": "/releases/:release([a-f0-9]{64})/:path*", "destination": "https://lunamargin-slashzyc.laceysquirrel4.chatgpt.site/releases/:release/:path*" }
+  ],
+  "headers": [
+    { "source": "/(.*)", "headers": [{ "key": "X-Content-Type-Options", "value": "nosniff" }] },
+    { "source": "/", "headers": [{ "key": "Cache-Control", "value": "no-store" }] },
+    { "source": "/index.html", "headers": [{ "key": "Cache-Control", "value": "no-store" }] },
+    { "source": "/navigator.html", "headers": [{ "key": "Cache-Control", "value": "no-store" }] },
+    { "source": "/build-info.json", "headers": [{ "key": "Cache-Control", "value": "no-store" }] },
+    { "source": "/evidence-assets/:asset", "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }] },
+    { "source": "/releases/:release([a-f0-9]{64})/evidence-assets/:asset", "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }] }
+  ]
+}
